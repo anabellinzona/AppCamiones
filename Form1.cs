@@ -24,6 +24,7 @@ namespace AppCamiones
         private ToolStripMenuItem registrosMenu = new ToolStripMenuItem("registro");
         private ToolStripMenuItem userMenu = new ToolStripMenuItem();
 
+
         //CREACIÓN PANEL Y COMPONENTES
         private Panel table_travel = new Panel();
 
@@ -43,14 +44,17 @@ namespace AppCamiones
         {
             InitializeComponent();
             InitializeUI();
+           
             userMenu.Click += new EventHandler(GoToFormUser_Click);
         }
 
         private void GoToFormUser_Click(object sender, EventArgs e)
         {
-            Class1 formUser = new Class1();
-            formUser.Show();
-            this.Close();
+            int x = this.Width;
+            MessageBox.Show(" " + x);
+            //Class1 formUser = new Class1();
+            //formUser.Show();
+            //this.Close();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -65,12 +69,11 @@ namespace AppCamiones
             InitializeIconoUser();
             InitializeToolBar();
             InitializePanel();
-
         }
 
         private void InitializeBackImage()
         {
-            //ASIGNA LA RUTA D ELA IMAGEN DE MANERA RELATIVA
+            //ASIGNA LA RUTA DE LA IMAGEN DE MANERA RELATIVA
             string imagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "goma.jpg");
 
             //PREGUNTA SI EXISTE DICHO ARCHIVO
@@ -129,6 +132,7 @@ namespace AppCamiones
 
         private void InitializeToolBar()
         {
+
             ItemsCapitalLetter();
             MenuProperties();
             ItemsColor();
@@ -153,13 +157,15 @@ namespace AppCamiones
             menuStrip.BackColor = System.Drawing.Color.FromArgb(48, 48, 48);
             menuStrip.ImageScalingSize = new Size(34, 34);
             menuStrip.AutoSize = false;
-            menuStrip.Width = 200;
+            menuStrip.Width = this.Width;
             menuStrip.Height = 80;
             menuStrip.Dock = DockStyle.Top;
             //homeMenu.DropDownItems.Add(salirItem); pone un elemento dentro del suyo
             //HOME  MENÚ  ARCHIVO
             //SALIR
         }
+
+        
 
         private void ItemsColor()
         {
@@ -174,15 +180,19 @@ namespace AppCamiones
         private void MarginToItems()
         {
             //MARGIN
-            homeMenu.Margin = new Padding(50, 0, 50, 0);
-            viajesMenu.Margin = new Padding(50, 0, 50, 0);
-            chequesMenu.Margin = new Padding(50, 0, 50, 0);
-            registrosMenu.Margin = new Padding(50, 0, 50, 0);
-            userMenu.Margin = new Padding(650, 0, 650, 0);
+            int x = this.Width;
+            int y = x / 10;
+
+            homeMenu.Margin = new Padding(y, 0, 0, 0);
+            viajesMenu.Margin = new Padding(y, 0, 0, 0);
+            chequesMenu.Margin = new Padding(y, 0, 0, 0);
+            registrosMenu.Margin = new Padding(y, 0, 0, 0);
+
+            userMenu.Margin = new Padding(x * (150 / 100), 0, 0, 0);
         }
 
         private void AddItemsToMenu()
-        { 
+        {
             //AGREGA AL MENÚ LOS ÍTEMS
             menuStrip.Items.Add(homeMenu);
             menuStrip.Items.Add(viajesMenu);
@@ -393,12 +403,11 @@ namespace AppCamiones
 
         private void TablePayProperties()
         {
+            int x = this.Width * 150 / 100;
             table_pay.Size = new Size(320, 440);
-            table_pay.Location = new Point(1100, 180);
+            table_pay.Location = new Point(x, 180);
             table_pay.BackColor = System.Drawing.Color.FromArgb(200, Color.Black);
             table_pay.BorderStyle = BorderStyle.FixedSingle;
-            //table_pay.AutoScroll = true;
-            //layoutTablePay.WrapContents = true;
         }
 
         private void LayoutTablePayProperties()
