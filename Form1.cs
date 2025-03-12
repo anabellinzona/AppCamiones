@@ -70,27 +70,47 @@ namespace AppCamiones
 
         private void InitializeBackImage()
         {
-            //ASIGNA LA RUTA DE LA IMAGEN DE MANERA RELATIVA
-            string imagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "goma.jpg");
+            // Ruta absoluta a la imagen en la carpeta de Descargas
+            string imagePath = @"C:\Users\usuario\Downloads\goma.jpeg";
 
-            //PREGUNTA SI EXISTE DICHO ARCHIVO
+            // Verifica si existe el archivo
             if (File.Exists(imagePath))
             {
-                //LE ASGINA A BACKGROUNDIMAGE LA IMAGEN
-                using (Image img = Image.FromFile(imagePath))
+                // Carga la imagen
+                Image img = Image.FromFile(imagePath);
+
+                // Verifica si la imagen tiene un valor de orientación en sus metadatos EXIF
+                if (Array.Exists(img.PropertyIdList, id => id == 0x0112)) // 0x0112 es el ID de la propiedad "Orientation"
                 {
-                    this.BackgroundImage = new Bitmap(img);
+                    // Lee el valor de la propiedad de orientación EXIF
+                    int orientation = BitConverter.ToUInt16(img.GetPropertyItem(0x0112).Value, 0);
+
+                    // Corrige la orientación de la imagen en base al valor EXIF
+                    switch (orientation)
+                    {
+                        case 1:
+                            // Sin rotación (normal)
+                            break;
+                        case 3:
+                            img.RotateFlip(RotateFlipType.Rotate180FlipNone);
+                            break;
+                        case 6:
+                            img.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                            break;
+                        case 8:
+                            img.RotateFlip(RotateFlipType.Rotate270FlipNone);
+                            break;
+                    }
                 }
+
+                // Asigna la imagen corregida al fondo
+                this.BackgroundImage = img;
             }
             else
             {
-                //TIRA EXCEPCIÓN
+                // Muestra un mensaje de error si no se encuentra la imagen
                 MessageBox.Show("La imagen no se encuentra: " + imagePath);
             }
-
-            //Path.Combine(...) --> se asegura de unir correctamente partes de una ruta de archivo sin problema
-            //AppDomain.CurrentDomain.BaseDirectory --> Obtiene el directorio base de dónde se está ejecutando la aplicación
-            //"Resources", "goma.jpg" --> Resources es la carpeta donde se encuentra el archivo goma.jpg
         }
 
         private void InitializeIconoApp()
