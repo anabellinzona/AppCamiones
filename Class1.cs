@@ -14,7 +14,7 @@ namespace AppCamiones
     public partial class Class1 : Form
     {
 
-        private Form1 ff = new Form1();
+        private Form1 form1 = new Form1();
         private Login login = new Login();
 
         //DECLARACIÓN DEL FORM
@@ -39,17 +39,128 @@ namespace AppCamiones
         private RoundButton btn_login = new RoundButton();
         private RoundButton btn_registrer = new RoundButton();
 
-        private int borderSize = 2;
-        private int borderRadius = 30;
-
-
         public Class1()
         {
             InitializeUI();
             btn_registrer.Click += new EventHandler(RegistrerUser_Click);
             btn_login.Click += new EventHandler(LoginUser_Click);
+
+            textBoxNombreUsuario.Leave += new EventHandler(NombreUsuario_Leave);
+            textBoxNombreUsuario.Click += new EventHandler(NombreUsuario_Click);
+
+            textBoxNombre.Leave += new EventHandler(Nombre_Leave);
+            textBoxNombre.Click += new EventHandler(Nombre_Click);
+
+            textBoxApellido.Leave += new EventHandler(Apellido_Leave);
+            textBoxApellido.Click += new EventHandler(Apellido_Click);
+
+            textBoxContraseña.Leave += new EventHandler(Contraseña_Leave);
+            textBoxContraseña.Click += new EventHandler(Contraseña_Click);
+
+            textBoxEmail.Leave += new EventHandler(Email_Leave);
+            textBoxEmail.Click += new EventHandler(Email_Click);
         }
 
+        //NOMBRE DE USUARIO
+
+        private void NombreUsuario_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(textBoxNombreUsuario.Text))
+            {
+                textBoxNombreUsuario.Text = "Username";
+                textBoxNombreUsuario.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77); // Cambia el color del texto placeholder
+            }
+        }
+
+        private void NombreUsuario_Click(object sender, EventArgs e)
+        {
+            if (textBoxNombreUsuario.Text == "Username")
+            {
+                textBoxNombreUsuario.Text = "";
+                textBoxNombreUsuario.ForeColor = Color.Black; // Cambia el color del texto
+            }
+        }
+
+        //NOMBRE
+
+        private void Nombre_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(textBoxNombre.Text))
+            {
+                textBoxNombre.Text = "Name";
+                textBoxNombre.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77); // Cambia el color del texto placeholder
+            }
+        }
+
+        private void Nombre_Click(object sender, EventArgs e)
+        {
+            if (textBoxNombre.Text == "Name")
+            {
+                textBoxNombre.Text = "";
+                textBoxNombre.ForeColor = Color.Black; // Cambia el color del texto
+            }
+        }
+
+        //APELLIDO
+
+        private void Apellido_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(textBoxApellido.Text))
+            {
+                textBoxApellido.Text = "Surname";
+                textBoxApellido.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77); // Cambia el color del texto placeholder
+            }
+        }
+
+        private void Apellido_Click(object sender, EventArgs e)
+        {
+            if (textBoxApellido.Text == "Surname")
+            {
+                textBoxApellido.Text = "";
+                textBoxApellido.ForeColor = Color.Black; // Cambia el color del texto
+            }
+        }
+
+        private void Email_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(textBoxEmail.Text))
+            {
+                textBoxEmail.Text = "Email";
+                textBoxEmail.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77); // Cambia el color del texto placeholder
+            }
+        }
+
+        private void Email_Click(object sender, EventArgs e)
+        {
+            if (textBoxEmail.Text == "Email")
+            {
+                textBoxEmail.Text = "";
+                textBoxEmail.ForeColor = Color.Black; // Cambia el color del texto
+            }
+        }
+
+        //CONTRASEÑA
+
+        private void Contraseña_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(textBoxContraseña.Text))
+            {
+                textBoxContraseña.Text = "PassWord";
+                textBoxContraseña.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
+            }
+        }
+
+        private void Contraseña_Click(object sender, EventArgs e)
+        {
+            if (textBoxContraseña.Text == "Password")
+            {
+                textBoxContraseña.Text = "";
+                textBoxContraseña.Font = new Font("Nunito", 14, FontStyle.Regular);
+                textBoxContraseña.ForeColor = Color.Black;
+                textBoxContraseña.PasswordChar = '*';
+            }
+        }
+        //------------------------------------
         private void RegistrerUser_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.OK;
@@ -57,10 +168,9 @@ namespace AppCamiones
 
         private void LoginUser_Click(object sender, EventArgs e)
         {
-            login.Show();
-            this.Close();
+            this.DialogResult = DialogResult.OK;
         }
-
+        //-------------------------------------
         private void InitializeUI()
         {
             InitializeBackImage();
@@ -188,7 +298,7 @@ namespace AppCamiones
 
         private void TextBoxProperties()
         {
-            textBoxNombre.Text = "Nombre";
+            textBoxNombre.Text = "Name";
             textBoxNombre.Font = new Font("Nunito", 10, FontStyle.Regular);
             textBoxNombre.BackColor = System.Drawing.Color.FromArgb(153, 145, 145);
             textBoxNombre.Multiline = true;
@@ -200,7 +310,7 @@ namespace AppCamiones
             textBoxNombre.TextAlign = HorizontalAlignment.Left;
 
 
-            textBoxApellido.Text = "Apellido";
+            textBoxApellido.Text = "Surname";
             textBoxApellido.Font = new Font("Nunito", 10, FontStyle.Regular);
             textBoxApellido.BackColor = System.Drawing.Color.FromArgb(153, 145, 145);
             textBoxApellido.Multiline = true;
@@ -221,7 +331,11 @@ namespace AppCamiones
             textBoxEmail.Margin = new Padding(90, 10, 0, 10);
             textBoxEmail.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
 
+<<<<<<< HEAD
             textBoxContraseña.Text = "Contraseña";
+=======
+            textBoxContraseña.Text = "Password";
+>>>>>>> e04a24f05f579b07bee5c710e3240aad0005baf9
             textBoxContraseña.Font = new Font("Nunito", 10, FontStyle.Regular);
             textBoxContraseña.BackColor = System.Drawing.Color.FromArgb(153, 145, 145);
             textBoxContraseña.Multiline = true;
@@ -230,9 +344,8 @@ namespace AppCamiones
             textBoxContraseña.BorderStyle = BorderStyle.None;
             textBoxContraseña.Margin = new Padding(90, 10, 0, 10);
             textBoxContraseña.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
-            textBoxContraseña.PasswordChar = '*';
 
-            textBoxNombreUsuario.Text = "Nombre de usuario";
+            textBoxNombreUsuario.Text = "Username";
             textBoxNombreUsuario.Font = new Font("Nunito", 10, FontStyle.Regular);
             textBoxNombreUsuario.BackColor = System.Drawing.Color.FromArgb(153, 145, 145);
             textBoxNombreUsuario.Multiline = true;

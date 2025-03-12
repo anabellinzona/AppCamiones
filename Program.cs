@@ -19,11 +19,17 @@ namespace AppCamiones
             //Application.Run(new Class1());
             using (Class1 registrer = new Class1())
             {
-                if(registrer.ShowDialog() == DialogResult.OK)
+                using (Login loginForm = new Login())
                 {
-                    using (Login loginForm = new Login())
+                    if (registrer.ShowDialog() == DialogResult.OK)
                     {
                         if (loginForm.ShowDialog() == DialogResult.OK) // Si el usuario inicia sesión correctamente
+                        {
+                            Application.Run(new Form1()); // Ejecuta el formulario principal
+                        }
+                    } else if(loginForm.ShowDialog() == DialogResult.OK)
+                    {
+                        if (loginForm.ShowDialog() == DialogResult.OK)
                         {
                             Application.Run(new Form1()); // Ejecuta el formulario principal
                         }
