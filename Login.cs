@@ -182,7 +182,7 @@ namespace AppCamiones
                 form.Location = new Point((this.Width - form.Width) / 2, (this.Height - form.Height) / 2);
             };
 
-            form.BackColor = System.Drawing.Color.FromArgb(200, Color.Black);
+            form.BackColor = System.Drawing.Color.FromArgb(130, Color.Black);
         }
 
         private void LayoutFormProperties()
@@ -197,14 +197,14 @@ namespace AppCamiones
         private void LabelProperties()
         {
             contraseña.Text = "Contraseña:";
-            contraseña.Font = new Font("Nunito", 12, FontStyle.Regular);
+            contraseña.Font = new Font("Nunito", 10, FontStyle.Regular);
             contraseña.ForeColor = System.Drawing.Color.FromArgb(217, 217, 217);
             contraseña.BackColor = Color.Transparent;
             contraseña.Margin = new Padding(80, 10, 0, 0);
             contraseña.AutoSize = true;
 
             nombre_usuario.Text = "Nombre de usuario:";
-            nombre_usuario.Font = new Font("Nunito", 12, FontStyle.Regular);
+            nombre_usuario.Font = new Font("Nunito", 10, FontStyle.Regular);
             nombre_usuario.ForeColor = System.Drawing.Color.FromArgb(217, 217, 217);
             nombre_usuario.BackColor = Color.Transparent;
             nombre_usuario.Margin = new Padding(80, 10, 0, 0);
@@ -212,10 +212,10 @@ namespace AppCamiones
 
             pregunta.ForeColor = System.Drawing.Color.FromArgb(217, 217, 217);
             pregunta.Text = "¿No tienes una cuenta?";
-            pregunta.Font = new Font("Nunito", 12, FontStyle.Regular);
+            pregunta.Font = new Font("Nunito", 10, FontStyle.Regular);
             pregunta.AutoSize = true;
             pregunta.TextAlign = ContentAlignment.TopCenter;
-            pregunta.Margin = new Padding(100, 30, 0, 0); 
+            pregunta.Margin = new Padding(113, 50, 0, 0); 
         }
 
         private void TextBoxProperties()
@@ -225,7 +225,7 @@ namespace AppCamiones
             textBoxContraseña.BackColor = System.Drawing.Color.FromArgb(153, 145, 145);
             textBoxContraseña.Multiline = true;
             textBoxContraseña.Width = 200;
-            textBoxContraseña.Height = 25;
+            textBoxContraseña.Height = 30;
             textBoxContraseña.BorderStyle = BorderStyle.None;
             textBoxContraseña.Margin = new Padding(90, 10, 0, 10);
             textBoxContraseña.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
@@ -235,7 +235,7 @@ namespace AppCamiones
             textBoxNombreUsuario.BackColor = System.Drawing.Color.FromArgb(153, 145, 145);
             textBoxNombreUsuario.Multiline = true;
             textBoxNombreUsuario.Width = 200;
-            textBoxNombreUsuario.Height = 25;
+            textBoxNombreUsuario.Height = 30;
             textBoxNombreUsuario.BorderStyle = BorderStyle.None;
             textBoxNombreUsuario.Margin = new Padding(90, 10, 0, 10);
             textBoxNombreUsuario.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
@@ -246,6 +246,7 @@ namespace AppCamiones
             btn_login.BackColor = System.Drawing.Color.FromArgb(218, 218, 28);
             btn_login.AutoSize = true;
             btn_login.Text = "Iniciar sesión";
+            btn_login.Height = 30;
             btn_login.FlatStyle = FlatStyle.Flat;
             btn_login.FlatAppearance.BorderSize = 0;
             btn_login.Margin = new Padding(130, 10, 0, 0);
@@ -253,12 +254,12 @@ namespace AppCamiones
             btn_login.Font = new Font("Nunito", 12, FontStyle.Bold);
 
             btn_register.BackColor = System.Drawing.Color.FromArgb(32, 32, 32);
-            btn_register.Size = new Size(150, 40);
+            btn_register.Size = new Size(150, 30);
             btn_register.Text = "Registrarse";
             btn_register.FlatStyle = FlatStyle.Flat;
-            btn_register.FlatAppearance.BorderSize = 2;  // Grosor del borde
+            btn_register.FlatAppearance.BorderSize = 0;  // Grosor del borde
             btn_register.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(218, 218, 28); // Color del borde
-            btn_register.Margin = new Padding(115, 20, 0, 0);
+            btn_register.Margin = new Padding(118, 5, 0, 0);
             btn_register.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
             btn_register.Font = new Font("Nunito", 12, FontStyle.Bold);
         }
