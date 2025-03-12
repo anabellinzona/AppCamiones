@@ -11,7 +11,7 @@ namespace AppCamiones
         //private Class1 registrer = new Class1();
 
         //DECLARACIÓN DEL FORM
-        private Panel form = new Panel();
+        private RoundPanel form = new RoundPanel();
 
         private FlowLayoutPanel flowLayoutForm = new FlowLayoutPanel();
 
@@ -19,11 +19,11 @@ namespace AppCamiones
         private Label contraseña = new Label();
         private Label pregunta = new Label();
 
-        private TextBox textBoxNombreUsuario = new TextBox();
-        private TextBox textBoxContraseña = new TextBox();
+        private RoundTextBox textBoxNombreUsuario = new RoundTextBox();
+        private RoundTextBox textBoxContraseña = new RoundTextBox();
 
-        private Button btn_login = new Button();
-        private Button btn_registrer = new Button();
+        private RoundButton btn_login = new RoundButton();
+        private RoundButton btn_registrer = new RoundButton();
 
         public Login()
         {

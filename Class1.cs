@@ -8,6 +8,7 @@ using Button = System.Windows.Forms.Button;
 using System.Drawing.Drawing2D;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 
+
 namespace AppCamiones
 {
     public partial class Class1 : Form
@@ -17,7 +18,7 @@ namespace AppCamiones
         private Login login = new Login();
 
         //DECLARACIÓN DEL FORM
-        private Panel form = new Panel();
+        private RoundPanel form = new RoundPanel();
 
         private FlowLayoutPanel flowLayoutForm = new FlowLayoutPanel();
 
@@ -29,14 +30,14 @@ namespace AppCamiones
         private Label pregunta = new Label();
 
 
-        private TextBox textBoxNombre = new TextBox();
-        private TextBox textBoxApellido = new TextBox();
-        private TextBox textBoxNombreUsuario = new TextBox();
-        private TextBox textBoxContraseña = new TextBox();
-        private TextBox textBoxEmail = new TextBox();
+        private RoundTextBox textBoxNombre = new RoundTextBox();
+        private RoundTextBox textBoxApellido = new RoundTextBox();
+        private RoundTextBox textBoxNombreUsuario = new RoundTextBox();
+        private RoundTextBox textBoxContraseña = new RoundTextBox();
+        private RoundTextBox textBoxEmail = new RoundTextBox();
 
-        private Button btn_login = new Button();
-        private Button btn_registrer = new Button();
+        private RoundButton btn_login = new RoundButton();
+        private RoundButton btn_registrer = new RoundButton();
 
         private int borderSize = 2;
         private int borderRadius = 30;
@@ -129,8 +130,8 @@ namespace AppCamiones
             {
                 form.Location = new Point((this.Width - form.Width) / 2, (this.Height - form.Height) / 2);
             };
-           
-            form.BackColor = System.Drawing.Color.FromArgb(200, Color.Black);
+
+            form.BackColor = System.Drawing.Color.FromArgb(130, Color.Black);
         }
 
         private void LayoutFormProperties()
@@ -143,35 +144,35 @@ namespace AppCamiones
         private void LabelProperties()
         {
             nombre.Text = "Nombre:";
-            nombre.Font = new Font("Nunito", 12, FontStyle.Regular);
+            nombre.Font = new Font("Nunito", 10, FontStyle.Regular);
             nombre.ForeColor = System.Drawing.Color.FromArgb(217, 217, 217);
             nombre.BackColor = Color.Transparent;
             nombre.Margin = new Padding(80, 10, 0, 0);
             nombre.AutoSize = true;
 
             apellido.Text = "Apellido:";
-            apellido.Font = new Font("Nunito", 12, FontStyle.Regular);
+            apellido.Font = new Font("Nunito", 10, FontStyle.Regular);
             apellido.ForeColor = System.Drawing.Color.FromArgb(217, 217, 217);
             apellido.BackColor = Color.Transparent;
             apellido.Margin = new Padding(80, 10, 0, 0);
             apellido.AutoSize = true;
 
             email.Text = "Email:";
-            email.Font = new Font("Nunito", 12, FontStyle.Regular);
+            email.Font = new Font("Nunito", 10, FontStyle.Regular);
             email.ForeColor = System.Drawing.Color.FromArgb(217, 217, 217);
             email.BackColor = Color.Transparent;
             email.Margin = new Padding(80, 10, 0, 0);
             email.AutoSize = true;
 
             contraseña.Text = "Contraseña:";
-            contraseña.Font = new Font("Nunito", 12, FontStyle.Regular);
+            contraseña.Font = new Font("Nunito", 10, FontStyle.Regular);
             contraseña.ForeColor = System.Drawing.Color.FromArgb(217, 217, 217);
             contraseña.BackColor = Color.Transparent;
             contraseña.Margin = new Padding(80, 10, 0, 0);
             contraseña.AutoSize = true;
 
             nombre_usuario.Text = "Nombre de usuario:";
-            nombre_usuario.Font = new Font("Nunito", 12, FontStyle.Regular);
+            nombre_usuario.Font = new Font("Nunito", 10, FontStyle.Regular);
             nombre_usuario.ForeColor = System.Drawing.Color.FromArgb(217, 217, 217);
             nombre_usuario.BackColor = Color.Transparent;
             nombre_usuario.Margin = new Padding(80, 10, 0, 0);
@@ -179,10 +180,10 @@ namespace AppCamiones
 
             pregunta.ForeColor = System.Drawing.Color.FromArgb(217, 217, 217);
             pregunta.Text = "¿Ya tienes una cuenta?";
-            pregunta.Font = new Font("Nunito", 12, FontStyle.Regular);
+            pregunta.Font = new Font("Nunito", 10, FontStyle.Regular);
             pregunta.AutoSize = true;
             pregunta.TextAlign = ContentAlignment.TopCenter;
-            pregunta.Margin = new Padding(100, 30, 0, 0); ;
+            pregunta.Margin = new Padding(113, 30, 0, 0); ;
         }
 
         private void TextBoxProperties()
@@ -192,7 +193,7 @@ namespace AppCamiones
             textBoxNombre.BackColor = System.Drawing.Color.FromArgb(153, 145, 145);
             textBoxNombre.Multiline = true;
             textBoxNombre.Width = 200;
-            textBoxNombre.Height = 24;
+            textBoxNombre.Height = 30;
             textBoxNombre.BorderStyle = BorderStyle.None;
             textBoxNombre.Margin = new Padding(90, 10, 0, 10);
             textBoxNombre.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
@@ -204,28 +205,28 @@ namespace AppCamiones
             textBoxApellido.BackColor = System.Drawing.Color.FromArgb(153, 145, 145);
             textBoxApellido.Multiline = true;
             textBoxApellido.Width = 200;
-            textBoxApellido.Height = 24;
+            textBoxApellido.Height = 30;
             textBoxApellido.BorderStyle = BorderStyle.None;
             textBoxApellido.Margin = new Padding(90, 10, 0, 10);
             textBoxApellido.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
-          
+
 
             textBoxEmail.Text = "Email";
             textBoxEmail.Font = new Font("Nunito", 10, FontStyle.Regular);
             textBoxEmail.BackColor = System.Drawing.Color.FromArgb(153, 145, 145);
             textBoxEmail.Multiline = true;
             textBoxEmail.Width = 200;
-            textBoxEmail.Height = 24;
+            textBoxEmail.Height = 30;
             textBoxEmail.BorderStyle = BorderStyle.None;
             textBoxEmail.Margin = new Padding(90, 10, 0, 10);
             textBoxEmail.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
 
             textBoxContraseña.Text = "Contraseña";
-            textBoxContraseña.Font = new Font("Nunito", 14, FontStyle.Regular);
+            textBoxContraseña.Font = new Font("Nunito", 10, FontStyle.Regular);
             textBoxContraseña.BackColor = System.Drawing.Color.FromArgb(153, 145, 145);
             textBoxContraseña.Multiline = true;
             textBoxContraseña.Width = 200;
-            textBoxContraseña.Height = 24;
+            textBoxContraseña.Height = 30;
             textBoxContraseña.BorderStyle = BorderStyle.None;
             textBoxContraseña.Margin = new Padding(90, 10, 0, 10);
             textBoxContraseña.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
@@ -236,7 +237,7 @@ namespace AppCamiones
             textBoxNombreUsuario.BackColor = System.Drawing.Color.FromArgb(153, 145, 145);
             textBoxNombreUsuario.Multiline = true;
             textBoxNombreUsuario.Width = 200;
-            textBoxNombreUsuario.Height = 24;
+            textBoxNombreUsuario.Height = 30;
             textBoxNombreUsuario.BorderStyle = BorderStyle.None;
             textBoxNombreUsuario.Margin = new Padding(90, 10, 0, 10);
             textBoxNombreUsuario.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
@@ -246,21 +247,21 @@ namespace AppCamiones
         {
             btn_registrer.BackColor = System.Drawing.Color.FromArgb(218, 218, 28);
             btn_registrer.AutoSize = true;
+            btn_registrer.Height = 30;
             btn_registrer.Text = "Registrarse";
             btn_registrer.FlatStyle = FlatStyle.Flat;
             btn_registrer.FlatAppearance.BorderSize = 0;
-            btn_registrer.Margin = new Padding(130, 10, 0, 0);
+            btn_registrer.Margin = new Padding(132, 10, 0, 0);
             btn_registrer.ForeColor = System.Drawing.Color.FromArgb(32, 32, 32);
             btn_registrer.Font = new Font("Nunito", 12, FontStyle.Bold);
 
             btn_login.BackColor = System.Drawing.Color.FromArgb(32, 32, 32);
-            btn_login.Size = new Size(150, 40);
+            btn_login.Size = new Size(140, 30);
             btn_login.Text = "Iniciar sesión";
             btn_login.FlatStyle = FlatStyle.Flat;
-            btn_login.FlatAppearance.BorderSize = 2;  // Grosor del borde
+            btn_login.FlatAppearance.BorderSize = 0;  // Grosor del borde
             btn_login.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(218, 218, 28); // Color del borde
-
-            btn_login.Margin = new Padding(115, 10, 0, 0);
+            btn_login.Margin = new Padding(120, 10, 0, 0);
             btn_login.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
             btn_login.Font = new Font("Nunito", 12, FontStyle.Bold);
         }
@@ -284,6 +285,98 @@ namespace AppCamiones
         private void AddForm()
         {
             this.Controls.Add(form);
+        }
+    }
+
+    public class RoundButton : Button
+    {
+        public RoundButton()
+        {
+        }
+
+        protected override void OnPaint(PaintEventArgs pevent)
+        {
+            base.OnPaint(pevent);
+
+            GraphicsPath path = new GraphicsPath();
+
+            path.AddArc(0, 0, 10, 10, 180, 90); // Esquina superior izquierda
+            path.AddArc(this.Width - 10, 0, 10, 20, 270, 90); // Esquina superior derecha
+            path.AddArc(this.Width - 10, this.Height - 10, 10, 10, 0, 90); // Esquina inferior derecha
+            path.AddArc(0, this.Height - 10, 20, 10, 90, 90); // Esquina inferior izquierda
+
+            path.CloseAllFigures();
+
+            this.Region = new Region(path);
+        }
+    }
+
+    public class RoundTextBox : TextBox
+    {
+        private int cornerRadius = 20;
+
+        public RoundTextBox()
+        {
+            this.SetStyle(ControlStyles.UserPaint, true);
+            this.BorderStyle = BorderStyle.None;
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+
+            Graphics g = e.Graphics;
+
+            GraphicsPath path = new GraphicsPath();
+            path.AddArc(0, 0, cornerRadius, cornerRadius, 180, 90); // Esquina superior izquierda
+            path.AddArc(this.Width - cornerRadius - 1, 0, cornerRadius, cornerRadius, 270, 90); // Esquina superior derecha
+            path.AddArc(this.Width - cornerRadius - 1, this.Height - cornerRadius - 1, cornerRadius, cornerRadius, 0, 90); // Esquina inferior derecha
+            path.AddArc(0, this.Height - cornerRadius - 1, cornerRadius, cornerRadius, 90, 90); // Esquina inferior izquierda
+            path.CloseFigure();
+
+            this.Region = new Region(path);
+
+            g.FillPath(new SolidBrush(this.BackColor), path);
+
+            TextRenderer.DrawText(g, this.Text, this.Font, this.ClientRectangle, this.ForeColor, TextFormatFlags.Top | TextFormatFlags.Left);
+        }
+    }
+
+    public class RoundPanel : Panel
+    {
+        private int cornerRadius = 40;
+
+        public RoundPanel()
+        {
+            this.SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
+            this.DoubleBuffered = true;
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+
+            GraphicsPath path = new GraphicsPath();
+            path.AddArc(0, 0, cornerRadius, cornerRadius, 180, 90); // Esquina superior izquierda
+            path.AddArc(this.Width - cornerRadius - 1, 0, cornerRadius, cornerRadius, 270, 90); // Esquina superior derecha
+            path.AddArc(this.Width - cornerRadius - 1, this.Height - cornerRadius - 1, cornerRadius, cornerRadius, 0, 90); // Esquina inferior derecha
+            path.AddArc(0, this.Height - cornerRadius - 1, cornerRadius, cornerRadius, 90, 90); // Esquina inferior izquierda
+            path.CloseFigure();
+
+            this.Region = new Region(path);
+
+            using (Brush brush = new SolidBrush(this.BackColor))
+            {
+                e.Graphics.FillPath(brush, path);
+            }
+
+            base.OnPaint(e);
+        }
+
+        public int CornerRadius
+        {
+            get { return cornerRadius; }
+            set { cornerRadius = value; Invalidate(); }
         }
     }
 }
