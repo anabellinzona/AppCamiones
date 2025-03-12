@@ -16,7 +16,6 @@ namespace AppCamiones
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new Class1());
             using (Class1 registrer = new Class1())
             {
                 using (Login loginForm = new Login())

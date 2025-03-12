@@ -6,11 +6,8 @@ using Microsoft.Win32;
 
 namespace AppCamiones
 {
-    public partial class Login : Form
+    internal class Login : Form
     {
-        
-        
-
         //DECLARACIÓN DEL FORM
         private RoundPanel form = new RoundPanel();
 
@@ -101,7 +98,8 @@ namespace AppCamiones
         private void InitializeBackImage()
         {
             // Ruta absoluta a la imagen en la carpeta de Descargas
-            string imagePath = @"C:\Users\usuario\Downloads\goma.jpeg";
+            string imagePath = Path.Combine(Application.StartupPath, "Resources", "goma.jpg");
+
 
             // Verifica si existe el archivo
             if (File.Exists(imagePath))
