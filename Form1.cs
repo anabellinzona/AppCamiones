@@ -71,7 +71,7 @@ namespace AppCamiones
         private void InitializeBackImage()
         {
             // Ruta absoluta a la imagen en la carpeta de Descargas
-            string imagePath = @"C:\Users\usuario\Downloads\goma.jpeg";
+            string imagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "goma.jpg");
 
             // Verifica si existe el archivo
             if (File.Exists(imagePath))
