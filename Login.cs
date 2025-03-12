@@ -5,19 +5,10 @@ using System.Windows.Forms;
 
 namespace AppCamiones
 {
-    internal class Login : Form
+    public partial class Login : Form
     {
-        private Form1 form1 = new Form1();
-        private Class1 registrer = new Class1();
-
-        //DECLARACIÓN MENÚ DE HERRAMIENTAS
-        private MenuStrip menuStrip = new MenuStrip();
-
-        private ToolStripMenuItem homeMenu = new ToolStripMenuItem("home");
-        private ToolStripMenuItem viajesMenu = new ToolStripMenuItem("viajes");
-        private ToolStripMenuItem chequesMenu = new ToolStripMenuItem("cheques");
-        private ToolStripMenuItem registrosMenu = new ToolStripMenuItem("registro");
-        private ToolStripMenuItem userMenu = new ToolStripMenuItem();
+        
+        //private Class1 registrer = new Class1();
 
         //DECLARACIÓN DEL FORM
         private Panel form = new Panel();
@@ -37,35 +28,25 @@ namespace AppCamiones
         public Login()
         {
             InitializeUI();
-            homeMenu.Click += new EventHandler(GoToHome_Click);
             btn_login.Click += new EventHandler(LoginUser_Click);
-            btn_registrer.Click += new EventHandler(RegistrerUser_Click);
-        }
-
-        private void GoToHome_Click(object sender, EventArgs e)
-        {
-            form1.Show();
-            this.Close();
+            //btn_registrer.Click += new EventHandler(RegistrerUser_Click);
         }
 
         private void LoginUser_Click(object sender, EventArgs e)
         {
-            form1.Show();
-            this.Close();
+            this.DialogResult = DialogResult.OK;
         }
 
-        private void RegistrerUser_Click(object sender, EventArgs e)
-        {
-            registrer.Show();
-            this.Close();
-        }
+        //private void RegistrerUser_Click(object sender, EventArgs e)
+        //{
+        //    registrer.Show();
+        //    this.Close();
+        //}
 
         private void InitializeUI()
         {
             InitializeBackImage();
             InitializeIconoApp();
-            InitializeIconoUser();
-            InitializeToolBar();
             InitializeForm();
         }
 
@@ -78,7 +59,10 @@ namespace AppCamiones
             if (File.Exists(imagePath))
             {
                 //LE ASGINA A BACKGROUNDIMAGE LA IMAGEN
-                this.BackgroundImage = Image.FromFile(imagePath);
+                using (Image img = Image.FromFile(imagePath))
+                {
+                    this.BackgroundImage = new Bitmap(img);
+                }
             }
             else
             {
@@ -109,91 +93,6 @@ namespace AppCamiones
             }
         }
 
-        private void InitializeIconoUser()
-        {
-            //ASIGNA ÍCONO A LA BARRA DE HERRAMIENTAS
-            string icono_user = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "icono_user.png");
-
-
-            //PREGUNTA SI EXISTE EL ARCHIVO
-            if (File.Exists(icono_user))
-            {
-                //LE ASIGNA LA IMAGEN A USERMENU
-                userMenu.Image = Image.FromFile(icono_user);
-            }
-            else
-            {
-                //TIRA EXCEPCIÓN
-                MessageBox.Show("La imagen no se encuentra: " + icono_user);
-            }
-        }
-
-        private void InitializeToolBar()
-        {
-            ItemsCapitalLetter();
-            MenuProperties();
-            ItemsColor();
-            MarginToItems();
-            AddItemsToMenu();
-            AddForm();
-        }
-
-        private void ItemsCapitalLetter()
-        {
-            //PONE EN MAYÚSUCLA LAS PALABRAS DE LOS ÍTEMS
-            homeMenu.Text = homeMenu.Text.ToUpper();
-            viajesMenu.Text = viajesMenu.Text.ToUpper();
-            chequesMenu.Text = chequesMenu.Text.ToUpper();
-            registrosMenu.Text = registrosMenu.Text.ToUpper();
-            userMenu.Text = userMenu.Text.ToUpper();
-        }
-
-        private void MenuProperties()
-        {
-            //PROPIEDADES DEL MENÚ
-            menuStrip.Font = new Font("Arial", 14, FontStyle.Regular);
-            menuStrip.BackColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            menuStrip.ImageScalingSize = new Size(34, 34);
-            menuStrip.AutoSize = false;
-            menuStrip.Width = 200;
-            menuStrip.Height = 80;
-            menuStrip.Dock = DockStyle.Top;
-        }
-
-        private void ItemsColor()
-        {
-            //ASIGNA EL COLOR A LOS ÍTEMS
-            homeMenu.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
-            viajesMenu.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
-            chequesMenu.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
-            registrosMenu.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
-            userMenu.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
-        }
-
-        private void MarginToItems()
-        {
-            //MARGIN
-            homeMenu.Margin = new Padding(50, 0, 50, 0);
-            viajesMenu.Margin = new Padding(50, 0, 50, 0);
-            chequesMenu.Margin = new Padding(50, 0, 50, 0);
-            registrosMenu.Margin = new Padding(50, 0, 50, 0);
-            userMenu.Margin = new Padding(650, 0, 650, 0);
-        }
-
-        private void AddItemsToMenu()
-        {
-            //AGREGA AL MENÚ LOS ÍTEMS
-            menuStrip.Items.Add(homeMenu);
-            menuStrip.Items.Add(viajesMenu);
-            menuStrip.Items.Add(chequesMenu);
-            menuStrip.Items.Add(registrosMenu);
-            menuStrip.Items.Add(userMenu);
-
-            // AGREGA AL FORM LA BARRA DE HERRAMIENTAS
-            this.MainMenuStrip = menuStrip;
-            this.Controls.Add(menuStrip);
-        }
-
 
         //FORMULARIO DE LOGIN
         private void InitializeForm()
@@ -204,6 +103,7 @@ namespace AppCamiones
             TextBoxProperties();
             ButtonsProperties();
             AddLabels();
+            AddForm();
         }
 
         private void FormProperties()
@@ -250,8 +150,8 @@ namespace AppCamiones
 
         private void TextBoxProperties()
         {
-            textBoxContraseña.Text = "Contraseña";
-            textBoxContraseña.Font = new Font("Nunito", 10, FontStyle.Regular);
+            //textBoxContraseña.Text = "Contraseña";
+            textBoxContraseña.Font = new Font("Nunito", 14, FontStyle.Regular);
             textBoxContraseña.BackColor = System.Drawing.Color.FromArgb(153, 145, 145);
             textBoxContraseña.Multiline = true;
             textBoxContraseña.Width = 200;
@@ -259,6 +159,10 @@ namespace AppCamiones
             textBoxContraseña.BorderStyle = BorderStyle.None;
             textBoxContraseña.Margin = new Padding(90, 10, 0, 10);
             textBoxContraseña.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
+            textBoxContraseña.Paste("Contraseña");
+            textBoxContraseña.PasswordChar = '*';
+            
+            
 
             textBoxNombreUsuario.Text = "Nombre de usuario";
             textBoxNombreUsuario.Font = new Font("Nunito", 10, FontStyle.Regular);

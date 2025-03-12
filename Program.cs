@@ -16,9 +16,20 @@ namespace AppCamiones
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
-            Application.Run(new Class1());
-            Application.Run(new Login());
+            //Application.Run(new Class1());
+            using (Class1 registrer = new Class1())
+            {
+                if(registrer.ShowDialog() == DialogResult.OK)
+                {
+                    using (Login loginForm = new Login())
+                    {
+                        if (loginForm.ShowDialog() == DialogResult.OK) // Si el usuario inicia sesión correctamente
+                        {
+                            Application.Run(new Form1()); // Ejecuta el formulario principal
+                        }
+                    }
+                }
+            }
         }
     }
 }

@@ -15,6 +15,7 @@ namespace AppCamiones
 {
     public partial class Form1: Form
     {
+        private Login formUser = new Login();
         //CREACIÓN DE LA BARRA DE HERRAMIENTAS Y CADA ÍTEM
         private MenuStrip menuStrip = new MenuStrip();
 
@@ -23,6 +24,7 @@ namespace AppCamiones
         private ToolStripMenuItem chequesMenu = new ToolStripMenuItem("cheques");
         private ToolStripMenuItem registrosMenu = new ToolStripMenuItem("registro");
         private ToolStripMenuItem userMenu = new ToolStripMenuItem();
+        private ToolStripMenuItem closeSesion = new ToolStripMenuItem("Cerrar sesión");
 
 
         //CREACIÓN PANEL Y COMPONENTES
@@ -41,14 +43,16 @@ namespace AppCamiones
         private FlowLayoutPanel layoutPay = new FlowLayoutPanel();
 
         public Form1()
-        {
+        { 
             InitializeComponent();
             InitializeUI();
-           
-            userMenu.Click += new EventHandler(GoToFormUser_Click);
+            closeSesion.Click += new EventHandler(GoToFormUser_Click);
         }
 
-     
+        private void GoToFormUser_Click(object sender, EventArgs e)
+        {
+            formUser.ShowDialog();
+        }
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -73,7 +77,10 @@ namespace AppCamiones
             if (File.Exists(imagePath))
             {
                 //LE ASGINA A BACKGROUNDIMAGE LA IMAGEN
-                this.BackgroundImage = Image.FromFile(imagePath);
+                using (Image img = Image.FromFile(imagePath))
+                {
+                    this.BackgroundImage = new Bitmap(img);
+                }
             }
             else
             {
@@ -125,7 +132,6 @@ namespace AppCamiones
 
         private void InitializeToolBar()
         {
-
             ItemsCapitalLetter();
             MenuProperties();
             ItemsColor();
@@ -153,9 +159,6 @@ namespace AppCamiones
             menuStrip.Width = this.Width;
             menuStrip.Height = 80;
             menuStrip.Dock = DockStyle.Top;
-            //homeMenu.DropDownItems.Add(salirItem); pone un elemento dentro del suyo
-            //HOME  MENÚ  ARCHIVO
-            //SALIR
         }
 
         
@@ -168,6 +171,7 @@ namespace AppCamiones
             chequesMenu.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
             registrosMenu.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
             userMenu.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
+            closeSesion.ForeColor = System.Drawing.Color.FromArgb(141, 138, 138);
         }
 
         private void MarginToItems()
@@ -182,13 +186,7 @@ namespace AppCamiones
             chequesMenu.Margin = new Padding(y, 0, 0, 0);
             registrosMenu.Margin = new Padding(y, 0, 0, 0);
             userMenu.Margin = new Padding(t, 0, 0, 0);
-        }
-
-        private void GoToFormUser_Click(object sender, EventArgs e)
-        {
-            Class1 formUser = new Class1();
-            formUser.Show();
-            this.Close();
+            closeSesion.Margin = new Padding(0, 10, 0, 0);
         }
 
         private void AddItemsToMenu()
@@ -199,6 +197,8 @@ namespace AppCamiones
             menuStrip.Items.Add(chequesMenu);
             menuStrip.Items.Add(registrosMenu);
             menuStrip.Items.Add(userMenu);
+
+            userMenu.DropDownItems.Add(closeSesion);
 
             // AGREGA AL FORM LA BARRA DE HERRAMIENTAS
             this.MainMenuStrip = menuStrip;
@@ -230,7 +230,6 @@ namespace AppCamiones
         {
             table_travel.Padding = new Padding(0);
             table_travel.Margin = new Padding(0);
-
             table_travel.Size = new Size(740, int.MaxValue);
             table_travel.Location = new Point(150, 180);
             table_travel.BackColor = System.Drawing.Color.FromArgb(200, Color.Black);
