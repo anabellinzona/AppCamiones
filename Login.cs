@@ -2,13 +2,14 @@
 using System.IO;
 using System;
 using System.Windows.Forms;
+using Microsoft.Win32;
 
 namespace AppCamiones
 {
     public partial class Login : Form
     {
         
-        //private Class1 registrer = new Class1();
+        
 
         //DECLARACIÓN DEL FORM
         private Panel form = new Panel();
@@ -23,13 +24,57 @@ namespace AppCamiones
         private TextBox textBoxContraseña = new TextBox();
 
         private Button btn_login = new Button();
-        private Button btn_registrer = new Button();
+        private Button btn_register = new Button();
 
         public Login()
         {
             InitializeUI();
             btn_login.Click += new EventHandler(LoginUser_Click);
-            //btn_registrer.Click += new EventHandler(RegistrerUser_Click);
+            btn_register.Click += new EventHandler(RegisterUser_Click);
+
+            textBoxNombreUsuario.Leave += new EventHandler(NombreUsuario_Leave);
+            textBoxNombreUsuario.Click += new EventHandler(NombreUsuario_Click);
+
+            textBoxContraseña.Leave += new EventHandler(Contraseña_Leave);
+            textBoxContraseña.Click += new EventHandler(Contraseña_Click);
+        }
+
+        private void NombreUsuario_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(textBoxNombreUsuario.Text))
+            {
+                textBoxNombreUsuario.Text = "Username";
+                textBoxNombreUsuario.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77); // Cambia el color del texto placeholder
+            }
+        }
+
+        private void NombreUsuario_Click(object sender, EventArgs e)
+        {
+            if (textBoxNombreUsuario.Text == "Username")
+            {
+                textBoxNombreUsuario.Text = "";
+                textBoxNombreUsuario.ForeColor = Color.Black; // Cambia el color del texto
+            }
+        }
+
+        private void Contraseña_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(textBoxContraseña.Text))
+            {
+                textBoxContraseña.Text = "PassWord";
+                textBoxContraseña.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
+            }
+        }
+
+        private void Contraseña_Click(object sender, EventArgs e)
+        {
+            if(textBoxContraseña.Text == "Password")
+            {
+                textBoxContraseña.Text = "";
+                textBoxContraseña.PasswordChar = '*';
+                textBoxContraseña.Font = new Font("Nunito", 14, FontStyle.Regular);
+                textBoxContraseña.ForeColor = Color.Black;
+            }
         }
 
         private void LoginUser_Click(object sender, EventArgs e)
@@ -37,11 +82,13 @@ namespace AppCamiones
             this.DialogResult = DialogResult.OK;
         }
 
-        //private void RegistrerUser_Click(object sender, EventArgs e)
-        //{
-        //    registrer.Show();
-        //    this.Close();
-        //}
+        private void RegisterUser_Click(object sender, EventArgs e)
+        {
+            Class1 rr = new Class1();
+            this.Hide();
+            rr.ShowDialog();
+            this.Show();
+        }
 
         private void InitializeUI()
         {
@@ -152,8 +199,8 @@ namespace AppCamiones
 
         private void TextBoxProperties()
         {
-            //textBoxContraseña.Text = "Contraseña";
-            textBoxContraseña.Font = new Font("Nunito", 14, FontStyle.Regular);
+            textBoxContraseña.Text = "Password";
+            textBoxContraseña.Font = new Font("Nunito", 10, FontStyle.Regular);
             textBoxContraseña.BackColor = System.Drawing.Color.FromArgb(153, 145, 145);
             textBoxContraseña.Multiline = true;
             textBoxContraseña.Width = 200;
@@ -161,12 +208,8 @@ namespace AppCamiones
             textBoxContraseña.BorderStyle = BorderStyle.None;
             textBoxContraseña.Margin = new Padding(90, 10, 0, 10);
             textBoxContraseña.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
-            textBoxContraseña.Paste("Contraseña");
-            textBoxContraseña.PasswordChar = '*';
-            
-            
 
-            textBoxNombreUsuario.Text = "Nombre de usuario";
+            textBoxNombreUsuario.Text = "Username";
             textBoxNombreUsuario.Font = new Font("Nunito", 10, FontStyle.Regular);
             textBoxNombreUsuario.BackColor = System.Drawing.Color.FromArgb(153, 145, 145);
             textBoxNombreUsuario.Multiline = true;
@@ -188,15 +231,15 @@ namespace AppCamiones
             btn_login.ForeColor = System.Drawing.Color.FromArgb(32, 32, 32);
             btn_login.Font = new Font("Nunito", 12, FontStyle.Bold);
 
-            btn_registrer.BackColor = System.Drawing.Color.FromArgb(32, 32, 32);
-            btn_registrer.Size = new Size(150, 40);
-            btn_registrer.Text = "Registrarse";
-            btn_registrer.FlatStyle = FlatStyle.Flat;
-            btn_registrer.FlatAppearance.BorderSize = 2;  // Grosor del borde
-            btn_registrer.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(218, 218, 28); // Color del borde
-            btn_registrer.Margin = new Padding(115, 20, 0, 0);
-            btn_registrer.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
-            btn_registrer.Font = new Font("Nunito", 12, FontStyle.Bold);
+            btn_register.BackColor = System.Drawing.Color.FromArgb(32, 32, 32);
+            btn_register.Size = new Size(150, 40);
+            btn_register.Text = "Registrarse";
+            btn_register.FlatStyle = FlatStyle.Flat;
+            btn_register.FlatAppearance.BorderSize = 2;  // Grosor del borde
+            btn_register.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(218, 218, 28); // Color del borde
+            btn_register.Margin = new Padding(115, 20, 0, 0);
+            btn_register.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
+            btn_register.Font = new Font("Nunito", 12, FontStyle.Bold);
         }
         private void AddLabels()
         {
@@ -207,7 +250,7 @@ namespace AppCamiones
             flowLayoutForm.Controls.Add(textBoxContraseña);
             flowLayoutForm.Controls.Add(btn_login);
             flowLayoutForm.Controls.Add(pregunta);
-            flowLayoutForm.Controls.Add(btn_registrer);   
+            flowLayoutForm.Controls.Add(btn_register);   
         }
         private void AddForm()
         {
