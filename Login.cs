@@ -2,19 +2,14 @@
 using System.IO;
 using System;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using TextBox = System.Windows.Forms.TextBox;
-using Button = System.Windows.Forms.Button;
-using System.Drawing.Drawing2D;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 
 namespace AppCamiones
 {
-    internal class Class1 : Form
+    internal class Login : Form
     {
+        private Form1 form1 = new Form1();
+        private Class1 registrer = new Class1();
 
-        private Form1 ff = new Form1();
-        private Login login = new Login();
         //DECLARACIÓN MENÚ DE HERRAMIENTAS
         private MenuStrip menuStrip = new MenuStrip();
 
@@ -29,47 +24,39 @@ namespace AppCamiones
 
         private FlowLayoutPanel flowLayoutForm = new FlowLayoutPanel();
 
-        private Label nombre = new Label();
-        private Label apellido = new Label();
         private Label nombre_usuario = new Label();
         private Label contraseña = new Label();
-        private Label email = new Label();
         private Label pregunta = new Label();
 
-
-        private TextBox textBoxNombre = new TextBox();
-        private TextBox textBoxApellido = new TextBox();
         private TextBox textBoxNombreUsuario = new TextBox();
         private TextBox textBoxContraseña = new TextBox();
-        private TextBox textBoxEmail = new TextBox();
 
         private Button btn_login = new Button();
         private Button btn_registrer = new Button();
 
-        public Class1()
+        public Login()
         {
             InitializeUI();
             homeMenu.Click += new EventHandler(GoToHome_Click);
-            btn_registrer.Click += new EventHandler(RegistrerUser_Click);
             btn_login.Click += new EventHandler(LoginUser_Click);
+            btn_registrer.Click += new EventHandler(RegistrerUser_Click);
         }
 
         private void GoToHome_Click(object sender, EventArgs e)
         {
-            ff.Show();
-            this.Close();
-        }
-
-        private void RegistrerUser_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("¡Usted ha sido registrado con éxito!");
-            login.Show();
+            form1.Show();
             this.Close();
         }
 
         private void LoginUser_Click(object sender, EventArgs e)
         {
-            login.Show();
+            form1.Show();
+            this.Close();
+        }
+
+        private void RegistrerUser_Click(object sender, EventArgs e)
+        {
+            registrer.Show();
             this.Close();
         }
 
@@ -208,7 +195,7 @@ namespace AppCamiones
         }
 
 
-        //FORMULARIO DE REGISTRARSE
+        //FORMULARIO DE LOGIN
         private void InitializeForm()
         {
             FormProperties();
@@ -221,12 +208,12 @@ namespace AppCamiones
 
         private void FormProperties()
         {
-            form.Size = new Size(400, 600);
+            form.Size = new Size(400, 400);
             this.Resize += (s, e) =>
             {
                 form.Location = new Point((this.Width - form.Width) / 2, (this.Height - form.Height) / 2);
             };
-           
+
             form.BackColor = System.Drawing.Color.FromArgb(200, Color.Black);
         }
 
@@ -239,27 +226,6 @@ namespace AppCamiones
 
         private void LabelProperties()
         {
-            nombre.Text = "Nombre:";
-            nombre.Font = new Font("Nunito", 12, FontStyle.Regular);
-            nombre.ForeColor = System.Drawing.Color.FromArgb(217, 217, 217);
-            nombre.BackColor = Color.Transparent;
-            nombre.Margin = new Padding(80, 10, 0, 0);
-            nombre.AutoSize = true;
-
-            apellido.Text = "Apellido:";
-            apellido.Font = new Font("Nunito", 12, FontStyle.Regular);
-            apellido.ForeColor = System.Drawing.Color.FromArgb(217, 217, 217);
-            apellido.BackColor = Color.Transparent;
-            apellido.Margin = new Padding(80, 10, 0, 0);
-            apellido.AutoSize = true;
-
-            email.Text = "Email:";
-            email.Font = new Font("Nunito", 12, FontStyle.Regular);
-            email.ForeColor = System.Drawing.Color.FromArgb(217, 217, 217);
-            email.BackColor = Color.Transparent;
-            email.Margin = new Padding(80, 10, 0, 0);
-            email.AutoSize = true;
-
             contraseña.Text = "Contraseña:";
             contraseña.Font = new Font("Nunito", 12, FontStyle.Regular);
             contraseña.ForeColor = System.Drawing.Color.FromArgb(217, 217, 217);
@@ -275,46 +241,15 @@ namespace AppCamiones
             nombre_usuario.AutoSize = true;
 
             pregunta.ForeColor = System.Drawing.Color.FromArgb(217, 217, 217);
-            pregunta.Text = "¿Ya tienes una cuenta?";
+            pregunta.Text = "¿No tienes una cuenta?";
             pregunta.Font = new Font("Nunito", 12, FontStyle.Regular);
             pregunta.AutoSize = true;
             pregunta.TextAlign = ContentAlignment.TopCenter;
-            pregunta.Margin = new Padding(100, 30, 0, 0); ;
+            pregunta.Margin = new Padding(100, 30, 0, 0); 
         }
 
         private void TextBoxProperties()
         {
-            textBoxNombre.Text = "Nombre";
-            textBoxNombre.Font = new Font("Nunito", 10, FontStyle.Regular);
-            textBoxNombre.BackColor = System.Drawing.Color.FromArgb(153, 145, 145);
-            textBoxNombre.Multiline = true;
-            textBoxNombre.Width = 200;
-            textBoxNombre.Height = 25;
-            textBoxNombre.BorderStyle = BorderStyle.None;
-            textBoxNombre.Margin = new Padding(90, 10, 0, 10);
-            textBoxNombre.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77); 
-
-
-            textBoxApellido.Text = "Apellido";
-            textBoxApellido.Font = new Font("Nunito", 10, FontStyle.Regular);
-            textBoxApellido.BackColor = System.Drawing.Color.FromArgb(153, 145, 145);
-            textBoxApellido.Multiline = true;
-            textBoxApellido.Width = 200;
-            textBoxApellido.Height = 25;
-            textBoxApellido.BorderStyle = BorderStyle.None;
-            textBoxApellido.Margin = new Padding(90, 10, 0, 10);
-            textBoxApellido.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
-
-            textBoxEmail.Text = "Email";
-            textBoxEmail.Font = new Font("Nunito", 10, FontStyle.Regular);
-            textBoxEmail.BackColor = System.Drawing.Color.FromArgb(153, 145, 145);
-            textBoxEmail.Multiline = true;
-            textBoxEmail.Width = 200;
-            textBoxEmail.Height = 25;
-            textBoxEmail.BorderStyle = BorderStyle.None;
-            textBoxEmail.Margin = new Padding(90, 10, 0, 10);
-            textBoxEmail.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
-
             textBoxContraseña.Text = "Contraseña";
             textBoxContraseña.Font = new Font("Nunito", 10, FontStyle.Regular);
             textBoxContraseña.BackColor = System.Drawing.Color.FromArgb(153, 145, 145);
@@ -338,42 +273,35 @@ namespace AppCamiones
 
         private void ButtonsProperties()
         {
-            btn_registrer.BackColor = System.Drawing.Color.FromArgb(218, 218, 28);
-            btn_registrer.AutoSize = true;
-            btn_registrer.Text = "Registrarse";
-            btn_registrer.FlatStyle = FlatStyle.Flat;
-            btn_registrer.FlatAppearance.BorderSize = 0;
-            btn_registrer.Margin = new Padding(130, 10, 0, 0);
-            btn_registrer.ForeColor = System.Drawing.Color.FromArgb(32, 32, 32);
-            btn_registrer.Font = new Font("Nunito", 12, FontStyle.Bold);
-
-            btn_login.BackColor = System.Drawing.Color.FromArgb(32, 32, 32);
-            btn_login.Size = new Size(150, 40);
+            btn_login.BackColor = System.Drawing.Color.FromArgb(218, 218, 28);
+            btn_login.AutoSize = true;
             btn_login.Text = "Iniciar sesión";
             btn_login.FlatStyle = FlatStyle.Flat;
-            btn_login.FlatAppearance.BorderSize = 2;  // Grosor del borde
-            btn_login.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(218, 218, 28); // Color del borde
-
-            btn_login.Margin = new Padding(115, 10, 0, 0);
-            btn_login.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
+            btn_login.FlatAppearance.BorderSize = 0;
+            btn_login.Margin = new Padding(130, 10, 0, 0);
+            btn_login.ForeColor = System.Drawing.Color.FromArgb(32, 32, 32);
             btn_login.Font = new Font("Nunito", 12, FontStyle.Bold);
+
+            btn_registrer.BackColor = System.Drawing.Color.FromArgb(32, 32, 32);
+            btn_registrer.Size = new Size(150, 40);
+            btn_registrer.Text = "Registrarse";
+            btn_registrer.FlatStyle = FlatStyle.Flat;
+            btn_registrer.FlatAppearance.BorderSize = 2;  // Grosor del borde
+            btn_registrer.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(218, 218, 28); // Color del borde
+            btn_registrer.Margin = new Padding(115, 20, 0, 0);
+            btn_registrer.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
+            btn_registrer.Font = new Font("Nunito", 12, FontStyle.Bold);
         }
         private void AddLabels()
         {
             form.Controls.Add(flowLayoutForm);
-            flowLayoutForm.Controls.Add(nombre);
-            flowLayoutForm.Controls.Add(textBoxNombre);
-            flowLayoutForm.Controls.Add(apellido);
-            flowLayoutForm.Controls.Add(textBoxApellido);
             flowLayoutForm.Controls.Add(nombre_usuario);
             flowLayoutForm.Controls.Add(textBoxNombreUsuario);
-            flowLayoutForm.Controls.Add(email);
-            flowLayoutForm.Controls.Add(textBoxEmail);
             flowLayoutForm.Controls.Add(contraseña);
             flowLayoutForm.Controls.Add(textBoxContraseña);
-            flowLayoutForm.Controls.Add(btn_registrer);
-            flowLayoutForm.Controls.Add(pregunta);
             flowLayoutForm.Controls.Add(btn_login);
+            flowLayoutForm.Controls.Add(pregunta);
+            flowLayoutForm.Controls.Add(btn_registrer);   
         }
         private void AddForm()
         {

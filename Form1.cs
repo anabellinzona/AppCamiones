@@ -48,14 +48,7 @@ namespace AppCamiones
             userMenu.Click += new EventHandler(GoToFormUser_Click);
         }
 
-        private void GoToFormUser_Click(object sender, EventArgs e)
-        {
-            int x = this.Width;
-            MessageBox.Show(" " + x);
-            //Class1 formUser = new Class1();
-            //formUser.Show();
-            //this.Close();
-        }
+     
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -182,13 +175,20 @@ namespace AppCamiones
             //MARGIN
             int x = this.Width;
             int y = x / 10;
+            int t = (menuStrip.Width - userMenu.Width);
 
             homeMenu.Margin = new Padding(y, 0, 0, 0);
             viajesMenu.Margin = new Padding(y, 0, 0, 0);
             chequesMenu.Margin = new Padding(y, 0, 0, 0);
             registrosMenu.Margin = new Padding(y, 0, 0, 0);
+            userMenu.Margin = new Padding(t, 0, 0, 0);
+        }
 
-            userMenu.Margin = new Padding(x * (150 / 100), 0, 0, 0);
+        private void GoToFormUser_Click(object sender, EventArgs e)
+        {
+            Class1 formUser = new Class1();
+            formUser.Show();
+            this.Close();
         }
 
         private void AddItemsToMenu()

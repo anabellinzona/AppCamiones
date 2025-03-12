@@ -18,6 +18,7 @@ namespace AppCamiones
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
             Application.Run(new Class1());
+            Application.Run(new Login());
         }
     }
 }
