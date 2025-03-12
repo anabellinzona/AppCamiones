@@ -268,7 +268,6 @@ namespace AppCamiones
             };
             layoutTableTravelNext.Anchor = AnchorStyles.None; // Evita que se expanda con el contenedor
             layoutTableTravelNext.Size = new Size(table_travel.Width, 200);
-            //layoutTableTravelNext.AutoScroll = true;
             layoutTableTravelNext.BackColor = Color.Transparent;
             layoutTableTravelNext.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             layoutTableTravelNext.FlowDirection = FlowDirection.TopDown; // Crece hacia abajo

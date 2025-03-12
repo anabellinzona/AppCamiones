@@ -108,7 +108,7 @@ namespace AppCamiones
 
         private void FormProperties()
         {
-            form.Size = new Size(400, 400);
+            form.Size = new Size(450, 450);
             this.Resize += (s, e) =>
             {
                 form.Location = new Point((this.Width - form.Width) / 2, (this.Height - form.Height) / 2);
@@ -119,9 +119,11 @@ namespace AppCamiones
 
         private void LayoutFormProperties()
         {
-            flowLayoutForm.Size = new Size(form.Width, form.Height);
-            flowLayoutForm.Location = new Point(0, 50);
+            flowLayoutForm.Size = new Size(400, 310);
             flowLayoutForm.BackColor = Color.Transparent;
+            flowLayoutForm.Location = new Point((form.Width - flowLayoutForm.Width) / 2, (form.Height - flowLayoutForm.Height) / 2);
+            flowLayoutForm.FlowDirection = FlowDirection.TopDown;
+
         }
 
         private void LabelProperties()

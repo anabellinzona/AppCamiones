@@ -38,6 +38,10 @@ namespace AppCamiones
         private Button btn_login = new Button();
         private Button btn_registrer = new Button();
 
+        private int borderSize = 2;
+        private int borderRadius = 30;
+
+
         public Class1()
         {
             InitializeUI();
@@ -188,10 +192,11 @@ namespace AppCamiones
             textBoxNombre.BackColor = System.Drawing.Color.FromArgb(153, 145, 145);
             textBoxNombre.Multiline = true;
             textBoxNombre.Width = 200;
-            textBoxNombre.Height = 25;
+            textBoxNombre.Height = 24;
             textBoxNombre.BorderStyle = BorderStyle.None;
             textBoxNombre.Margin = new Padding(90, 10, 0, 10);
-            textBoxNombre.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77); 
+            textBoxNombre.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
+            textBoxNombre.TextAlign = HorizontalAlignment.Left;
 
 
             textBoxApellido.Text = "Apellido";
@@ -199,37 +204,39 @@ namespace AppCamiones
             textBoxApellido.BackColor = System.Drawing.Color.FromArgb(153, 145, 145);
             textBoxApellido.Multiline = true;
             textBoxApellido.Width = 200;
-            textBoxApellido.Height = 25;
+            textBoxApellido.Height = 24;
             textBoxApellido.BorderStyle = BorderStyle.None;
             textBoxApellido.Margin = new Padding(90, 10, 0, 10);
             textBoxApellido.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
+          
 
             textBoxEmail.Text = "Email";
             textBoxEmail.Font = new Font("Nunito", 10, FontStyle.Regular);
             textBoxEmail.BackColor = System.Drawing.Color.FromArgb(153, 145, 145);
             textBoxEmail.Multiline = true;
             textBoxEmail.Width = 200;
-            textBoxEmail.Height = 25;
+            textBoxEmail.Height = 24;
             textBoxEmail.BorderStyle = BorderStyle.None;
             textBoxEmail.Margin = new Padding(90, 10, 0, 10);
             textBoxEmail.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
 
             textBoxContraseña.Text = "Contraseña";
-            textBoxContraseña.Font = new Font("Nunito", 10, FontStyle.Regular);
+            textBoxContraseña.Font = new Font("Nunito", 14, FontStyle.Regular);
             textBoxContraseña.BackColor = System.Drawing.Color.FromArgb(153, 145, 145);
             textBoxContraseña.Multiline = true;
             textBoxContraseña.Width = 200;
-            textBoxContraseña.Height = 25;
+            textBoxContraseña.Height = 24;
             textBoxContraseña.BorderStyle = BorderStyle.None;
             textBoxContraseña.Margin = new Padding(90, 10, 0, 10);
             textBoxContraseña.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
+            textBoxContraseña.PasswordChar = '*';
 
             textBoxNombreUsuario.Text = "Nombre de usuario";
             textBoxNombreUsuario.Font = new Font("Nunito", 10, FontStyle.Regular);
             textBoxNombreUsuario.BackColor = System.Drawing.Color.FromArgb(153, 145, 145);
             textBoxNombreUsuario.Multiline = true;
             textBoxNombreUsuario.Width = 200;
-            textBoxNombreUsuario.Height = 25;
+            textBoxNombreUsuario.Height = 24;
             textBoxNombreUsuario.BorderStyle = BorderStyle.None;
             textBoxNombreUsuario.Margin = new Padding(90, 10, 0, 10);
             textBoxNombreUsuario.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
