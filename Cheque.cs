@@ -25,7 +25,7 @@ namespace AppCamiones
         private ToolStripMenuItem userMenu = new ToolStripMenuItem();
         private ToolStripMenuItem closeSesion = new ToolStripMenuItem("Cerrar sesión");
 
-        //
+        //Grid
         private RoundPanel form = new RoundPanel();
 
         private DataGridView cheq = new DataGridView();
@@ -42,7 +42,7 @@ namespace AppCamiones
 
 
         
-        //initializations
+        //Initializations
         private void InitializeUI()
         {
             InitializeBackImage();
@@ -106,7 +106,7 @@ namespace AppCamiones
 
 
 
-        //adds
+        //Adds
         private void addForm()
         {
             this.Controls.Add(form);
@@ -130,7 +130,6 @@ namespace AppCamiones
         }
         private void AddItemsToGrid()
         {
-            // Agregar columnas a la tabla
             cheq.Columns.Add("fEntrega", "Fecha de entrega");
             cheq.Columns.Add("entrega", "Entregado por");
             cheq.Columns.Add("banco", "Banco");
@@ -147,7 +146,7 @@ namespace AppCamiones
 
 
 
-        //properties
+        //Properties
         private void GridChequesProperties()
         {
             panelGrid.Size = new Size(1200, 450);
@@ -181,7 +180,6 @@ namespace AppCamiones
         }
         private void ItemsColor()
         {
-            //ASIGNA EL COLOR A LOS ÍTEMS
             homeMenu.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
             viajesMenu.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
             chequesMenu.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
@@ -191,7 +189,6 @@ namespace AppCamiones
         }
         private void ItemsCapitalLetter()
         {
-            //PONE EN MAYÚSUCLA LAS PALABRAS DE LOS ÍTEMS
             homeMenu.Text = homeMenu.Text.ToUpper();
             viajesMenu.Text = viajesMenu.Text.ToUpper();
             chequesMenu.Text = chequesMenu.Text.ToUpper();
@@ -216,7 +213,7 @@ namespace AppCamiones
 
 
 
-        //otros
+        //Otros
         private void CargarDatos()
         {
             for(int i = 0; i<30; i++)
