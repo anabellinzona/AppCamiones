@@ -31,15 +31,16 @@ namespace AppCamiones
         private Label pregunta = new Label();
 
 
-        private RoundTextBox textBoxNombre = new RoundTextBox();
-        private RoundTextBox textBoxApellido = new RoundTextBox();
-        private RoundTextBox textBoxNombreUsuario = new RoundTextBox();
-        private RoundTextBox textBoxContraseña = new RoundTextBox();
-        private RoundTextBox textBoxEmail = new RoundTextBox();
+        private TextBox textBoxNombre = new TextBox();
+        private TextBox textBoxApellido = new TextBox();
+        private TextBox textBoxNombreUsuario = new TextBox();
+        private TextBox textBoxContraseña = new TextBox();
+        private TextBox textBoxEmail = new TextBox();
 
         private RoundButton btn_login = new RoundButton();
         private RoundButton btn_registrer = new RoundButton();
 
+  
         public Class1()
         {
             InitializeUI();
@@ -60,6 +61,8 @@ namespace AppCamiones
 
             textBoxEmail.Leave += new EventHandler(Email_Leave);
             textBoxEmail.Click += new EventHandler(Email_Click);
+            textBoxContraseña.TextChanged += new EventHandler(Contraseña_TextChanged);
+            this.StartPosition = FormStartPosition.CenterScreen;
         }
 
         //NOMBRE DE USUARIO
@@ -146,8 +149,9 @@ namespace AppCamiones
         {
             if (string.IsNullOrWhiteSpace(textBoxContraseña.Text))
             {
-                textBoxContraseña.Text = "PassWord";
+                textBoxContraseña.Text = "Password";
                 textBoxContraseña.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
+                textBoxContraseña.Font = new Font("Nunito", 10, FontStyle.Regular);
             }
         }
 
@@ -156,9 +160,16 @@ namespace AppCamiones
             if (textBoxContraseña.Text == "Password")
             {
                 textBoxContraseña.Text = "";
-                textBoxContraseña.Font = new Font("Nunito", 14, FontStyle.Regular);
                 textBoxContraseña.ForeColor = Color.Black;
-                textBoxContraseña.PasswordChar = '*';
+            }
+        }
+
+        private void Contraseña_TextChanged(object sender, EventArgs e)
+        {
+            if (textBoxContraseña.Text != "Password")
+            {
+                textBoxContraseña.Text = new string('*', textBoxContraseña.Text.Length);
+                textBoxContraseña.Font = new Font("Nunito", 14, FontStyle.Regular);
             }
         }
         //------------------------------------
@@ -184,8 +195,6 @@ namespace AppCamiones
             // Ruta absoluta a la imagen en la carpeta de Descargas
 
             string imagePath = Path.Combine(Application.StartupPath, "Resources", "goma.jpg");
-            //string imagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "goma.jpg");
-//>>>>>>> 332652517b22fa6a155ae508d410fb4cb681add1
 
             // Verifica si existe el archivo
             if (File.Exists(imagePath))

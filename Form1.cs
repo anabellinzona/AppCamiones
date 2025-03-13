@@ -16,6 +16,8 @@ namespace AppCamiones
     public partial class Form1: Form
     {
         private Login formUser = new Login();
+        private Registro formRegistro = new Registro();
+
         //CREACIÓN DE LA BARRA DE HERRAMIENTAS Y CADA ÍTEM
         private MenuStrip menuStrip = new MenuStrip();
 
@@ -47,11 +49,17 @@ namespace AppCamiones
             InitializeComponent();
             InitializeUI();
             closeSesion.Click += new EventHandler(GoToFormUser_Click);
+            registrosMenu.Click += new EventHandler(GoToRegisterForm_Click);
         }
 
         private void GoToFormUser_Click(object sender, EventArgs e)
         {
             formUser.ShowDialog();
+        }
+
+        private void GoToRegisterForm_Click(object sender, EventArgs e)
+        {
+            formRegistro.ShowDialog();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -71,11 +79,7 @@ namespace AppCamiones
         private void InitializeBackImage()
         {
             // Ruta absoluta a la imagen en la carpeta de Descargas
-
             string imagePath = Path.Combine(Application.StartupPath, "Resources", "goma.jpg");
-
-//            string imagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "goma.jpg");
-//>>>>>>> 332652517b22fa6a155ae508d410fb4cb681add1
 
             // Verifica si existe el archivo
             if (File.Exists(imagePath))
