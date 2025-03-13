@@ -32,7 +32,6 @@ namespace AppCamiones
                         {
                             Application.Run(new Form1()); // Ejecuta el formulario principal
                         }
-                        Application.Run(new Viaje());
                     }
                 }
             }

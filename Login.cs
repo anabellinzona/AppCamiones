@@ -40,6 +40,8 @@ namespace AppCamiones
             textBoxContraseña.Click += new EventHandler(Contraseña_Click);
 
             textBoxContraseña.TextChanged += new EventHandler(Contraseña_TextChanged);
+            
+            this.StartPosition = FormStartPosition.CenterScreen;
         }
 
         //NOMBRE DE USUARIO

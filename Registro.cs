@@ -36,11 +36,87 @@ namespace AppCamiones
             InitializeOptionsMenu();
 
             btnViaje.Click += new EventHandler(GoToFormViaje);
+            this.StartPosition = FormStartPosition.CenterScreen;
+
+            btnViaje.MouseEnter += new EventHandler(hoverToBtnViaje_MouseEnter);
+            btnViaje.MouseLeave += new EventHandler(hoverToBtnViaje_MouseLeave);
+
+            btnChofer.MouseEnter += new EventHandler(hoverToBtnChofer_MouseEnter);
+            btnChofer.MouseLeave += new EventHandler(hoverToBtnChofer_MouseLeave);
+
+            btnCliente.MouseEnter += new EventHandler(hoverToBtnCliente_MouseEnter);
+            btnCliente.MouseLeave += new EventHandler(hoverToBtnCliente_MouseLeave);
+
+            btnCheque.MouseEnter += new EventHandler(hoverToBtnCheque_MouseEnter);
+            btnCheque.MouseLeave += new EventHandler(hoverToBtnCheque_MouseLeave);
+
+            btnCamion.MouseEnter += new EventHandler(hoverToBtnCamion_MouseEnter);
+            btnCamion.MouseLeave += new EventHandler(hoverToBtnCamion_MouseLeave);
         }
 
         private void GoToFormViaje(object sender, EventArgs e)
         {
             MessageBox.Show("Tabla viajes");
+        }
+
+        private void hoverToBtnViaje_MouseEnter(object sender, EventArgs e)
+        {
+            btnViaje.Font = new Font("Nunito", 20, FontStyle.Regular);
+            btnViaje.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
+        }
+
+        private void hoverToBtnViaje_MouseLeave(object sender, EventArgs e)
+        {
+            btnViaje.Font = new Font("Nunito", 16, FontStyle.Regular);
+            btnViaje.ForeColor = System.Drawing.Color.FromArgb(224, 224, 224);
+        }
+
+        private void hoverToBtnChofer_MouseEnter(object sender, EventArgs e)
+        {
+            btnChofer.Font = new Font("Nunito", 20, FontStyle.Regular);
+            btnChofer.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
+        }
+
+        private void hoverToBtnChofer_MouseLeave(object sender, EventArgs e)
+        {
+            btnChofer.Font = new Font("Nunito", 16, FontStyle.Regular);
+            btnChofer.ForeColor = System.Drawing.Color.FromArgb(224, 224, 224);
+        }
+
+        private void hoverToBtnCliente_MouseEnter(object sender, EventArgs e)
+        {
+            btnCliente.Font = new Font("Nunito", 20, FontStyle.Regular);
+            btnCliente.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
+        }
+
+        private void hoverToBtnCliente_MouseLeave(object sender, EventArgs e)
+        {
+            btnCliente.Font = new Font("Nunito", 16, FontStyle.Regular);
+            btnCliente.ForeColor = System.Drawing.Color.FromArgb(224, 224, 224);
+        }
+
+        private void hoverToBtnCheque_MouseEnter(object sender, EventArgs e)
+        {
+            btnCheque.Font = new Font("Nunito", 20, FontStyle.Regular);
+            btnCheque.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
+        }
+
+        private void hoverToBtnCheque_MouseLeave(object sender, EventArgs e)
+        {
+            btnCheque.Font = new Font("Nunito", 16, FontStyle.Regular);
+            btnCheque.ForeColor = System.Drawing.Color.FromArgb(224, 224, 224);
+        }
+
+        private void hoverToBtnCamion_MouseEnter(object sender, EventArgs e)
+        {
+            btnCamion.Font = new Font("Nunito", 20, FontStyle.Regular);
+            btnCamion.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
+        }
+
+        private void hoverToBtnCamion_MouseLeave(object sender, EventArgs e)
+        {
+            btnCamion.Font = new Font("Nunito", 16, FontStyle.Regular);
+            btnCamion.ForeColor = System.Drawing.Color.FromArgb(224, 224, 224);
         }
 
         private void InitializeUI()
@@ -162,6 +238,7 @@ namespace AppCamiones
             menuStrip.Width = this.Width;
             menuStrip.Height = 80;
             menuStrip.Dock = DockStyle.Top;
+            registrosMenu.Font = new Font("Arial", 16, FontStyle.Underline);
         }
 
         private void ItemsColor()
@@ -241,7 +318,7 @@ namespace AppCamiones
         private void ButtonsProperties()
         {
             btnChofer.Text = "chofer";
-            btnChofer.Size = new Size(120, 50);
+            btnChofer.Size = new Size(150, 50);
             btnChofer.ForeColor = System.Drawing.Color.FromArgb(224, 224, 224);
             btnChofer.Font = new Font("Nunito", 16, FontStyle.Regular);
             btnChofer.FlatStyle = FlatStyle.Flat;
@@ -253,7 +330,7 @@ namespace AppCamiones
             btnChofer.TextAlign = ContentAlignment.MiddleLeft;
 
             btnCamion.Text = "camión";
-            btnCamion.Size = new Size(120, 50);
+            btnCamion.Size = new Size(150, 50);
             btnCamion.ForeColor = System.Drawing.Color.FromArgb(224, 224, 224);
             btnCamion.Font = new Font("Nunito", 16, FontStyle.Regular);
             btnCamion.FlatStyle = FlatStyle.Flat;
@@ -265,7 +342,7 @@ namespace AppCamiones
             btnCamion.TextAlign = ContentAlignment.MiddleLeft;
 
             btnCliente.Text = "cliente";
-            btnCliente.Size = new Size(120, 50);
+            btnCliente.Size = new Size(150, 50);
             btnCliente.ForeColor = System.Drawing.Color.FromArgb(224, 224, 224);
             btnCliente.Font = new Font("Nunito", 16, FontStyle.Regular);
             btnCliente.FlatStyle = FlatStyle.Flat;
@@ -277,7 +354,7 @@ namespace AppCamiones
             btnCliente.TextAlign = ContentAlignment.MiddleLeft;
 
             btnCheque.Text = "cheque";
-            btnCheque.Size = new Size(120, 50);
+            btnCheque.Size = new Size(150, 50);
             btnCheque.ForeColor = System.Drawing.Color.FromArgb(224, 224, 224);
             btnCheque.Font = new Font("Nunito", 16, FontStyle.Regular);
             btnCheque.FlatStyle = FlatStyle.Flat;
@@ -289,7 +366,7 @@ namespace AppCamiones
             btnCheque.TextAlign = ContentAlignment.MiddleLeft;
 
             btnViaje.Text = "viaje";
-            btnViaje.Size = new Size(120, 50);
+            btnViaje.Size = new Size(150, 50);
             btnViaje.ForeColor = System.Drawing.Color.FromArgb(224, 224, 224);
             btnViaje.Font = new Font("Nunito", 16, FontStyle.Regular);
             btnViaje.FlatStyle = FlatStyle.Flat;

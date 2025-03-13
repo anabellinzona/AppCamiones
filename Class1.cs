@@ -62,6 +62,7 @@ namespace AppCamiones
             textBoxEmail.Leave += new EventHandler(Email_Leave);
             textBoxEmail.Click += new EventHandler(Email_Click);
             textBoxContraseña.TextChanged += new EventHandler(Contraseña_TextChanged);
+            
             this.StartPosition = FormStartPosition.CenterScreen;
         }
 

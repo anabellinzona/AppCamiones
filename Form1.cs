@@ -49,11 +49,9 @@ namespace AppCamiones
             InitializeComponent();
             InitializeUI();
             closeSesion.Click += new EventHandler(GoToFormUser_Click);
-<<<<<<< HEAD
-            registrosMenu.Click += new EventHandler(GoToRegisterForm_Click);
-=======
             chequesMenu.Click += new EventHandler(GoToCheque_Click);
             viajesMenu.Click += new EventHandler(GoToViaje_Click);
+            registrosMenu.Click += new EventHandler(GoToRegistro_Click);
         }
 
         private void GoToCheque_Click(object sender, EventArgs e)
@@ -64,9 +62,13 @@ namespace AppCamiones
 
         private void GoToViaje_Click(object sender, EventArgs e)
         {
-            Viajes vv = new Viajes();
+            Viaje vv = new Viaje();
             vv.Show();
->>>>>>> 72e98443df0a3e8571b1eea23ab5d6cf9205e6c5
+        }
+
+        private void GoToRegistro_Click(object sender, EventArgs e)
+        {
+            formRegistro.Show();
         }
 
         private void GoToFormUser_Click(object sender, EventArgs e)
@@ -204,6 +206,7 @@ namespace AppCamiones
             menuStrip.Width = this.Width;
             menuStrip.Height = 80;
             menuStrip.Dock = DockStyle.Top;
+            homeMenu.Font = new Font("Arial", 16, FontStyle.Underline);
         }
 
         

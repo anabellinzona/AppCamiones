@@ -1,11 +1,4 @@
 ﻿using System;
-<<<<<<< HEAD
-=======
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
->>>>>>> 72e98443df0a3e8571b1eea23ab5d6cf9205e6c5
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -40,6 +33,7 @@ namespace AppCamiones
         public Cheque()
         {
             InitializeUI();
+            this.StartPosition = FormStartPosition.CenterScreen;
         }
 
 
@@ -106,18 +100,7 @@ namespace AppCamiones
             }
         }
      
-
-
-
-        //Adds
-        private void addForm()
-        {
-            this.Controls.Add(form);
-        }
-        private void addFormFL()
-        {
-            form.Controls.Add(flForm);
-        }
+        //BARRA DE HERRAMIENTAS
         private void AddItemsToMenu()
         {
             menuStrip.Items.Add(homeMenu);
@@ -131,45 +114,7 @@ namespace AppCamiones
             this.MainMenuStrip = menuStrip;
             this.Controls.Add(menuStrip);
         }
-        private void AddItemsToGrid()
-        {
-            cheq.Columns.Add("fEntrega", "Fecha de entrega");
-            cheq.Columns.Add("entrega", "Entregado por");
-            cheq.Columns.Add("banco", "Banco");
-            cheq.Columns.Add("nroCheque", "Nro. de cheque");
-            cheq.Columns.Add("monto", "Monto");
-            cheq.Columns.Add("fCobro", "Fecha de cobro");
-            cheq.Columns.Add("entregado", "Entregado a");
 
-            panelGrid.Controls.Add(cheq);
-            this.Controls.Add(panelGrid);
-
-            CargarDatos();
-        }
-
-
-
-        //Properties
-        private void GridChequesProperties()
-        {
-            panelGrid.Size = new Size(1200, 450);
-            panelGrid.Location = new Point(50, 150);
-            panelGrid.BackColor = Color.Transparent;
-
-            cheq.Size = new Size(1200, 450);
-            cheq.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            cheq.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            cheq.BackgroundColor = Color.DarkGray;
-            cheq.GridColor = Color.Black;
-            cheq.Font = new Font("Nunito", 12, FontStyle.Regular);
-
-            cheq.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            cheq.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-            cheq.EnableHeadersVisualStyles = false;
-            cheq.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
-            cheq.AllowUserToResizeRows = false;
-
-        }
         private void MenuProperties()
         {
             menuStrip.Font = new Font("Arial", 14, FontStyle.Regular);
@@ -213,8 +158,49 @@ namespace AppCamiones
             cheq.Margin = new Padding(0, 1000, 0, 0);
         }
 
+        //TABLA
+        private void AddItemsToGrid()
+        {
+            cheq.Columns.Add("fEntrega", "Fecha de entrega");
+            cheq.Columns.Add("entrega", "Entregado por");
+            cheq.Columns.Add("banco", "Banco");
+            cheq.Columns.Add("nroCheque", "Nro. de cheque");
+            cheq.Columns.Add("monto", "Monto");
+            cheq.Columns.Add("fCobro", "Fecha de cobro");
+            cheq.Columns.Add("entregado", "Entregado a");
+
+            panelGrid.Controls.Add(cheq);
+            this.Controls.Add(panelGrid);
+
+            CargarDatos();
+        }
 
 
+        //Properties
+        private void GridChequesProperties()
+        {
+            panelGrid.Size = new Size(1200, 450);
+            //panelGrid.Location = new Point(50, 150);7
+            this.Resize += (s, e) =>
+            {
+                panelGrid.Location = new Point((this.Width - panelGrid.Width) / 2, (this.Height - panelGrid.Height) / 2);
+            };
+            panelGrid.BackColor = Color.Transparent;
+
+            cheq.Size = new Size(1200, 450);
+            cheq.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            cheq.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            cheq.BackgroundColor = Color.DarkGray;
+            cheq.GridColor = Color.Black;
+            cheq.Font = new Font("Nunito", 12, FontStyle.Regular);
+
+            cheq.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(48, 48, 48);
+            cheq.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            cheq.EnableHeadersVisualStyles = false;
+            cheq.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            cheq.AllowUserToResizeRows = false;
+
+        }
 
         //Otros
         private void CargarDatos()
@@ -224,6 +210,16 @@ namespace AppCamiones
                 cheq.Rows.Add("2025-01-15", "x", "Banco Nación", "123456", "$5000", "2025-03-20", "Pendiente");
 
             }
+        }
+
+        //Adds
+        private void addForm()
+        {
+            this.Controls.Add(form);
+        }
+        private void addFormFL()
+        {
+            form.Controls.Add(flForm);
         }
     }
 }
