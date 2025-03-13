@@ -11,7 +11,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 
 namespace AppCamiones
 {
-    public partial class Class1 : Form
+    internal class Class1 : Form
     {
 
         private Form1 form1 = new Form1();
@@ -181,7 +181,11 @@ namespace AppCamiones
         private void InitializeBackImage()
         {
             // Ruta absoluta a la imagen en la carpeta de Descargas
+<<<<<<< HEAD
+            string imagePath = Path.Combine(Application.StartupPath, "Resources", "goma.jpg");
+=======
             string imagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "goma.jpg");
+>>>>>>> 332652517b22fa6a155ae508d410fb4cb681add1
 
             // Verifica si existe el archivo
             if (File.Exists(imagePath))
