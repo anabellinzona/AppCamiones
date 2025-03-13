@@ -7,6 +7,7 @@ using TextBox = System.Windows.Forms.TextBox;
 using Button = System.Windows.Forms.Button;
 using System.Drawing.Drawing2D;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
+using System.Runtime.CompilerServices;
 
 
 namespace AppCamiones
@@ -181,11 +182,10 @@ namespace AppCamiones
         private void InitializeBackImage()
         {
             // Ruta absoluta a la imagen en la carpeta de Descargas
-<<<<<<< HEAD
+
             string imagePath = Path.Combine(Application.StartupPath, "Resources", "goma.jpg");
-=======
-            string imagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "goma.jpg");
->>>>>>> 332652517b22fa6a155ae508d410fb4cb681add1
+            //string imagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "goma.jpg");
+//>>>>>>> 332652517b22fa6a155ae508d410fb4cb681add1
 
             // Verifica si existe el archivo
             if (File.Exists(imagePath))
