@@ -7,7 +7,7 @@ namespace AppCamiones
 {
     internal class Registro : Form
     {
-        
+
         //CREACIÓN DE LA BARRA DE HERRAMIENTAS Y CADA ÍTEM
         private MenuStrip menuStrip = new MenuStrip();
 
@@ -28,14 +28,12 @@ namespace AppCamiones
         private Button btnCheque = new Button();
         private Button btnViaje = new Button();
 
-  
-
         public Registro()
         {
             InitializeUI();
             InitializeOptionsMenu();
 
-            btnViaje.Click += new EventHandler(GoToFormViaje);
+
             this.StartPosition = FormStartPosition.CenterScreen;
 
             btnViaje.MouseEnter += new EventHandler(hoverToBtnViaje_MouseEnter);
@@ -52,11 +50,44 @@ namespace AppCamiones
 
             btnCamion.MouseEnter += new EventHandler(hoverToBtnCamion_MouseEnter);
             btnCamion.MouseLeave += new EventHandler(hoverToBtnCamion_MouseLeave);
+
+            btnViaje.Click += new EventHandler(GoToFormViaje);
+            btnChofer.Click += new EventHandler(GoToFormChofer);
+            btnCliente.Click += new EventHandler(GoToFormCliente);
+            btnCheque.Click += new EventHandler(GoToFormCheque);
+            btnCamion.Click += new EventHandler(GoToFormCamion);
         }
 
         private void GoToFormViaje(object sender, EventArgs e)
         {
-            MessageBox.Show("Tabla viajes");
+            AbrirFormulario("Viaje");
+        }
+
+        private void GoToFormChofer(object sender, EventArgs e)
+        {
+            AbrirFormulario("Chofer");
+        }
+
+        private void GoToFormCliente(object sender, EventArgs e)
+        {
+            AbrirFormulario("Cliente");
+        }
+
+        private void GoToFormCheque(object sender, EventArgs e)
+        {
+            AbrirFormulario("Cheque");
+        }
+
+        private void GoToFormCamion(object sender, EventArgs e)
+        {
+            AbrirFormulario("Camion");
+        }
+
+        private void AbrirFormulario(string tipoRegistro)
+        {
+            //FormRegistro formularioRegistro = new FormRegistro(tipoRegistro);
+            //formularioRegistro.StartPosition = FormStartPosition.CenterScreen;
+            //formularioRegistro.ShowDialog();
         }
 
         private void hoverToBtnViaje_MouseEnter(object sender, EventArgs e)
