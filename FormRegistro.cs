@@ -76,11 +76,11 @@ namespace AppCamiones
             btnCamion.MouseLeave += new EventHandler(hoverToBtnCamion_MouseLeave);
 
             //EVENTOS A LOS BOTONES
-            btnViaje.Click += new EventHandler(GoToFormViaje);
-            btnChofer.Click += new EventHandler(GoToFormChofer);
-            btnCliente.Click += new EventHandler(GoToFormCliente);
-            btnCheque.Click += new EventHandler(GoToFormCheque);
-            btnCamion.Click += new EventHandler(GoToFormCamion);
+            btnViaje.Click += new EventHandler(GoToFormViaje_Click);
+            btnChofer.Click += new EventHandler(GoToFormChofer_Click);
+            btnCliente.Click += new EventHandler(GoToFormCliente_Click);
+            btnCheque.Click += new EventHandler(GoToFormCheque_Click);
+            btnCamion.Click += new EventHandler(GoToFormCamion_Click);
 
             //EVENTOS A LAS HERRAMIENTAS DE LA BARRA
             closeSesion.Click += new EventHandler(GoToFormUser_Click);
@@ -109,27 +109,27 @@ namespace AppCamiones
             home.ShowDialog();
         }
 
-        private void GoToFormViaje(object sender, EventArgs e)
+        private void GoToFormViaje_Click(object sender, EventArgs e)
         {
             AbrirFormulario("Viaje");
         }
 
-        private void GoToFormChofer(object sender, EventArgs e)
+        private void GoToFormChofer_Click(object sender, EventArgs e)
         {
             AbrirFormulario("Chofer");
         }
 
-        private void GoToFormCliente(object sender, EventArgs e)
+        private void GoToFormCliente_Click(object sender, EventArgs e)
         {
             AbrirFormulario("Cliente");
         }
 
-        private void GoToFormCheque(object sender, EventArgs e)
+        private void GoToFormCheque_Click(object sender, EventArgs e)
         {
             AbrirFormulario("Cheque");
         }
 
-        private void GoToFormCamion(object sender, EventArgs e)
+        private void GoToFormCamion_Click(object sender, EventArgs e)
         {
             AbrirFormulario("Camion");
         }
@@ -412,7 +412,6 @@ namespace AppCamiones
             ButtonsPropertiesForm();
             AddLabels();
             AddForm();
-            btnChofer.Font = new Font("Nunito", 16, FontStyle.Underline);
         }
 
         private void CargarFormularioCamion(int cant)
@@ -426,7 +425,6 @@ namespace AppCamiones
             ButtonsPropertiesForm();
             AddLabels();
             AddForm();
-            btnCamion.Font = new Font("Nunito", 16, FontStyle.Underline);
         }
 
         private void CargarFormularioCheque(int cant)
@@ -440,7 +438,6 @@ namespace AppCamiones
             ButtonsPropertiesForm();
             AddLabels();
             AddForm();
-            btnCheque.Font = new Font("Nunito", 16, FontStyle.Underline);
         }
 
         private void CargarFormularioCliente(int cant)
@@ -454,7 +451,6 @@ namespace AppCamiones
             ButtonsPropertiesForm();
             AddLabels();
             AddForm();
-            btnCliente.Font = new Font("Nunito", 16, FontStyle.Underline);
         }
 
         private void CargarFormularioViaje(int cant)
@@ -467,8 +463,6 @@ namespace AppCamiones
             LabelProperties(cant);
             ButtonsPropertiesForm();
             AddLabels();
-            AddForm();
-            btnViaje.Font = new Font("Nunito", 16, FontStyle.Underline);
         }
 
      
@@ -478,7 +472,7 @@ namespace AppCamiones
             form.Height = cant * 120;
             this.Resize += (s, e) =>
             {
-                form.Location = new Point((this.Width - form.Width) / 2, 250);
+                form.Location = new Point((this.Width - form.Width) / 2, 200);
             };
 
             form.BackColor = System.Drawing.Color.FromArgb(130, Color.Black);
@@ -535,24 +529,24 @@ namespace AppCamiones
         private void ButtonsPropertiesForm()
         {
             btn_cargar.BackColor = System.Drawing.Color.FromArgb(218, 218, 28);
-            btn_cargar.AutoSize = true;
+            btn_cargar.Size = new Size(140, 30);
             btn_cargar.Height = 30;
-            btn_cargar.Text = "Registrarse";
+            btn_cargar.Text = "Cargar";
             btn_cargar.FlatStyle = FlatStyle.Flat;
             btn_cargar.FlatAppearance.BorderSize = 0;
             btn_cargar.Margin = new Padding(132, 10, 0, 0);
             btn_cargar.ForeColor = System.Drawing.Color.FromArgb(32, 32, 32);
             btn_cargar.Font = new Font("Nunito", 12, FontStyle.Bold);
 
-            //btn_login.BackColor = System.Drawing.Color.FromArgb(32, 32, 32);
-            //btn_login.Size = new Size(140, 30);
-            //btn_login.Text = "Iniciar sesión";
-            //btn_login.FlatStyle = FlatStyle.Flat;
-            //btn_login.FlatAppearance.BorderSize = 0;  // Grosor del borde
-            //btn_login.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(218, 218, 28); // Color del borde
-            //btn_login.Margin = new Padding(120, 10, 0, 0);
-            //btn_login.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
-            //btn_login.Font = new Font("Nunito", 12, FontStyle.Bold);
+            //btn_cargar.BackColor = System.Drawing.Color.FromArgb(32, 32, 32);
+            //btn_cargar.Size = new Size(140, 30);
+            //btn_cargar.Text = "Cargar";
+            //btn_cargar.FlatStyle = FlatStyle.Flat;
+            //btn_cargar.FlatAppearance.BorderSize = 0;  // Grosor del borde
+            //btn_cargar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(218, 218, 28); // Color del borde
+            //btn_cargar.Margin = new Padding(120, 10, 0, 0);
+            //btn_cargar.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
+            //btn_cargar.Font = new Font("Nunito", 12, FontStyle.Bold);
         }
         private void AddLabels()
         {
