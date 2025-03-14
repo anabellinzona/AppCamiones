@@ -1,12 +1,14 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.IO;
-using System;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace AppCamiones
 {
-    internal class Registro : Form
+    internal class FormRegistro : Form
     {
+        private string tipoRegistro;
 
         //CREACIÓN DE LA BARRA DE HERRAMIENTAS Y CADA ÍTEM
         private MenuStrip menuStrip = new MenuStrip();
@@ -18,7 +20,27 @@ namespace AppCamiones
         private ToolStripMenuItem userMenu = new ToolStripMenuItem();
         private ToolStripMenuItem closeSesion = new ToolStripMenuItem("Cerrar sesión");
 
-        //MENÚ DE OPCIONES
+        private RoundPanel form = new RoundPanel();
+
+        private FlowLayoutPanel flowLayoutForm = new FlowLayoutPanel();
+
+        private Label campo1 = new Label();
+        private Label campo2 = new Label();
+        private Label campo3 = new Label();
+        private Label campo4 = new Label();
+        private Label campo5 = new Label();
+        private Label campo6 = new Label();
+
+
+        //private TextBox textBoxCampo1 = new TextBox();
+        private TextBox textBoxCampo2 = new TextBox();
+        private TextBox textBoxCampo3 = new TextBox();
+        private TextBox textBoxCampo4 = new TextBox();
+        private TextBox textBoxCampo5 = new TextBox();
+        private TextBox textBoxCampo6 = new TextBox();
+
+        private RoundButton btn_cargar = new RoundButton();
+
         private RoundPanel optionsMenu = new RoundPanel();
         private FlowLayoutPanel layoutOptionsMenu = new FlowLayoutPanel();
 
@@ -28,13 +50,12 @@ namespace AppCamiones
         private Button btnCheque = new Button();
         private Button btnViaje = new Button();
 
-        public Registro()
+        public FormRegistro(string tipoRegistro)
         {
+            this.tipoRegistro = tipoRegistro;
             InitializeUI();
-            InitializeOptionsMenu();
-
-
-            this.StartPosition = FormStartPosition.CenterScreen;
+            CargaFormulario();
+            InitializarMenuTipoRegistro();
 
             btnViaje.MouseEnter += new EventHandler(hoverToBtnViaje_MouseEnter);
             btnViaje.MouseLeave += new EventHandler(hoverToBtnViaje_MouseLeave);
@@ -157,6 +178,14 @@ namespace AppCamiones
             InitializeIconoUser();
             InitializeToolBar();
         }
+        private void InitializarMenuTipoRegistro()
+        {
+            OptionsMenuProperties();
+            LayoutOptionsMenuProperties();
+            ButtonsProperties();
+            AddButtonsToPanel();
+            AddPanelToForm();
+        }
 
         private void InitializeBackImage()
         {
@@ -272,6 +301,8 @@ namespace AppCamiones
             registrosMenu.Font = new Font("Arial", 16, FontStyle.Underline);
         }
 
+
+
         private void ItemsColor()
         {
             //ASIGNA EL COLOR A LOS ÍTEMS
@@ -314,23 +345,198 @@ namespace AppCamiones
             this.Controls.Add(menuStrip);
         }
 
-        private void InitializeOptionsMenu()
+
+        private void CargaFormulario()
         {
-            OptionsMenuProperties();
-            LayoutOptionsMenuProperties();
-            ButtonsProperties();
-            AddButtonsToPanel();
-            AddPanelToForm();
+            //panelContenido.Controls.Clear(); // Limpia el contenido anterior
+
+            switch (tipoRegistro)
+            {
+                case "Chofer":
+                    CargarFormularioChofer(5);
+                    break;
+                case "Camion":
+                    CargarFormularioCamion(3);
+                    break;
+                case "Cheque":
+                    CargarFormularioCheque(9);
+                    break;
+                case "Viaje":
+                    CargarFormularioViaje(9);
+                    break;
+                case "Cliente":
+                    CargarFormularioCliente(9);
+                    break;
+            }
+        }
+        private void CargarFormularioChofer(int cant)
+        {
+            campo1.Text = "Nombre";
+            campo2.Text = "Apellido";
+            campo3.Text = "Teléfono";
+            campo4.Text = "Email";
+            campo5.Text = "DNI";
+            FormProperties(cant);
+            LayoutFormProperties();
+            LabelProperties(cant);
+            ButtonsPropertiesForm();
+            AddLabels();
+            AddForm();
+            btnChofer.Font = new Font("Nunito", 16, FontStyle.Underline);
+        }
+
+        private void CargarFormularioCamion(int cant)
+        {
+            campo1.Text = "Patente";
+            campo2.Text = "Modelo";
+            campo3.Text = "Chofer";
+            FormProperties(cant);
+            LayoutFormProperties();
+            LabelProperties(cant);
+            ButtonsPropertiesForm();
+            AddLabels();
+            AddForm();
+            btnCamion.Font = new Font("Nunito", 16, FontStyle.Underline);
+        }
+
+        private void CargarFormularioCheque(int cant)
+        {
+            campo1.Text = "Patente";
+            campo2.Text = "Modelo";
+            campo3.Text = "Chofer";
+            FormProperties(cant);
+            LayoutFormProperties();
+            LabelProperties(cant);
+            ButtonsPropertiesForm();
+            AddLabels();
+            AddForm();
+            btnCheque.Font = new Font("Nunito", 16, FontStyle.Underline);
+        }
+
+        private void CargarFormularioCliente(int cant)
+        {
+            campo1.Text = "Patente";
+            campo2.Text = "Modelo";
+            campo3.Text = "Chofer";
+            FormProperties(cant);
+            LayoutFormProperties();
+            LabelProperties(cant);
+            ButtonsPropertiesForm();
+            AddLabels();
+            AddForm();
+            btnCliente.Font = new Font("Nunito", 16, FontStyle.Underline);
+        }
+
+        private void CargarFormularioViaje(int cant)
+        {
+            campo1.Text = "Patente";
+            campo2.Text = "Modelo";
+            campo3.Text = "Chofer";
+            FormProperties(cant);
+            LayoutFormProperties();
+            LabelProperties(cant);
+            ButtonsPropertiesForm();
+            AddLabels();
+            AddForm();
+            btnViaje.Font = new Font("Nunito", 16, FontStyle.Underline);
+        }
+
+     
+        private void FormProperties(int cant)
+        {
+            form.Width = 400;
+            form.Height = cant * 120;
+            this.Resize += (s, e) =>
+            {
+                form.Location = new Point((this.Width - form.Width) / 2, 170);
+            };
+
+            form.BackColor = System.Drawing.Color.FromArgb(130, Color.Black);
+            if(form.Height > 1000)
+            {
+                form.AutoScroll = true;
+            }
+        }
+
+        private void LayoutFormProperties()
+        {
+            flowLayoutForm.Size = new Size(form.Width, form.Height);
+            flowLayoutForm.Location = new Point(0, 50);
+            flowLayoutForm.BackColor = Color.Transparent;
+            //form.AutoScroll = true;
+        }
+
+        private void LabelProperties(int cant)
+        {
+            for (int i = 0; i < cant; i++)
+            {
+
+                Label ll = new Label();
+                ll.Text = campo1.Text;
+                ll.Font = new Font("Nunito", 10, FontStyle.Regular);
+                ll.ForeColor = System.Drawing.Color.FromArgb(217, 217, 217);
+                ll.BackColor = Color.Transparent;
+                ll.Margin = new Padding(80, 10, 0, 0);
+                ll.AutoSize = true;
+
+                TextBox textBoxCampo1 = new TextBox();
+                textBoxCampo1.Text = "Name";
+                textBoxCampo1.Font = new Font("Nunito", 10, FontStyle.Regular);
+                textBoxCampo1.BackColor = System.Drawing.Color.FromArgb(153, 145, 145);
+                textBoxCampo1.Multiline = true;
+                textBoxCampo1.Width = 200;
+                textBoxCampo1.Height = 30;
+                textBoxCampo1.BorderStyle = BorderStyle.None;
+                textBoxCampo1.Margin = new Padding(90, 10, 0, 10);
+                textBoxCampo1.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
+                textBoxCampo1.TextAlign = HorizontalAlignment.Left;
+
+                flowLayoutForm.Controls.Add(ll);
+                flowLayoutForm.Controls.Add(textBoxCampo1);
+
+            }
+        }
+
+        private void ButtonsPropertiesForm()
+        {
+            btn_cargar.BackColor = System.Drawing.Color.FromArgb(218, 218, 28);
+            btn_cargar.AutoSize = true;
+            btn_cargar.Height = 30;
+            btn_cargar.Text = "Registrarse";
+            btn_cargar.FlatStyle = FlatStyle.Flat;
+            btn_cargar.FlatAppearance.BorderSize = 0;
+            btn_cargar.Margin = new Padding(132, 10, 0, 0);
+            btn_cargar.ForeColor = System.Drawing.Color.FromArgb(32, 32, 32);
+            btn_cargar.Font = new Font("Nunito", 12, FontStyle.Bold);
+
+            //btn_login.BackColor = System.Drawing.Color.FromArgb(32, 32, 32);
+            //btn_login.Size = new Size(140, 30);
+            //btn_login.Text = "Iniciar sesión";
+            //btn_login.FlatStyle = FlatStyle.Flat;
+            //btn_login.FlatAppearance.BorderSize = 0;  // Grosor del borde
+            //btn_login.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(218, 218, 28); // Color del borde
+            //btn_login.Margin = new Padding(120, 10, 0, 0);
+            //btn_login.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
+            //btn_login.Font = new Font("Nunito", 12, FontStyle.Bold);
+        }
+        private void AddLabels()
+        {
+            form.Controls.Add(flowLayoutForm);
+            flowLayoutForm.Controls.Add(btn_cargar);
+        }
+        private void AddForm()
+        {
+            this.Controls.Add(form);
         }
 
         private void OptionsMenuProperties()
         {
-            optionsMenu.Size = new Size(300, 400);
+            optionsMenu.Size = new Size(800, 60);
             this.Resize += (s, e) =>
             {
-                optionsMenu.Location = new Point((this.Width - optionsMenu.Width) / 2, (this.Height - optionsMenu.Height) / 2);
+                optionsMenu.Location = new Point((this.Width - optionsMenu.Width) / 2, 100);
             };
-            optionsMenu.BackColor = System.Drawing.Color.FromArgb(100, Color.Black);
+            optionsMenu.BackColor = System.Drawing.Color.FromArgb(64, 64, 64);
             optionsMenu.BorderStyle = BorderStyle.FixedSingle;
         }
 
@@ -339,11 +545,12 @@ namespace AppCamiones
             layoutOptionsMenu.AutoSize = true;
             layoutOptionsMenu.Width = btnCheque.Width;
             layoutOptionsMenu.BackColor = Color.Transparent;
-            layoutOptionsMenu.FlowDirection = FlowDirection.TopDown;
+            layoutOptionsMenu.FlowDirection = FlowDirection.LeftToRight;
             optionsMenu.Resize += (s, e) =>
             {
                 layoutOptionsMenu.Location = new Point((optionsMenu.Width - layoutOptionsMenu.Width) / 2, (optionsMenu.Height - layoutOptionsMenu.Height) / 2);
             };
+
         }
 
         private void ButtonsProperties()
@@ -358,7 +565,9 @@ namespace AppCamiones
             btnChofer.FlatAppearance.MouseDownBackColor = Color.Transparent;
             btnChofer.FlatAppearance.MouseOverBackColor = Color.Transparent;
             btnChofer.Text = btnChofer.Text.ToUpper();
-            btnChofer.TextAlign = ContentAlignment.MiddleLeft;
+            btnChofer.Margin = new Padding(0, 20, 0, 0);
+            btnChofer.TextAlign = ContentAlignment.MiddleCenter;
+
 
             btnCamion.Text = "camión";
             btnCamion.Size = new Size(150, 50);
@@ -370,7 +579,8 @@ namespace AppCamiones
             btnCamion.FlatAppearance.MouseDownBackColor = Color.Transparent;
             btnCamion.FlatAppearance.MouseOverBackColor = Color.Transparent;
             btnCamion.Text = btnCamion.Text.ToUpper();
-            btnCamion.TextAlign = ContentAlignment.MiddleLeft;
+            btnCamion.TextAlign = ContentAlignment.MiddleCenter;
+            btnCamion.Margin = new Padding(0, 20, 0, 0);
 
             btnCliente.Text = "cliente";
             btnCliente.Size = new Size(150, 50);
@@ -382,7 +592,8 @@ namespace AppCamiones
             btnCliente.FlatAppearance.MouseDownBackColor = Color.Transparent;
             btnCliente.FlatAppearance.MouseOverBackColor = Color.Transparent;
             btnCliente.Text = btnCliente.Text.ToUpper();
-            btnCliente.TextAlign = ContentAlignment.MiddleLeft;
+            btnCliente.TextAlign = ContentAlignment.MiddleCenter;
+            btnCliente.Margin = new Padding(0, 20, 0, 0);
 
             btnCheque.Text = "cheque";
             btnCheque.Size = new Size(150, 50);
@@ -394,7 +605,8 @@ namespace AppCamiones
             btnCheque.FlatAppearance.MouseDownBackColor = Color.Transparent;
             btnCheque.FlatAppearance.MouseOverBackColor = Color.Transparent;
             btnCheque.Text = btnCheque.Text.ToUpper();
-            btnCheque.TextAlign = ContentAlignment.MiddleLeft;
+            btnCheque.TextAlign = ContentAlignment.MiddleCenter;
+            btnCheque.Margin = new Padding(0, 20, 0, 0);
 
             btnViaje.Text = "viaje";
             btnViaje.Size = new Size(150, 50);
@@ -406,7 +618,8 @@ namespace AppCamiones
             btnViaje.FlatAppearance.MouseDownBackColor = Color.Transparent;
             btnViaje.FlatAppearance.MouseOverBackColor = Color.Transparent;
             btnViaje.Text = btnViaje.Text.ToUpper();
-            btnViaje.TextAlign = ContentAlignment.MiddleLeft;
+            btnViaje.TextAlign = ContentAlignment.MiddleCenter;
+            btnViaje.Margin = new Padding(0, 20, 0, 0);
 
         }
 
@@ -424,5 +637,7 @@ namespace AppCamiones
             layoutOptionsMenu.Controls.Add(btnCliente);
             layoutOptionsMenu.Controls.Add(btnCheque);
         }
+
+
     }
 }
