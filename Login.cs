@@ -9,7 +9,7 @@ namespace AppCamiones
     internal class Login : Form
     {       
         //DECLARACIÓN DEL FORM
-        private RoundPanel form = new RoundPanel();
+        private NewRoundPanel form = new NewRoundPanel();
 
         private FlowLayoutPanel flowLayoutForm = new FlowLayoutPanel();
 
@@ -30,6 +30,9 @@ namespace AppCamiones
         public Login()
         {
             InitializeUI();
+
+            //HACE QUE SE ABRA EN PANTALLA COMPLETA
+            this.WindowState = FormWindowState.Maximized;
             btn_login.Click += new EventHandler(LoginUser_Click);
             btn_register.Click += new EventHandler(RegisterUser_Click);
 

@@ -19,7 +19,7 @@ namespace AppCamiones
         private Login login = new Login();
 
         //DECLARACIÓN DEL FORM
-        private RoundPanel form = new RoundPanel();
+        private NewRoundPanel form = new NewRoundPanel();
 
         private FlowLayoutPanel flowLayoutForm = new FlowLayoutPanel();
 
@@ -44,6 +44,8 @@ namespace AppCamiones
         public Class1()
         {
             InitializeUI();
+            //HACE QUE SE ABRA EL FORMULARIO EN PANTALLA COMPLETA
+            this.WindowState = FormWindowState.Maximized;
             btn_registrer.Click += new EventHandler(RegistrerUser_Click);
             btn_login.Click += new EventHandler(LoginUser_Click);
 
@@ -431,95 +433,43 @@ namespace AppCamiones
         }
     }
 
-    public class RoundButton : Button
-    {
-        public RoundButton()
-        {
-        }
 
-        protected override void OnPaint(PaintEventArgs pevent)
-        {
-            base.OnPaint(pevent);
 
-            GraphicsPath path = new GraphicsPath();
+    //public class RoundPanel : Panel
+    //{
+    //    private int cornerRadius = 40;
 
-            path.AddArc(0, 0, 10, 10, 180, 90); // Esquina superior izquierda
-            path.AddArc(this.Width - 10, 0, 10, 20, 270, 90); // Esquina superior derecha
-            path.AddArc(this.Width - 10, this.Height - 10, 10, 10, 0, 90); // Esquina inferior derecha
-            path.AddArc(0, this.Height - 10, 20, 10, 90, 90); // Esquina inferior izquierda
+    //    public RoundPanel()
+    //    {
+    //        this.SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
+    //        this.DoubleBuffered = true;
+    //    }
 
-            path.CloseAllFigures();
+    //    protected override void OnPaint(PaintEventArgs e)
+    //    {
+    //        base.OnPaint(e);
 
-            this.Region = new Region(path);
-        }
-    }
+    //        GraphicsPath path = new GraphicsPath();
+    //        path.AddArc(0, 0, cornerRadius, cornerRadius, 180, 90); // Esquina superior izquierda
+    //        path.AddArc(this.Width - cornerRadius - 1, 0, cornerRadius, cornerRadius, 270, 90); // Esquina superior derecha
+    //        path.AddArc(this.Width - cornerRadius - 1, this.Height - cornerRadius - 1, cornerRadius, cornerRadius, 0, 90); // Esquina inferior derecha
+    //        path.AddArc(0, this.Height - cornerRadius - 1, cornerRadius, cornerRadius, 90, 90); // Esquina inferior izquierda
+    //        path.CloseFigure();
 
-    public class RoundTextBox : TextBox
-    {
-        private int cornerRadius = 20;
+    //        this.Region = new Region(path);
 
-        public RoundTextBox()
-        {
-            this.SetStyle(ControlStyles.UserPaint, true);
-            this.BorderStyle = BorderStyle.None;
-        }
+    //        using (Brush brush = new SolidBrush(this.BackColor))
+    //        {
+    //            e.Graphics.FillPath(brush, path);
+    //        }
 
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            base.OnPaint(e);
+    //        base.OnPaint(e);
+    //    }
 
-            Graphics g = e.Graphics;
-
-            GraphicsPath path = new GraphicsPath();
-            path.AddArc(0, 0, cornerRadius, cornerRadius, 180, 90); // Esquina superior izquierda
-            path.AddArc(this.Width - cornerRadius - 1, 0, cornerRadius, cornerRadius, 270, 90); // Esquina superior derecha
-            path.AddArc(this.Width - cornerRadius - 1, this.Height - cornerRadius - 1, cornerRadius, cornerRadius, 0, 90); // Esquina inferior derecha
-            path.AddArc(0, this.Height - cornerRadius - 1, cornerRadius, cornerRadius, 90, 90); // Esquina inferior izquierda
-            path.CloseFigure();
-
-            this.Region = new Region(path);
-
-            g.FillPath(new SolidBrush(this.BackColor), path);
-
-            TextRenderer.DrawText(g, this.Text, this.Font, this.ClientRectangle, this.ForeColor, TextFormatFlags.Top | TextFormatFlags.Left);
-        }
-    }
-
-    public class RoundPanel : Panel
-    {
-        private int cornerRadius = 40;
-
-        public RoundPanel()
-        {
-            this.SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
-            this.DoubleBuffered = true;
-        }
-
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            base.OnPaint(e);
-
-            GraphicsPath path = new GraphicsPath();
-            path.AddArc(0, 0, cornerRadius, cornerRadius, 180, 90); // Esquina superior izquierda
-            path.AddArc(this.Width - cornerRadius - 1, 0, cornerRadius, cornerRadius, 270, 90); // Esquina superior derecha
-            path.AddArc(this.Width - cornerRadius - 1, this.Height - cornerRadius - 1, cornerRadius, cornerRadius, 0, 90); // Esquina inferior derecha
-            path.AddArc(0, this.Height - cornerRadius - 1, cornerRadius, cornerRadius, 90, 90); // Esquina inferior izquierda
-            path.CloseFigure();
-
-            this.Region = new Region(path);
-
-            using (Brush brush = new SolidBrush(this.BackColor))
-            {
-                e.Graphics.FillPath(brush, path);
-            }
-
-            base.OnPaint(e);
-        }
-
-        public int CornerRadius
-        {
-            get { return cornerRadius; }
-            set { cornerRadius = value; Invalidate(); }
-        }
-    }
+    //    public int CornerRadius
+    //    {
+    //        get { return cornerRadius; }
+    //        set { cornerRadius = value; Invalidate(); }
+    //    }
+    //}
 }

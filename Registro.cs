@@ -7,6 +7,10 @@ namespace AppCamiones
 {
     internal class Registro : Form
     {
+        //private Login formUser = new Login();
+        //private Cheque tablaCheque = new Cheque();
+        //private Viaje viaje = new Viaje();
+        //private Form1 home = new Form1();
 
         //CREACIÓN DE LA BARRA DE HERRAMIENTAS Y CADA ÍTEM
         private MenuStrip menuStrip = new MenuStrip();
@@ -19,7 +23,7 @@ namespace AppCamiones
         private ToolStripMenuItem closeSesion = new ToolStripMenuItem("Cerrar sesión");
 
         //MENÚ DE OPCIONES
-        private RoundPanel optionsMenu = new RoundPanel();
+        private NewRoundPanel optionsMenu = new NewRoundPanel();
         private FlowLayoutPanel layoutOptionsMenu = new FlowLayoutPanel();
 
         private Button btnCamion = new Button();
@@ -32,8 +36,11 @@ namespace AppCamiones
         {
             InitializeUI();
             InitializeOptionsMenu();
+            //HACE QUE SE ABRA EN PANTALLA COMPLETA
+            this.WindowState = FormWindowState.Maximized;
 
-
+            Login formUser = new Login();
+            
             this.StartPosition = FormStartPosition.CenterScreen;
 
             btnViaje.MouseEnter += new EventHandler(hoverToBtnViaje_MouseEnter);
@@ -56,8 +63,35 @@ namespace AppCamiones
             btnCliente.Click += new EventHandler(GoToFormCliente);
             btnCheque.Click += new EventHandler(GoToFormCheque);
             btnCamion.Click += new EventHandler(GoToFormCamion);
+
+            closeSesion.Click += new EventHandler(GoToFormUser_Click);
+            chequesMenu.Click += new EventHandler(GoToCheque_Click);
+            //viajesMenu.Click += new EventHandler(GoToViaje_Click);
+            homeMenu.Click += new EventHandler(GoToHome_Click);
         }
 
+        private void GoToCheque_Click(object sender, EventArgs e)
+        {
+   
+            Cheque tablaCheque = new Cheque();
+            tablaCheque.ShowDialog();
+        }
+
+        private void GoToFormUser_Click(object sender, EventArgs e)
+        {
+            Login formUser = new Login();
+        
+            formUser.ShowDialog();
+        }
+
+        private void GoToHome_Click(object sender, EventArgs e)
+        {
+            Form1 home = new Form1();
+            home.Show();
+            //this.Close();
+        }
+
+        //ABRIR FORMULARIO SEGÚN TIPO DE REGISTRO
         private void GoToFormViaje(object sender, EventArgs e)
         {
             AbrirFormulario("Viaje");

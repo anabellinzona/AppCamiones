@@ -20,7 +20,7 @@ namespace AppCamiones
         private ToolStripMenuItem userMenu = new ToolStripMenuItem();
         private ToolStripMenuItem closeSesion = new ToolStripMenuItem("Cerrar sesión");
 
-        private RoundPanel form = new RoundPanel();
+        private NewRoundPanel form = new NewRoundPanel();
 
         private FlowLayoutPanel flowLayoutForm = new FlowLayoutPanel();
 
@@ -41,7 +41,7 @@ namespace AppCamiones
 
         private RoundButton btn_cargar = new RoundButton();
 
-        private RoundPanel optionsMenu = new RoundPanel();
+        private NewRoundPanel optionsMenu = new NewRoundPanel();
         private FlowLayoutPanel layoutOptionsMenu = new FlowLayoutPanel();
 
         private Button btnCamion = new Button();
@@ -53,6 +53,9 @@ namespace AppCamiones
         public FormRegistro(string tipoRegistro)
         {
             this.tipoRegistro = tipoRegistro;
+
+            //HACE QUE SE ABRA EN PANTALLA COMPLETA
+            this.WindowState = FormWindowState.Maximized;
             InitializeUI();
             CargaFormulario();
             InitializarMenuTipoRegistro();
@@ -72,11 +75,38 @@ namespace AppCamiones
             btnCamion.MouseEnter += new EventHandler(hoverToBtnCamion_MouseEnter);
             btnCamion.MouseLeave += new EventHandler(hoverToBtnCamion_MouseLeave);
 
+            //EVENTOS A LOS BOTONES
             btnViaje.Click += new EventHandler(GoToFormViaje);
             btnChofer.Click += new EventHandler(GoToFormChofer);
             btnCliente.Click += new EventHandler(GoToFormCliente);
             btnCheque.Click += new EventHandler(GoToFormCheque);
             btnCamion.Click += new EventHandler(GoToFormCamion);
+
+            //EVENTOS A LAS HERRAMIENTAS DE LA BARRA
+            closeSesion.Click += new EventHandler(GoToFormUser_Click);
+            chequesMenu.Click += new EventHandler(GoToCheque_Click);
+            //viajesMenu.Click += new EventHandler(GoToViaje_Click);
+            homeMenu.Click += new EventHandler(GoToHome_Click);
+        }
+
+        private void GoToCheque_Click(object sender, EventArgs e)
+        {
+
+            Cheque tablaCheque = new Cheque();
+            tablaCheque.ShowDialog();
+        }
+
+        private void GoToFormUser_Click(object sender, EventArgs e)
+        {
+            Login formUser = new Login();
+
+            formUser.ShowDialog();
+        }
+
+        private void GoToHome_Click(object sender, EventArgs e)
+        {
+            Form1 home = new Form1();
+            home.ShowDialog();
         }
 
         private void GoToFormViaje(object sender, EventArgs e)
@@ -448,13 +478,17 @@ namespace AppCamiones
             form.Height = cant * 120;
             this.Resize += (s, e) =>
             {
-                form.Location = new Point((this.Width - form.Width) / 2, 170);
+                form.Location = new Point((this.Width - form.Width) / 2, 250);
             };
 
             form.BackColor = System.Drawing.Color.FromArgb(130, Color.Black);
             if(form.Height > 1000)
             {
                 form.AutoScroll = true;
+                this.Resize += (s, e) =>
+                {
+                    form.Location = new Point((this.Width - form.Width) / 2, 170);
+                };
             }
         }
 
@@ -473,6 +507,7 @@ namespace AppCamiones
 
                 Label ll = new Label();
                 ll.Text = campo1.Text;
+
                 ll.Font = new Font("Nunito", 10, FontStyle.Regular);
                 ll.ForeColor = System.Drawing.Color.FromArgb(217, 217, 217);
                 ll.BackColor = Color.Transparent;

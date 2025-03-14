@@ -48,6 +48,8 @@ namespace AppCamiones
         { 
             InitializeComponent();
             InitializeUI();
+            //HACE QUE SE ABRA EL FORMULARIO EN PANTALLA COMPLETA
+            this.WindowState = FormWindowState.Maximized;
             closeSesion.Click += new EventHandler(GoToFormUser_Click);
             chequesMenu.Click += new EventHandler(GoToCheque_Click);
             viajesMenu.Click += new EventHandler(GoToViaje_Click);
