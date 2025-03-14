@@ -48,19 +48,12 @@ namespace AppCamiones
             InitializeUI();
             closeSesion.Click += new EventHandler(GoToFormUser_Click);
             chequesMenu.Click += new EventHandler(GoToCheque_Click);
-            viajesMenu.Click += new EventHandler(GoToViaje_Click);
         }
 
         private void GoToCheque_Click(object sender, EventArgs e)
         {
             Cheque cc = new Cheque();
             cc.Show();
-        }
-
-        private void GoToViaje_Click(object sender, EventArgs e)
-        {
-            Viajes vv = new Viajes();
-            vv.Show();
         }
 
         private void GoToFormUser_Click(object sender, EventArgs e)
