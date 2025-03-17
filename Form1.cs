@@ -13,11 +13,8 @@ using System.Xml.Linq;
 
 namespace AppCamiones
 {
-    public partial class Form1: Form
+    public partial class Form1 : Form
     {
-        private Login formUser = new Login();
-        private Registro formRegistro = new Registro();
-
         //CREACIÓN DE LA BARRA DE HERRAMIENTAS Y CADA ÍTEM
         private MenuStrip menuStrip = new MenuStrip();
 
@@ -45,7 +42,7 @@ namespace AppCamiones
         private FlowLayoutPanel layoutPay = new FlowLayoutPanel();
 
         public Form1()
-        { 
+        {
             InitializeComponent();
             InitializeUI();
             //HACE QUE SE ABRA EL FORMULARIO EN PANTALLA COMPLETA
@@ -58,29 +55,26 @@ namespace AppCamiones
 
         private void GoToCheque_Click(object sender, EventArgs e)
         {
-            Cheque cc = new Cheque();
-            cc.Show();
+            Cheque cheque = new Cheque();
+            cheque.Show();
         }
 
         private void GoToViaje_Click(object sender, EventArgs e)
         {
-            Viaje vv = new Viaje();
-            vv.Show();
+            Viaje viaje = new Viaje();
+            viaje.Show();
         }
 
         private void GoToRegistro_Click(object sender, EventArgs e)
         {
+            Registro formRegistro = new Registro();
             formRegistro.Show();
         }
 
         private void GoToFormUser_Click(object sender, EventArgs e)
         {
+            Login formUser = new Login();
             formUser.ShowDialog();
-        }
-
-        private void GoToRegisterForm_Click(object sender, EventArgs e)
-        {
-            formRegistro.ShowDialog();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -152,7 +146,7 @@ namespace AppCamiones
             {
                 //LE ASIGNA EL ICONO A LA APLICACIÓN
                 this.Icon = new Icon(iconoApp);
-            } 
+            }
             else
             {
                 //TIRA EXCEPCIÓN
@@ -211,7 +205,7 @@ namespace AppCamiones
             homeMenu.Font = new Font("Arial", 16, FontStyle.Underline);
         }
 
-        
+
 
         private void ItemsColor()
         {
@@ -369,7 +363,7 @@ namespace AppCamiones
             travel_title.BackColor = Color.Transparent;
             travel_title.TextAlign = ContentAlignment.TopCenter;
             travel_title.AutoSize = false;
-            travel_title.Width = layoutTableTravelToday.Width; 
+            travel_title.Width = layoutTableTravelToday.Width;
             //-------------------------------------------------------------------------
             travel_title2.Text = "viajes próximos:";
             travel_title2.Font = new Font("Arial", 14, FontStyle.Regular);
@@ -378,7 +372,7 @@ namespace AppCamiones
             travel_title2.BackColor = Color.Transparent;
             travel_title2.TextAlign = ContentAlignment.TopCenter;
             travel_title2.AutoSize = false;
-            travel_title2.Width = layoutTableTravelNext.Width; 
+            travel_title2.Width = layoutTableTravelNext.Width;
         }
 
         private void AddTravelToday()
@@ -413,7 +407,7 @@ namespace AppCamiones
                 {
                     travel.Margin = new Padding(60, 10, 0, 0);
                 }
-                    TravelProperties(travel);
+                TravelProperties(travel);
                 layoutTravelNext.Controls.Add(travel);
                 travel.ForeColor = System.Drawing.Color.FromArgb(141, 138, 138);
             }
@@ -440,7 +434,7 @@ namespace AppCamiones
 
         //TABLA DE PAGOS
         private void TablePay()
-        { 
+        {
             TablePayProperties();
             LayoutTablePayProperties();
             TravelPayTitleProperties();
@@ -467,7 +461,7 @@ namespace AppCamiones
             layoutTablePay.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             layoutTablePay.FlowDirection = FlowDirection.TopDown; // Crece hacia abajo
             layoutTablePay.WrapContents = true; // Evita que los elementos pasen a otra línea
-           
+
         }
 
         private void LayoutPayProperties()
@@ -527,7 +521,7 @@ namespace AppCamiones
             table_pay.Controls.Add(layoutTablePay);
             layoutTablePay.Controls.Add(pay_title);
             layoutTablePay.Controls.Add(layoutPay);
-            
+
         }
         // AGREGAR TABLAS
 

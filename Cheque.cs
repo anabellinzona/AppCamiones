@@ -47,20 +47,21 @@ namespace AppCamiones
 
             Registro formRegistro = new Registro();
             formRegistro.ShowDialog();
+            this.Close();
         }
 
         private void GoToFormUser_Click(object sender, EventArgs e)
         {
             Login formUser = new Login();
-
             formUser.ShowDialog();
+            this.Close();
         }
 
         private void GoToHome_Click(object sender, EventArgs e)
         {
             Form1 home = new Form1();
             home.Show();
-            //this.Close();
+            this.Close();
         }
 
 

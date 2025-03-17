@@ -3,6 +3,8 @@ using System.IO;
 using System;
 using System.Windows.Forms;
 using Microsoft.Win32;
+using System.Collections;
+using System.Reflection.Emit;
 
 namespace AppCamiones
 {
@@ -13,9 +15,8 @@ namespace AppCamiones
 
         private FlowLayoutPanel flowLayoutForm = new FlowLayoutPanel();
 
-        private Label nombre_usuario = new Label();
-        private Label contraseña = new Label();
-        private Label pregunta = new Label();
+
+        private System.Windows.Forms.Label pregunta = new System.Windows.Forms.Label();
 
         private TextBox textBoxNombreUsuario = new TextBox();
         private TextBox textBoxContraseña = new TextBox();
@@ -23,6 +24,7 @@ namespace AppCamiones
         private RoundButton btn_login = new RoundButton();
         private RoundButton btn_register = new RoundButton();
 
+        private ArrayList campos_Login = new ArrayList();
         private String campo1 = "Username";
         private String campo2 = "Password";
 
@@ -186,8 +188,7 @@ namespace AppCamiones
         {
             FormProperties();
             LayoutFormProperties();
-            LabelProperties();
-            TextBoxProperties();
+            TextBoxAndLabelProperties();
             ButtonsProperties();
             AddLabels();
             AddForm();
@@ -213,21 +214,42 @@ namespace AppCamiones
 
         }
 
-        private void LabelProperties()
+        private void TextBoxAndLabelProperties()
         {
-            nombre_usuario.Text = campo1 + ":";
-            nombre_usuario.Font = new Font("Nunito", 10, FontStyle.Regular);
-            nombre_usuario.ForeColor = System.Drawing.Color.FromArgb(217, 217, 217);
-            nombre_usuario.BackColor = Color.Transparent;
-            nombre_usuario.Margin = new Padding(80, 10, 0, 0);
-            nombre_usuario.AutoSize = true;
+            campos_Login.Add(campo1);
+            campos_Login.Add(campo2);
+            int j = 0;
 
-            contraseña.Text = campo2 + ":";
-            contraseña.Font = new Font("Nunito", 10, FontStyle.Regular);
-            contraseña.ForeColor = System.Drawing.Color.FromArgb(217, 217, 217);
-            contraseña.BackColor = Color.Transparent;
-            contraseña.Margin = new Padding(80, 10, 0, 0);
-            contraseña.AutoSize = true;
+            for (int i = 0; i < campos_Login.Count; i++)
+            {
+                System.Windows.Forms.Label campos = new System.Windows.Forms.Label();
+                TextBox textBoxCampos = new TextBox();
+
+                if (j < campos_Login.Count)
+                {
+                    campos.Text = campos_Login[j].ToString();
+                    textBoxCampos.Text = campos_Login[j].ToString();
+                    j++;
+                }
+                campos.Font = new Font("Nunito", 10, FontStyle.Regular);
+                campos.ForeColor = System.Drawing.Color.FromArgb(217, 217, 217);
+                campos.BackColor = Color.Transparent;
+                campos.Margin = new Padding(80, 10, 0, 0);
+                campos.AutoSize = true;
+
+                textBoxCampos.Font = new Font("Nunito", 10, FontStyle.Regular);
+                textBoxCampos.BackColor = System.Drawing.Color.FromArgb(153, 145, 145);
+                textBoxCampos.Multiline = true;
+                textBoxCampos.Width = 200;
+                textBoxCampos.Height = 30;
+                textBoxCampos.BorderStyle = BorderStyle.None;
+                textBoxCampos.Margin = new Padding(90, 10, 0, 10);
+                textBoxCampos.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
+
+
+                flowLayoutForm.Controls.Add(campos);
+                flowLayoutForm.Controls.Add(textBoxCampos);
+            }
 
             pregunta.ForeColor = System.Drawing.Color.FromArgb(217, 217, 217);
             pregunta.Text = "¿No tienes una cuenta?";
@@ -235,29 +257,6 @@ namespace AppCamiones
             pregunta.AutoSize = true;
             pregunta.TextAlign = ContentAlignment.TopCenter;
             pregunta.Margin = new Padding(113, 50, 0, 0); 
-        }
-
-        private void TextBoxProperties()
-        {
-            textBoxContraseña.Text = "Password";
-            textBoxContraseña.Font = new Font("Nunito", 10, FontStyle.Regular);
-            textBoxContraseña.BackColor = System.Drawing.Color.FromArgb(153, 145, 145);
-            textBoxContraseña.Multiline = true;
-            textBoxContraseña.Width = 200;
-            textBoxContraseña.Height = 30;
-            textBoxContraseña.BorderStyle = BorderStyle.None;
-            textBoxContraseña.Margin = new Padding(90, 10, 0, 10);
-            textBoxContraseña.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
-
-            textBoxNombreUsuario.Text = "Username";
-            textBoxNombreUsuario.Font = new Font("Nunito", 10, FontStyle.Regular);
-            textBoxNombreUsuario.BackColor = System.Drawing.Color.FromArgb(153, 145, 145);
-            textBoxNombreUsuario.Multiline = true;
-            textBoxNombreUsuario.Width = 200;
-            textBoxNombreUsuario.Height = 30;
-            textBoxNombreUsuario.BorderStyle = BorderStyle.None;
-            textBoxNombreUsuario.Margin = new Padding(90, 10, 0, 10);
-            textBoxNombreUsuario.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
         }
 
         private void ButtonsProperties()
@@ -285,10 +284,6 @@ namespace AppCamiones
         private void AddLabels()
         {
             form.Controls.Add(flowLayoutForm);
-            flowLayoutForm.Controls.Add(nombre_usuario);
-            flowLayoutForm.Controls.Add(textBoxNombreUsuario);
-            flowLayoutForm.Controls.Add(contraseña);
-            flowLayoutForm.Controls.Add(textBoxContraseña);
             flowLayoutForm.Controls.Add(btn_login);
             flowLayoutForm.Controls.Add(pregunta);
             flowLayoutForm.Controls.Add(btn_register);   

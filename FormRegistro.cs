@@ -61,7 +61,7 @@ namespace AppCamiones
             //HACE QUE SE ABRA EN PANTALLA COMPLETA
             this.WindowState = FormWindowState.Maximized;
             InitializeUI();
-            CargaFormulario();
+            CargaFormulario(tipoRegistro);
             InitializarMenuTipoRegistro();
 
             btnViaje.MouseEnter += new EventHandler(hoverToBtnViaje_MouseEnter);
@@ -98,19 +98,21 @@ namespace AppCamiones
 
             Cheque tablaCheque = new Cheque();
             tablaCheque.ShowDialog();
+            this.Close();
         }
 
         private void GoToFormUser_Click(object sender, EventArgs e)
         {
             Login formUser = new Login();
-
             formUser.ShowDialog();
+            this.Close();
         }
 
         private void GoToHome_Click(object sender, EventArgs e)
         {
             Form1 home = new Form1();
             home.ShowDialog();
+            this.Close();
         }
 
         private void GoToFormViaje_Click(object sender, EventArgs e)
@@ -380,7 +382,7 @@ namespace AppCamiones
         }
 
 
-        private void CargaFormulario()
+        private void CargaFormulario(string tipoRegistro)
         {
             switch (tipoRegistro)
             {
@@ -450,7 +452,9 @@ namespace AppCamiones
             campo4 = "Fecha de cobro";
             campo5 = "Pesos";
             campo6 = "Nombre";
-            campo7 = "Nro a cheque";
+            campo7 = "Mi cheque N°";
+            campo8 = "Entregado a";
+            campo9 = "...";
 
             array.Clear();
             array.Add(campo1);
@@ -504,6 +508,7 @@ namespace AppCamiones
 
         private void CargarFormularioViaje(int cant)
         {
+         
             campo1 = "Patente";
             campo2 = "Modelo";
             campo3 = "Chofer";
@@ -520,36 +525,33 @@ namespace AppCamiones
             AddLabels();
         }
 
-     
         private void FormProperties(int cant)
         {
             form.Width = 400;
-            form.Height = cant * 120;
+            form.Height = cant * 115;
             this.Resize += (s, e) =>
             {
                 form.Location = new Point((this.Width - form.Width) / 2, 200);
             };
 
             form.BackColor = System.Drawing.Color.FromArgb(130, Color.Black);
+
             if (form.Height > 1000)
             {
                 form.AutoScroll = true;
-                this.Resize += (s, e) =>
-                {
-                    form.Location = new Point((this.Width - form.Width) / 2, 170);
-                };
             }
         }
 
         private void LayoutFormProperties()
         {
-            flowLayoutForm.Size = new Size(form.Width, form.Height);
-            flowLayoutForm.Location = new Point(0, 50);
+            flowLayoutForm.Size = new Size(form.Width, form.Height + (form.Width / 2));
+            flowLayoutForm.Location = new Point(0, 40);
             flowLayoutForm.BackColor = Color.Transparent;
+            flowLayoutForm.FlowDirection = FlowDirection.TopDown;
         }
 
         private void LabelProperties(int cant)
-        {
+        {        
             int j = 0;
 
             for (int i = 0; i < cant; i++)
@@ -561,9 +563,6 @@ namespace AppCamiones
                     label.Text = array[j].ToString();
                     textBoxCampo1.Text = array[j].ToString();
                     j++;
-                    tt = textBoxCampo1;
-                    textBoxCampo1.Leave += new EventHandler(TextBox_Leave);
-                    textBoxCampo1.Click += new EventHandler(TextBox_Click);
                 }
 
                 label.Font = new Font("Nunito", 10, FontStyle.Regular);
@@ -587,23 +586,23 @@ namespace AppCamiones
             }
         }
 
-        private void TextBox_Leave(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(tt.Text))
-            {
-                tt.Text = "Nombre";
-                tt.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77); // Cambia el color del texto placeholder
-            }
-        }
+        //private void TextBox_Leave(object sender, EventArgs e)
+        //{
+        //    if (string.IsNullOrWhiteSpace(tt.Text))
+        //    {
+        //        tt.Text = "Nombre";
+        //        tt.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77); // Cambia el color del texto placeholder
+        //    }
+        //}
 
-        private void TextBox_Click(object sender, EventArgs e)
-        {
-            if (tt.Text == "Nombre")
-            {
-                tt.Text = "";
-                tt.ForeColor = Color.Black; // Cambia el color del texto
-            }
-        }
+        //private void TextBox_Click(object sender, EventArgs e)
+        //{
+        //    if (tt.Text == "Nombre")
+        //    {
+        //        tt.Text = "";
+        //        tt.ForeColor = Color.Black; // Cambia el color del texto
+        //    }
+        //}
 
         private void ButtonsPropertiesForm()
         {
@@ -648,7 +647,6 @@ namespace AppCamiones
             {
                 layoutOptionsMenu.Location = new Point((optionsMenu.Width - layoutOptionsMenu.Width) / 2, (optionsMenu.Height - layoutOptionsMenu.Height) / 2);
             };
-
         }
 
         private void ButtonsProperties()
@@ -663,7 +661,7 @@ namespace AppCamiones
 
             nombreBotonesRegistro.Add("Chofer");
             nombreBotonesRegistro.Add("Viaje");
-            nombreBotonesRegistro.Add("Camion");
+            nombreBotonesRegistro.Add("Camión");
             nombreBotonesRegistro.Add("Cliente");
             nombreBotonesRegistro.Add("Cheque");
             for (int i = 0; i < botonesRegistro.Count; i++)

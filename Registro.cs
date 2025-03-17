@@ -71,23 +71,23 @@ namespace AppCamiones
 
         private void GoToCheque_Click(object sender, EventArgs e)
         {
-   
             Cheque tablaCheque = new Cheque();
             tablaCheque.ShowDialog();
+            this.Close();
         }
 
         private void GoToFormUser_Click(object sender, EventArgs e)
         {
             Login formUser = new Login();
-        
             formUser.ShowDialog();
+            this.Close();
         }
 
         private void GoToHome_Click(object sender, EventArgs e)
         {
             Form1 home = new Form1();
             home.Show();
-            //this.Close();
+            this.Close();
         }
 
         //ABRIR FORMULARIO SEGÚN TIPO DE REGISTRO
@@ -391,7 +391,7 @@ namespace AppCamiones
 
             nombreBotonesRegistro.Add("Chofer");
             nombreBotonesRegistro.Add("Viaje");
-            nombreBotonesRegistro.Add("Camion");
+            nombreBotonesRegistro.Add("Camión");
             nombreBotonesRegistro.Add("Cliente");
             nombreBotonesRegistro.Add("Cheque");
             for (int i = 0; i < botonesRegistro.Count; i++)
