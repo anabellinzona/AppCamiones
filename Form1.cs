@@ -205,8 +205,6 @@ namespace AppCamiones
             homeMenu.Font = new Font("Arial", 16, FontStyle.Underline);
         }
 
-
-
         private void ItemsColor()
         {
             //ASIGNA EL COLOR A LOS ÍTEMS

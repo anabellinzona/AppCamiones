@@ -418,12 +418,7 @@ namespace AppCamiones
             array.Add(campo4);
             array.Add(campo5);
 
-            FormProperties(cant);
-            LayoutFormProperties();
-            LabelProperties(cant);
-            ButtonsPropertiesForm();
-            AddLabels();
-            AddForm();
+            PropertiesFormRegisterInformation(cant);
         }
 
         private void CargarFormularioCamion(int cant)
@@ -436,12 +431,8 @@ namespace AppCamiones
             array.Add(campo1);
             array.Add(campo2);
             array.Add(campo3);
-            FormProperties(cant);
-            LayoutFormProperties();
-            LabelProperties(cant);
-            ButtonsPropertiesForm();
-            AddLabels();
-            AddForm();
+
+            PropertiesFormRegisterInformation(cant); ;
         }
 
         private void CargarFormularioCheque(int cant)
@@ -464,13 +455,10 @@ namespace AppCamiones
             array.Add(campo5);
             array.Add(campo6);
             array.Add(campo7);
+            array.Add(campo8);
+            array.Add(campo9);
 
-            FormProperties(cant);
-            LayoutFormProperties();
-            LabelProperties(cant);
-            ButtonsPropertiesForm();
-            AddLabels();
-            AddForm();
+            PropertiesFormRegisterInformation(cant);
         }
 
         private void CargarFormularioCliente(int cant)
@@ -498,31 +486,44 @@ namespace AppCamiones
             array.Add(campo9);
             array.Add(campo10);
 
-            FormProperties(cant);
-            LayoutFormProperties();
-            LabelProperties(cant);
-            ButtonsPropertiesForm();
-            AddLabels();
-            AddForm();
+            PropertiesFormRegisterInformation(cant);
         }
 
         private void CargarFormularioViaje(int cant)
         {
          
-            campo1 = "Patente";
-            campo2 = "Modelo";
-            campo3 = "Chofer";
+            campo1 = "Fecha";
+            campo2 = "Desde";
+            campo3 = "RTO o CPE";
+            campo4 = "Carga";
+            campo5 = "KM";
+            campo6 = "KG";
+            campo7 = "Tarifa";
+            campo8 = "Total";
+            campo9 = "Cliente";
 
             array.Clear();
             array.Add(campo1);
             array.Add(campo2);
             array.Add(campo3);
+            array.Add(campo4);
+            array.Add(campo5);
+            array.Add(campo6);
+            array.Add(campo7);
+            array.Add(campo8);
+            array.Add(campo9);
 
+            PropertiesFormRegisterInformation(cant);
+        }
+
+        private void PropertiesFormRegisterInformation(int cant)
+        {
             FormProperties(cant);
             LayoutFormProperties();
-            LabelProperties(cant);
+            TextoBoxAndLabelProperties(cant);
             ButtonsPropertiesForm();
             AddLabels();
+            AddForm();
         }
 
         private void FormProperties(int cant)
@@ -544,26 +545,24 @@ namespace AppCamiones
 
         private void LayoutFormProperties()
         {
-            flowLayoutForm.Size = new Size(form.Width, form.Height + (form.Width / 2));
+            flowLayoutForm.Size = new Size(form.Width, form.Height + 200);
             flowLayoutForm.Location = new Point(0, 40);
             flowLayoutForm.BackColor = Color.Transparent;
             flowLayoutForm.FlowDirection = FlowDirection.TopDown;
         }
 
-        private void LabelProperties(int cant)
+        private void TextoBoxAndLabelProperties(int cant)
         {        
-            int j = 0;
+            //int j = 0;
 
-            for (int i = 0; i < cant; i++)
+            for (int i = 0; i < array.Count; i++)
             {
                 Label label = new Label();
                 TextBox textBoxCampo1 = new TextBox();
-                if (j < array.Count)
-                {
-                    label.Text = array[j].ToString();
-                    textBoxCampo1.Text = array[j].ToString();
-                    j++;
-                }
+               
+                label.Text = array[i].ToString();
+                textBoxCampo1.Text = array[i].ToString();
+               
 
                 label.Font = new Font("Nunito", 10, FontStyle.Regular);
                 label.ForeColor = System.Drawing.Color.FromArgb(217, 217, 217);
@@ -585,24 +584,6 @@ namespace AppCamiones
                 flowLayoutForm.Controls.Add(textBoxCampo1);
             }
         }
-
-        //private void TextBox_Leave(object sender, EventArgs e)
-        //{
-        //    if (string.IsNullOrWhiteSpace(tt.Text))
-        //    {
-        //        tt.Text = "Nombre";
-        //        tt.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77); // Cambia el color del texto placeholder
-        //    }
-        //}
-
-        //private void TextBox_Click(object sender, EventArgs e)
-        //{
-        //    if (tt.Text == "Nombre")
-        //    {
-        //        tt.Text = "";
-        //        tt.ForeColor = Color.Black; // Cambia el color del texto
-        //    }
-        //}
 
         private void ButtonsPropertiesForm()
         {
