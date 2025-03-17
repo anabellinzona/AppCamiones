@@ -2,16 +2,12 @@
 using System.IO;
 using System;
 using System.Windows.Forms;
+using System.Collections;
 
 namespace AppCamiones
 {
     internal class Registro : Form
     {
-        //private Login formUser = new Login();
-        //private Cheque tablaCheque = new Cheque();
-        //private Viaje viaje = new Viaje();
-        //private Form1 home = new Form1();
-
         //CREACIÓN DE LA BARRA DE HERRAMIENTAS Y CADA ÍTEM
         private MenuStrip menuStrip = new MenuStrip();
 
@@ -31,6 +27,9 @@ namespace AppCamiones
         private Button btnCliente = new Button();
         private Button btnCheque = new Button();
         private Button btnViaje = new Button();
+
+        private ArrayList botonesRegistro = new ArrayList();
+        private ArrayList nombreBotonesRegistro = new ArrayList();
 
         public Registro()
         {
@@ -382,66 +381,42 @@ namespace AppCamiones
 
         private void ButtonsProperties()
         {
-            btnChofer.Text = "chofer";
-            btnChofer.Size = new Size(150, 50);
-            btnChofer.ForeColor = System.Drawing.Color.FromArgb(224, 224, 224);
-            btnChofer.Font = new Font("Nunito", 16, FontStyle.Regular);
-            btnChofer.FlatStyle = FlatStyle.Flat;
-            btnChofer.BackColor = Color.Transparent;
-            btnChofer.FlatAppearance.BorderSize = 0;
-            btnChofer.FlatAppearance.MouseDownBackColor = Color.Transparent;
-            btnChofer.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            btnChofer.Text = btnChofer.Text.ToUpper();
-            btnChofer.TextAlign = ContentAlignment.MiddleLeft;
+            int j = 0;
 
-            btnCamion.Text = "camión";
-            btnCamion.Size = new Size(150, 50);
-            btnCamion.ForeColor = System.Drawing.Color.FromArgb(224, 224, 224);
-            btnCamion.Font = new Font("Nunito", 16, FontStyle.Regular);
-            btnCamion.FlatStyle = FlatStyle.Flat;
-            btnCamion.BackColor = Color.Transparent;
-            btnCamion.FlatAppearance.BorderSize = 0;
-            btnCamion.FlatAppearance.MouseDownBackColor = Color.Transparent;
-            btnCamion.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            btnCamion.Text = btnCamion.Text.ToUpper();
-            btnCamion.TextAlign = ContentAlignment.MiddleLeft;
+            botonesRegistro.Add(btnChofer);
+            botonesRegistro.Add(btnViaje);
+            botonesRegistro.Add(btnCamion);
+            botonesRegistro.Add(btnCliente);
+            botonesRegistro.Add(btnCheque);
 
-            btnCliente.Text = "cliente";
-            btnCliente.Size = new Size(150, 50);
-            btnCliente.ForeColor = System.Drawing.Color.FromArgb(224, 224, 224);
-            btnCliente.Font = new Font("Nunito", 16, FontStyle.Regular);
-            btnCliente.FlatStyle = FlatStyle.Flat;
-            btnCliente.BackColor = Color.Transparent;
-            btnCliente.FlatAppearance.BorderSize = 0;
-            btnCliente.FlatAppearance.MouseDownBackColor = Color.Transparent;
-            btnCliente.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            btnCliente.Text = btnCliente.Text.ToUpper();
-            btnCliente.TextAlign = ContentAlignment.MiddleLeft;
+            nombreBotonesRegistro.Add("Chofer");
+            nombreBotonesRegistro.Add("Viaje");
+            nombreBotonesRegistro.Add("Camion");
+            nombreBotonesRegistro.Add("Cliente");
+            nombreBotonesRegistro.Add("Cheque");
+            for (int i = 0; i < botonesRegistro.Count; i++)
+            {
+                Button btn = (Button)botonesRegistro[i];
 
-            btnCheque.Text = "cheque";
-            btnCheque.Size = new Size(150, 50);
-            btnCheque.ForeColor = System.Drawing.Color.FromArgb(224, 224, 224);
-            btnCheque.Font = new Font("Nunito", 16, FontStyle.Regular);
-            btnCheque.FlatStyle = FlatStyle.Flat;
-            btnCheque.BackColor = Color.Transparent;
-            btnCheque.FlatAppearance.BorderSize = 0;
-            btnCheque.FlatAppearance.MouseDownBackColor = Color.Transparent;
-            btnCheque.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            btnCheque.Text = btnCheque.Text.ToUpper();
-            btnCheque.TextAlign = ContentAlignment.MiddleLeft;
+                btn.Size = new Size(150, 50);
+                btn.ForeColor = System.Drawing.Color.FromArgb(224, 224, 224);
+                btn.Font = new Font("Nunito", 16, FontStyle.Regular);
+                btn.FlatStyle = FlatStyle.Flat;
+                btn.BackColor = Color.Transparent;
+                btn.FlatAppearance.BorderSize = 0;
+                btn.FlatAppearance.MouseDownBackColor = Color.Transparent;
+                btn.FlatAppearance.MouseOverBackColor = Color.Transparent;
+                btn.TextAlign = ContentAlignment.MiddleLeft;
 
-            btnViaje.Text = "viaje";
-            btnViaje.Size = new Size(150, 50);
-            btnViaje.ForeColor = System.Drawing.Color.FromArgb(224, 224, 224);
-            btnViaje.Font = new Font("Nunito", 16, FontStyle.Regular);
-            btnViaje.FlatStyle = FlatStyle.Flat;
-            btnViaje.BackColor = Color.Transparent;
-            btnViaje.FlatAppearance.BorderSize = 0;
-            btnViaje.FlatAppearance.MouseDownBackColor = Color.Transparent;
-            btnViaje.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            btnViaje.Text = btnViaje.Text.ToUpper();
-            btnViaje.TextAlign = ContentAlignment.MiddleLeft;
+                if (j < nombreBotonesRegistro.Count)
+                {
+                    btn.Text = nombreBotonesRegistro[j].ToString();
+                    btn.Text = nombreBotonesRegistro[j].ToString().ToUpper();
+                    j++;
+                }
 
+                layoutOptionsMenu.Controls.Add(btn);
+            }
         }
 
         private void AddPanelToForm()
@@ -452,11 +427,6 @@ namespace AppCamiones
         private void AddButtonsToPanel()
         {
             optionsMenu.Controls.Add(layoutOptionsMenu);
-            layoutOptionsMenu.Controls.Add(btnChofer);
-            layoutOptionsMenu.Controls.Add(btnViaje);
-            layoutOptionsMenu.Controls.Add(btnCamion);
-            layoutOptionsMenu.Controls.Add(btnCliente);
-            layoutOptionsMenu.Controls.Add(btnCheque);
         }
     }
 }
