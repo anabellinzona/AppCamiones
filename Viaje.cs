@@ -26,11 +26,11 @@ namespace AppCamiones
         private ToolStripMenuItem closeSesion = new ToolStripMenuItem("Cerrar sesión");
 
         //Filter
-        private RoundPanel card = new RoundPanel();
-        private RoundFlowLayoutPanel cardsContainer = new RoundFlowLayoutPanel();
+        private NewRoundPanel card = new NewRoundPanel();
+        private FlowLayoutPanel cardsContainer = new FlowLayoutPanel();
 
-        private RoundPanel filter = new RoundPanel();
-        private RoundFlowLayoutPanel filterFL = new RoundFlowLayoutPanel();
+        private NewRoundPanel filter = new NewRoundPanel();
+        private FlowLayoutPanel filterFL = new FlowLayoutPanel();
 
         private ArrayList buttonsFilter = new ArrayList();
         private ArrayList buttonsNameFilter = new ArrayList();
