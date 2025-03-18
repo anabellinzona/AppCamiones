@@ -22,26 +22,33 @@ namespace AppCamiones
         private ToolStripMenuItem closeSesion = new ToolStripMenuItem("Cerrar sesión");
 
         //Grid
+        private FlowLayoutPanel flForm = new FlowLayoutPanel();
         private NewRoundPanel form = new NewRoundPanel();
 
         private DataGridView cheq = new DataGridView();
         private Panel panelGrid = new Panel();
 
-        private FlowLayoutPanel flForm = new FlowLayoutPanel();
+        
 
-
+        //Constructor
         public Cheque()
         {
             InitializeUI();
-            //HACE QUE SE ABRA EL FORMULARIO EN PANTALLA COMPLETA
+
             this.WindowState = FormWindowState.Maximized;
             this.StartPosition = FormStartPosition.CenterScreen;
+            
+
+            //Redirections
             closeSesion.Click += new EventHandler(GoToFormUser_Click);
             registrosMenu.Click += new EventHandler(GoToRegistro_Click);
-            //viajesMenu.Click += new EventHandler(GoToViaje_Click);
+            viajesMenu.Click += new EventHandler(GoToViaje_Click);
             homeMenu.Click += new EventHandler(GoToHome_Click);
         }
 
+
+
+        //RedirectionalFunctions
         private void GoToRegistro_Click(object sender, EventArgs e)
         {
 
@@ -49,18 +56,22 @@ namespace AppCamiones
             formRegistro.ShowDialog();
             this.Close();
         }
-
         private void GoToFormUser_Click(object sender, EventArgs e)
         {
             Login formUser = new Login();
             formUser.ShowDialog();
             this.Close();
         }
-
         private void GoToHome_Click(object sender, EventArgs e)
         {
             Form1 home = new Form1();
             home.Show();
+            this.Close();
+        }
+        private void GoToViaje_Click(object sender, EventArgs e)
+        {
+            Viaje viaje = new Viaje();
+            viaje.Show();
             this.Close();
         }
 
@@ -127,21 +138,12 @@ namespace AppCamiones
                 MessageBox.Show("La imagen no se encuentra: " + imagePath);
             }
         }
+
+
+
+
+
         //Adds
-        private void addForm()
-        {
-            this.Controls.Add(form);
-        }
-        private void addFormFL()
-        {
-            form.Controls.Add(flForm);
-        }
-
-
-
-
-
-        //Nav
         private void AddItemsToMenu()
         {
             menuStrip.Items.Add(homeMenu);
@@ -155,7 +157,27 @@ namespace AppCamiones
             this.MainMenuStrip = menuStrip;
             this.Controls.Add(menuStrip);
         }
+        private void AddItemsToGrid()
+        {
+            cheq.Columns.Add("fEntrega", "Fecha de entrega");
+            cheq.Columns.Add("entrega", "Entregado por");
+            cheq.Columns.Add("banco", "Banco");
+            cheq.Columns.Add("nroCheque", "Nro. de cheque");
+            cheq.Columns.Add("monto", "Monto");
+            cheq.Columns.Add("fCobro", "Fecha de cobro");
+            cheq.Columns.Add("entregado", "Entregado a");
 
+            panelGrid.Controls.Add(cheq);
+            this.Controls.Add(panelGrid);
+
+            CargarDatos();
+        }
+
+
+
+
+
+        //NavProperties
         private void MenuProperties()
         {
             menuStrip.Font = new Font("Arial", 14, FontStyle.Regular);
@@ -196,47 +218,30 @@ namespace AppCamiones
             registrosMenu.Margin = new Padding(y, 0, 0, 0);
             userMenu.Margin = new Padding(t, 0, 0, 0);
             closeSesion.Margin = new Padding(0, 10, 0, 0);
-
-            //Grid
-            cheq.Margin = new Padding(0, 1000, 0, 0);
         }
 
 
 
 
-        //Grid
-        private void AddItemsToGrid()
-        {
-            cheq.Columns.Add("fEntrega", "Fecha de entrega");
-            cheq.Columns.Add("entrega", "Entregado por");
-            cheq.Columns.Add("banco", "Banco");
-            cheq.Columns.Add("nroCheque", "Nro. de cheque");
-            cheq.Columns.Add("monto", "Monto");
-            cheq.Columns.Add("fCobro", "Fecha de cobro");
-            cheq.Columns.Add("entregado", "Entregado a");
-
-            panelGrid.Controls.Add(cheq);
-            this.Controls.Add(panelGrid);
-
-            CargarDatos();
-        }
-
+        //GridProperties
         private void GridChequesProperties()
         {
             panelGrid.Size = new Size(1200, 450);
-            //panelGrid.Location = new Point(50, 150);7
             this.Resize += (s, e) =>
             {
                 panelGrid.Location = new Point((this.Width - panelGrid.Width) / 2, (this.Height - panelGrid.Height) / 2);
             };
             panelGrid.BackColor = Color.Transparent;
 
+            
             cheq.Size = new Size(1200, 450);
             cheq.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             cheq.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             cheq.BackgroundColor = Color.DarkGray;
             cheq.GridColor = Color.Black;
             cheq.Font = new Font("Nunito", 12, FontStyle.Regular);
+            cheq.Margin = new Padding(0, 1000, 0, 0);
+
 
             cheq.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(48, 48, 48);
             cheq.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;

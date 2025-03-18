@@ -5,10 +5,9 @@ using System.Windows.Forms;
 
 public class RoundButton : Button
 {
+    //Constructor
     public RoundButton()
     {
-        // Puedes agregar inicialización de la clase aquí si es necesario
-
     }
 
     protected override void OnPaint(PaintEventArgs pevent)

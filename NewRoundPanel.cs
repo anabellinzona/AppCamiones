@@ -8,6 +8,7 @@ namespace AppCamiones
     {
         private int cornerRadius = 40;
 
+        //Constructor
         public NewRoundPanel()
         {
             this.SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
@@ -19,6 +20,11 @@ namespace AppCamiones
             SetRoundedRegion();
         }
 
+
+
+
+
+        //Functions
         private void SetRoundedRegion()
         {
             GraphicsPath path = new GraphicsPath();
@@ -34,7 +40,6 @@ namespace AppCamiones
 
             this.Region = new Region(path);
         }
-
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
