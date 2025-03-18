@@ -215,17 +215,28 @@ namespace AppCamiones
             {
                 if (string.IsNullOrWhiteSpace(txt.Text))
                 {
-                    MessageBox.Show("Completar todos los campos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txt.BorderStyle = BorderStyle.FixedSingle;
+                    //txt.Paint += miTextBox_Paint;
+
+                    //MessageBox.Show("Completar todos los campos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
                 else if (txt.Text == "Email" && !txt.Text.Contains("@"))
                 {
-                    MessageBox.Show("invalido");
+                    MessageBox.Show("Ingrese un email válido");
                     return;
                 }
             }
             this.DialogResult = DialogResult.OK;
         }
+
+        //private void miTextBox_Paint(object sender, PaintEventArgs e)
+        //{
+        //    Control control = (Control)sender;
+        //    Pen pen = new Pen(Color.Red, 2); // Cambia a tu color
+        //    e.Graphics.DrawRectangle(pen, 0, 0, control.Width - 1, control.Height - 1);
+        //}
+
 
         private void LoginUser_Click(object sender, EventArgs e)
         {

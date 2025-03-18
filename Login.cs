@@ -110,20 +110,21 @@ namespace AppCamiones
         {
             foreach (TextBox txt in textBoxList)
             {
-                if (string.IsNullOrWhiteSpace(txt.Text))
+                if (txt.Text == "Username" || txt.Text == "Password")
                 {
+                    txt.ForeColor = System.Drawing.Color.FromArgb(247, 50, 50);
                     MessageBox.Show("Completar todos los campos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
             }
             this.DialogResult = DialogResult.OK;
         }
-
+  
         private void RegisterUser_Click(object sender, EventArgs e)
         {
-            Class1 rr = new Class1();
+            Class1 register = new Class1();
             this.Hide();
-            rr.ShowDialog();
+            register.ShowDialog();
             this.Show();
         }
 
