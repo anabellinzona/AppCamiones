@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
@@ -12,6 +13,8 @@ namespace AppCamiones
     {
         private string tipoRegistro;
         private ArrayList array = new ArrayList();
+
+        private List<TextBox> textBoxList = new List<TextBox>();
 
         //CREACIÓN DE LA BARRA DE HERRAMIENTAS Y CADA ÍTEM
         private MenuStrip menuStrip = new MenuStrip();
@@ -26,6 +29,12 @@ namespace AppCamiones
         private NewRoundPanel form = new NewRoundPanel();
 
         private FlowLayoutPanel flowLayoutForm = new FlowLayoutPanel();
+
+        private TextBox textBoxCampo1 = new TextBox();
+        private TextBox textBoxCampo2 = new TextBox();
+        private TextBox textBoxCampo3 = new TextBox();
+        private TextBox textBoxCampo4 = new TextBox();
+        private TextBox textBoxCampo5 = new TextBox();
 
         private string campo1;
         private string campo2;
@@ -94,7 +103,31 @@ namespace AppCamiones
 
 
         }
-
+        //private void Eventos()
+        //{
+        //    foreach (TextBox txt in textBoxList)
+        //    {
+        //        switch (txt.Text)
+        //        {
+        //            case "Name":
+        //                textBoxCampo1 = txt;
+        //                break;
+        //            case "Surname":
+        //                textBoxCampo1 = txt;
+        //                break;
+        //            case "Username":
+        //                textBoxCampo1 = txt;
+        //                break;
+        //            case "Password":
+        //                textBoxCampo1 = txt;
+        //                this.StartPosition = FormStartPosition.CenterScreen;
+        //                break;
+        //            case "Email":
+        //                textBoxCampo1 = txt;
+        //                break;
+        //        }
+        //    }
+        //}
         private void GoToCheque_Click(object sender, EventArgs e)
         {
 

@@ -127,8 +127,21 @@ namespace AppCamiones
                 MessageBox.Show("La imagen no se encuentra: " + imagePath);
             }
         }
-     
-        //BARRA DE HERRAMIENTAS
+        //Adds
+        private void addForm()
+        {
+            this.Controls.Add(form);
+        }
+        private void addFormFL()
+        {
+            form.Controls.Add(flForm);
+        }
+
+
+
+
+
+        //Nav
         private void AddItemsToMenu()
         {
             menuStrip.Items.Add(homeMenu);
@@ -183,10 +196,15 @@ namespace AppCamiones
             registrosMenu.Margin = new Padding(y, 0, 0, 0);
             userMenu.Margin = new Padding(t, 0, 0, 0);
             closeSesion.Margin = new Padding(0, 10, 0, 0);
+
+            //Grid
             cheq.Margin = new Padding(0, 1000, 0, 0);
         }
 
-        //TABLA
+
+
+
+        //Grid
         private void AddItemsToGrid()
         {
             cheq.Columns.Add("fEntrega", "Fecha de entrega");
@@ -203,8 +221,6 @@ namespace AppCamiones
             CargarDatos();
         }
 
-
-        //Properties
         private void GridChequesProperties()
         {
             panelGrid.Size = new Size(1200, 450);
@@ -230,6 +246,9 @@ namespace AppCamiones
 
         }
 
+
+
+
         //Otros
         private void CargarDatos()
         {
@@ -238,16 +257,6 @@ namespace AppCamiones
                 cheq.Rows.Add("2025-01-15", "x", "Banco Nación", "123456", "$5000", "2025-03-20", "Pendiente");
 
             }
-        }
-
-        //Adds
-        private void addForm()
-        {
-            this.Controls.Add(form);
-        }
-        private void addFormFL()
-        {
-            form.Controls.Add(flForm);
         }
     }
 }

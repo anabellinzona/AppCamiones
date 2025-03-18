@@ -9,15 +9,17 @@ using System.Drawing.Drawing2D;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 using System.Runtime.CompilerServices;
 using System.Collections;
+using System.Collections.Generic;
 
 
 namespace AppCamiones
 {
     internal class Class1 : Form
     {
-
         private Form1 form1 = new Form1();
         private Login login = new Login();
+
+        private List<TextBox> textBoxList = new List<TextBox>();
 
         //DECLARACIÓN DEL FORM
         private NewRoundPanel form = new NewRoundPanel();
@@ -27,12 +29,6 @@ namespace AppCamiones
         private ArrayList campos_register = new ArrayList();
         private Label pregunta = new Label();
 
-        private string campo1 = "Name";
-        private string campo2 = "Surname";
-        private string campo3 = "Username";
-        private string campo4 = "Email";
-        private string campo5 = "Password";
-
 
         private TextBox textBoxNombre = new TextBox();
         private TextBox textBoxApellido = new TextBox();
@@ -40,36 +36,68 @@ namespace AppCamiones
         private TextBox textBoxContraseña = new TextBox();
         private TextBox textBoxEmail = new TextBox();
 
+        private string campo1 = "Name";
+        private string campo2 = "Surname";
+        private string campo3 = "Username";
+        private string campo4 = "Email";
+        private string campo5 = "Password";
+
         private RoundButton btn_login = new RoundButton();
         private RoundButton btn_registrer = new RoundButton();
 
-
         public Class1()
         {
+
             InitializeUI();
             //HACE QUE SE ABRA EL FORMULARIO EN PANTALLA COMPLETA
             this.WindowState = FormWindowState.Maximized;
             btn_registrer.Click += new EventHandler(RegistrerUser_Click);
             btn_login.Click += new EventHandler(LoginUser_Click);
 
-            //textBoxNombreUsuario.Leave += new EventHandler(NombreUsuario_Leave);
-            //textBoxNombreUsuario.Click += new EventHandler(NombreUsuario_Click);
+            Eventos();
 
-            //textBoxNombre.Leave += new EventHandler(Nombre_Leave);
-            //textBoxNombre.Click += new EventHandler(Nombre_Click);
+            textBoxNombreUsuario.Leave += new EventHandler(NombreUsuario_Leave);
+            textBoxNombreUsuario.Click += new EventHandler(NombreUsuario_Click);
 
-            //textBoxApellido.Leave += new EventHandler(Apellido_Leave);
-            //textBoxApellido.Click += new EventHandler(Apellido_Click);
+            textBoxNombre.Leave += new EventHandler(Nombre_Leave);
+            textBoxNombre.Click += new EventHandler(Nombre_Click);
 
-            //textBoxContraseña.Leave += new EventHandler(Contraseña_Leave);
-            //textBoxContraseña.Click += new EventHandler(Contraseña_Click);
+            textBoxApellido.Leave += new EventHandler(Apellido_Leave);
+            textBoxApellido.Click += new EventHandler(Apellido_Click);
 
-            //textBoxEmail.Leave += new EventHandler(Email_Leave);
-            //textBoxEmail.Click += new EventHandler(Email_Click);
+            textBoxContraseña.Leave += new EventHandler(Contraseña_Leave);
+            textBoxContraseña.Click += new EventHandler(Contraseña_Click);
+
+            textBoxEmail.Leave += new EventHandler(Email_Leave);
+            textBoxEmail.Click += new EventHandler(Email_Click);
 
             textBoxContraseña.TextChanged += new EventHandler(Contraseña_TextChanged);
+        }
 
-            this.StartPosition = FormStartPosition.CenterScreen;
+        private void Eventos()
+        {
+            foreach (TextBox txt in textBoxList)
+            {
+                switch (txt.Text)
+                {
+                    case "Name":
+                        textBoxNombre = txt;
+                        break;
+                    case "Surname":
+                        textBoxApellido = txt;
+                        break;
+                    case "Username":
+                        textBoxNombreUsuario = txt;
+                        break;
+                    case "Password":
+                        textBoxContraseña = txt;
+                        this.StartPosition = FormStartPosition.CenterScreen;
+                        break;
+                    case "Email":
+                        textBoxEmail = txt;
+                        break;
+                }
+            }
         }
 
         //NOMBRE DE USUARIO
@@ -96,6 +124,7 @@ namespace AppCamiones
 
         private void Nombre_Leave(object sender, EventArgs e)
         {
+
             if (string.IsNullOrWhiteSpace(textBoxNombre.Text))
             {
                 textBoxNombre.Text = "Name";
@@ -182,11 +211,29 @@ namespace AppCamiones
         //------------------------------------
         private void RegistrerUser_Click(object sender, EventArgs e)
         {
+            foreach (TextBox txt in textBoxList)
+            {
+                if (string.IsNullOrWhiteSpace(txt.Text))
+                {
+                    MessageBox.Show("Completar todos los campos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                else if (txt.Text == "Email" && !txt.Text.Contains("@"))
+                {
+                    MessageBox.Show("invalido");
+                    return;
+                }
+            }
             this.DialogResult = DialogResult.OK;
         }
 
         private void LoginUser_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(textBoxNombreUsuario.Text))
+            {
+                MessageBox.Show("El nombre de usuario no puede estar vacío.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             this.DialogResult = DialogResult.OK;
         }
         //-------------------------------------
@@ -297,19 +344,19 @@ namespace AppCamiones
             campos_register.Add(campo3);
             campos_register.Add(campo4);
             campos_register.Add(campo5);
-            int j = 0;
+          
+
 
             for (int i = 0; i < campos_register.Count; i++)
             {
                 System.Windows.Forms.Label campos = new System.Windows.Forms.Label();
                 TextBox textBoxCampos = new TextBox();
 
-                if (j < campos_register.Count)
-                {
-                    campos.Text = campos_register[j].ToString();
-                    textBoxCampos.Text = campos_register[j].ToString();
-                    j++;
-                }
+             
+                    campos.Text = campos_register[i].ToString();
+                    textBoxCampos.Text = campos_register[i].ToString();
+             
+                
 
                 campos.Font = new Font("Nunito", 10, FontStyle.Regular);
                 campos.ForeColor = System.Drawing.Color.FromArgb(217, 217, 217);
@@ -329,6 +376,7 @@ namespace AppCamiones
 
                 flowLayoutForm.Controls.Add(campos);
                 flowLayoutForm.Controls.Add(textBoxCampos);
+                textBoxList.Add(textBoxCampos);
             }
 
             pregunta.ForeColor = System.Drawing.Color.FromArgb(217, 217, 217);
