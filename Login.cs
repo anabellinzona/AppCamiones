@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using Microsoft.Win32;
 using System.Collections;
 using System.Reflection.Emit;
+using System.Collections.Generic;
 
 namespace AppCamiones
 {
@@ -15,6 +16,7 @@ namespace AppCamiones
 
         private FlowLayoutPanel flowLayoutForm = new FlowLayoutPanel();
 
+        private List<TextBox> textBoxList = new List<TextBox>();
 
         private System.Windows.Forms.Label pregunta = new System.Windows.Forms.Label();
 
@@ -38,15 +40,30 @@ namespace AppCamiones
             btn_login.Click += new EventHandler(LoginUser_Click);
             btn_register.Click += new EventHandler(RegisterUser_Click);
 
+            Eventos();
+
             textBoxNombreUsuario.Leave += new EventHandler(NombreUsuario_Leave);
             textBoxNombreUsuario.Click += new EventHandler(NombreUsuario_Click);
 
             textBoxContraseña.Leave += new EventHandler(Contraseña_Leave);
             textBoxContraseña.Click += new EventHandler(Contraseña_Click);
+        }
 
-            textBoxContraseña.TextChanged += new EventHandler(Contraseña_TextChanged);
-            
-            this.StartPosition = FormStartPosition.CenterScreen;
+        private void Eventos()
+        {
+            foreach (TextBox txt in textBoxList)
+            {
+                switch (txt.Text)
+                {
+                    case "Username":
+                        textBoxNombreUsuario = txt;
+                        break;
+                    case "Password":
+                        textBoxContraseña = txt;
+                        this.StartPosition = FormStartPosition.CenterScreen;
+                        break;
+                }
+            }
         }
 
         //NOMBRE DE USUARIO
@@ -88,17 +105,17 @@ namespace AppCamiones
             }
         }
 
-        private void Contraseña_TextChanged(object sender, EventArgs e)
-        {
-            if (textBoxContraseña.Text != "Password")
-            {
-                textBoxContraseña.Text = new string('*', textBoxContraseña.Text.Length);
-                textBoxContraseña.Font = new Font("Nunito", 14, FontStyle.Regular);
-            }
-        }
-
+        //---------------------------------------------------------------------
         private void LoginUser_Click(object sender, EventArgs e)
         {
+            foreach (TextBox txt in textBoxList)
+            {
+                if (string.IsNullOrWhiteSpace(txt.Text))
+                {
+                    MessageBox.Show("Completar todos los campos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
             this.DialogResult = DialogResult.OK;
         }
 
@@ -109,6 +126,8 @@ namespace AppCamiones
             rr.ShowDialog();
             this.Show();
         }
+
+        //---------------------------------------------------------------------
 
         private void InitializeUI()
         {
@@ -218,19 +237,17 @@ namespace AppCamiones
         {
             campos_Login.Add(campo1);
             campos_Login.Add(campo2);
-            int j = 0;
+            
 
             for (int i = 0; i < campos_Login.Count; i++)
             {
                 System.Windows.Forms.Label campos = new System.Windows.Forms.Label();
                 TextBox textBoxCampos = new TextBox();
 
-                if (j < campos_Login.Count)
-                {
-                    campos.Text = campos_Login[j].ToString();
-                    textBoxCampos.Text = campos_Login[j].ToString();
-                    j++;
-                }
+                
+                    campos.Text = campos_Login[i].ToString();
+                    textBoxCampos.Text = campos_Login[i].ToString();
+               
                 campos.Font = new Font("Nunito", 10, FontStyle.Regular);
                 campos.ForeColor = System.Drawing.Color.FromArgb(217, 217, 217);
                 campos.BackColor = Color.Transparent;
@@ -249,6 +266,8 @@ namespace AppCamiones
 
                 flowLayoutForm.Controls.Add(campos);
                 flowLayoutForm.Controls.Add(textBoxCampos);
+                textBoxList.Add(textBoxCampos);
+
             }
 
             pregunta.ForeColor = System.Drawing.Color.FromArgb(217, 217, 217);

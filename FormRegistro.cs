@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
@@ -12,6 +13,8 @@ namespace AppCamiones
     {
         private string tipoRegistro;
         private ArrayList array = new ArrayList();
+
+        private List<TextBox> textBoxList = new List<TextBox>();
 
         //CREACIÓN DE LA BARRA DE HERRAMIENTAS Y CADA ÍTEM
         private MenuStrip menuStrip = new MenuStrip();
@@ -26,6 +29,12 @@ namespace AppCamiones
         private NewRoundPanel form = new NewRoundPanel();
 
         private FlowLayoutPanel flowLayoutForm = new FlowLayoutPanel();
+
+        private TextBox textBoxCampo1 = new TextBox();
+        private TextBox textBoxCampo2 = new TextBox();
+        private TextBox textBoxCampo3 = new TextBox();
+        private TextBox textBoxCampo4 = new TextBox();
+        private TextBox textBoxCampo5 = new TextBox();
 
         private string campo1;
         private string campo2;
@@ -89,10 +98,36 @@ namespace AppCamiones
             //EVENTOS A LAS HERRAMIENTAS DE LA BARRA
             closeSesion.Click += new EventHandler(GoToFormUser_Click);
             chequesMenu.Click += new EventHandler(GoToCheque_Click);
-            //viajesMenu.Click += new EventHandler(GoToViaje_Click);
+            viajesMenu.Click += new EventHandler(GoToViaje_Click);
             homeMenu.Click += new EventHandler(GoToHome_Click);
-        }
 
+
+        }
+        //private void Eventos()
+        //{
+        //    foreach (TextBox txt in textBoxList)
+        //    {
+        //        switch (txt.Text)
+        //        {
+        //            case "Name":
+        //                textBoxCampo1 = txt;
+        //                break;
+        //            case "Surname":
+        //                textBoxCampo1 = txt;
+        //                break;
+        //            case "Username":
+        //                textBoxCampo1 = txt;
+        //                break;
+        //            case "Password":
+        //                textBoxCampo1 = txt;
+        //                this.StartPosition = FormStartPosition.CenterScreen;
+        //                break;
+        //            case "Email":
+        //                textBoxCampo1 = txt;
+        //                break;
+        //        }
+        //    }
+        //}
         private void GoToCheque_Click(object sender, EventArgs e)
         {
 
@@ -112,6 +147,13 @@ namespace AppCamiones
         {
             Form1 home = new Form1();
             home.ShowDialog();
+            this.Close();
+        }
+
+        private void GoToViaje_Click(object sender, EventArgs e)
+        {
+            Viaje viaje = new Viaje();
+            viaje.ShowDialog();
             this.Close();
         }
 
@@ -491,7 +533,6 @@ namespace AppCamiones
 
         private void CargarFormularioViaje(int cant)
         {
-         
             campo1 = "Fecha";
             campo2 = "Desde";
             campo3 = "RTO o CPE";
@@ -579,7 +620,7 @@ namespace AppCamiones
         private TextBox createTextBoxAndProperties(object campo)
         {
             TextBox textBoxCampo = new TextBox();
-            textBoxCampo.Text = campo.ToString();
+            //textBoxCampo.Text = campo.ToString();
             textBoxCampo.Font = new Font("Nunito", 10, FontStyle.Regular);
             textBoxCampo.BackColor = System.Drawing.Color.FromArgb(153, 145, 145);
             textBoxCampo.Multiline = true;
@@ -669,7 +710,6 @@ namespace AppCamiones
 
                 if (j < nombreBotonesRegistro.Count)
                 {
-                    btn.Text = nombreBotonesRegistro[j].ToString();
                     btn.Text = nombreBotonesRegistro[j].ToString().ToUpper();
                     j++;
                 }

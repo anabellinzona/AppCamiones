@@ -42,6 +42,8 @@ namespace AppCamiones
         //Constructor
         public Viaje()
         {
+            //HACE QUE SE ABRA EN PANTALLA COMPLETA
+            this.WindowState = FormWindowState.Maximized;
             InitializeUI();
             this.WindowState = FormWindowState.Maximized;
 
