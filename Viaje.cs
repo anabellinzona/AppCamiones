@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using System.Collections.Generic;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace AppCamiones
 {
@@ -23,22 +26,118 @@ namespace AppCamiones
         private ToolStripMenuItem closeSesion = new ToolStripMenuItem("Cerrar sesión");
 
         //Filter
-        private RoundFlowLayoutPanel filterFL = new RoundFlowLayoutPanel();
-        private RoundButton choferFilter = new RoundButton();
-        private RoundButton camionFilter = new RoundButton();
-        private RoundButton clienteFilter = new RoundButton();
-
         private RoundPanel card = new RoundPanel();
         private RoundFlowLayoutPanel cardsContainer = new RoundFlowLayoutPanel();
 
+        private RoundPanel filter = new RoundPanel();
+        private RoundFlowLayoutPanel filterFL = new RoundFlowLayoutPanel();
 
+        private ArrayList buttonsFilter = new ArrayList();
+        private ArrayList buttonsNameFilter = new ArrayList();
+        private RoundButton choferFilter = new RoundButton();
+        private RoundButton camionFilter = new RoundButton();
+        private RoundButton clienteFilter = new RoundButton();
 
 
         //Constructor
         public Viaje()
         {
             InitializeUI();
+            this.WindowState = FormWindowState.Maximized;
+
+            choferFilter.MouseEnter += new EventHandler(hoverToBtnChofer_MouseEnter);
+            choferFilter.MouseLeave += new EventHandler(hoverToBtnChofer_MouseLeave);
+
+            clienteFilter.MouseEnter += new EventHandler(hoverToBtnCliente_MouseEnter);
+            clienteFilter.MouseLeave += new EventHandler(hoverToBtnCliente_MouseLeave);
+
+            camionFilter.MouseEnter += new EventHandler(hoverToBtnCamion_MouseEnter);
+            camionFilter.MouseLeave += new EventHandler(hoverToBtnCamion_MouseLeave);
+
+            closeSesion.Click += new EventHandler(GoToFormUser_Click);
+            registrosMenu.Click += new EventHandler(GoToRegistro_Click);
+            viajesMenu.Click += new EventHandler(GoToViaje_Click);
+            homeMenu.Click += new EventHandler(GoToHome_Click);
+
+
+            choferFilter.Click += (s, e) => CardGenerator("Chofer");
+            clienteFilter.Click += (s, e) => CardGenerator("Cliente");
+            camionFilter.Click += (s, e) => CardGenerator("Camión");
         }
+
+
+
+
+
+        //Events
+        private void GoToRegistro_Click(object sender, EventArgs e)
+        {
+
+            Registro formRegistro = new Registro();
+            formRegistro.ShowDialog();
+            this.Close();
+        }
+        private void GoToFormUser_Click(object sender, EventArgs e)
+        {
+            Login formUser = new Login();
+            formUser.ShowDialog();
+            this.Close();
+        }
+        private void GoToHome_Click(object sender, EventArgs e)
+        {
+            Form1 home = new Form1();
+            home.Show();
+            this.Close();
+        }
+        private void GoToViaje_Click(object sender, EventArgs e)
+        {
+            Viaje viaje = new Viaje();
+            viaje.Show();
+            this.Close();
+        }
+
+
+
+
+
+        //Functions
+        private void hoverToBtnChofer_MouseEnter(object sender, EventArgs e)
+        {
+            choferFilter.Font = new Font("Nunito", 20, FontStyle.Regular);
+            choferFilter.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
+        }
+        private void hoverToBtnChofer_MouseLeave(object sender, EventArgs e)
+        {
+            choferFilter.Font = new Font("Nunito", 16, FontStyle.Regular);
+            choferFilter.ForeColor = System.Drawing.Color.FromArgb(224, 224, 224);
+        }
+
+        private void hoverToBtnCliente_MouseEnter(object sender, EventArgs e)
+        {
+            clienteFilter.Font = new Font("Nunito", 20, FontStyle.Regular);
+            clienteFilter.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
+        }
+        private void hoverToBtnCliente_MouseLeave(object sender, EventArgs e)
+        {
+            clienteFilter.Font = new Font("Nunito", 16, FontStyle.Regular);
+            clienteFilter.ForeColor = System.Drawing.Color.FromArgb(224, 224, 224);
+        }
+
+        private void hoverToBtnCamion_MouseEnter(object sender, EventArgs e)
+        {
+            camionFilter.Font = new Font("Nunito", 20, FontStyle.Regular);
+            camionFilter.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
+        }
+        private void hoverToBtnCamion_MouseLeave(object sender, EventArgs e)
+        {
+            camionFilter.Font = new Font("Nunito", 16, FontStyle.Regular);
+            camionFilter.ForeColor = System.Drawing.Color.FromArgb(224, 224, 224);
+        }
+
+
+
+
+
 
         //Initializations
         private void InitializeUI()
@@ -49,18 +148,8 @@ namespace AppCamiones
         }
         private void InitializeToolBar()
         {
-            AddItemsToMenu();
-            AddItemsFilter();
-
-            MenuProperties();
-            ItemsColor();
-            MarginToItems();
-            ItemsCapitalLetter();
-
-            FilterPanelProperties();
-            FilterProperties();
-            CardProperties();
-            ButtonProperties();
+            InitializeNavBar();
+            InitializarMenuTipoRegistro();
         }
         private void InitializeIconoUser()
         {
@@ -105,9 +194,30 @@ namespace AppCamiones
                 MessageBox.Show("La imagen no se encuentra: " + imagePath);
             }
         }
-        
+        private void InitializarMenuTipoRegistro()
+        {
+            OptionsMenuProperties();
+            LayoutOptionsMenuProperties();
+            ButtonsProperties();
+            AddLayoutOptionsMenu();
+            AddPanelToForm();
+            CardProperties();
+        }
+        private void InitializeNavBar()
+        {
+            AddItemsToMenu();
+            MenuProperties();
+            ItemsColor();
+            MarginToItems();
+            ItemsCapitalLetter();
+        }
 
-        //Nav
+
+
+
+
+
+        //NavProperties
         private void AddItemsToMenu()
         {
             menuStrip.Items.Add(homeMenu);
@@ -167,99 +277,136 @@ namespace AppCamiones
 
 
 
-        //Filter
-        private void AddItemsFilter()
-        {
-            this.Controls.Add(cardsContainer);
-            this.Controls.Add(filterFL);
 
-            filterFL.Controls.Add(camionFilter);
-            filterFL.Controls.Add(clienteFilter);
-            filterFL.Controls.Add(choferFilter);
-        }
 
-        private void FilterPanelProperties()
+        //FilterProperties
+        private void OptionsMenuProperties()
         {
-            filterFL.Size = new Size(400, 70);
+            filter.Size = new Size(800, 60);
             this.Resize += (s, e) =>
             {
-                filterFL.Location = new Point((this.Width - filterFL.Width) / 2, (this.Height - filterFL.Height) / 5);
+                filter.Location = new Point((this.Width - filter.Width) / 2, 100);
             };
-            filterFL.BackColor = Color.FromArgb(50, 50, 50);
-            filterFL.Padding = new Padding(0, 0, 0, 100);
+            filter.BackColor = System.Drawing.Color.FromArgb(64, 64, 64);
+            filter.BorderStyle = BorderStyle.FixedSingle;
         }
-        private void FilterProperties()
+        private void LayoutOptionsMenuProperties()
         {
-            camionFilter.Text = "CAMIÓN";
-            clienteFilter.Text = "CLIENTE";
-            choferFilter.Text = "CHOFER";
-
-            camionFilter.Click += (s, e) => CardGenerator("Camión");
-            clienteFilter.Click += (s, e) => CardGenerator("Cliente");
-            choferFilter.Click += (s, e) => CardGenerator("Chofer");
-        }
-        private void CardProperties()
-        {
-            cardsContainer.Size = new Size(600, 300); // Ajustar tamaño del contenedor
-            cardsContainer.AutoScroll = true;
-            cardsContainer.BackColor = Color.FromArgb(50, 50, 50);
-            cardsContainer.FlowDirection = FlowDirection.LeftToRight; // Mostrar las cards en fila
-            cardsContainer.WrapContents = true; // Permitir varias líneas de cards
-            cardsContainer.Margin = new Padding(0, 100, 0, 0);
-
-            this.Resize += (s, e) =>
+            filterFL.AutoSize = true;
+            filterFL.Width = choferFilter.Width;
+            filterFL.BackColor = Color.Transparent;
+            filterFL.FlowDirection = FlowDirection.LeftToRight;
+            filter.Resize += (s, e) =>
             {
-                cardsContainer.Location = new Point((this.Width - cardsContainer.Width) / 2, (this.Height - cardsContainer.Height) / 2);
+                filterFL.Location = new Point((filter.Width - filterFL.Width) / 2, (filter.Height - filterFL.Height) / 2);
             };
         }
-        private void ButtonProperties()
+
+        private void ButtonsProperties()
         {
-            choferFilter.Size = new Size(125, 60);
-            clienteFilter.Size = new Size(125, 60);
-            camionFilter.Size = new Size(125, 60);
-            camionFilter.FlatStyle = FlatStyle.Flat;
-            camionFilter.FlatAppearance.BorderSize = 0;
-            clienteFilter.FlatStyle = FlatStyle.Flat;
-            clienteFilter.FlatAppearance.BorderSize = 0;
-            choferFilter.FlatStyle = FlatStyle.Flat;
-            choferFilter.FlatAppearance.BorderSize = 0;
-            choferFilter.Font = new Font("Arial", 14, FontStyle.Regular);
-            choferFilter.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
-            clienteFilter.Font = new Font("Arial", 14, FontStyle.Regular);
-            clienteFilter.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
-            camionFilter.Font = new Font("Arial", 14, FontStyle.Regular);
-            camionFilter.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
-        }
+            int j = 0;
 
-        private void CardGenerator(String filtro)
-        {
-            cardsContainer.Controls.Clear(); // Limpiar las cards antes de agregar nuevas
+            buttonsFilter.Add(choferFilter);
+            buttonsFilter.Add(clienteFilter);
+            buttonsFilter.Add(camionFilter);
 
-            List<string> datos = GetFilterInfo(filtro);
+            buttonsNameFilter.Add("Chofer");
+            buttonsNameFilter.Add("Cliente");
+            buttonsNameFilter.Add("Camión");
 
-            foreach (var dato in datos)
+            for (int i = 0; i < buttonsFilter.Count; i++)
             {
-                RoundPanel card = new RoundPanel()
+                Button btn = (Button)buttonsFilter[i];
+
+                btn.Size = new Size(150, 50);
+                btn.ForeColor = System.Drawing.Color.FromArgb(224, 224, 224);
+                btn.Font = new Font("Nunito", 16, FontStyle.Regular);
+                btn.FlatStyle = FlatStyle.Flat;
+                btn.BackColor = Color.Transparent;
+                btn.FlatAppearance.BorderSize = 0;
+                btn.FlatAppearance.MouseDownBackColor = Color.Transparent;
+                btn.FlatAppearance.MouseOverBackColor = Color.Transparent;
+                btn.Margin = new Padding(0, 20, 0, 0);
+                btn.TextAlign = ContentAlignment.MiddleCenter;
+
+                if (j < buttonsNameFilter.Count)
                 {
-                    Size = new Size(200, 100),
-                    Margin = new Padding(10),
-                    BackColor = Color.LightGray
-                };
+                    btn.Text = buttonsNameFilter[j].ToString().ToUpper();
+                    j++;
+                }
 
-                RoundButton c = new RoundButton()
-                {
-                    Text = dato,
-                    Size = new Size(180, 80),
-                    Margin = new Padding(10),
-                    BackColor = Color.DarkGray
-                };
+                btn.Click += (s, e) => CardGenerator(btn.Text);
 
-                c.Click += (s, e) => ShowDetailsCard(dato);
-
-                card.Controls.Add(c);
-                cardsContainer.Controls.Add(card);
+                filterFL.Controls.Add(btn);
             }
         }
+        private void AddPanelToForm()
+        {
+            this.Controls.Add(filter);
+            this.Controls.Add(cardsContainer);
+        }
+
+        private void AddLayoutOptionsMenu()
+        {
+            filter.Controls.Add(filterFL);
+        }
+
+        private void CardProperties()
+        {
+            cardsContainer.Size = new Size(800, 400);
+            cardsContainer.AutoScroll = true;
+            cardsContainer.BackColor = Color.FromArgb(50, 50, 50);
+            cardsContainer.FlowDirection = FlowDirection.LeftToRight;
+            cardsContainer.WrapContents = true;
+            cardsContainer.Margin = new Padding(10, 10, 10, 10);
+            cardsContainer.BackColor = System.Drawing.Color.FromArgb(130, Color.Black);
+
+            this.Resize += (s, e) =>
+            {
+                cardsContainer.Location = new Point((this.Width - cardsContainer.Width) / 2, filter.Bottom + 10);
+            };
+
+        }
+        private void CardGenerator(string filtro)
+        {
+            Console.WriteLine($"Generando cards para: {filtro}");
+            cardsContainer.Controls.Clear();
+
+            List<string> datos = GetFilterInfo(filtro);
+            Console.WriteLine($"Se encontraron {datos.Count} elementos.");
+
+            foreach (string dato in datos)
+            {
+                Panel card = new Panel
+                {
+                    Size = new Size(200, 100),
+                    BackColor = System.Drawing.Color.FromArgb(48, 48, 48),
+                    Margin = new Padding(10),
+                    Font = new Font("Arial", 16, FontStyle.Regular)
+                };
+
+                Label label = new Label
+                {
+                    Text = dato,
+                    ForeColor = System.Drawing.Color.FromArgb(218, 218, 28),
+                    AutoSize = true
+                };
+
+                card.Controls.Add(label);
+                cardsContainer.Controls.Add(card);
+
+                card.Click += (s, e) =>
+                {
+                    ViajeFiltro form = new ViajeFiltro();
+                    form.Show();
+                };
+            }
+            Console.WriteLine($"Total de cards en el contenedor: {cardsContainer.Controls.Count}");
+
+            
+        }
+
+
         private List<string> GetFilterInfo(string filtro)
         {
             if (filtro == "Camión")
