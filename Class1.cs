@@ -8,6 +8,7 @@ using Button = System.Windows.Forms.Button;
 using System.Drawing.Drawing2D;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 using System.Runtime.CompilerServices;
+using System.Collections;
 
 
 namespace AppCamiones
@@ -19,16 +20,18 @@ namespace AppCamiones
         private Login login = new Login();
 
         //DECLARACIÓN DEL FORM
-        private RoundPanel form = new RoundPanel();
+        private NewRoundPanel form = new NewRoundPanel();
 
         private FlowLayoutPanel flowLayoutForm = new FlowLayoutPanel();
 
-        private Label nombre = new Label();
-        private Label apellido = new Label();
-        private Label nombre_usuario = new Label();
-        private Label contraseña = new Label();
-        private Label email = new Label();
+        private ArrayList campos_register = new ArrayList();
         private Label pregunta = new Label();
+
+        private string campo1 = "Name";
+        private string campo2 = "Surname";
+        private string campo3 = "Username";
+        private string campo4 = "Email";
+        private string campo5 = "Password";
 
 
         private TextBox textBoxNombre = new TextBox();
@@ -40,29 +43,32 @@ namespace AppCamiones
         private RoundButton btn_login = new RoundButton();
         private RoundButton btn_registrer = new RoundButton();
 
-  
+
         public Class1()
         {
             InitializeUI();
+            //HACE QUE SE ABRA EL FORMULARIO EN PANTALLA COMPLETA
+            this.WindowState = FormWindowState.Maximized;
             btn_registrer.Click += new EventHandler(RegistrerUser_Click);
             btn_login.Click += new EventHandler(LoginUser_Click);
 
-            textBoxNombreUsuario.Leave += new EventHandler(NombreUsuario_Leave);
-            textBoxNombreUsuario.Click += new EventHandler(NombreUsuario_Click);
+            //textBoxNombreUsuario.Leave += new EventHandler(NombreUsuario_Leave);
+            //textBoxNombreUsuario.Click += new EventHandler(NombreUsuario_Click);
 
-            textBoxNombre.Leave += new EventHandler(Nombre_Leave);
-            textBoxNombre.Click += new EventHandler(Nombre_Click);
+            //textBoxNombre.Leave += new EventHandler(Nombre_Leave);
+            //textBoxNombre.Click += new EventHandler(Nombre_Click);
 
-            textBoxApellido.Leave += new EventHandler(Apellido_Leave);
-            textBoxApellido.Click += new EventHandler(Apellido_Click);
+            //textBoxApellido.Leave += new EventHandler(Apellido_Leave);
+            //textBoxApellido.Click += new EventHandler(Apellido_Click);
 
-            textBoxContraseña.Leave += new EventHandler(Contraseña_Leave);
-            textBoxContraseña.Click += new EventHandler(Contraseña_Click);
+            //textBoxContraseña.Leave += new EventHandler(Contraseña_Leave);
+            //textBoxContraseña.Click += new EventHandler(Contraseña_Click);
 
-            textBoxEmail.Leave += new EventHandler(Email_Leave);
-            textBoxEmail.Click += new EventHandler(Email_Click);
+            //textBoxEmail.Leave += new EventHandler(Email_Leave);
+            //textBoxEmail.Click += new EventHandler(Email_Click);
+
             textBoxContraseña.TextChanged += new EventHandler(Contraseña_TextChanged);
-            
+
             this.StartPosition = FormStartPosition.CenterScreen;
         }
 
@@ -260,8 +266,7 @@ namespace AppCamiones
         {
             FormProperties();
             LayoutFormProperties();
-            LabelProperties();
-            TextBoxProperties();
+            TextBoxAndLabelProperties();
             ButtonsProperties();
             AddLabels();
             AddForm();
@@ -285,42 +290,46 @@ namespace AppCamiones
             flowLayoutForm.BackColor = Color.Transparent;
         }
 
-        private void LabelProperties()
+        private void TextBoxAndLabelProperties()
         {
-            nombre.Text = "Nombre:";
-            nombre.Font = new Font("Nunito", 10, FontStyle.Regular);
-            nombre.ForeColor = System.Drawing.Color.FromArgb(217, 217, 217);
-            nombre.BackColor = Color.Transparent;
-            nombre.Margin = new Padding(80, 10, 0, 0);
-            nombre.AutoSize = true;
+            campos_register.Add(campo1);
+            campos_register.Add(campo2);
+            campos_register.Add(campo3);
+            campos_register.Add(campo4);
+            campos_register.Add(campo5);
+            int j = 0;
 
-            apellido.Text = "Apellido:";
-            apellido.Font = new Font("Nunito", 10, FontStyle.Regular);
-            apellido.ForeColor = System.Drawing.Color.FromArgb(217, 217, 217);
-            apellido.BackColor = Color.Transparent;
-            apellido.Margin = new Padding(80, 10, 0, 0);
-            apellido.AutoSize = true;
+            for (int i = 0; i < campos_register.Count; i++)
+            {
+                System.Windows.Forms.Label campos = new System.Windows.Forms.Label();
+                TextBox textBoxCampos = new TextBox();
 
-            email.Text = "Email:";
-            email.Font = new Font("Nunito", 10, FontStyle.Regular);
-            email.ForeColor = System.Drawing.Color.FromArgb(217, 217, 217);
-            email.BackColor = Color.Transparent;
-            email.Margin = new Padding(80, 10, 0, 0);
-            email.AutoSize = true;
+                if (j < campos_register.Count)
+                {
+                    campos.Text = campos_register[j].ToString();
+                    textBoxCampos.Text = campos_register[j].ToString();
+                    j++;
+                }
 
-            contraseña.Text = "Contraseña:";
-            contraseña.Font = new Font("Nunito", 10, FontStyle.Regular);
-            contraseña.ForeColor = System.Drawing.Color.FromArgb(217, 217, 217);
-            contraseña.BackColor = Color.Transparent;
-            contraseña.Margin = new Padding(80, 10, 0, 0);
-            contraseña.AutoSize = true;
+                campos.Font = new Font("Nunito", 10, FontStyle.Regular);
+                campos.ForeColor = System.Drawing.Color.FromArgb(217, 217, 217);
+                campos.BackColor = Color.Transparent;
+                campos.Margin = new Padding(80, 10, 0, 0);
+                campos.AutoSize = true;
 
-            nombre_usuario.Text = "Nombre de usuario:";
-            nombre_usuario.Font = new Font("Nunito", 10, FontStyle.Regular);
-            nombre_usuario.ForeColor = System.Drawing.Color.FromArgb(217, 217, 217);
-            nombre_usuario.BackColor = Color.Transparent;
-            nombre_usuario.Margin = new Padding(80, 10, 0, 0);
-            nombre_usuario.AutoSize = true;
+                textBoxCampos.Font = new Font("Nunito", 10, FontStyle.Regular);
+                textBoxCampos.BackColor = System.Drawing.Color.FromArgb(153, 145, 145);
+                textBoxCampos.Multiline = true;
+                textBoxCampos.Width = 200;
+                textBoxCampos.Height = 30;
+                textBoxCampos.BorderStyle = BorderStyle.None;
+                textBoxCampos.Margin = new Padding(90, 10, 0, 10);
+                textBoxCampos.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
+
+
+                flowLayoutForm.Controls.Add(campos);
+                flowLayoutForm.Controls.Add(textBoxCampos);
+            }
 
             pregunta.ForeColor = System.Drawing.Color.FromArgb(217, 217, 217);
             pregunta.Text = "¿Ya tienes una cuenta?";
@@ -328,62 +337,6 @@ namespace AppCamiones
             pregunta.AutoSize = true;
             pregunta.TextAlign = ContentAlignment.TopCenter;
             pregunta.Margin = new Padding(113, 30, 0, 0); ;
-        }
-
-        private void TextBoxProperties()
-        {
-            textBoxNombre.Text = "Name";
-            textBoxNombre.Font = new Font("Nunito", 10, FontStyle.Regular);
-            textBoxNombre.BackColor = System.Drawing.Color.FromArgb(153, 145, 145);
-            textBoxNombre.Multiline = true;
-            textBoxNombre.Width = 200;
-            textBoxNombre.Height = 30;
-            textBoxNombre.BorderStyle = BorderStyle.None;
-            textBoxNombre.Margin = new Padding(90, 10, 0, 10);
-            textBoxNombre.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
-            textBoxNombre.TextAlign = HorizontalAlignment.Left;
-
-
-            textBoxApellido.Text = "Surname";
-            textBoxApellido.Font = new Font("Nunito", 10, FontStyle.Regular);
-            textBoxApellido.BackColor = System.Drawing.Color.FromArgb(153, 145, 145);
-            textBoxApellido.Multiline = true;
-            textBoxApellido.Width = 200;
-            textBoxApellido.Height = 30;
-            textBoxApellido.BorderStyle = BorderStyle.None;
-            textBoxApellido.Margin = new Padding(90, 10, 0, 10);
-            textBoxApellido.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
-
-
-            textBoxEmail.Text = "Email";
-            textBoxEmail.Font = new Font("Nunito", 10, FontStyle.Regular);
-            textBoxEmail.BackColor = System.Drawing.Color.FromArgb(153, 145, 145);
-            textBoxEmail.Multiline = true;
-            textBoxEmail.Width = 200;
-            textBoxEmail.Height = 30;
-            textBoxEmail.BorderStyle = BorderStyle.None;
-            textBoxEmail.Margin = new Padding(90, 10, 0, 10);
-            textBoxEmail.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
-
-            textBoxContraseña.Text = "Password";
-            textBoxContraseña.Font = new Font("Nunito", 10, FontStyle.Regular);
-            textBoxContraseña.BackColor = System.Drawing.Color.FromArgb(153, 145, 145);
-            textBoxContraseña.Multiline = true;
-            textBoxContraseña.Width = 200;
-            textBoxContraseña.Height = 30;
-            textBoxContraseña.BorderStyle = BorderStyle.None;
-            textBoxContraseña.Margin = new Padding(90, 10, 0, 10);
-            textBoxContraseña.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
-
-            textBoxNombreUsuario.Text = "Username";
-            textBoxNombreUsuario.Font = new Font("Nunito", 10, FontStyle.Regular);
-            textBoxNombreUsuario.BackColor = System.Drawing.Color.FromArgb(153, 145, 145);
-            textBoxNombreUsuario.Multiline = true;
-            textBoxNombreUsuario.Width = 200;
-            textBoxNombreUsuario.Height = 30;
-            textBoxNombreUsuario.BorderStyle = BorderStyle.None;
-            textBoxNombreUsuario.Margin = new Padding(90, 10, 0, 10);
-            textBoxNombreUsuario.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
         }
 
         private void ButtonsProperties()
@@ -411,16 +364,6 @@ namespace AppCamiones
         private void AddLabels()
         {
             form.Controls.Add(flowLayoutForm);
-            flowLayoutForm.Controls.Add(nombre);
-            flowLayoutForm.Controls.Add(textBoxNombre);
-            flowLayoutForm.Controls.Add(apellido);
-            flowLayoutForm.Controls.Add(textBoxApellido);
-            flowLayoutForm.Controls.Add(nombre_usuario);
-            flowLayoutForm.Controls.Add(textBoxNombreUsuario);
-            flowLayoutForm.Controls.Add(email);
-            flowLayoutForm.Controls.Add(textBoxEmail);
-            flowLayoutForm.Controls.Add(contraseña);
-            flowLayoutForm.Controls.Add(textBoxContraseña);
             flowLayoutForm.Controls.Add(btn_registrer);
             flowLayoutForm.Controls.Add(pregunta);
             flowLayoutForm.Controls.Add(btn_login);

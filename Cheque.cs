@@ -22,7 +22,7 @@ namespace AppCamiones
         private ToolStripMenuItem closeSesion = new ToolStripMenuItem("Cerrar sesión");
 
         //Grid
-        private RoundPanel form = new RoundPanel();
+        private NewRoundPanel form = new NewRoundPanel();
 
         private DataGridView cheq = new DataGridView();
         private Panel panelGrid = new Panel();
@@ -33,12 +33,40 @@ namespace AppCamiones
         public Cheque()
         {
             InitializeUI();
+            //HACE QUE SE ABRA EL FORMULARIO EN PANTALLA COMPLETA
+            this.WindowState = FormWindowState.Maximized;
             this.StartPosition = FormStartPosition.CenterScreen;
+            closeSesion.Click += new EventHandler(GoToFormUser_Click);
+            registrosMenu.Click += new EventHandler(GoToRegistro_Click);
+            //viajesMenu.Click += new EventHandler(GoToViaje_Click);
+            homeMenu.Click += new EventHandler(GoToHome_Click);
+        }
+
+        private void GoToRegistro_Click(object sender, EventArgs e)
+        {
+
+            Registro formRegistro = new Registro();
+            formRegistro.ShowDialog();
+            this.Close();
+        }
+
+        private void GoToFormUser_Click(object sender, EventArgs e)
+        {
+            Login formUser = new Login();
+            formUser.ShowDialog();
+            this.Close();
+        }
+
+        private void GoToHome_Click(object sender, EventArgs e)
+        {
+            Form1 home = new Form1();
+            home.Show();
+            this.Close();
         }
 
 
 
-        
+
         //Initializations
         private void InitializeUI()
         {

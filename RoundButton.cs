@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
 public class RoundButton : Button
@@ -12,21 +13,17 @@ public class RoundButton : Button
 
     protected override void OnPaint(PaintEventArgs pevent)
     {
-        base.OnPaint(pevent); // Llama al método OnPaint de la clase base (Button).
+        base.OnPaint(pevent);
 
-        // Crea un objeto GraphicsPath para definir la forma redondeada
         GraphicsPath path = new GraphicsPath();
 
-        // Añade las esquinas redondeadas
-        path.AddArc(0, 0, 30, 30, 180, 90); // Esquina superior izquierda
-        path.AddArc(this.Width - 30, 0, 30, 30, 270, 90); // Esquina superior derecha
-        path.AddArc(this.Width - 30, this.Height - 30, 30, 30, 0, 90); // Esquina inferior derecha
-        path.AddArc(0, this.Height - 30, 30, 30, 90, 90); // Esquina inferior izquierda
+        path.AddArc(0, 0, 10, 10, 180, 90); // Esquina superior izquierda
+        path.AddArc(this.Width - 10, 0, 10, 20, 270, 90); // Esquina superior derecha
+        path.AddArc(this.Width - 10, this.Height - 10, 10, 10, 0, 90); // Esquina inferior derecha
+        path.AddArc(0, this.Height - 10, 20, 10, 90, 90); // Esquina inferior izquierda
 
-        // Cierra la figura
         path.CloseAllFigures();
 
-        // Asigna la región al botón, lo que cambia su forma a la definida por el GraphicsPath
         this.Region = new Region(path);
     }
 }

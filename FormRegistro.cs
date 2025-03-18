@@ -1,13 +1,18 @@
-﻿using System.Drawing;
-using System.IO;
-using System;
-using System.Windows.Forms;
+﻿using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
+using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace AppCamiones
 {
-    internal class Registro : Form
+    internal class FormRegistro : Form
     {
+        private string tipoRegistro;
+        private ArrayList array = new ArrayList();
+
         //CREACIÓN DE LA BARRA DE HERRAMIENTAS Y CADA ÍTEM
         private MenuStrip menuStrip = new MenuStrip();
 
@@ -18,7 +23,28 @@ namespace AppCamiones
         private ToolStripMenuItem userMenu = new ToolStripMenuItem();
         private ToolStripMenuItem closeSesion = new ToolStripMenuItem("Cerrar sesión");
 
-        //MENÚ DE OPCIONES
+        private NewRoundPanel form = new NewRoundPanel();
+
+        private FlowLayoutPanel flowLayoutForm = new FlowLayoutPanel();
+
+        private string campo1;
+        private string campo2;
+        private string campo3;
+        private string campo4;
+        private string campo5;
+        private string campo6;
+        private string campo7;
+        private string campo8;
+        private string campo9;
+        private string campo10;
+
+        private ArrayList botonesRegistro = new ArrayList();
+        private ArrayList nombreBotonesRegistro = new ArrayList();
+
+        private TextBox tt = new TextBox();
+
+        private RoundButton btn_cargar = new RoundButton();
+
         private NewRoundPanel optionsMenu = new NewRoundPanel();
         private FlowLayoutPanel layoutOptionsMenu = new FlowLayoutPanel();
 
@@ -28,19 +54,15 @@ namespace AppCamiones
         private Button btnCheque = new Button();
         private Button btnViaje = new Button();
 
-        private ArrayList botonesRegistro = new ArrayList();
-        private ArrayList nombreBotonesRegistro = new ArrayList();
-
-        public Registro()
+        public FormRegistro(string tipoRegistro)
         {
-            InitializeUI();
-            InitializeOptionsMenu();
+            this.tipoRegistro = tipoRegistro;
+
             //HACE QUE SE ABRA EN PANTALLA COMPLETA
             this.WindowState = FormWindowState.Maximized;
-
-            Login formUser = new Login();
-            
-            this.StartPosition = FormStartPosition.CenterScreen;
+            InitializeUI();
+            CargaFormulario(tipoRegistro);
+            InitializarMenuTipoRegistro();
 
             btnViaje.MouseEnter += new EventHandler(hoverToBtnViaje_MouseEnter);
             btnViaje.MouseLeave += new EventHandler(hoverToBtnViaje_MouseLeave);
@@ -57,12 +79,14 @@ namespace AppCamiones
             btnCamion.MouseEnter += new EventHandler(hoverToBtnCamion_MouseEnter);
             btnCamion.MouseLeave += new EventHandler(hoverToBtnCamion_MouseLeave);
 
-            btnViaje.Click += new EventHandler(GoToFormViaje);
-            btnChofer.Click += new EventHandler(GoToFormChofer);
-            btnCliente.Click += new EventHandler(GoToFormCliente);
-            btnCheque.Click += new EventHandler(GoToFormCheque);
-            btnCamion.Click += new EventHandler(GoToFormCamion);
+            //EVENTOS A LOS BOTONES
+            btnViaje.Click += new EventHandler(GoToFormViaje_Click);
+            btnChofer.Click += new EventHandler(GoToFormChofer_Click);
+            btnCliente.Click += new EventHandler(GoToFormCliente_Click);
+            btnCheque.Click += new EventHandler(GoToFormCheque_Click);
+            btnCamion.Click += new EventHandler(GoToFormCamion_Click);
 
+            //EVENTOS A LAS HERRAMIENTAS DE LA BARRA
             closeSesion.Click += new EventHandler(GoToFormUser_Click);
             chequesMenu.Click += new EventHandler(GoToCheque_Click);
             //viajesMenu.Click += new EventHandler(GoToViaje_Click);
@@ -71,6 +95,7 @@ namespace AppCamiones
 
         private void GoToCheque_Click(object sender, EventArgs e)
         {
+
             Cheque tablaCheque = new Cheque();
             tablaCheque.ShowDialog();
             this.Close();
@@ -86,32 +111,31 @@ namespace AppCamiones
         private void GoToHome_Click(object sender, EventArgs e)
         {
             Form1 home = new Form1();
-            home.Show();
+            home.ShowDialog();
             this.Close();
         }
 
-        //ABRIR FORMULARIO SEGÚN TIPO DE REGISTRO
-        private void GoToFormViaje(object sender, EventArgs e)
+        private void GoToFormViaje_Click(object sender, EventArgs e)
         {
             AbrirFormulario("Viaje");
         }
 
-        private void GoToFormChofer(object sender, EventArgs e)
+        private void GoToFormChofer_Click(object sender, EventArgs e)
         {
             AbrirFormulario("Chofer");
         }
 
-        private void GoToFormCliente(object sender, EventArgs e)
+        private void GoToFormCliente_Click(object sender, EventArgs e)
         {
             AbrirFormulario("Cliente");
         }
 
-        private void GoToFormCheque(object sender, EventArgs e)
+        private void GoToFormCheque_Click(object sender, EventArgs e)
         {
             AbrirFormulario("Cheque");
         }
 
-        private void GoToFormCamion(object sender, EventArgs e)
+        private void GoToFormCamion_Click(object sender, EventArgs e)
         {
             AbrirFormulario("Camion");
         }
@@ -189,6 +213,14 @@ namespace AppCamiones
             InitializeIconoApp();
             InitializeIconoUser();
             InitializeToolBar();
+        }
+        private void InitializarMenuTipoRegistro()
+        {
+            OptionsMenuProperties();
+            LayoutOptionsMenuProperties();
+            ButtonsProperties();
+            AddLayoutOptionsMenu();
+            AddPanelToForm();
         }
 
         private void InitializeBackImage()
@@ -305,6 +337,8 @@ namespace AppCamiones
             registrosMenu.Font = new Font("Arial", 16, FontStyle.Underline);
         }
 
+
+
         private void ItemsColor()
         {
             //ASIGNA EL COLOR A LOS ÍTEMS
@@ -347,23 +381,240 @@ namespace AppCamiones
             this.Controls.Add(menuStrip);
         }
 
-        private void InitializeOptionsMenu()
+
+        private void CargaFormulario(string tipoRegistro)
         {
-            OptionsMenuProperties();
-            LayoutOptionsMenuProperties();
-            ButtonsProperties();
-            AddButtonsToPanel();
-            AddPanelToForm();
+            switch (tipoRegistro)
+            {
+                case "Chofer":
+                    CargarFormularioChofer(5);
+                    break;
+                case "Camion":
+                    CargarFormularioCamion(3);
+                    break;
+                case "Cheque":
+                    CargarFormularioCheque(9);
+                    break;
+                case "Viaje":
+                    CargarFormularioViaje(9);
+                    break;
+                case "Cliente":
+                    CargarFormularioCliente(9);
+                    break;
+            }
+        }
+        private void CargarFormularioChofer(int cant)
+        {
+            campo1 = "Nombre";
+            campo2 = "Apellido";
+            campo3 = "Teléfono";
+            campo4 = "Email";
+            campo5 = "DNI";
+
+            array.Clear();
+            array.Add(campo1);
+            array.Add(campo2);
+            array.Add(campo3);
+            array.Add(campo4);
+            array.Add(campo5);
+
+            PropertiesFormRegisterInformation(cant);
+        }
+
+        private void CargarFormularioCamion(int cant)
+        {
+            campo1 = "Patente";
+            campo2 = "Modelo";
+            campo3 = "Chofer";
+
+            array.Clear();
+            array.Add(campo1);
+            array.Add(campo2);
+            array.Add(campo3);
+
+            PropertiesFormRegisterInformation(cant); ;
+        }
+
+        private void CargarFormularioCheque(int cant)
+        {
+            campo1 = "Fecha de recibimiento";
+            campo2 = "Banco";
+            campo3 = "Nro de cheque";
+            campo4 = "Fecha de cobro";
+            campo5 = "Pesos";
+            campo6 = "Nombre";
+            campo7 = "Mi cheque N°";
+            campo8 = "Entregado a";
+            campo9 = "...";
+
+            array.Clear();
+            array.Add(campo1);
+            array.Add(campo2);
+            array.Add(campo3);
+            array.Add(campo4);
+            array.Add(campo5);
+            array.Add(campo6);
+            array.Add(campo7);
+            array.Add(campo8);
+            array.Add(campo9);
+
+            PropertiesFormRegisterInformation(cant);
+        }
+
+        private void CargarFormularioCliente(int cant)
+        {
+            campo1 = "Fecha";
+            campo2 = "Desde";
+            campo3 = "Hasta";
+            campo4 = "Kilos";
+            campo5 = "Remito";
+            campo6 = "Tarifa";
+            campo7 = "Pesos";
+            campo8 = "Carga";
+            campo9 = "Factura";
+            campo10 = "Chofer";
+
+            array.Clear();
+            array.Add(campo1);
+            array.Add(campo2);
+            array.Add(campo3);
+            array.Add(campo4);
+            array.Add(campo5);
+            array.Add(campo6);
+            array.Add(campo7);
+            array.Add(campo8);
+            array.Add(campo9);
+            array.Add(campo10);
+
+            PropertiesFormRegisterInformation(cant);
+        }
+
+        private void CargarFormularioViaje(int cant)
+        {
+         
+            campo1 = "Fecha";
+            campo2 = "Desde";
+            campo3 = "RTO o CPE";
+            campo4 = "Carga";
+            campo5 = "KM";
+            campo6 = "KG";
+            campo7 = "Tarifa";
+            campo8 = "Total";
+            campo9 = "Cliente";
+
+            array.Clear();
+            array.Add(campo1);
+            array.Add(campo2);
+            array.Add(campo3);
+            array.Add(campo4);
+            array.Add(campo5);
+            array.Add(campo6);
+            array.Add(campo7);
+            array.Add(campo8);
+            array.Add(campo9);
+
+            PropertiesFormRegisterInformation(cant);
+        }
+
+        private void PropertiesFormRegisterInformation(int cant)
+        {
+            FormProperties(cant);
+            LayoutFormProperties();
+            TextoBoxAndLabelProperties(cant);
+            ButtonsPropertiesForm();
+            AddLabels();
+            AddForm();
+        }
+
+        private void FormProperties(int cant)
+        {
+            form.Width = 400;
+            form.Height = cant * 115;
+            this.Resize += (s, e) =>
+            {
+                form.Location = new Point((this.Width - form.Width) / 2, 200);
+            };
+
+            form.BackColor = System.Drawing.Color.FromArgb(130, Color.Black);
+
+            if (form.Height > 1000)
+            {
+                form.AutoScroll = true;
+            }
+        }
+
+        private void LayoutFormProperties()
+        {
+            flowLayoutForm.Size = new Size(form.Width, form.Height + 200);
+            flowLayoutForm.Location = new Point(0, 40);
+            flowLayoutForm.BackColor = Color.Transparent;
+            flowLayoutForm.FlowDirection = FlowDirection.TopDown;
+        }
+
+        private void TextoBoxAndLabelProperties(int cant)
+        {        
+            //int j = 0;
+
+            for (int i = 0; i < array.Count; i++)
+            {
+                Label label = new Label();
+                TextBox textBoxCampo1 = new TextBox();
+               
+                label.Text = array[i].ToString();
+                textBoxCampo1.Text = array[i].ToString();
+               
+
+                label.Font = new Font("Nunito", 10, FontStyle.Regular);
+                label.ForeColor = System.Drawing.Color.FromArgb(217, 217, 217);
+                label.BackColor = Color.Transparent;
+                label.Margin = new Padding(80, 10, 0, 0);
+                label.AutoSize = true;
+
+                textBoxCampo1.Font = new Font("Nunito", 10, FontStyle.Regular);
+                textBoxCampo1.BackColor = System.Drawing.Color.FromArgb(153, 145, 145);
+                textBoxCampo1.Multiline = true;
+                textBoxCampo1.Width = 200;
+                textBoxCampo1.Height = 30;
+                textBoxCampo1.BorderStyle = BorderStyle.None;
+                textBoxCampo1.Margin = new Padding(90, 10, 0, 10);
+                textBoxCampo1.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
+                textBoxCampo1.TextAlign = HorizontalAlignment.Left;
+
+                flowLayoutForm.Controls.Add(label);
+                flowLayoutForm.Controls.Add(textBoxCampo1);
+            }
+        }
+
+        private void ButtonsPropertiesForm()
+        {
+            btn_cargar.BackColor = System.Drawing.Color.FromArgb(218, 218, 28);
+            btn_cargar.Size = new Size(140, 30);
+            btn_cargar.Height = 30;
+            btn_cargar.Text = "Cargar";
+            btn_cargar.FlatStyle = FlatStyle.Flat;
+            btn_cargar.FlatAppearance.BorderSize = 0;
+            btn_cargar.Margin = new Padding(132, 10, 0, 0);
+            btn_cargar.ForeColor = System.Drawing.Color.FromArgb(32, 32, 32);
+            btn_cargar.Font = new Font("Nunito", 12, FontStyle.Bold);
+        }
+        private void AddLabels()
+        {
+            form.Controls.Add(flowLayoutForm);
+            flowLayoutForm.Controls.Add(btn_cargar);
+        }
+        private void AddForm()
+        {
+            this.Controls.Add(form);
         }
 
         private void OptionsMenuProperties()
         {
-            optionsMenu.Size = new Size(300, 400);
+            optionsMenu.Size = new Size(800, 60);
             this.Resize += (s, e) =>
             {
-                optionsMenu.Location = new Point((this.Width - optionsMenu.Width) / 2, (this.Height - optionsMenu.Height) / 2);
+                optionsMenu.Location = new Point((this.Width - optionsMenu.Width) / 2, 100);
             };
-            optionsMenu.BackColor = System.Drawing.Color.FromArgb(100, Color.Black);
+            optionsMenu.BackColor = System.Drawing.Color.FromArgb(64, 64, 64);
             optionsMenu.BorderStyle = BorderStyle.FixedSingle;
         }
 
@@ -372,7 +623,7 @@ namespace AppCamiones
             layoutOptionsMenu.AutoSize = true;
             layoutOptionsMenu.Width = btnCheque.Width;
             layoutOptionsMenu.BackColor = Color.Transparent;
-            layoutOptionsMenu.FlowDirection = FlowDirection.TopDown;
+            layoutOptionsMenu.FlowDirection = FlowDirection.LeftToRight;
             optionsMenu.Resize += (s, e) =>
             {
                 layoutOptionsMenu.Location = new Point((optionsMenu.Width - layoutOptionsMenu.Width) / 2, (optionsMenu.Height - layoutOptionsMenu.Height) / 2);
@@ -406,7 +657,8 @@ namespace AppCamiones
                 btn.FlatAppearance.BorderSize = 0;
                 btn.FlatAppearance.MouseDownBackColor = Color.Transparent;
                 btn.FlatAppearance.MouseOverBackColor = Color.Transparent;
-                btn.TextAlign = ContentAlignment.MiddleLeft;
+                btn.Margin = new Padding(0, 20, 0, 0);
+                btn.TextAlign = ContentAlignment.MiddleCenter;
 
                 if (j < nombreBotonesRegistro.Count)
                 {
@@ -424,7 +676,7 @@ namespace AppCamiones
             this.Controls.Add(optionsMenu);
         }
 
-        private void AddButtonsToPanel()
+        private void AddLayoutOptionsMenu()
         {
             optionsMenu.Controls.Add(layoutOptionsMenu);
         }
