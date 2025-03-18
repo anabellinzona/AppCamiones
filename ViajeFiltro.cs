@@ -23,13 +23,13 @@ namespace AppCamiones
 
         //Grid
         private NewRoundPanel form = new NewRoundPanel();
+        private FlowLayoutPanel flForm = new FlowLayoutPanel();
 
         private DataGridView info = new DataGridView();
         private Panel panelGrid = new Panel();
 
-        private FlowLayoutPanel flForm = new FlowLayoutPanel();
 
-
+        //Constructor
         public ViajeFiltro()
         {
             InitializeUI();
@@ -43,6 +43,11 @@ namespace AppCamiones
             homeMenu.Click += new EventHandler(GoToHome_Click);
         }
 
+
+
+
+
+        //RedirectionalFunctions
         private void GoToRegistro_Click(object sender, EventArgs e)
         {
 
@@ -141,20 +146,6 @@ namespace AppCamiones
 
 
         //Adds
-        private void addForm()
-        {
-            this.Controls.Add(form);
-        }
-        private void addFormFL()
-        {
-            form.Controls.Add(flForm);
-        }
-
-
-
-
-
-        //Nav
         private void AddItemsToMenu()
         {
             menuStrip.Items.Add(homeMenu);
@@ -168,7 +159,24 @@ namespace AppCamiones
             this.MainMenuStrip = menuStrip;
             this.Controls.Add(menuStrip);
         }
+        private void AddItemsToGrid()
+        {
+            for (int i = 0; i < 7; i++)
+            {
+                info.Columns.Add(i.ToString(), "Dato");
+            }
 
+            panelGrid.Controls.Add(info);
+            this.Controls.Add(panelGrid);
+
+            CargarDatos();
+        }
+
+
+
+
+
+        //Nav
         private void MenuProperties()
         {
             menuStrip.Font = new Font("Arial", 14, FontStyle.Regular);
@@ -209,32 +217,15 @@ namespace AppCamiones
             registrosMenu.Margin = new Padding(y, 0, 0, 0);
             userMenu.Margin = new Padding(t, 0, 0, 0);
             closeSesion.Margin = new Padding(0, 10, 0, 0);
-
-            //Grid
-            info.Margin = new Padding(0, 1000, 0, 0);
         }
 
 
 
 
         //Grid
-        private void AddItemsToGrid()
-        {
-            for (int i = 0; i < 7; i++)
-            {
-                info.Columns.Add(i.ToString(), "Dato");
-            }
-
-            panelGrid.Controls.Add(info);
-            this.Controls.Add(panelGrid);
-
-            CargarDatos();
-        }
-
         private void GridChequesProperties()
         {
             panelGrid.Size = new Size(1200, 450);
-            //panelGrid.Location = new Point(50, 150);7
             this.Resize += (s, e) =>
             {
                 panelGrid.Location = new Point((this.Width - panelGrid.Width) / 2, (this.Height - panelGrid.Height) / 2);
@@ -247,6 +238,7 @@ namespace AppCamiones
             info.BackgroundColor = Color.DarkGray;
             info.GridColor = Color.Black;
             info.Font = new Font("Nunito", 12, FontStyle.Regular);
+            info.Margin = new Padding(0, 1000, 0, 0);
 
             info.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(48, 48, 48);
             info.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
