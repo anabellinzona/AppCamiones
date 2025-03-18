@@ -7,6 +7,7 @@ using TextBox = System.Windows.Forms.TextBox;
 using Button = System.Windows.Forms.Button;
 using System.Drawing.Drawing2D;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
+using System.Runtime.CompilerServices;
 
 
 namespace AppCamiones
@@ -30,15 +31,16 @@ namespace AppCamiones
         private Label pregunta = new Label();
 
 
-        private RoundTextBox textBoxNombre = new RoundTextBox();
-        private RoundTextBox textBoxApellido = new RoundTextBox();
-        private RoundTextBox textBoxNombreUsuario = new RoundTextBox();
-        private RoundTextBox textBoxContraseña = new RoundTextBox();
-        private RoundTextBox textBoxEmail = new RoundTextBox();
+        private TextBox textBoxNombre = new TextBox();
+        private TextBox textBoxApellido = new TextBox();
+        private TextBox textBoxNombreUsuario = new TextBox();
+        private TextBox textBoxContraseña = new TextBox();
+        private TextBox textBoxEmail = new TextBox();
 
         private RoundButton btn_login = new RoundButton();
         private RoundButton btn_registrer = new RoundButton();
 
+  
         public Class1()
         {
             InitializeUI();
@@ -59,6 +61,9 @@ namespace AppCamiones
 
             textBoxEmail.Leave += new EventHandler(Email_Leave);
             textBoxEmail.Click += new EventHandler(Email_Click);
+            textBoxContraseña.TextChanged += new EventHandler(Contraseña_TextChanged);
+            
+            this.StartPosition = FormStartPosition.CenterScreen;
         }
 
         //NOMBRE DE USUARIO
@@ -145,8 +150,9 @@ namespace AppCamiones
         {
             if (string.IsNullOrWhiteSpace(textBoxContraseña.Text))
             {
-                textBoxContraseña.Text = "PassWord";
+                textBoxContraseña.Text = "Password";
                 textBoxContraseña.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
+                textBoxContraseña.Font = new Font("Nunito", 10, FontStyle.Regular);
             }
         }
 
@@ -155,9 +161,16 @@ namespace AppCamiones
             if (textBoxContraseña.Text == "Password")
             {
                 textBoxContraseña.Text = "";
-                textBoxContraseña.Font = new Font("Nunito", 14, FontStyle.Regular);
                 textBoxContraseña.ForeColor = Color.Black;
-                textBoxContraseña.PasswordChar = '*';
+            }
+        }
+
+        private void Contraseña_TextChanged(object sender, EventArgs e)
+        {
+            if (textBoxContraseña.Text != "Password")
+            {
+                textBoxContraseña.Text = new string('*', textBoxContraseña.Text.Length);
+                textBoxContraseña.Font = new Font("Nunito", 14, FontStyle.Regular);
             }
         }
         //------------------------------------
@@ -181,7 +194,8 @@ namespace AppCamiones
         private void InitializeBackImage()
         {
             // Ruta absoluta a la imagen en la carpeta de Descargas
-            string imagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "goma.jpg");
+
+            string imagePath = Path.Combine(Application.StartupPath, "Resources", "goma.jpg");
 
             // Verifica si existe el archivo
             if (File.Exists(imagePath))
@@ -506,6 +520,29 @@ namespace AppCamiones
         {
             get { return cornerRadius; }
             set { cornerRadius = value; Invalidate(); }
+        }
+    }
+    public class RoundFlowLayoutPanel : FlowLayoutPanel
+    {
+        public int BorderRadius { get; set; } = 20; // Ajusta el radio del borde
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+            Graphics g = e.Graphics;
+            g.SmoothingMode = SmoothingMode.AntiAlias;
+
+            using (GraphicsPath path = new GraphicsPath())
+            {
+                path.AddArc(0, 0, BorderRadius, BorderRadius, 180, 90);
+                path.AddArc(Width - BorderRadius, 0, BorderRadius, BorderRadius, 270, 90);
+                path.AddArc(Width - BorderRadius, Height - BorderRadius, BorderRadius, BorderRadius, 0, 90);
+                path.AddArc(0, Height - BorderRadius, BorderRadius, BorderRadius, 90, 90);
+                path.CloseFigure();
+
+                this.Region = new Region(path);
+                g.FillPath(new SolidBrush(this.BackColor), path);
+            }
         }
     }
 }

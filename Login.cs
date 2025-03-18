@@ -6,7 +6,7 @@ using Microsoft.Win32;
 
 namespace AppCamiones
 {
-    public partial class Login : Form
+    internal class Login : Form
     {       
         //DECLARACIÓN DEL FORM
         private RoundPanel form = new RoundPanel();
@@ -17,11 +17,14 @@ namespace AppCamiones
         private Label contraseña = new Label();
         private Label pregunta = new Label();
 
-        private RoundTextBox textBoxNombreUsuario = new RoundTextBox();
-        private RoundTextBox textBoxContraseña = new RoundTextBox();
+        private TextBox textBoxNombreUsuario = new TextBox();
+        private TextBox textBoxContraseña = new TextBox();
 
         private RoundButton btn_login = new RoundButton();
         private RoundButton btn_register = new RoundButton();
+
+        private String campo1 = "Username";
+        private String campo2 = "Password";
 
 
         public Login()
@@ -35,8 +38,13 @@ namespace AppCamiones
 
             textBoxContraseña.Leave += new EventHandler(Contraseña_Leave);
             textBoxContraseña.Click += new EventHandler(Contraseña_Click);
+
+            textBoxContraseña.TextChanged += new EventHandler(Contraseña_TextChanged);
+            
+            this.StartPosition = FormStartPosition.CenterScreen;
         }
 
+        //NOMBRE DE USUARIO
         private void NombreUsuario_Leave(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(textBoxNombreUsuario.Text))
@@ -55,12 +63,14 @@ namespace AppCamiones
             }
         }
 
+        //CONTRASEÑA
         private void Contraseña_Leave(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(textBoxContraseña.Text))
             {
-                textBoxContraseña.Text = "PassWord";
+                textBoxContraseña.Text = "Password";
                 textBoxContraseña.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
+                textBoxContraseña.Font = new Font("Nunito", 10, FontStyle.Regular);
             }
         }
 
@@ -69,9 +79,16 @@ namespace AppCamiones
             if(textBoxContraseña.Text == "Password")
             {
                 textBoxContraseña.Text = "";
-                textBoxContraseña.PasswordChar = '*';
-                textBoxContraseña.Font = new Font("Nunito", 14, FontStyle.Regular);
                 textBoxContraseña.ForeColor = Color.Black;
+            }
+        }
+
+        private void Contraseña_TextChanged(object sender, EventArgs e)
+        {
+            if (textBoxContraseña.Text != "Password")
+            {
+                textBoxContraseña.Text = new string('*', textBoxContraseña.Text.Length);
+                textBoxContraseña.Font = new Font("Nunito", 14, FontStyle.Regular);
             }
         }
 
@@ -97,6 +114,9 @@ namespace AppCamiones
 
         private void InitializeBackImage()
         {
+
+            // Ruta absoluta a la imagen en la carpeta de Descargas
+
             string imagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "goma.jpg");
 
             // Verifica si existe el archivo
@@ -192,19 +212,19 @@ namespace AppCamiones
 
         private void LabelProperties()
         {
-            contraseña.Text = "Contraseña:";
-            contraseña.Font = new Font("Nunito", 10, FontStyle.Regular);
-            contraseña.ForeColor = System.Drawing.Color.FromArgb(217, 217, 217);
-            contraseña.BackColor = Color.Transparent;
-            contraseña.Margin = new Padding(80, 10, 0, 0);
-            contraseña.AutoSize = true;
-
-            nombre_usuario.Text = "Nombre de usuario:";
+            nombre_usuario.Text = campo1 + ":";
             nombre_usuario.Font = new Font("Nunito", 10, FontStyle.Regular);
             nombre_usuario.ForeColor = System.Drawing.Color.FromArgb(217, 217, 217);
             nombre_usuario.BackColor = Color.Transparent;
             nombre_usuario.Margin = new Padding(80, 10, 0, 0);
             nombre_usuario.AutoSize = true;
+
+            contraseña.Text = campo2 + ":";
+            contraseña.Font = new Font("Nunito", 10, FontStyle.Regular);
+            contraseña.ForeColor = System.Drawing.Color.FromArgb(217, 217, 217);
+            contraseña.BackColor = Color.Transparent;
+            contraseña.Margin = new Padding(80, 10, 0, 0);
+            contraseña.AutoSize = true;
 
             pregunta.ForeColor = System.Drawing.Color.FromArgb(217, 217, 217);
             pregunta.Text = "¿No tienes una cuenta?";

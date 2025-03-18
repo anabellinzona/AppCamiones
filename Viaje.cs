@@ -6,10 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using System.Collections.Generic;
 
 namespace AppCamiones
 {
-    internal class Cheque : Form
+    internal class Viaje : Form
     {
         //Nav
         private MenuStrip menuStrip = new MenuStrip();
@@ -21,24 +22,24 @@ namespace AppCamiones
         private ToolStripMenuItem userMenu = new ToolStripMenuItem();
         private ToolStripMenuItem closeSesion = new ToolStripMenuItem("Cerrar sesión");
 
-        //Grid
-        private RoundPanel form = new RoundPanel();
+        //Filter
+        private RoundFlowLayoutPanel filterFL = new RoundFlowLayoutPanel();
+        private RoundButton choferFilter = new RoundButton();
+        private RoundButton camionFilter = new RoundButton();
+        private RoundButton clienteFilter = new RoundButton();
 
-        private DataGridView cheq = new DataGridView();
-        private Panel panelGrid = new Panel();
-
-        private FlowLayoutPanel flForm = new FlowLayoutPanel();
+        private RoundPanel card = new RoundPanel();
+        private RoundFlowLayoutPanel cardsContainer = new RoundFlowLayoutPanel();
 
 
-        public Cheque()
+
+
+        //Constructor
+        public Viaje()
         {
             InitializeUI();
-            this.StartPosition = FormStartPosition.CenterScreen;
         }
 
-
-
-        
         //Initializations
         private void InitializeUI()
         {
@@ -49,12 +50,17 @@ namespace AppCamiones
         private void InitializeToolBar()
         {
             AddItemsToMenu();
-            AddItemsToGrid();
+            AddItemsFilter();
+
             MenuProperties();
             ItemsColor();
             MarginToItems();
             ItemsCapitalLetter();
-            GridChequesProperties();
+
+            FilterPanelProperties();
+            FilterProperties();
+            CardProperties();
+            ButtonProperties();
         }
         private void InitializeIconoUser()
         {
@@ -99,19 +105,7 @@ namespace AppCamiones
                 MessageBox.Show("La imagen no se encuentra: " + imagePath);
             }
         }
-        //Adds
-        private void addForm()
-        {
-            this.Controls.Add(form);
-        }
-        private void addFormFL()
-        {
-            form.Controls.Add(flForm);
-        }
-
-
-
-
+        
 
         //Nav
         private void AddItemsToMenu()
@@ -137,7 +131,7 @@ namespace AppCamiones
             menuStrip.Width = this.Width;
             menuStrip.Height = 80;
             menuStrip.Dock = DockStyle.Top;
-            chequesMenu.Font = new Font("Arial", 16, FontStyle.Underline);
+            viajesMenu.Font = new Font("Arial", 16, FontStyle.Underline);
         }
         private void ItemsColor()
         {
@@ -168,67 +162,119 @@ namespace AppCamiones
             registrosMenu.Margin = new Padding(y, 0, 0, 0);
             userMenu.Margin = new Padding(t, 0, 0, 0);
             closeSesion.Margin = new Padding(0, 10, 0, 0);
-
-            //Grid
-            cheq.Margin = new Padding(0, 1000, 0, 0);
         }
 
 
 
 
-        //Grid
-        private void AddItemsToGrid()
+        //Filter
+        private void AddItemsFilter()
         {
-            cheq.Columns.Add("fEntrega", "Fecha de entrega");
-            cheq.Columns.Add("entrega", "Entregado por");
-            cheq.Columns.Add("banco", "Banco");
-            cheq.Columns.Add("nroCheque", "Nro. de cheque");
-            cheq.Columns.Add("monto", "Monto");
-            cheq.Columns.Add("fCobro", "Fecha de cobro");
-            cheq.Columns.Add("entregado", "Entregado a");
+            this.Controls.Add(cardsContainer);
+            this.Controls.Add(filterFL);
 
-            panelGrid.Controls.Add(cheq);
-            this.Controls.Add(panelGrid);
-
-            CargarDatos();
+            filterFL.Controls.Add(camionFilter);
+            filterFL.Controls.Add(clienteFilter);
+            filterFL.Controls.Add(choferFilter);
         }
 
-        private void GridChequesProperties()
+        private void FilterPanelProperties()
         {
-            panelGrid.Size = new Size(1200, 450);
-            //panelGrid.Location = new Point(50, 150);7
+            filterFL.Size = new Size(400, 70);
             this.Resize += (s, e) =>
             {
-                panelGrid.Location = new Point((this.Width - panelGrid.Width) / 2, (this.Height - panelGrid.Height) / 2);
+                filterFL.Location = new Point((this.Width - filterFL.Width) / 2, (this.Height - filterFL.Height) / 5);
             };
-            panelGrid.BackColor = Color.Transparent;
+            filterFL.BackColor = Color.FromArgb(50, 50, 50);
+            filterFL.Padding = new Padding(0, 0, 0, 100);
+        }
+        private void FilterProperties()
+        {
+            camionFilter.Text = "CAMIÓN";
+            clienteFilter.Text = "CLIENTE";
+            choferFilter.Text = "CHOFER";
 
-            cheq.Size = new Size(1200, 450);
-            cheq.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            cheq.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            cheq.BackgroundColor = Color.DarkGray;
-            cheq.GridColor = Color.Black;
-            cheq.Font = new Font("Nunito", 12, FontStyle.Regular);
+            camionFilter.Click += (s, e) => CardGenerator("Camión");
+            clienteFilter.Click += (s, e) => CardGenerator("Cliente");
+            choferFilter.Click += (s, e) => CardGenerator("Chofer");
+        }
+        private void CardProperties()
+        {
+            cardsContainer.Size = new Size(600, 300); // Ajustar tamaño del contenedor
+            cardsContainer.AutoScroll = true;
+            cardsContainer.BackColor = Color.FromArgb(50, 50, 50);
+            cardsContainer.FlowDirection = FlowDirection.LeftToRight; // Mostrar las cards en fila
+            cardsContainer.WrapContents = true; // Permitir varias líneas de cards
+            cardsContainer.Margin = new Padding(0, 100, 0, 0);
 
-            cheq.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            cheq.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-            cheq.EnableHeadersVisualStyles = false;
-            cheq.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
-            cheq.AllowUserToResizeRows = false;
-
+            this.Resize += (s, e) =>
+            {
+                cardsContainer.Location = new Point((this.Width - cardsContainer.Width) / 2, (this.Height - cardsContainer.Height) / 2);
+            };
+        }
+        private void ButtonProperties()
+        {
+            choferFilter.Size = new Size(125, 60);
+            clienteFilter.Size = new Size(125, 60);
+            camionFilter.Size = new Size(125, 60);
+            camionFilter.FlatStyle = FlatStyle.Flat;
+            camionFilter.FlatAppearance.BorderSize = 0;
+            clienteFilter.FlatStyle = FlatStyle.Flat;
+            clienteFilter.FlatAppearance.BorderSize = 0;
+            choferFilter.FlatStyle = FlatStyle.Flat;
+            choferFilter.FlatAppearance.BorderSize = 0;
+            choferFilter.Font = new Font("Arial", 14, FontStyle.Regular);
+            choferFilter.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
+            clienteFilter.Font = new Font("Arial", 14, FontStyle.Regular);
+            clienteFilter.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
+            camionFilter.Font = new Font("Arial", 14, FontStyle.Regular);
+            camionFilter.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
         }
 
-
-
-
-        //Otros
-        private void CargarDatos()
+        private void CardGenerator(String filtro)
         {
-            for(int i = 0; i<30; i++)
-            {
-                cheq.Rows.Add("2025-01-15", "x", "Banco Nación", "123456", "$5000", "2025-03-20", "Pendiente");
+            cardsContainer.Controls.Clear(); // Limpiar las cards antes de agregar nuevas
 
+            List<string> datos = GetFilterInfo(filtro);
+
+            foreach (var dato in datos)
+            {
+                RoundPanel card = new RoundPanel()
+                {
+                    Size = new Size(200, 100),
+                    Margin = new Padding(10),
+                    BackColor = Color.LightGray
+                };
+
+                RoundButton c = new RoundButton()
+                {
+                    Text = dato,
+                    Size = new Size(180, 80),
+                    Margin = new Padding(10),
+                    BackColor = Color.DarkGray
+                };
+
+                c.Click += (s, e) => ShowDetailsCard(dato);
+
+                card.Controls.Add(c);
+                cardsContainer.Controls.Add(card);
             }
+        }
+        private List<string> GetFilterInfo(string filtro)
+        {
+            if (filtro == "Camión")
+                return new List<string> { "ABC123", "DEF456", "GHI789" };
+            else if (filtro == "Cliente")
+                return new List<string> { "Gómez", "Pérez", "Rodríguez" };
+            else if (filtro == "Chofer")
+                return new List<string> { "López", "Fernández", "Martínez" };
+            else
+                return new List<string>();
+        }
+        private void ShowDetailsCard(string datoSeleccionado)
+        {
+            MessageBox.Show($"Redirigiendo a detalles de {datoSeleccionado}", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //Redireccion a las tablas de datos
         }
     }
 }
