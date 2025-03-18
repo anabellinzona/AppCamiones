@@ -552,50 +552,57 @@ namespace AppCamiones
         }
 
         private void TextoBoxAndLabelProperties(int cant)
-        {        
-            //int j = 0;
+        {
 
             for (int i = 0; i < array.Count; i++)
             {
-                Label label = new Label();
-                TextBox textBoxCampo1 = new TextBox();
-               
-                label.Text = array[i].ToString();
-                textBoxCampo1.Text = array[i].ToString();
-               
+                Label campo = createLabelAndProperties(array[i]);
+                TextBox textBoxForm = createTextBoxAndProperties(array[i]);
 
-                label.Font = new Font("Nunito", 10, FontStyle.Regular);
-                label.ForeColor = System.Drawing.Color.FromArgb(217, 217, 217);
-                label.BackColor = Color.Transparent;
-                label.Margin = new Padding(80, 10, 0, 0);
-                label.AutoSize = true;
-
-                textBoxCampo1.Font = new Font("Nunito", 10, FontStyle.Regular);
-                textBoxCampo1.BackColor = System.Drawing.Color.FromArgb(153, 145, 145);
-                textBoxCampo1.Multiline = true;
-                textBoxCampo1.Width = 200;
-                textBoxCampo1.Height = 30;
-                textBoxCampo1.BorderStyle = BorderStyle.None;
-                textBoxCampo1.Margin = new Padding(90, 10, 0, 10);
-                textBoxCampo1.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
-                textBoxCampo1.TextAlign = HorizontalAlignment.Left;
-
-                flowLayoutForm.Controls.Add(label);
-                flowLayoutForm.Controls.Add(textBoxCampo1);
+                flowLayoutForm.Controls.Add(campo);
+                flowLayoutForm.Controls.Add(textBoxForm);
             }
         }
 
+        private Label createLabelAndProperties(object campo) 
+        {
+            Label label = new Label();
+            label.Text = campo.ToString();
+            label.Font = new Font("Nunito", 10, FontStyle.Regular);
+            label.ForeColor = System.Drawing.Color.FromArgb(217, 217, 217);
+            label.BackColor = Color.Transparent;
+            label.Margin = new Padding(80, 10, 0, 0);
+            label.AutoSize = true;
+
+            return label;
+        }
+        private TextBox createTextBoxAndProperties(object campo)
+        {
+            TextBox textBoxCampo = new TextBox();
+            textBoxCampo.Text = campo.ToString();
+            textBoxCampo.Font = new Font("Nunito", 10, FontStyle.Regular);
+            textBoxCampo.BackColor = System.Drawing.Color.FromArgb(153, 145, 145);
+            textBoxCampo.Multiline = true;
+            textBoxCampo.Width = 200;
+            textBoxCampo.Height = 30;
+            textBoxCampo.BorderStyle = BorderStyle.None;
+            textBoxCampo.Margin = new Padding(90, 10, 0, 10);
+            textBoxCampo.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
+            textBoxCampo.TextAlign = HorizontalAlignment.Left;
+
+            return textBoxCampo;
+        }
         private void ButtonsPropertiesForm()
         {
             btn_cargar.BackColor = System.Drawing.Color.FromArgb(218, 218, 28);
             btn_cargar.Size = new Size(140, 30);
-            btn_cargar.Height = 30;
             btn_cargar.Text = "Cargar";
             btn_cargar.FlatStyle = FlatStyle.Flat;
             btn_cargar.FlatAppearance.BorderSize = 0;
-            btn_cargar.Margin = new Padding(132, 10, 0, 0);
+            btn_cargar.Margin = new Padding(130, 10, 0, 0);
             btn_cargar.ForeColor = System.Drawing.Color.FromArgb(32, 32, 32);
             btn_cargar.Font = new Font("Nunito", 12, FontStyle.Bold);
+            //btn_cargar.Location = new Point((flowLayoutForm.Width - btn_cargar.Width) / 2, (flowLayoutForm.Height - btn_cargar.Height) / 2);
         }
         private void AddLabels()
         {
