@@ -230,13 +230,6 @@ namespace AppCamiones
             this.DialogResult = DialogResult.OK;
         }
 
-        //private void miTextBox_Paint(object sender, PaintEventArgs e)
-        //{
-        //    Control control = (Control)sender;
-        //    Pen pen = new Pen(Color.Red, 2); // Cambia a tu color
-        //    e.Graphics.DrawRectangle(pen, 0, 0, control.Width - 1, control.Height - 1);
-        //}
-
 
         private void LoginUser_Click(object sender, EventArgs e)
         {

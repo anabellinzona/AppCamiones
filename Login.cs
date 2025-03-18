@@ -47,7 +47,14 @@ namespace AppCamiones
 
             textBoxContraseña.Leave += new EventHandler(Contraseña_Leave);
             textBoxContraseña.Click += new EventHandler(Contraseña_Click);
+
+            textBoxContraseña.TextChanged += new EventHandler(Contraseña_TextChanged);
         }
+
+        //private void Contraseña_TextChanged(object sender, EventArgs e)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         private void Eventos()
         {
@@ -102,6 +109,15 @@ namespace AppCamiones
             {
                 textBoxContraseña.Text = "";
                 textBoxContraseña.ForeColor = Color.Black;
+            }
+        }
+
+        private void Contraseña_TextChanged(object sender, EventArgs e)
+        {
+            if (textBoxContraseña.Text != "Password")
+            {
+                textBoxContraseña.Text = new string('*', textBoxContraseña.Text.Length);
+                textBoxContraseña.Font = new Font("Nunito", 14, FontStyle.Regular);
             }
         }
 
