@@ -38,6 +38,8 @@ namespace AppCamiones
             this.WindowState = FormWindowState.Maximized;
             this.StartPosition = FormStartPosition.CenterScreen;
             
+
+            //Redirections
             closeSesion.Click += new EventHandler(GoToFormUser_Click);
             registrosMenu.Click += new EventHandler(GoToRegistro_Click);
             viajesMenu.Click += new EventHandler(GoToViaje_Click);
