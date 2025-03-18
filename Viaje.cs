@@ -26,9 +26,6 @@ namespace AppCamiones
         private ToolStripMenuItem closeSesion = new ToolStripMenuItem("Cerrar sesión");
 
         //Filter
-        private NewRoundPanel card = new NewRoundPanel();
-        private FlowLayoutPanel cardsContainer = new FlowLayoutPanel();
-
         private NewRoundPanel filter = new NewRoundPanel();
         private FlowLayoutPanel filterFL = new FlowLayoutPanel();
 
@@ -38,15 +35,19 @@ namespace AppCamiones
         private RoundButton camionFilter = new RoundButton();
         private RoundButton clienteFilter = new RoundButton();
 
+        //Card
+        private NewRoundPanel card = new NewRoundPanel();
+        private FlowLayoutPanel cardsContainer = new FlowLayoutPanel();
+
 
         //Constructor
         public Viaje()
         {
-            //HACE QUE SE ABRA EN PANTALLA COMPLETA
-            this.WindowState = FormWindowState.Maximized;
             InitializeUI();
             this.WindowState = FormWindowState.Maximized;
 
+
+            //Hovers
             choferFilter.MouseEnter += new EventHandler(hoverToBtnChofer_MouseEnter);
             choferFilter.MouseLeave += new EventHandler(hoverToBtnChofer_MouseLeave);
 
@@ -56,12 +57,13 @@ namespace AppCamiones
             camionFilter.MouseEnter += new EventHandler(hoverToBtnCamion_MouseEnter);
             camionFilter.MouseLeave += new EventHandler(hoverToBtnCamion_MouseLeave);
 
+            //Redirections
             closeSesion.Click += new EventHandler(GoToFormUser_Click);
             registrosMenu.Click += new EventHandler(GoToRegistro_Click);
             viajesMenu.Click += new EventHandler(GoToViaje_Click);
             homeMenu.Click += new EventHandler(GoToHome_Click);
 
-
+            //Events
             choferFilter.Click += (s, e) => CardGenerator("Chofer");
             clienteFilter.Click += (s, e) => CardGenerator("Cliente");
             camionFilter.Click += (s, e) => CardGenerator("Camión");
@@ -71,7 +73,9 @@ namespace AppCamiones
 
 
 
-        //Events
+
+
+        //RedirectionalFunctions
         private void GoToRegistro_Click(object sender, EventArgs e)
         {
 
@@ -102,7 +106,7 @@ namespace AppCamiones
 
 
 
-        //Functions
+        //HoverFunctions
         private void hoverToBtnChofer_MouseEnter(object sender, EventArgs e)
         {
             choferFilter.Font = new Font("Nunito", 20, FontStyle.Regular);
@@ -139,6 +143,60 @@ namespace AppCamiones
 
 
 
+        //InfoFunctions
+        private void CardGenerator(string filtro)
+        {
+            Console.WriteLine($"Generando cards para: {filtro}");
+            cardsContainer.Controls.Clear();
+
+            List<string> datos = GetFilterInfo(filtro);
+            Console.WriteLine($"Se encontraron {datos.Count} elementos.");
+
+            foreach (string dato in datos)
+            {
+                Panel card = new Panel
+                {
+                    Size = new Size(200, 100),
+                    BackColor = System.Drawing.Color.FromArgb(48, 48, 48),
+                    Margin = new Padding(10),
+                    Font = new Font("Arial", 16, FontStyle.Regular)
+                };
+
+                Label label = new Label
+                {
+                    Text = dato,
+                    ForeColor = System.Drawing.Color.FromArgb(218, 218, 28),
+                    AutoSize = true
+                };
+
+                card.Controls.Add(label);
+                cardsContainer.Controls.Add(card);
+
+                card.Click += (s, e) =>
+                {
+                    ViajeFiltro form = new ViajeFiltro();
+                    form.Show();
+                };
+            }
+            Console.WriteLine($"Total de cards en el contenedor: {cardsContainer.Controls.Count}");
+
+
+        }
+        private List<string> GetFilterInfo(string filtro)
+        {
+            if (filtro == "Camión")
+                return new List<string> { "ABC123", "DEF456", "GHI789" };
+            else if (filtro == "Cliente")
+                return new List<string> { "Gómez", "Pérez", "Rodríguez" };
+            else if (filtro == "Chofer")
+                return new List<string> { "López", "Fernández", "Martínez" };
+            else
+                return new List<string>();
+        }
+
+
+
+
 
 
         //Initializations
@@ -151,7 +209,7 @@ namespace AppCamiones
         private void InitializeToolBar()
         {
             InitializeNavBar();
-            InitializarMenuTipoRegistro();
+            InitializeFilterCards();
         }
         private void InitializeIconoUser()
         {
@@ -196,14 +254,13 @@ namespace AppCamiones
                 MessageBox.Show("La imagen no se encuentra: " + imagePath);
             }
         }
-        private void InitializarMenuTipoRegistro()
+        private void InitializeFilterCards()
         {
             OptionsMenuProperties();
             LayoutOptionsMenuProperties();
             ButtonsProperties();
-            AddLayoutOptionsMenu();
-            AddPanelToForm();
             CardProperties();
+            AddItemsToFilter();
         }
         private void InitializeNavBar()
         {
@@ -219,7 +276,7 @@ namespace AppCamiones
 
 
 
-        //NavProperties
+        //Adds
         private void AddItemsToMenu()
         {
             menuStrip.Items.Add(homeMenu);
@@ -233,7 +290,18 @@ namespace AppCamiones
             this.MainMenuStrip = menuStrip;
             this.Controls.Add(menuStrip);
         }
+        private void AddItemsToFilter()
+        {
+            this.Controls.Add(filter);
+            this.Controls.Add(cardsContainer);
+            filter.Controls.Add(filterFL);
+        }
 
+
+
+
+
+        //NavProperties
         private void MenuProperties()
         {
             menuStrip.Font = new Font("Arial", 14, FontStyle.Regular);
@@ -303,7 +371,6 @@ namespace AppCamiones
                 filterFL.Location = new Point((filter.Width - filterFL.Width) / 2, (filter.Height - filterFL.Height) / 2);
             };
         }
-
         private void ButtonsProperties()
         {
             int j = 0;
@@ -342,17 +409,10 @@ namespace AppCamiones
                 filterFL.Controls.Add(btn);
             }
         }
-        private void AddPanelToForm()
-        {
-            this.Controls.Add(filter);
-            this.Controls.Add(cardsContainer);
-        }
+        
 
-        private void AddLayoutOptionsMenu()
-        {
-            filter.Controls.Add(filterFL);
-        }
 
+        //CardProperties
         private void CardProperties()
         {
             cardsContainer.Size = new Size(800, 400);
@@ -367,63 +427,6 @@ namespace AppCamiones
             {
                 cardsContainer.Location = new Point((this.Width - cardsContainer.Width) / 2, filter.Bottom + 10);
             };
-
-        }
-        private void CardGenerator(string filtro)
-        {
-            Console.WriteLine($"Generando cards para: {filtro}");
-            cardsContainer.Controls.Clear();
-
-            List<string> datos = GetFilterInfo(filtro);
-            Console.WriteLine($"Se encontraron {datos.Count} elementos.");
-
-            foreach (string dato in datos)
-            {
-                Panel card = new Panel
-                {
-                    Size = new Size(200, 100),
-                    BackColor = System.Drawing.Color.FromArgb(48, 48, 48),
-                    Margin = new Padding(10),
-                    Font = new Font("Arial", 16, FontStyle.Regular)
-                };
-
-                Label label = new Label
-                {
-                    Text = dato,
-                    ForeColor = System.Drawing.Color.FromArgb(218, 218, 28),
-                    AutoSize = true
-                };
-
-                card.Controls.Add(label);
-                cardsContainer.Controls.Add(card);
-
-                card.Click += (s, e) =>
-                {
-                    ViajeFiltro form = new ViajeFiltro();
-                    form.Show();
-                };
-            }
-            Console.WriteLine($"Total de cards en el contenedor: {cardsContainer.Controls.Count}");
-
-            
-        }
-
-
-        private List<string> GetFilterInfo(string filtro)
-        {
-            if (filtro == "Camión")
-                return new List<string> { "ABC123", "DEF456", "GHI789" };
-            else if (filtro == "Cliente")
-                return new List<string> { "Gómez", "Pérez", "Rodríguez" };
-            else if (filtro == "Chofer")
-                return new List<string> { "López", "Fernández", "Martínez" };
-            else
-                return new List<string>();
-        }
-        private void ShowDetailsCard(string datoSeleccionado)
-        {
-            MessageBox.Show($"Redirigiendo a detalles de {datoSeleccionado}", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //Redireccion a las tablas de datos
         }
     }
 }
