@@ -64,29 +64,24 @@ namespace AppCamiones
             CargaFormulario(tipoRegistro);
 
 
-            // Hovers
-            btnViaje.MouseEnter += (s, e) => HoverEffect(s, e, true);
-            btnViaje.MouseLeave += (s, e) => HoverEffect(s, e, false);
+            Dictionary<Button, string> buttons = new Dictionary<Button, string>
+            {
+                { btnViaje, "Viaje" },
+                { btnChofer, "Chofer" },
+                { btnCliente, "Cliente" },
+                { btnCheque, "Cheque" },
+                { btnCamion, "Camion" }
+            };
 
-            btnChofer.MouseEnter += (s, e) => HoverEffect(s, e, true);
-            btnChofer.MouseLeave += (s, e) => HoverEffect(s, e, false);
+            foreach (var button in buttons)
+            {
+                //Hovers
+                button.Key.MouseEnter += (s, e) => HoverEffect(s, e, true);
+                button.Key.MouseLeave += (s, e) => HoverEffect(s, e, false);
 
-            btnCliente.MouseEnter += (s, e) => HoverEffect(s, e, true);
-            btnCliente.MouseLeave += (s, e) => HoverEffect(s, e, false);
-
-            btnCheque.MouseEnter += (s, e) => HoverEffect(s, e, true);
-            btnCheque.MouseLeave += (s, e) => HoverEffect(s, e, false);
-
-            btnCamion.MouseEnter += (s, e) => HoverEffect(s, e, true);
-            btnCamion.MouseLeave += (s, e) => HoverEffect(s, e, false);
-
-
-            //Redirections
-            btnViaje.Click += new EventHandler(GoToFormViaje_Click);
-            btnChofer.Click += new EventHandler(GoToFormChofer_Click);
-            btnCliente.Click += new EventHandler(GoToFormCliente_Click);
-            btnCheque.Click += new EventHandler(GoToFormCheque_Click);
-            btnCamion.Click += new EventHandler(GoToFormCamion_Click);
+                //RegisterFormRedirections
+                button.Key.Click += (s, e) => AbrirFormulario(button.Value);
+            }
 
         }
 
@@ -155,40 +150,22 @@ namespace AppCamiones
             formUser.ShowDialog();
             this.Close();
         }
-        private void GoToFormViaje_Click(object sender, EventArgs e)
-        {
-            AbrirFormulario("Viaje");
-        }
-        private void GoToFormChofer_Click(object sender, EventArgs e)
-        {
-            AbrirFormulario("Chofer");
-        }
-        private void GoToFormCliente_Click(object sender, EventArgs e)
-        {
-            AbrirFormulario("Cliente");
-        }
-        private void GoToFormCheque_Click(object sender, EventArgs e)
-        {
-            AbrirFormulario("Cheque");
-        }
-        private void GoToFormCamion_Click(object sender, EventArgs e)
-        {
-            AbrirFormulario("Camion");
-        }
 
 
 
 
 
 
-        //GeneralFormFunction
+
+        //FormRedirection
         private void AbrirFormulario(string tipoRegistro)
         {
-            FormRegistro formularioRegistro = new FormRegistro(tipoRegistro);
-            formularioRegistro.StartPosition = FormStartPosition.CenterScreen;
+            FormRegistro formularioRegistro = new FormRegistro(tipoRegistro)
+            {
+                StartPosition = FormStartPosition.CenterScreen
+            };
             formularioRegistro.ShowDialog();
         }
-
 
 
 
