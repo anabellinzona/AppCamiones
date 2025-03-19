@@ -97,6 +97,10 @@ namespace AppCamiones
         }
 
 
+
+
+
+
         //FilterProperties
         private void OptionsMenuProperties()
         {
@@ -119,6 +123,11 @@ namespace AppCamiones
                 filterFL.Location = new Point((filter.Width - filterFL.Width) / 2, (filter.Height - filterFL.Height) / 2);
             };
         }
+
+
+
+
+
 
         //InfoFunctions
         private void CardGenerator(string filtro)
@@ -170,8 +179,6 @@ namespace AppCamiones
             else
                 return new List<string>();
         }
-
-
         private void ButtonsProperties()
         {
             int j = 0;
@@ -210,6 +217,9 @@ namespace AppCamiones
                 filterFL.Controls.Add(btn);
             }
         }
+
+
+
 
 
         //CardProperties
