@@ -26,45 +26,58 @@ namespace AppCamiones
             InitializeUI();
 
 
+            //closeSesion.Click += new EventHandler(GoToFormUser_Click);
+            //chequesMenu.Click += new EventHandler(GoToCheque_Click);
+            //viajesMenu.Click += new EventHandler(GoToViaje_Click);
+            //registrosMenu.Click += new EventHandler(GoToRegistro_Click);
+            //homeMenu.Click += new EventHandler(GoToHome_Click);
+
             //Redirections
-            closeSesion.Click += new EventHandler(GoToFormUser_Click);
-            chequesMenu.Click += new EventHandler(GoToCheque_Click);
-            viajesMenu.Click += new EventHandler(GoToViaje_Click);
-            registrosMenu.Click += new EventHandler(GoToRegistro_Click);
-            homeMenu.Click += new EventHandler(GoToHome_Click);
+            closeSesion.Click += (sender, e) => OpenForm<Login>();
+            chequesMenu.Click += (sender, e) => OpenForm<Cheque>();
+            viajesMenu.Click += (sender, e) => OpenForm<Viaje>();
+            registrosMenu.Click += (sender, e) => OpenForm<Registro>();
+            homeMenu.Click += (sender, e) => OpenForm<Form1>();
         }
 
 
 
 
-        
-        
+
+
         //RedirectionalFunctions
-        private void GoToCheque_Click(object sender, EventArgs e)
+        private void OpenForm<T>() where T : Form, new()
         {
-            Cheque cheque = new Cheque(); 
-            cheque.Show();
+            T form = new T();
+            form.Show();
         }
-        private void GoToViaje_Click(object sender, EventArgs e)
-        {
-            Viaje vv = new Viaje();
-            vv.Show();
-        }
-        private void GoToRegistro_Click(object sender, EventArgs e)
-        {
-            Registro formRegistro = new Registro();
-            formRegistro.Show();
-        }
-        private void GoToFormUser_Click(object sender, EventArgs e)
-        {
-            Login formUser = new Login();
-            formUser.ShowDialog();
-        }
-        private void GoToHome_Click(object sender, EventArgs e)
-        {
-            Form1 home = new Form1();
-            home.Show();
-        }
+
+
+        //private void GoToCheque_Click(object sender, EventArgs e)
+        //{
+        //    Cheque cheque = new Cheque(); 
+        //    cheque.Show();
+        //}
+        //private void GoToViaje_Click(object sender, EventArgs e)
+        //{
+        //    Viaje vv = new Viaje();
+        //    vv.Show();
+        //}
+        //private void GoToRegistro_Click(object sender, EventArgs e)
+        //{
+        //    Registro formRegistro = new Registro();
+        //    formRegistro.Show();
+        //}
+        //private void GoToFormUser_Click(object sender, EventArgs e)
+        //{
+        //    Login formUser = new Login();
+        //    formUser.ShowDialog();
+        //}
+        //private void GoToHome_Click(object sender, EventArgs e)
+        //{
+        //    Form1 home = new Form1();
+        //    home.Show();
+        //}
 
         
 
