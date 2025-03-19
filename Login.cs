@@ -51,13 +51,15 @@ namespace AppCamiones
 
             textBoxContraseña.Leave += new EventHandler(Contraseña_Leave);
             textBoxContraseña.Click += new EventHandler(Contraseña_Click);
+
+            textBoxContraseña.TextChanged += new EventHandler(Contraseña_TextChanged);
         }
 
-        
-        
-        
-        
-        //Events
+        //private void Contraseña_TextChanged(object sender, EventArgs e)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
         private void Eventos()
         {
             foreach (TextBox txt in textBoxList)
@@ -116,6 +118,16 @@ namespace AppCamiones
             }
         }
 
+        private void Contraseña_TextChanged(object sender, EventArgs e)
+        {
+            if (textBoxContraseña.Text != "Password")
+            {
+                textBoxContraseña.Text = new string('*', textBoxContraseña.Text.Length);
+                textBoxContraseña.Font = new Font("Nunito", 14, FontStyle.Regular);
+            }
+        }
+
+        //---------------------------------------------------------------------
         
 
 
@@ -127,8 +139,9 @@ namespace AppCamiones
         {
             foreach (TextBox txt in textBoxList)
             {
-                if (string.IsNullOrWhiteSpace(txt.Text))
+                if (txt.Text == "Username" || txt.Text == "Password")
                 {
+                    txt.ForeColor = System.Drawing.Color.FromArgb(247, 50, 50);
                     MessageBox.Show("Completar todos los campos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
@@ -137,9 +150,9 @@ namespace AppCamiones
         }
         private void RegisterUser_Click(object sender, EventArgs e)
         {
-            Class1 rr = new Class1();
+            Class1 register = new Class1();
             this.Hide();
-            rr.ShowDialog();
+            register.ShowDialog();
             this.Show();
         }
 
@@ -322,6 +335,17 @@ namespace AppCamiones
             btn_register.Margin = new Padding(118, 5, 0, 0);
             btn_register.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
             btn_register.Font = new Font("Nunito", 12, FontStyle.Bold);
+        }
+        private void AddLabels()
+        {
+            form.Controls.Add(flowLayoutForm);
+            flowLayoutForm.Controls.Add(btn_login);
+            flowLayoutForm.Controls.Add(pregunta);
+            flowLayoutForm.Controls.Add(btn_register);   
+        }
+        private void AddForm()
+        {
+            this.Controls.Add(form);
         }
     }
 }

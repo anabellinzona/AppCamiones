@@ -6,17 +6,8 @@ using System.Collections;
 
 namespace AppCamiones
 {
-    internal class Registro : Form
+    internal class Registro : Home
     {
-        //Nav
-        private MenuStrip menuStrip = new MenuStrip();
-
-        private ToolStripMenuItem homeMenu = new ToolStripMenuItem("home");
-        private ToolStripMenuItem viajesMenu = new ToolStripMenuItem("viajes");
-        private ToolStripMenuItem chequesMenu = new ToolStripMenuItem("cheques");
-        private ToolStripMenuItem registrosMenu = new ToolStripMenuItem("registro");
-        private ToolStripMenuItem userMenu = new ToolStripMenuItem();
-        private ToolStripMenuItem closeSesion = new ToolStripMenuItem("Cerrar sesión");
 
         //RegisterOptions
         private NewRoundPanel optionsMenu = new NewRoundPanel();
@@ -35,14 +26,16 @@ namespace AppCamiones
         //Constructir
         public Registro()
         {
-            InitializeUI();
+            InitializeOptionsMenu();
+
+            ResaltarBoton(registrosMenu);
 
             this.WindowState = FormWindowState.Maximized;
             this.StartPosition = FormStartPosition.CenterScreen;
 
             Login formUser = new Login();
-            
-            
+
+
             //Hovers
             btnViaje.MouseEnter += new EventHandler(hoverToBtnViaje_MouseEnter);
             btnViaje.MouseLeave += new EventHandler(hoverToBtnViaje_MouseLeave);
@@ -60,13 +53,6 @@ namespace AppCamiones
             btnCamion.MouseLeave += new EventHandler(hoverToBtnCamion_MouseLeave);
 
 
-            //NavRedirections
-            closeSesion.Click += new EventHandler(GoToFormUser_Click);
-            chequesMenu.Click += new EventHandler(GoToCheque_Click);
-            viajesMenu.Click += new EventHandler(GoToViaje_Click);
-            homeMenu.Click += new EventHandler(GoToHome_Click);
-
-
             //RegisterFormRedirections
             btnViaje.Click += new EventHandler(GoToFormViaje);
             btnChofer.Click += new EventHandler(GoToFormChofer);
@@ -74,42 +60,6 @@ namespace AppCamiones
             btnCheque.Click += new EventHandler(GoToFormCheque);
             btnCamion.Click += new EventHandler(GoToFormCamion);
         }
-
-
-
-
-
-
-        //NavRedirectionalFunctions
-        private void GoToViaje_Click(object sender, EventArgs e)
-        {
-            Viaje viaje = new Viaje();
-            viaje.Show();
-            this.Close();
-        }
-        private void GoToCheque_Click(object sender, EventArgs e)
-        {
-            Cheque tablaCheque = new Cheque();
-            tablaCheque.ShowDialog();
-            this.Close();
-        }
-        private void GoToFormUser_Click(object sender, EventArgs e)
-        {
-            Login formUser = new Login();
-            formUser.ShowDialog();
-            this.Close();
-        }
-        private void GoToHome_Click(object sender, EventArgs e)
-        {
-            Form1 home = new Form1();
-            home.Show();
-            this.Close();
-        }
-
-
-
-
-
 
         //FormRedirectionalFunctions
         private void GoToFormViaje(object sender, EventArgs e)
@@ -139,10 +89,6 @@ namespace AppCamiones
             formularioRegistro.StartPosition = FormStartPosition.CenterScreen;
             formularioRegistro.ShowDialog();
         }
-
-
-
-
 
 
         //HoverFunctions
@@ -202,26 +148,6 @@ namespace AppCamiones
         }
 
 
-
-
-
-        //Initializations
-        private void InitializeUI()
-        {
-            InitializeBackImage();
-            InitializeIconoApp();
-            InitializeIconoUser();
-            InitializeToolBar();
-            InitializeOptionsMenu();
-        }
-        private void InitializeToolBar()
-        {
-            ItemsCapitalLetter();
-            MenuProperties();
-            ItemsColor();
-            MarginToItems();
-            AddItemsToMenu();
-        }
         private void InitializeOptionsMenu()
         {
             OptionsMenuProperties();
@@ -230,89 +156,8 @@ namespace AppCamiones
             AddButtonsToPanel();
             AddPanelToForm();
         }
-        private void InitializeBackImage()
-        {
-            string imagePath = Path.Combine(Application.StartupPath, "Resources", "goma.jpg");
+       
 
-            if (File.Exists(imagePath))
-            {
-                Image img = Image.FromFile(imagePath);
-
-                if (Array.Exists(img.PropertyIdList, id => id == 0x0112))
-                {
-                    int orientation = BitConverter.ToUInt16(img.GetPropertyItem(0x0112).Value, 0);
-
-                    // Corrige la orientación de la imagen en base al valor EXIF
-                    switch (orientation)
-                    {
-                        case 1:
-                            // Sin rotación (normal)
-                            break;
-                        case 3:
-                            img.RotateFlip(RotateFlipType.Rotate180FlipNone);
-                            break;
-                        case 6:
-                            img.RotateFlip(RotateFlipType.Rotate90FlipNone);
-                            break;
-                        case 8:
-                            img.RotateFlip(RotateFlipType.Rotate270FlipNone);
-                            break;
-                    }
-                }
-
-                this.BackgroundImage = img;
-            }
-            else
-            {
-                MessageBox.Show("La imagen no se encuentra: " + imagePath);
-            }
-        }
-        private void InitializeIconoApp()
-        {
-            string iconoApp = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "icono_camion.ico");
-
-            if (File.Exists(iconoApp))
-            {
-                this.Icon = new Icon(iconoApp);
-            }
-            else
-            {
-                MessageBox.Show("La imagen no se encuentra: " + iconoApp);
-            }
-        }
-        private void InitializeIconoUser()
-        {
-            string icono_user = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "icono_user.png");
-
-
-            if (File.Exists(icono_user))
-            {
-                userMenu.Image = Image.FromFile(icono_user);
-            }
-            else
-            {
-                MessageBox.Show("La imagen no se encuentra: " + icono_user);
-            }
-        }
-
-
-
-
-
-        //Adds
-        private void AddItemsToMenu()
-        {
-            menuStrip.Items.Add(homeMenu);
-            menuStrip.Items.Add(viajesMenu);
-            menuStrip.Items.Add(chequesMenu);
-            menuStrip.Items.Add(registrosMenu);
-            menuStrip.Items.Add(userMenu);
-
-            userMenu.DropDownItems.Add(closeSesion);
-
-            this.MainMenuStrip = menuStrip;
-            this.Controls.Add(menuStrip);
-        }
         private void AddPanelToForm()
         {
             this.Controls.Add(optionsMenu);
@@ -322,54 +167,6 @@ namespace AppCamiones
         {
             optionsMenu.Controls.Add(layoutOptionsMenu);
         }
-
-
-
-
-
-        //NavProperties
-        private void ItemsCapitalLetter()
-        {
-            homeMenu.Text = homeMenu.Text.ToUpper();
-            viajesMenu.Text = viajesMenu.Text.ToUpper();
-            chequesMenu.Text = chequesMenu.Text.ToUpper();
-            registrosMenu.Text = registrosMenu.Text.ToUpper();
-            userMenu.Text = userMenu.Text.ToUpper();
-        }
-        private void MenuProperties()
-        {
-            menuStrip.Font = new Font("Arial", 14, FontStyle.Regular);
-            menuStrip.BackColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            menuStrip.ImageScalingSize = new Size(34, 34);
-            menuStrip.AutoSize = false;
-            menuStrip.Width = this.Width;
-            menuStrip.Height = 80;
-            menuStrip.Dock = DockStyle.Top;
-            registrosMenu.Font = new Font("Arial", 16, FontStyle.Underline);
-        }
-        private void ItemsColor()
-        {
-            homeMenu.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
-            viajesMenu.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
-            chequesMenu.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
-            registrosMenu.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
-            userMenu.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
-            closeSesion.ForeColor = System.Drawing.Color.FromArgb(141, 138, 138);
-        }
-        private void MarginToItems()
-        {
-            int x = this.Width;
-            int y = x / 10;
-            int t = (menuStrip.Width - userMenu.Width);
-
-            homeMenu.Margin = new Padding(y, 0, 0, 0);
-            viajesMenu.Margin = new Padding(y, 0, 0, 0);
-            chequesMenu.Margin = new Padding(y, 0, 0, 0);
-            registrosMenu.Margin = new Padding(y, 0, 0, 0);
-            userMenu.Margin = new Padding(t, 0, 0, 0);
-            closeSesion.Margin = new Padding(0, 10, 0, 0);
-        }
-
         
 
         
