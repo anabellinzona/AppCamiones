@@ -31,8 +31,6 @@ namespace AppCamiones
 
 
 
-
-
         //Initializations
         private void InitializeUI()
         {
@@ -44,7 +42,6 @@ namespace AppCamiones
             GridChequesProperties();
         }
         
-
 
 
 

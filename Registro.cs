@@ -4,6 +4,7 @@ using System;
 using System.Windows.Forms;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing.Text;
 
 namespace AppCamiones
 {
@@ -27,7 +28,7 @@ namespace AppCamiones
         //Constructor
         public Registro()
         {
-            InitializeOptionsMenu();
+            InitializeUI();
 
             ResaltarBoton(registrosMenu);
 
@@ -134,10 +135,11 @@ namespace AppCamiones
 
 
 
-
-
-
         //Initializations
+        private void InitializeUI()
+        {
+            InitializeOptionsMenu();
+        }
         private void InitializeOptionsMenu()
         {
             OptionsMenuProperties();
@@ -147,9 +149,6 @@ namespace AppCamiones
             AddPanelToForm();
         }
        
-
-
-
 
 
 
@@ -164,7 +163,6 @@ namespace AppCamiones
             optionsMenu.Controls.Add(layoutOptionsMenu);
         }
         
-
 
 
         

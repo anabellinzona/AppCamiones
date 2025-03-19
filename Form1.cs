@@ -36,25 +36,19 @@ namespace AppCamiones
        
 
 
-
         //Constructor
         public Form1()
         {
-            InitializeComponent();
-
             InitializeUI();
+            this.WindowState = FormWindowState.Maximized;
 
             ResaltarBoton(homeMenu);
-
-            this.WindowState = FormWindowState.Maximized;
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
 
         }
-
-
 
 
 
@@ -82,9 +76,6 @@ namespace AppCamiones
             AddTravelToday();
             AddTravel();
         }
-
-
-
 
 
 
@@ -158,10 +149,6 @@ namespace AppCamiones
             this.Controls.Add(table_travel);
             this.Controls.Add(table_pay);
         }
-
-
-
-
 
 
 
@@ -256,7 +243,7 @@ namespace AppCamiones
             travel_title.TextAlign = ContentAlignment.TopCenter;
             travel_title.AutoSize = false;
             travel_title.Width = layoutTableTravelToday.Width;
-            //-------------------------------------------------------------------------
+            
             travel_title2.Text = "viajes próximos:";
             travel_title2.Font = new Font("Arial", 14, FontStyle.Regular);
             travel_title2.Text = travel_title2.Text.ToUpper();
@@ -274,7 +261,6 @@ namespace AppCamiones
             //travel.Margin = new Padding(0, 10, 0, 0);
         }
         
-
 
 
 

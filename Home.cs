@@ -43,8 +43,6 @@ namespace AppCamiones
 
 
 
-
-
         //RedirectionalFunctions
         private void OpenForm<T>() where T : Form, new()
         {
@@ -79,10 +77,6 @@ namespace AppCamiones
         //    home.Show();
         //}
 
-        
-
-
-
 
 
         //HoverFunctions
@@ -99,7 +93,6 @@ namespace AppCamiones
                 menuItem.Font = new Font("Nunito", 16, FontStyle.Underline);
             }
         }
-
 
 
 
@@ -186,8 +179,6 @@ namespace AppCamiones
 
 
 
-
-
         //Adds
         private void AddItemsToMenu()
         {
@@ -202,9 +193,6 @@ namespace AppCamiones
             this.MainMenuStrip = menuStrip;
             this.Controls.Add(menuStrip);
         }
-
-
-
 
 
 

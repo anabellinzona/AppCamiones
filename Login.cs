@@ -46,11 +46,15 @@ namespace AppCamiones
             Eventos();
 
             //Hovers
-            textBoxNombreUsuario.Leave += new EventHandler(NombreUsuario_Leave);
-            textBoxNombreUsuario.Click += new EventHandler(NombreUsuario_Click);
+            //textBoxNombreUsuario.Leave += new EventHandler(NombreUsuario_Leave);
+            //textBoxNombreUsuario.Click += new EventHandler(NombreUsuario_Click);
 
-            textBoxContraseña.Leave += new EventHandler(Contraseña_Leave);
-            textBoxContraseña.Click += new EventHandler(Contraseña_Click);
+            //textBoxContraseña.Leave += new EventHandler(Contraseña_Leave);
+            //textBoxContraseña.Click += new EventHandler(Contraseña_Click);
+
+            //RedirectEventFunction
+            AsignarEvento(textBoxNombreUsuario, "Username");
+            AsignarEvento(textBoxContraseña, "Password");
 
             textBoxContraseña.TextChanged += new EventHandler(Contraseña_TextChanged);
         }
@@ -60,6 +64,7 @@ namespace AppCamiones
         //    throw new NotImplementedException();
         //}
 
+        //Events
         private void Eventos()
         {
             foreach (TextBox txt in textBoxList)
@@ -77,47 +82,75 @@ namespace AppCamiones
             }
         }
 
-        
-        
-        
-        
-        
+
+
+
         //HoverFunctions
-        private void NombreUsuario_Leave(object sender, EventArgs e)
+        //private void NombreUsuario_Leave(object sender, EventArgs e)
+        //{
+        //    if (string.IsNullOrWhiteSpace(textBoxNombreUsuario.Text))
+        //    {
+        //        textBoxNombreUsuario.Text = "Username";
+        //        textBoxNombreUsuario.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77); // Cambia el color del texto placeholder
+        //    }
+        //}
+        //private void NombreUsuario_Click(object sender, EventArgs e)
+        //{
+        //    if (textBoxNombreUsuario.Text == "Username")
+        //    {
+        //        textBoxNombreUsuario.Text = "";
+        //        textBoxNombreUsuario.ForeColor = Color.Black; // Cambia el color del texto
+        //    }
+        //}
+
+        //private void Contraseña_Leave(object sender, EventArgs e)
+        //{
+        //    if (string.IsNullOrWhiteSpace(textBoxContraseña.Text))
+        //    {
+        //        textBoxContraseña.Text = "Password";
+        //        textBoxContraseña.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
+        //        textBoxContraseña.Font = new Font("Nunito", 10, FontStyle.Regular);
+        //    }
+        //}
+        //private void Contraseña_Click(object sender, EventArgs e)
+        //{
+        //    if(textBoxContraseña.Text == "Password")
+        //    {
+        //        textBoxContraseña.Text = "";
+        //        textBoxContraseña.ForeColor = Color.Black;
+        //    }
+        //}
+
+        //RedirectEventFunction
+        private void AsignarEvento(TextBox textBox, string placeholderText)
         {
-            if (string.IsNullOrWhiteSpace(textBoxNombreUsuario.Text))
+            textBox.Leave += (sender, e) => Leave(sender, e, placeholderText);
+            textBox.Click += (sender, e) => Click(sender, e, placeholderText);
+        }
+
+        //LeaveEventFunction
+        private void Leave(object sender, EventArgs e, string placeholderText)
+        {
+            TextBox textBox = sender as TextBox;
+            if (string.IsNullOrWhiteSpace(textBox.Text))
             {
-                textBoxNombreUsuario.Text = "Username";
-                textBoxNombreUsuario.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77); // Cambia el color del texto placeholder
+                textBox.Text = placeholderText;
+                textBox.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
             }
         }
-        private void NombreUsuario_Click(object sender, EventArgs e)
+        //ClickEventFunction
+        private void Click(object sender, EventArgs e, string placeholderText)
         {
-            if (textBoxNombreUsuario.Text == "Username")
+            TextBox textBox = sender as TextBox;
+            if (textBox.Text == placeholderText)
             {
-                textBoxNombreUsuario.Text = "";
-                textBoxNombreUsuario.ForeColor = Color.Black; // Cambia el color del texto
+                textBox.Text = "";
+                textBox.ForeColor = Color.Black;
             }
         }
 
-        private void Contraseña_Leave(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(textBoxContraseña.Text))
-            {
-                textBoxContraseña.Text = "Password";
-                textBoxContraseña.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
-                textBoxContraseña.Font = new Font("Nunito", 10, FontStyle.Regular);
-            }
-        }
-        private void Contraseña_Click(object sender, EventArgs e)
-        {
-            if(textBoxContraseña.Text == "Password")
-            {
-                textBoxContraseña.Text = "";
-                textBoxContraseña.ForeColor = Color.Black;
-            }
-        }
 
+        //EspecialFunctions
         private void Contraseña_TextChanged(object sender, EventArgs e)
         {
             if (textBoxContraseña.Text != "Password")
@@ -126,15 +159,6 @@ namespace AppCamiones
                 textBoxContraseña.Font = new Font("Nunito", 14, FontStyle.Regular);
             }
         }
-
-        //---------------------------------------------------------------------
-        
-
-
-
-
-
-        //RedirectionalFunctions
         private void LoginUser_Click(object sender, EventArgs e)
         {
             foreach (TextBox txt in textBoxList)
@@ -155,9 +179,6 @@ namespace AppCamiones
             register.ShowDialog();
             this.Show();
         }
-
-
-
 
 
 
@@ -230,8 +251,6 @@ namespace AppCamiones
 
 
 
-
-
         //Adds
         private void AddLabels()
         {
@@ -244,9 +263,6 @@ namespace AppCamiones
         {
             this.Controls.Add(form);
         }
-
-
-
 
 
 

@@ -11,7 +11,7 @@ namespace AppCamiones
 {
     internal class FormRegistro : Home
     {
-        //
+        //Form
         private string tipoRegistro;
         private ArrayList array = new ArrayList();
 
@@ -54,6 +54,10 @@ namespace AppCamiones
         private Button btnCheque = new Button();
         private Button btnViaje = new Button();
 
+
+
+
+        //Constructor
         public FormRegistro(string tipoRegistro)
         {
             InitializeUI();
@@ -63,7 +67,7 @@ namespace AppCamiones
             ResaltarBoton(registrosMenu);
             CargaFormulario(tipoRegistro);
 
-
+            //ButtonsArray
             Dictionary<Button, string> buttons = new Dictionary<Button, string>
             {
                 { btnViaje, "Viaje" },
@@ -73,6 +77,8 @@ namespace AppCamiones
                 { btnCamion, "Camion" }
             };
 
+
+            //ButtonsEvents
             foreach (var button in buttons)
             {
                 //Hovers
@@ -84,9 +90,6 @@ namespace AppCamiones
             }
 
         }
-
-
-
 
 
 
@@ -133,10 +136,6 @@ namespace AppCamiones
 
 
 
-
-
-
-
         //RedirectionalFunctions
         private void GoToCheque_Click(object sender, EventArgs e)
         {
@@ -150,9 +149,6 @@ namespace AppCamiones
             formUser.ShowDialog();
             this.Close();
         }
-
-
-
 
 
 
@@ -180,9 +176,6 @@ namespace AppCamiones
                 button.ForeColor = isHover ? Color.FromArgb(218, 218, 28) : Color.FromArgb(224, 224, 224);
             }
         }
-
-
-
 
 
 
@@ -321,8 +314,6 @@ namespace AppCamiones
 
 
 
-
-
         //Adds
         private void AddLabels()
         {
@@ -341,11 +332,6 @@ namespace AppCamiones
         {
             optionsMenu.Controls.Add(layoutOptionsMenu);
         }
-
-
-
-
-
 
 
 
