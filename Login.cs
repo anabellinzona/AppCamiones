@@ -11,13 +11,11 @@ namespace AppCamiones
 {
     internal class Login : Form
     {       
-        //DECLARACIÓN DEL FORM
+        //Form
         private NewRoundPanel form = new NewRoundPanel();
-
         private FlowLayoutPanel flowLayoutForm = new FlowLayoutPanel();
 
         private List<TextBox> textBoxList = new List<TextBox>();
-
         private System.Windows.Forms.Label pregunta = new System.Windows.Forms.Label();
 
         private TextBox textBoxNombreUsuario = new TextBox();
@@ -31,17 +29,23 @@ namespace AppCamiones
         private String campo2 = "Password";
 
 
+
+
+        //Constructor
         public Login()
         {
             InitializeUI();
 
-            //HACE QUE SE ABRA EN PANTALLA COMPLETA
             this.WindowState = FormWindowState.Maximized;
+
+            //Redirections
             btn_login.Click += new EventHandler(LoginUser_Click);
             btn_register.Click += new EventHandler(RegisterUser_Click);
 
+            //Events
             Eventos();
 
+            //Hovers
             textBoxNombreUsuario.Leave += new EventHandler(NombreUsuario_Leave);
             textBoxNombreUsuario.Click += new EventHandler(NombreUsuario_Click);
 
@@ -49,6 +53,11 @@ namespace AppCamiones
             textBoxContraseña.Click += new EventHandler(Contraseña_Click);
         }
 
+        
+        
+        
+        
+        //Events
         private void Eventos()
         {
             foreach (TextBox txt in textBoxList)
@@ -66,7 +75,12 @@ namespace AppCamiones
             }
         }
 
-        //NOMBRE DE USUARIO
+        
+        
+        
+        
+        
+        //HoverFunctions
         private void NombreUsuario_Leave(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(textBoxNombreUsuario.Text))
@@ -75,7 +89,6 @@ namespace AppCamiones
                 textBoxNombreUsuario.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77); // Cambia el color del texto placeholder
             }
         }
-
         private void NombreUsuario_Click(object sender, EventArgs e)
         {
             if (textBoxNombreUsuario.Text == "Username")
@@ -85,7 +98,6 @@ namespace AppCamiones
             }
         }
 
-        //CONTRASEÑA
         private void Contraseña_Leave(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(textBoxContraseña.Text))
@@ -95,7 +107,6 @@ namespace AppCamiones
                 textBoxContraseña.Font = new Font("Nunito", 10, FontStyle.Regular);
             }
         }
-
         private void Contraseña_Click(object sender, EventArgs e)
         {
             if(textBoxContraseña.Text == "Password")
@@ -105,7 +116,13 @@ namespace AppCamiones
             }
         }
 
-        //---------------------------------------------------------------------
+        
+
+
+
+
+
+        //RedirectionalFunctions
         private void LoginUser_Click(object sender, EventArgs e)
         {
             foreach (TextBox txt in textBoxList)
@@ -118,7 +135,6 @@ namespace AppCamiones
             }
             this.DialogResult = DialogResult.OK;
         }
-
         private void RegisterUser_Click(object sender, EventArgs e)
         {
             Class1 rr = new Class1();
@@ -127,39 +143,43 @@ namespace AppCamiones
             this.Show();
         }
 
-        //---------------------------------------------------------------------
 
+
+
+
+
+
+        //Initializations
         private void InitializeUI()
         {
+            InitializeForm();
             InitializeBackImage();
             InitializeIconoApp();
-            InitializeForm();
         }
-
+        private void InitializeForm()
+        {
+            FormProperties();
+            LayoutFormProperties();
+            TextBoxAndLabelProperties();
+            ButtonsProperties();
+            AddLabels();
+            AddForm();
+        }
         private void InitializeBackImage()
         {
-
-            // Ruta absoluta a la imagen en la carpeta de Descargas
-
             string imagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "goma.jpg");
 
-            // Verifica si existe el archivo
             if (File.Exists(imagePath))
             {
-                // Carga la imagen
                 Image img = Image.FromFile(imagePath);
 
-                // Verifica si la imagen tiene un valor de orientación en sus metadatos EXIF
-                if (Array.Exists(img.PropertyIdList, id => id == 0x0112)) // 0x0112 es el ID de la propiedad "Orientation"
+                if (Array.Exists(img.PropertyIdList, id => id == 0x0112)) 
                 {
-                    // Lee el valor de la propiedad de orientación EXIF
                     int orientation = BitConverter.ToUInt16(img.GetPropertyItem(0x0112).Value, 0);
 
-                    // Corrige la orientación de la imagen en base al valor EXIF
                     switch (orientation)
                     {
                         case 1:
-                            // Sin rotación (normal)
                             break;
                         case 3:
                             img.RotateFlip(RotateFlipType.Rotate180FlipNone);
@@ -173,46 +193,52 @@ namespace AppCamiones
                     }
                 }
 
-                // Asigna la imagen corregida al fondo
                 this.BackgroundImage = img;
             }
             else
             {
-                // Muestra un mensaje de error si no se encuentra la imagen
                 MessageBox.Show("La imagen no se encuentra: " + imagePath);
             }
         }
-
         private void InitializeIconoApp()
         {
-            //ASIGNA ÍCONO AL FORMULARIO
             string iconoApp = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "icono_camion.ico");
 
-            //PREGUNTA SI EXISTE EL ARCHIVO
             if (File.Exists(iconoApp))
             {
-                //LE ASIGNA EL ICONO A LA APLICACIÓN
                 this.Icon = new Icon(iconoApp);
             }
             else
             {
-                //TIRA EXCEPCIÓN
                 MessageBox.Show("La imagen no se encuentra: " + iconoApp);
             }
         }
 
 
-        //FORMULARIO DE LOGIN
-        private void InitializeForm()
+
+
+
+
+        //Adds
+        private void AddLabels()
         {
-            FormProperties();
-            LayoutFormProperties();
-            TextBoxAndLabelProperties();
-            ButtonsProperties();
-            AddLabels();
-            AddForm();
+            form.Controls.Add(flowLayoutForm);
+            flowLayoutForm.Controls.Add(btn_login);
+            flowLayoutForm.Controls.Add(pregunta);
+            flowLayoutForm.Controls.Add(btn_register);
+        }
+        private void AddForm()
+        {
+            this.Controls.Add(form);
         }
 
+
+
+
+
+
+
+        //FormProperties
         private void FormProperties()
         {
             form.Size = new Size(450, 450);
@@ -223,7 +249,6 @@ namespace AppCamiones
 
             form.BackColor = System.Drawing.Color.FromArgb(130, Color.Black);
         }
-
         private void LayoutFormProperties()
         {
             flowLayoutForm.Size = new Size(400, 310);
@@ -232,7 +257,6 @@ namespace AppCamiones
             flowLayoutForm.FlowDirection = FlowDirection.TopDown;
 
         }
-
         private void TextBoxAndLabelProperties()
         {
             campos_Login.Add(campo1);
@@ -277,7 +301,6 @@ namespace AppCamiones
             pregunta.TextAlign = ContentAlignment.TopCenter;
             pregunta.Margin = new Padding(113, 50, 0, 0); 
         }
-
         private void ButtonsProperties()
         {
             btn_login.BackColor = System.Drawing.Color.FromArgb(218, 218, 28);
@@ -299,17 +322,6 @@ namespace AppCamiones
             btn_register.Margin = new Padding(118, 5, 0, 0);
             btn_register.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
             btn_register.Font = new Font("Nunito", 12, FontStyle.Bold);
-        }
-        private void AddLabels()
-        {
-            form.Controls.Add(flowLayoutForm);
-            flowLayoutForm.Controls.Add(btn_login);
-            flowLayoutForm.Controls.Add(pregunta);
-            flowLayoutForm.Controls.Add(btn_register);   
-        }
-        private void AddForm()
-        {
-            this.Controls.Add(form);
         }
     }
 }
