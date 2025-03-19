@@ -40,14 +40,14 @@ namespace AppCamiones
 
 
             //Hovers
-            choferFilter.MouseEnter += new EventHandler(hoverToBtnChofer_MouseEnter);
-            choferFilter.MouseLeave += new EventHandler(hoverToBtnChofer_MouseLeave);
+            choferFilter.MouseEnter += (s, e) => HoverEffect(s, e, true);
+            choferFilter.MouseLeave += (s, e) => HoverEffect(s, e, false);
 
-            clienteFilter.MouseEnter += new EventHandler(hoverToBtnCliente_MouseEnter);
-            clienteFilter.MouseLeave += new EventHandler(hoverToBtnCliente_MouseLeave);
+            clienteFilter.MouseEnter += (s, e) => HoverEffect(s, e, true);
+            clienteFilter.MouseLeave += (s, e) => HoverEffect(s, e, false);
 
-            camionFilter.MouseEnter += new EventHandler(hoverToBtnCamion_MouseEnter);
-            camionFilter.MouseLeave += new EventHandler(hoverToBtnCamion_MouseLeave);
+            camionFilter.MouseEnter += (s, e) => HoverEffect(s, e, true);
+            camionFilter.MouseLeave += (s, e) => HoverEffect(s, e, false);
 
             //Events
             choferFilter.Click += (s, e) => CardGenerator("Chofer");
@@ -56,38 +56,15 @@ namespace AppCamiones
         }
 
 
-        //HoverFunctions
-        private void hoverToBtnChofer_MouseEnter(object sender, EventArgs e)
+        //HoverFunction
+        private void HoverEffect(object sender, EventArgs e, bool isHover)
         {
-            choferFilter.Font = new Font("Nunito", 20, FontStyle.Regular);
-            choferFilter.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
-        }
-        private void hoverToBtnChofer_MouseLeave(object sender, EventArgs e)
-        {
-            choferFilter.Font = new Font("Nunito", 16, FontStyle.Regular);
-            choferFilter.ForeColor = System.Drawing.Color.FromArgb(224, 224, 224);
-        }
-
-        private void hoverToBtnCliente_MouseEnter(object sender, EventArgs e)
-        {
-            clienteFilter.Font = new Font("Nunito", 20, FontStyle.Regular);
-            clienteFilter.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
-        }
-        private void hoverToBtnCliente_MouseLeave(object sender, EventArgs e)
-        {
-            clienteFilter.Font = new Font("Nunito", 16, FontStyle.Regular);
-            clienteFilter.ForeColor = System.Drawing.Color.FromArgb(224, 224, 224);
-        }
-
-        private void hoverToBtnCamion_MouseEnter(object sender, EventArgs e)
-        {
-            camionFilter.Font = new Font("Nunito", 20, FontStyle.Regular);
-            camionFilter.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
-        }
-        private void hoverToBtnCamion_MouseLeave(object sender, EventArgs e)
-        {
-            camionFilter.Font = new Font("Nunito", 16, FontStyle.Regular);
-            camionFilter.ForeColor = System.Drawing.Color.FromArgb(224, 224, 224);
+            var button = sender as RoundButton;
+            if (button != null)
+            {
+                button.Font = new Font("Nunito", isHover ? 20 : 16, FontStyle.Regular);
+                button.ForeColor = isHover ? Color.FromArgb(218, 218, 28) : Color.FromArgb(224, 224, 224);
+            }
         }
 
 

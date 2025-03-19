@@ -23,7 +23,7 @@ namespace AppCamiones
         private ArrayList nombreBotonesRegistro = new ArrayList();
 
 
-        //Constructir
+        //Constructor
         public Registro()
         {
             InitializeOptionsMenu();
@@ -36,22 +36,21 @@ namespace AppCamiones
             Login formUser = new Login();
 
 
-            //Hovers
-            btnViaje.MouseEnter += new EventHandler(hoverToBtnViaje_MouseEnter);
-            btnViaje.MouseLeave += new EventHandler(hoverToBtnViaje_MouseLeave);
+            // Hovers
+            btnViaje.MouseEnter += (s, e) => HoverEffect(s, e, true);
+            btnViaje.MouseLeave += (s, e) => HoverEffect(s, e, false);
 
-            btnChofer.MouseEnter += new EventHandler(hoverToBtnChofer_MouseEnter);
-            btnChofer.MouseLeave += new EventHandler(hoverToBtnChofer_MouseLeave);
+            btnChofer.MouseEnter += (s, e) => HoverEffect(s, e, true);
+            btnChofer.MouseLeave += (s, e) => HoverEffect(s, e, false);
 
-            btnCliente.MouseEnter += new EventHandler(hoverToBtnCliente_MouseEnter);
-            btnCliente.MouseLeave += new EventHandler(hoverToBtnCliente_MouseLeave);
+            btnCliente.MouseEnter += (s, e) => HoverEffect(s, e, true);
+            btnCliente.MouseLeave += (s, e) => HoverEffect(s, e, false);
 
-            btnCheque.MouseEnter += new EventHandler(hoverToBtnCheque_MouseEnter);
-            btnCheque.MouseLeave += new EventHandler(hoverToBtnCheque_MouseLeave);
+            btnCheque.MouseEnter += (s, e) => HoverEffect(s, e, true);
+            btnCheque.MouseLeave += (s, e) => HoverEffect(s, e, false);
 
-            btnCamion.MouseEnter += new EventHandler(hoverToBtnCamion_MouseEnter);
-            btnCamion.MouseLeave += new EventHandler(hoverToBtnCamion_MouseLeave);
-
+            btnCamion.MouseEnter += (s, e) => HoverEffect(s, e, true);
+            btnCamion.MouseLeave += (s, e) => HoverEffect(s, e, false);
 
             //RegisterFormRedirections
             btnViaje.Click += new EventHandler(GoToFormViaje);
@@ -91,63 +90,23 @@ namespace AppCamiones
         }
 
 
-        //HoverFunctions
-        private void hoverToBtnViaje_MouseEnter(object sender, EventArgs e)
+        private void HoverEffect(object sender, EventArgs e, bool isHover)
         {
-            btnViaje.Font = new Font("Nunito", 20, FontStyle.Regular);
-            btnViaje.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
-        }
-        private void hoverToBtnViaje_MouseLeave(object sender, EventArgs e)
-        {
-            btnViaje.Font = new Font("Nunito", 16, FontStyle.Regular);
-            btnViaje.ForeColor = System.Drawing.Color.FromArgb(224, 224, 224);
-        }
-
-        private void hoverToBtnChofer_MouseEnter(object sender, EventArgs e)
-        {
-            btnChofer.Font = new Font("Nunito", 20, FontStyle.Regular);
-            btnChofer.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
-        }
-        private void hoverToBtnChofer_MouseLeave(object sender, EventArgs e)
-        {
-            btnChofer.Font = new Font("Nunito", 16, FontStyle.Regular);
-            btnChofer.ForeColor = System.Drawing.Color.FromArgb(224, 224, 224);
-        }
-
-        private void hoverToBtnCliente_MouseEnter(object sender, EventArgs e)
-        {
-            btnCliente.Font = new Font("Nunito", 20, FontStyle.Regular);
-            btnCliente.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
-        }
-        private void hoverToBtnCliente_MouseLeave(object sender, EventArgs e)
-        {
-            btnCliente.Font = new Font("Nunito", 16, FontStyle.Regular);
-            btnCliente.ForeColor = System.Drawing.Color.FromArgb(224, 224, 224);
-        }
-
-        private void hoverToBtnCheque_MouseEnter(object sender, EventArgs e)
-        {
-            btnCheque.Font = new Font("Nunito", 20, FontStyle.Regular);
-            btnCheque.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
-        }
-        private void hoverToBtnCheque_MouseLeave(object sender, EventArgs e)
-        {
-            btnCheque.Font = new Font("Nunito", 16, FontStyle.Regular);
-            btnCheque.ForeColor = System.Drawing.Color.FromArgb(224, 224, 224);
-        }
-
-        private void hoverToBtnCamion_MouseEnter(object sender, EventArgs e)
-        {
-            btnCamion.Font = new Font("Nunito", 20, FontStyle.Regular);
-            btnCamion.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
-        }
-        private void hoverToBtnCamion_MouseLeave(object sender, EventArgs e)
-        {
-            btnCamion.Font = new Font("Nunito", 16, FontStyle.Regular);
-            btnCamion.ForeColor = System.Drawing.Color.FromArgb(224, 224, 224);
+            var button = sender as Button;
+            if (button != null)
+            {
+                button.Font = new Font("Nunito", isHover ? 20 : 16, FontStyle.Regular);
+                button.ForeColor = isHover ? Color.FromArgb(218, 218, 28) : Color.FromArgb(224, 224, 224);
+            }
         }
 
 
+
+
+
+
+
+        //Initializations
         private void InitializeOptionsMenu()
         {
             OptionsMenuProperties();
@@ -158,6 +117,12 @@ namespace AppCamiones
         }
        
 
+
+
+
+
+
+        //Adds
         private void AddPanelToForm()
         {
             this.Controls.Add(optionsMenu);
@@ -168,6 +133,8 @@ namespace AppCamiones
             optionsMenu.Controls.Add(layoutOptionsMenu);
         }
         
+
+
 
         
         //RegisterOptionsProperties
