@@ -15,21 +15,29 @@ namespace AppCamiones
 {
     public partial class Form1 : Home
     {
-        //CREACIÓN PANEL Y COMPONENTES
+        //TravelsTable
         private Panel table_travel = new Panel();
 
         private Label travel_title = new Label();
         private Label travel_title2 = new Label();
-        private Panel table_pay = new Panel();
-        private Label pay_title = new Label();
 
         private FlowLayoutPanel layoutTableTravelToday = new FlowLayoutPanel();
         private FlowLayoutPanel layoutTableTravelNext = new FlowLayoutPanel();
         private FlowLayoutPanel layoutTravelNext = new FlowLayoutPanel();
         private FlowLayoutPanel layoutTravelToday = new FlowLayoutPanel();
+
+        //PayTable
         private FlowLayoutPanel layoutTablePay = new FlowLayoutPanel();
         private FlowLayoutPanel layoutPay = new FlowLayoutPanel();
 
+        private Panel table_pay = new Panel();
+        private Label pay_title = new Label();
+
+       
+
+
+
+        //Constructor
         public Form1()
         {
             InitializeComponent();
@@ -38,7 +46,6 @@ namespace AppCamiones
 
             ResaltarBoton(homeMenu);
 
-            //HACE QUE SE ABRA EL FORMULARIO EN PANTALLA COMPLETA
             this.WindowState = FormWindowState.Maximized;
         }
 
@@ -47,20 +54,22 @@ namespace AppCamiones
 
         }
 
+
+
+
+
+
+        //Initializations
         private void InitializeUI()
         { 
             InitializePanel();
         }
-
-        // CREACIÓN PANEL Y COMPONENTES
-
         private void InitializePanel()
         {
             TableTravel();
             TablePay();
             AddTablesToControls();
         }
-
         private void TableTravel()
         {
             TableTravelProperties();
@@ -73,6 +82,91 @@ namespace AppCamiones
             AddTravelToday();
             AddTravel();
         }
+
+
+
+
+
+
+
+        //Adds
+        private void AddTravelToday()
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                Label travel = new Label();
+                if (i >= 4)
+                {
+                    travel.Margin = new Padding(0, 10, 0, 0);
+                }
+                else
+                {
+                    travel.Margin = new Padding(60, 10, 0, 0);
+                }
+                TravelProperties(travel);
+                layoutTravelToday.Controls.Add(travel);
+                travel.ForeColor = System.Drawing.Color.FromArgb(224, 224, 224);
+            }
+        }
+        private void AddTravel()
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                Label travel = new Label();
+                if (i >= 4)
+                {
+                    travel.Margin = new Padding(0, 10, 0, 0);
+                }
+                else
+                {
+                    travel.Margin = new Padding(60, 10, 0, 0);
+                }
+                TravelProperties(travel);
+                layoutTravelNext.Controls.Add(travel);
+                travel.ForeColor = System.Drawing.Color.FromArgb(141, 138, 138);
+            }
+        }
+        private void AddTitleToTableTravel()
+        {
+            table_travel.Controls.Add(layoutTableTravelToday);
+            table_travel.Controls.Add(layoutTableTravelNext);
+            layoutTableTravelToday.Controls.Add(travel_title);
+            layoutTableTravelNext.Controls.Add(travel_title2);
+            layoutTableTravelNext.Controls.Add(layoutTravelNext);
+            layoutTableTravelToday.Controls.Add(layoutTravelToday);
+
+        }
+        private void AddPendingPayments()
+        {
+            CheckedListBox pay = new CheckedListBox();
+            for (int i = 0; i < 8; i++)
+            {
+                pay.Items.Add("Apellido, nombre");
+                PayProperties(pay);
+                layoutPay.Controls.Add(pay);
+            }
+        }
+        private void AddTitleToTablePay()
+        {
+            table_pay.Controls.Add(layoutTablePay);
+            layoutTablePay.Controls.Add(pay_title);
+            layoutTablePay.Controls.Add(layoutPay);
+
+        }
+        private void AddTablesToControls()
+        {
+            this.Controls.Add(table_travel);
+            this.Controls.Add(table_pay);
+        }
+
+
+
+
+
+
+
+
+        //TravelTableProperties
         private void TableTravelProperties()
         {
             table_travel.Padding = new Padding(0);
@@ -83,7 +177,6 @@ namespace AppCamiones
             table_travel.BorderStyle = BorderStyle.FixedSingle;
             table_travel.AutoSize = true;
         }
-
         private void LayoutTableTravelTodayProperties()
         {
             layoutTableTravelToday.Padding = new Padding(0);
@@ -103,7 +196,6 @@ namespace AppCamiones
             layoutTableTravelToday.Width = table_travel.Width;
             layoutTableTravelToday.Size = new Size(table_travel.Width, 200);
         }
-
         private void LayoutTableTravelNextProperties()
         {
             layoutTableTravelNext.Padding = new Padding(0);
@@ -120,7 +212,6 @@ namespace AppCamiones
             layoutTableTravelNext.FlowDirection = FlowDirection.TopDown; // Crece hacia abajo
             layoutTableTravelNext.WrapContents = true;//Evita que los elementos pasen a otra línea
         }
-
         private void LayoutTravelNextProperties()
         {
             layoutTravelNext.Padding = new Padding(0);
@@ -138,7 +229,6 @@ namespace AppCamiones
             layoutTravelNext.FlowDirection = FlowDirection.TopDown; // Crece hacia abajo
             layoutTravelNext.WrapContents = true;//Evita que los elementos pasen a otra línea
         }
-
         private void LayoutTravelTodayProperties()
         {
             layoutTravelToday.Padding = new Padding(0);
@@ -156,7 +246,6 @@ namespace AppCamiones
             layoutTravelToday.FlowDirection = FlowDirection.TopDown; // Crece hacia abajo
             layoutTravelToday.WrapContents = true;//Permite que los elementos pasen a otra línea
         }
-
         private void TableTravelTitleProperties()
         {
             travel_title.Text = "viajes programados para hoy:";
@@ -177,45 +266,6 @@ namespace AppCamiones
             travel_title2.AutoSize = false;
             travel_title2.Width = layoutTableTravelNext.Width;
         }
-
-        private void AddTravelToday()
-        {
-            for (int i = 0; i < 8; i++)
-            {
-                Label travel = new Label();
-                if (i >= 4)
-                {
-                    travel.Margin = new Padding(0, 10, 0, 0);
-                }
-                else
-                {
-                    travel.Margin = new Padding(60, 10, 0, 0);
-                }
-                TravelProperties(travel);
-                layoutTravelToday.Controls.Add(travel);
-                travel.ForeColor = System.Drawing.Color.FromArgb(224, 224, 224);
-            }
-        }
-
-        private void AddTravel()
-        {
-            for (int i = 0; i < 8; i++)
-            {
-                Label travel = new Label();
-                if (i >= 4)
-                {
-                    travel.Margin = new Padding(0, 10, 0, 0);
-                }
-                else
-                {
-                    travel.Margin = new Padding(60, 10, 0, 0);
-                }
-                TravelProperties(travel);
-                layoutTravelNext.Controls.Add(travel);
-                travel.ForeColor = System.Drawing.Color.FromArgb(141, 138, 138);
-            }
-        }
-
         private void TravelProperties(Label travel)
         {
             travel.Text = "- Dolores - 10:00hs";
@@ -223,19 +273,12 @@ namespace AppCamiones
             travel.Size = new Size(200, 30);
             //travel.Margin = new Padding(0, 10, 0, 0);
         }
+        
 
-        private void AddTitleToTableTravel()
-        {
-            table_travel.Controls.Add(layoutTableTravelToday);
-            table_travel.Controls.Add(layoutTableTravelNext);
-            layoutTableTravelToday.Controls.Add(travel_title);
-            layoutTableTravelNext.Controls.Add(travel_title2);
-            layoutTableTravelNext.Controls.Add(layoutTravelNext);
-            layoutTableTravelToday.Controls.Add(layoutTravelToday);
 
-        }
 
-        //TABLA DE PAGOS
+
+        //PayTableTravel
         private void TablePay()
         {
             TablePayProperties();
@@ -245,7 +288,6 @@ namespace AppCamiones
             AddPendingPayments();
             LayoutPayProperties();
         }
-
         private void TablePayProperties()
         {
             int x = this.Width * 150 / 100;
@@ -254,7 +296,6 @@ namespace AppCamiones
             table_pay.BackColor = System.Drawing.Color.FromArgb(200, Color.Black);
             table_pay.BorderStyle = BorderStyle.FixedSingle;
         }
-
         private void LayoutTablePayProperties()
         {
             layoutTablePay.Anchor = AnchorStyles.None; // Evita que se expanda con el contenedor
@@ -264,9 +305,7 @@ namespace AppCamiones
             layoutTablePay.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             layoutTablePay.FlowDirection = FlowDirection.TopDown; // Crece hacia abajo
             layoutTablePay.WrapContents = true; // Evita que los elementos pasen a otra línea
-
         }
-
         private void LayoutPayProperties()
         {
             layoutPay.Padding = new Padding(0);
@@ -284,7 +323,6 @@ namespace AppCamiones
             layoutPay.FlowDirection = FlowDirection.TopDown; // Crece hacia abajo
             layoutPay.WrapContents = true;//Evita que los elementos pasen a otra línea
         }
-
         private void TravelPayTitleProperties()
         {
             pay_title.Text = "pagos pendientes:";
@@ -297,18 +335,6 @@ namespace AppCamiones
             pay_title.Width = table_pay.Width;  // Ocupa todo el ancho del contenedor
             pay_title.Margin = new Padding(0, 20, 0, 0);
         }
-
-        private void AddPendingPayments()
-        {
-            CheckedListBox pay = new CheckedListBox();
-            for (int i = 0; i < 8; i++)
-            {
-                pay.Items.Add("Apellido, nombre");
-                PayProperties(pay);
-                layoutPay.Controls.Add(pay);
-            }
-        }
-
         private void PayProperties(CheckedListBox pay)
         {
             pay.Font = new Font("Arial", 14, FontStyle.Regular);
@@ -317,21 +343,6 @@ namespace AppCamiones
             pay.ForeColor = System.Drawing.Color.FromArgb(224, 224, 224);
             pay.BackColor = Color.Black;
             pay.BorderStyle = BorderStyle.None;
-        }
-
-        private void AddTitleToTablePay()
-        {
-            table_pay.Controls.Add(layoutTablePay);
-            layoutTablePay.Controls.Add(pay_title);
-            layoutTablePay.Controls.Add(layoutPay);
-
-        }
-        // AGREGAR TABLAS
-
-        private void AddTablesToControls()
-        {
-            this.Controls.Add(table_travel);
-            this.Controls.Add(table_pay);
         }
     }
 }
