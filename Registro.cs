@@ -26,7 +26,7 @@ namespace AppCamiones
         //Constructir
         public Registro()
         {
-            InitializeUI();
+            InitializeOptionsMenu();
 
             ResaltarBoton(registrosMenu);
 
@@ -148,14 +148,6 @@ namespace AppCamiones
         }
 
 
-
-
-
-        //Initializations
-        private void InitializeUI()
-        {
-            InitializeOptionsMenu();
-        }
         private void InitializeOptionsMenu()
         {
             OptionsMenuProperties();
@@ -165,8 +157,6 @@ namespace AppCamiones
             AddPanelToForm();
         }
        
-
-
 
         private void AddPanelToForm()
         {

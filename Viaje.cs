@@ -91,69 +91,15 @@ namespace AppCamiones
         }
 
 
-        //InfoFunctions
-        private void CardGenerator(string filtro)
-        {
-            Console.WriteLine($"Generando cards para: {filtro}");
-            cardsContainer.Controls.Clear();
-
-            List<string> datos = GetFilterInfo(filtro);
-            Console.WriteLine($"Se encontraron {datos.Count} elementos.");
-
-            foreach (string dato in datos)
-            {
-                Panel card = new Panel
-                {
-                    Size = new Size(200, 100),
-                    BackColor = System.Drawing.Color.FromArgb(48, 48, 48),
-                    Margin = new Padding(10),
-                    Font = new Font("Arial", 16, FontStyle.Regular)
-                };
-
-                Label label = new Label
-                {
-                    Text = dato,
-                    ForeColor = System.Drawing.Color.FromArgb(218, 218, 28),
-                    AutoSize = true,
-                    TextAlign = ContentAlignment.TopCenter
-
-                };
-
-                card.Controls.Add(label);
-                cardsContainer.Controls.Add(card);
-
-                card.Click += (s, e) =>
-                {
-                    ViajeFiltro form = new ViajeFiltro();
-                    form.Show();
-                };
-            }
-            Console.WriteLine($"Total de cards en el contenedor: {cardsContainer.Controls.Count}");
-        }
-        private List<string> GetFilterInfo(string filtro)
-        {
-            if (filtro == "Camión")
-                return new List<string> { "ABC123", "DEF456", "GHI789" };
-            else if (filtro == "Cliente")
-                return new List<string> { "Gómez", "Pérez", "Rodríguez" };
-            else if (filtro == "Chofer")
-                return new List<string> { "López", "Fernández", "Martínez" };
-            else
-                return new List<string>();
-        }
-
 
         //Initializations
         private void InitializeUI()
         {
-            //InitializeBackImage();
             InitializeToolBar();
-            //InitializeIconoUser();
         }
 
         private void InitializeToolBar()
         {
-            //InitializeNavBar();
             InitializeFilterCards();
         }
 
@@ -196,6 +142,59 @@ namespace AppCamiones
                 filterFL.Location = new Point((filter.Width - filterFL.Width) / 2, (filter.Height - filterFL.Height) / 2);
             };
         }
+
+        //InfoFunctions
+        private void CardGenerator(string filtro)
+        {
+            cardsContainer.Controls.Clear();
+
+            List<string> datos = GetFilterInfo(filtro);
+
+            foreach (string dato in datos)
+            {
+                Panel card = new Panel
+                {
+                    Size = new Size(200, 100),
+                    BackColor = System.Drawing.Color.FromArgb(48, 48, 48),
+                    Margin = new Padding(10),
+                    Font = new Font("Nunito", 16, FontStyle.Regular),
+                    
+                };
+
+                Label label = new Label
+                {
+                    Text = dato,
+                    ForeColor = System.Drawing.Color.FromArgb(218, 218, 28),
+                    AutoSize = true,
+                    TextAlign = ContentAlignment.TopCenter,
+                    Location = new Point(10, 10),
+                    BackColor = Color.AliceBlue
+
+                };
+
+                card.Controls.Add(label);
+                cardsContainer.Controls.Add(card);
+
+                card.Click += (s, e) =>
+                {
+                    ViajeFiltro form = new ViajeFiltro();
+                    form.Show();
+                };
+            }
+        }
+        private List<string> GetFilterInfo(string filtro)
+        {
+            if (filtro == "Camión")
+                return new List<string> { "ABC123", "DEF456", "GHI789" };
+            else if (filtro == "Cliente")
+                return new List<string> { "Gómez", "Pérez", "Rodríguez" };
+            else if (filtro == "Chofer")
+                return new List<string> { "López", "Fernández", "Martínez" };
+            else
+                return new List<string>();
+        }
+
+
         private void ButtonsProperties()
         {
             int j = 0;
@@ -241,7 +240,6 @@ namespace AppCamiones
         {
             cardsContainer.Size = new Size(800, 400);
             cardsContainer.AutoScroll = true;
-            cardsContainer.BackColor = Color.FromArgb(50, 50, 50);
             cardsContainer.FlowDirection = FlowDirection.LeftToRight;
             cardsContainer.WrapContents = true;
             cardsContainer.Margin = new Padding(10, 10, 10, 10);
