@@ -336,16 +336,5 @@ namespace AppCamiones
             btn_register.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
             btn_register.Font = new Font("Nunito", 12, FontStyle.Bold);
         }
-        private void AddLabels()
-        {
-            form.Controls.Add(flowLayoutForm);
-            flowLayoutForm.Controls.Add(btn_login);
-            flowLayoutForm.Controls.Add(pregunta);
-            flowLayoutForm.Controls.Add(btn_register);   
-        }
-        private void AddForm()
-        {
-            this.Controls.Add(form);
-        }
     }
 }

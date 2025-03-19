@@ -11,6 +11,7 @@ namespace AppCamiones
 {
     internal class FormRegistro : Home
     {
+        //
         private string tipoRegistro;
         private ArrayList array = new ArrayList();
 
@@ -55,15 +56,15 @@ namespace AppCamiones
 
         public FormRegistro(string tipoRegistro)
         {
-            this.tipoRegistro = tipoRegistro;
-
-            ResaltarBoton(registrosMenu);
-
-            //HACE QUE SE ABRA EN PANTALLA COMPLETA
+            InitializeUI();
             this.WindowState = FormWindowState.Maximized;
-            CargaFormulario(tipoRegistro);
-            InitializarMenuTipoRegistro();
 
+            this.tipoRegistro = tipoRegistro;
+            ResaltarBoton(registrosMenu);
+            CargaFormulario(tipoRegistro);
+
+
+            //Hovers
             btnViaje.MouseEnter += new EventHandler(hoverToBtnViaje_MouseEnter);
             btnViaje.MouseLeave += new EventHandler(hoverToBtnViaje_MouseLeave);
 
@@ -79,13 +80,33 @@ namespace AppCamiones
             btnCamion.MouseEnter += new EventHandler(hoverToBtnCamion_MouseEnter);
             btnCamion.MouseLeave += new EventHandler(hoverToBtnCamion_MouseLeave);
 
-            //EVENTOS A LOS BOTONES
+            //Redirections
             btnViaje.Click += new EventHandler(GoToFormViaje_Click);
             btnChofer.Click += new EventHandler(GoToFormChofer_Click);
             btnCliente.Click += new EventHandler(GoToFormCliente_Click);
             btnCheque.Click += new EventHandler(GoToFormCheque_Click);
             btnCamion.Click += new EventHandler(GoToFormCamion_Click);
 
+        }
+
+
+
+
+
+
+
+        //Initializations
+        public void InitializeUI()
+        {
+            InitializarMenuTipoRegistro();
+        }
+        private void InitializarMenuTipoRegistro()
+        {
+            OptionsMenuProperties();
+            LayoutOptionsMenuProperties();
+            ButtonsProperties();
+            AddLayoutOptionsMenu();
+            AddPanelToForm();
         }
         //private void Eventos()
         //{
@@ -112,46 +133,54 @@ namespace AppCamiones
         //        }
         //    }
         //}
+
+
+
+
+
+
+
+
+        //RedirectionalFunctions
         private void GoToCheque_Click(object sender, EventArgs e)
         {
-
             Cheque tablaCheque = new Cheque();
             tablaCheque.ShowDialog();
             this.Close();
         }
-
         private void GoToFormUser_Click(object sender, EventArgs e)
         {
             Login formUser = new Login();
             formUser.ShowDialog();
             this.Close();
         }
-
         private void GoToFormViaje_Click(object sender, EventArgs e)
         {
             AbrirFormulario("Viaje");
         }
-
         private void GoToFormChofer_Click(object sender, EventArgs e)
         {
             AbrirFormulario("Chofer");
         }
-
         private void GoToFormCliente_Click(object sender, EventArgs e)
         {
             AbrirFormulario("Cliente");
         }
-
         private void GoToFormCheque_Click(object sender, EventArgs e)
         {
             AbrirFormulario("Cheque");
         }
-
         private void GoToFormCamion_Click(object sender, EventArgs e)
         {
             AbrirFormulario("Camion");
         }
 
+
+
+
+
+
+        //GeneralFormFunction
         private void AbrirFormulario(string tipoRegistro)
         {
             FormRegistro formularioRegistro = new FormRegistro(tipoRegistro);
@@ -159,12 +188,17 @@ namespace AppCamiones
             formularioRegistro.ShowDialog();
         }
 
+
+
+
+
+
+        //HoverFunctions
         private void hoverToBtnViaje_MouseEnter(object sender, EventArgs e)
         {
             btnViaje.Font = new Font("Nunito", 20, FontStyle.Regular);
             btnViaje.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
         }
-
         private void hoverToBtnViaje_MouseLeave(object sender, EventArgs e)
         {
             btnViaje.Font = new Font("Nunito", 16, FontStyle.Regular);
@@ -176,7 +210,6 @@ namespace AppCamiones
             btnChofer.Font = new Font("Nunito", 20, FontStyle.Regular);
             btnChofer.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
         }
-
         private void hoverToBtnChofer_MouseLeave(object sender, EventArgs e)
         {
             btnChofer.Font = new Font("Nunito", 16, FontStyle.Regular);
@@ -188,7 +221,6 @@ namespace AppCamiones
             btnCliente.Font = new Font("Nunito", 20, FontStyle.Regular);
             btnCliente.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
         }
-
         private void hoverToBtnCliente_MouseLeave(object sender, EventArgs e)
         {
             btnCliente.Font = new Font("Nunito", 16, FontStyle.Regular);
@@ -200,7 +232,6 @@ namespace AppCamiones
             btnCheque.Font = new Font("Nunito", 20, FontStyle.Regular);
             btnCheque.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
         }
-
         private void hoverToBtnCheque_MouseLeave(object sender, EventArgs e)
         {
             btnCheque.Font = new Font("Nunito", 16, FontStyle.Regular);
@@ -212,23 +243,18 @@ namespace AppCamiones
             btnCamion.Font = new Font("Nunito", 20, FontStyle.Regular);
             btnCamion.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
         }
-
         private void hoverToBtnCamion_MouseLeave(object sender, EventArgs e)
         {
             btnCamion.Font = new Font("Nunito", 16, FontStyle.Regular);
             btnCamion.ForeColor = System.Drawing.Color.FromArgb(224, 224, 224);
         }
 
-        private void InitializarMenuTipoRegistro()
-        {
-            OptionsMenuProperties();
-            LayoutOptionsMenuProperties();
-            ButtonsProperties();
-            AddLayoutOptionsMenu();
-            AddPanelToForm();
-        }
 
 
+
+
+
+        //OtherFunctions
         private void CargaFormulario(string tipoRegistro)
         {
             switch (tipoRegistro)
@@ -267,7 +293,6 @@ namespace AppCamiones
 
             PropertiesFormRegisterInformation(cant);
         }
-
         private void CargarFormularioCamion(int cant)
         {
             campo1 = "Patente";
@@ -281,7 +306,6 @@ namespace AppCamiones
 
             PropertiesFormRegisterInformation(cant); ;
         }
-
         private void CargarFormularioCheque(int cant)
         {
             campo1 = "Fecha de recibimiento";
@@ -307,7 +331,6 @@ namespace AppCamiones
 
             PropertiesFormRegisterInformation(cant);
         }
-
         private void CargarFormularioCliente(int cant)
         {
             campo1 = "Fecha";
@@ -335,7 +358,6 @@ namespace AppCamiones
 
             PropertiesFormRegisterInformation(cant);
         }
-
         private void CargarFormularioViaje(int cant)
         {
             campo1 = "Fecha";
@@ -362,6 +384,40 @@ namespace AppCamiones
             PropertiesFormRegisterInformation(cant);
         }
 
+
+
+
+
+
+
+        //Adds
+        private void AddLabels()
+        {
+            form.Controls.Add(flowLayoutForm);
+            flowLayoutForm.Controls.Add(btn_cargar);
+        }
+        private void AddForm()
+        {
+            this.Controls.Add(form);
+        }
+        private void AddPanelToForm()
+        {
+            this.Controls.Add(optionsMenu);
+        }
+        private void AddLayoutOptionsMenu()
+        {
+            optionsMenu.Controls.Add(layoutOptionsMenu);
+        }
+
+
+
+
+
+
+
+
+
+        //FormProperties
         private void PropertiesFormRegisterInformation(int cant)
         {
             FormProperties(cant);
@@ -371,7 +427,6 @@ namespace AppCamiones
             AddLabels();
             AddForm();
         }
-
         private void FormProperties(int cant)
         {
             form.Width = 400;
@@ -388,7 +443,6 @@ namespace AppCamiones
                 form.AutoScroll = true;
             }
         }
-
         private void LayoutFormProperties()
         {
             flowLayoutForm.Size = new Size(form.Width, form.Height + 200);
@@ -396,7 +450,6 @@ namespace AppCamiones
             flowLayoutForm.BackColor = Color.Transparent;
             flowLayoutForm.FlowDirection = FlowDirection.TopDown;
         }
-
         private void TextoBoxAndLabelProperties(int cant)
         {
 
@@ -409,8 +462,7 @@ namespace AppCamiones
                 flowLayoutForm.Controls.Add(textBoxForm);
             }
         }
-
-        private Label createLabelAndProperties(object campo) 
+        private Label createLabelAndProperties(object campo)
         {
             Label label = new Label();
             label.Text = campo.ToString();
@@ -450,16 +502,6 @@ namespace AppCamiones
             btn_cargar.Font = new Font("Nunito", 12, FontStyle.Bold);
             //btn_cargar.Location = new Point((flowLayoutForm.Width - btn_cargar.Width) / 2, (flowLayoutForm.Height - btn_cargar.Height) / 2);
         }
-        private void AddLabels()
-        {
-            form.Controls.Add(flowLayoutForm);
-            flowLayoutForm.Controls.Add(btn_cargar);
-        }
-        private void AddForm()
-        {
-            this.Controls.Add(form);
-        }
-
         private void OptionsMenuProperties()
         {
             optionsMenu.Size = new Size(800, 60);
@@ -470,7 +512,6 @@ namespace AppCamiones
             optionsMenu.BackColor = System.Drawing.Color.FromArgb(64, 64, 64);
             optionsMenu.BorderStyle = BorderStyle.FixedSingle;
         }
-
         private void LayoutOptionsMenuProperties()
         {
             layoutOptionsMenu.AutoSize = true;
@@ -482,7 +523,6 @@ namespace AppCamiones
                 layoutOptionsMenu.Location = new Point((optionsMenu.Width - layoutOptionsMenu.Width) / 2, (optionsMenu.Height - layoutOptionsMenu.Height) / 2);
             };
         }
-
         private void ButtonsProperties()
         {
             int j = 0;
@@ -521,16 +561,6 @@ namespace AppCamiones
 
                 layoutOptionsMenu.Controls.Add(btn);
             }
-        }
-
-        private void AddPanelToForm()
-        {
-            this.Controls.Add(optionsMenu);
-        }
-
-        private void AddLayoutOptionsMenu()
-        {
-            optionsMenu.Controls.Add(layoutOptionsMenu);
         }
     }
 }

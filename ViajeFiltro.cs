@@ -41,6 +41,7 @@ namespace AppCamiones
             registrosMenu.Click += new EventHandler(GoToRegistro_Click);
             viajesMenu.Click += new EventHandler(GoToViaje_Click);
             homeMenu.Click += new EventHandler(GoToHome_Click);
+            chequesMenu.Click += new EventHandler(GoToCheque_Click);
         }
 
 
@@ -50,7 +51,6 @@ namespace AppCamiones
         //RedirectionalFunctions
         private void GoToRegistro_Click(object sender, EventArgs e)
         {
-
             Registro formRegistro = new Registro();
             formRegistro.ShowDialog();
             this.Close();
@@ -72,6 +72,11 @@ namespace AppCamiones
             Viaje viaje = new Viaje();
             viaje.Show();
             this.Close();
+        }
+        private void GoToCheque_Click(object sender, EventArgs e)
+        {
+            Cheque cheque = new Cheque();
+            cheque.Show();
         }
 
 
