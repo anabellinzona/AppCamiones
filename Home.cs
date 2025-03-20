@@ -13,7 +13,7 @@ namespace AppCamiones
         protected ToolStripMenuItem homeMenu = new ToolStripMenuItem("home");
         protected ToolStripMenuItem viajesMenu = new ToolStripMenuItem("viajes");
         protected ToolStripMenuItem chequesMenu = new ToolStripMenuItem("cheques");
-        protected ToolStripMenuItem registrosMenu = new ToolStripMenuItem("registro");
+        protected ToolStripMenuItem registrosMenu = new ToolStripMenuItem("registro de datos");
         private ToolStripMenuItem userMenu = new ToolStripMenuItem();
         protected ToolStripMenuItem closeSesion = new ToolStripMenuItem("Cerrar sesión");
 
@@ -24,13 +24,6 @@ namespace AppCamiones
         public Home()
         {
             InitializeUI();
-
-
-            //closeSesion.Click += new EventHandler(GoToFormUser_Click);
-            //chequesMenu.Click += new EventHandler(GoToCheque_Click);
-            //viajesMenu.Click += new EventHandler(GoToViaje_Click);
-            //registrosMenu.Click += new EventHandler(GoToRegistro_Click);
-            //homeMenu.Click += new EventHandler(GoToHome_Click);
 
             //Redirections
             closeSesion.Click += (sender, e) => OpenForm<Login>();
@@ -49,34 +42,6 @@ namespace AppCamiones
             T form = new T();
             form.Show();
         }
-
-
-        //private void GoToCheque_Click(object sender, EventArgs e)
-        //{
-        //    Cheque cheque = new Cheque(); 
-        //    cheque.Show();
-        //}
-        //private void GoToViaje_Click(object sender, EventArgs e)
-        //{
-        //    Viaje vv = new Viaje();
-        //    vv.Show();
-        //}
-        //private void GoToRegistro_Click(object sender, EventArgs e)
-        //{
-        //    Registro formRegistro = new Registro();
-        //    formRegistro.Show();
-        //}
-        //private void GoToFormUser_Click(object sender, EventArgs e)
-        //{
-        //    Login formUser = new Login();
-        //    formUser.ShowDialog();
-        //}
-        //private void GoToHome_Click(object sender, EventArgs e)
-        //{
-        //    Form1 home = new Form1();
-        //    home.Show();
-        //}
-
 
 
         //HoverFunctions

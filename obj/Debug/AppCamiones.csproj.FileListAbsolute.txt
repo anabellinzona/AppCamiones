@@ -48,3 +48,13 @@ C:\Users\anabe\Downloads\AplicacionCamiones\AppCamiones\obj\Debug\AppCamiones.cs
 C:\Users\anabe\Downloads\AplicacionCamiones\AppCamiones\obj\Debug\AppCamiones.csproj.CoreCompileInputs.cache
 C:\Users\anabe\Downloads\AplicacionCamiones\AppCamiones\obj\Debug\AppCamiones.exe
 C:\Users\anabe\Downloads\AplicacionCamiones\AppCamiones\obj\Debug\AppCamiones.pdb
+C:\Users\anabe\Downloads\AppCamiones\AppCamiones\bin\Debug\AppCamiones.exe.config
+C:\Users\anabe\Downloads\AppCamiones\AppCamiones\bin\Debug\AppCamiones.exe
+C:\Users\anabe\Downloads\AppCamiones\AppCamiones\bin\Debug\AppCamiones.pdb
+C:\Users\anabe\Downloads\AppCamiones\AppCamiones\obj\Debug\AppCamiones.csproj.AssemblyReference.cache
+C:\Users\anabe\Downloads\AppCamiones\AppCamiones\obj\Debug\AppCamiones.Form1.resources
+C:\Users\anabe\Downloads\AppCamiones\AppCamiones\obj\Debug\AppCamiones.Properties.Resources.resources
+C:\Users\anabe\Downloads\AppCamiones\AppCamiones\obj\Debug\AppCamiones.csproj.GenerateResource.cache
+C:\Users\anabe\Downloads\AppCamiones\AppCamiones\obj\Debug\AppCamiones.csproj.CoreCompileInputs.cache
+C:\Users\anabe\Downloads\AppCamiones\AppCamiones\obj\Debug\AppCamiones.exe
+C:\Users\anabe\Downloads\AppCamiones\AppCamiones\obj\Debug\AppCamiones.pdb

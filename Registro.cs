@@ -38,23 +38,6 @@ namespace AppCamiones
             Login formUser = new Login();
 
 
-            // Hovers
-            //btnViaje.MouseEnter += (s, e) => HoverEffect(s, e, true);
-            //btnViaje.MouseLeave += (s, e) => HoverEffect(s, e, false);
-
-            //btnChofer.MouseEnter += (s, e) => HoverEffect(s, e, true);
-            //btnChofer.MouseLeave += (s, e) => HoverEffect(s, e, false);
-
-            //btnCliente.MouseEnter += (s, e) => HoverEffect(s, e, true);
-            //btnCliente.MouseLeave += (s, e) => HoverEffect(s, e, false);
-
-            //btnCheque.MouseEnter += (s, e) => HoverEffect(s, e, true);
-            //btnCheque.MouseLeave += (s, e) => HoverEffect(s, e, false);
-
-            //btnCamion.MouseEnter += (s, e) => HoverEffect(s, e, true);
-            //btnCamion.MouseLeave += (s, e) => HoverEffect(s, e, false);
-
-
             //ButtonsArray
             Dictionary<Button, string> buttons = new Dictionary<Button, string>
             {
@@ -74,37 +57,7 @@ namespace AppCamiones
                 //RegisterFormRedirections
                 button.Key.Click += (s, e) => AbrirFormulario(button.Value);
             }
-
-
-            //RegisterFormRedirections
-            //btnViaje.Click += new EventHandler(GoToFormViaje);
-            //btnChofer.Click += new EventHandler(GoToFormChofer);
-            //btnCliente.Click += new EventHandler(GoToFormCliente);
-            //btnCheque.Click += new EventHandler(GoToFormCheque);
-            //btnCamion.Click += new EventHandler(GoToFormCamion);
         }
-
-        //FormRedirectionalFunctions
-        //private void GoToFormViaje(object sender, EventArgs e)
-        //{
-        //    AbrirFormulario("Viaje");
-        //}
-        //private void GoToFormChofer(object sender, EventArgs e)
-        //{
-        //    AbrirFormulario("Chofer");
-        //}
-        //private void GoToFormCliente(object sender, EventArgs e)
-        //{
-        //    AbrirFormulario("Cliente");
-        //}
-        //private void GoToFormCheque(object sender, EventArgs e)
-        //{
-        //    AbrirFormulario("Cheque");
-        //}
-        //private void GoToFormCamion(object sender, EventArgs e)
-        //{
-        //    AbrirFormulario("Camion");
-        //}
 
 
 

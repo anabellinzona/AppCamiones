@@ -15,6 +15,7 @@ namespace AppCamiones
 {
     public partial class Form1 : Home
     {
+
         //TravelsTable
         private Panel table_travel = new Panel();
 
@@ -137,20 +138,6 @@ namespace AppCamiones
                 layoutPay.Controls.Add(pay);
             }
         }
-        private void AddTitleToTablePay()
-        {
-            table_pay.Controls.Add(layoutTablePay);
-            layoutTablePay.Controls.Add(pay_title);
-            layoutTablePay.Controls.Add(layoutPay);
-
-        }
-        private void AddTablesToControls()
-        {
-            this.Controls.Add(table_travel);
-            this.Controls.Add(table_pay);
-        }
-
-
 
 
         //TravelTableProperties
@@ -260,8 +247,6 @@ namespace AppCamiones
             travel.Size = new Size(200, 30);
             //travel.Margin = new Padding(0, 10, 0, 0);
         }
-        
-
 
 
         //PayTableTravel
@@ -276,8 +261,8 @@ namespace AppCamiones
         }
         private void TablePayProperties()
         {
-            int x = this.Width * 150 / 100;
             table_pay.Size = new Size(320, 440);
+            int x = this.Width + table_travel.Width;
             table_pay.Location = new Point(x, 180);
             table_pay.BackColor = System.Drawing.Color.FromArgb(200, Color.Black);
             table_pay.BorderStyle = BorderStyle.FixedSingle;
@@ -330,5 +315,19 @@ namespace AppCamiones
             pay.BackColor = Color.Black;
             pay.BorderStyle = BorderStyle.None;
         }
+
+        private void AddTitleToTablePay()
+        {
+            table_pay.Controls.Add(layoutTablePay);
+            layoutTablePay.Controls.Add(pay_title);
+            layoutTablePay.Controls.Add(layoutPay);
+
+        }
+        private void AddTablesToControls()
+        {
+            this.Controls.Add(table_travel);
+            this.Controls.Add(table_pay);
+        }
+
     }
 }

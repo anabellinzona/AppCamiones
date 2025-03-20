@@ -45,13 +45,6 @@ namespace AppCamiones
             //Events
             Eventos();
 
-            //Hovers
-            //textBoxNombreUsuario.Leave += new EventHandler(NombreUsuario_Leave);
-            //textBoxNombreUsuario.Click += new EventHandler(NombreUsuario_Click);
-
-            //textBoxContraseña.Leave += new EventHandler(Contraseña_Leave);
-            //textBoxContraseña.Click += new EventHandler(Contraseña_Click);
-
             //RedirectEventFunction
             AsignarEvento(textBoxNombreUsuario, "Username");
             AsignarEvento(textBoxContraseña, "Password");
@@ -59,10 +52,6 @@ namespace AppCamiones
             textBoxContraseña.TextChanged += new EventHandler(Contraseña_TextChanged);
         }
 
-        //private void Contraseña_TextChanged(object sender, EventArgs e)
-        //{
-        //    throw new NotImplementedException();
-        //}
 
         //Events
         private void Eventos()
@@ -83,53 +72,15 @@ namespace AppCamiones
         }
 
 
-
-
-        //HoverFunctions
-        //private void NombreUsuario_Leave(object sender, EventArgs e)
-        //{
-        //    if (string.IsNullOrWhiteSpace(textBoxNombreUsuario.Text))
-        //    {
-        //        textBoxNombreUsuario.Text = "Username";
-        //        textBoxNombreUsuario.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77); // Cambia el color del texto placeholder
-        //    }
-        //}
-        //private void NombreUsuario_Click(object sender, EventArgs e)
-        //{
-        //    if (textBoxNombreUsuario.Text == "Username")
-        //    {
-        //        textBoxNombreUsuario.Text = "";
-        //        textBoxNombreUsuario.ForeColor = Color.Black; // Cambia el color del texto
-        //    }
-        //}
-
-        //private void Contraseña_Leave(object sender, EventArgs e)
-        //{
-        //    if (string.IsNullOrWhiteSpace(textBoxContraseña.Text))
-        //    {
-        //        textBoxContraseña.Text = "Password";
-        //        textBoxContraseña.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
-        //        textBoxContraseña.Font = new Font("Nunito", 10, FontStyle.Regular);
-        //    }
-        //}
-        //private void Contraseña_Click(object sender, EventArgs e)
-        //{
-        //    if(textBoxContraseña.Text == "Password")
-        //    {
-        //        textBoxContraseña.Text = "";
-        //        textBoxContraseña.ForeColor = Color.Black;
-        //    }
-        //}
-
         //RedirectEventFunction
         private void AsignarEvento(TextBox textBox, string placeholderText)
         {
-            textBox.Leave += (sender, e) => Leave(sender, e, placeholderText);
-            textBox.Click += (sender, e) => Click(sender, e, placeholderText);
+            textBox.Leave += (sender, e) => LeaveFunction(sender, e, placeholderText);
+            textBox.Click += (sender, e) => ClickFunction(sender, e, placeholderText);
         }
 
         //LeaveEventFunction
-        private void Leave(object sender, EventArgs e, string placeholderText)
+        private void LeaveFunction(object sender, EventArgs e, string placeholderText)
         {
             TextBox textBox = sender as TextBox;
             if (string.IsNullOrWhiteSpace(textBox.Text))
@@ -139,7 +90,7 @@ namespace AppCamiones
             }
         }
         //ClickEventFunction
-        private void Click(object sender, EventArgs e, string placeholderText)
+        private void ClickFunction(object sender, EventArgs e, string placeholderText)
         {
             TextBox textBox = sender as TextBox;
             if (textBox.Text == placeholderText)
@@ -294,30 +245,14 @@ namespace AppCamiones
 
             for (int i = 0; i < campos_Login.Count; i++)
             {
-                System.Windows.Forms.Label campos = new System.Windows.Forms.Label();
-                TextBox textBoxCampos = new TextBox();
-
-                
-                    campos.Text = campos_Login[i].ToString();
-                    textBoxCampos.Text = campos_Login[i].ToString();
+                System.Windows.Forms.Label campo = createLabelAndProperties(campos_Login[i]);
+                TextBox textBoxCampos = createTextBoxAndProperties(campos_Login[i]);
                
-                campos.Font = new Font("Nunito", 10, FontStyle.Regular);
-                campos.ForeColor = System.Drawing.Color.FromArgb(217, 217, 217);
-                campos.BackColor = Color.Transparent;
-                campos.Margin = new Padding(80, 10, 0, 0);
-                campos.AutoSize = true;
 
-                textBoxCampos.Font = new Font("Nunito", 10, FontStyle.Regular);
-                textBoxCampos.BackColor = System.Drawing.Color.FromArgb(153, 145, 145);
-                textBoxCampos.Multiline = true;
-                textBoxCampos.Width = 200;
-                textBoxCampos.Height = 30;
-                textBoxCampos.BorderStyle = BorderStyle.None;
-                textBoxCampos.Margin = new Padding(90, 10, 0, 10);
-                textBoxCampos.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
+               
 
 
-                flowLayoutForm.Controls.Add(campos);
+                flowLayoutForm.Controls.Add(campo);
                 flowLayoutForm.Controls.Add(textBoxCampos);
                 textBoxList.Add(textBoxCampos);
 
@@ -329,6 +264,38 @@ namespace AppCamiones
             pregunta.AutoSize = true;
             pregunta.TextAlign = ContentAlignment.TopCenter;
             pregunta.Margin = new Padding(113, 50, 0, 0); 
+        }
+
+
+        private System.Windows.Forms.Label createLabelAndProperties(object campo)
+        {
+            System.Windows.Forms.Label campos = new System.Windows.Forms.Label();
+
+            campos.Font = new Font("Nunito", 10, FontStyle.Regular);
+            campos.Text = campo.ToString();
+            campos.ForeColor = System.Drawing.Color.FromArgb(217, 217, 217);
+            campos.BackColor = Color.Transparent;
+            campos.Margin = new Padding(80, 10, 0, 0);
+            campos.AutoSize = true;
+
+            return campos;
+        }
+
+        private TextBox createTextBoxAndProperties(object textBox)
+        {
+            TextBox textBoxCampo = new TextBox();
+
+            textBoxCampo.Font = new Font("Nunito", 10, FontStyle.Regular);
+            textBoxCampo.Text = textBox.ToString();
+            textBoxCampo.BackColor = System.Drawing.Color.FromArgb(153, 145, 145);
+            textBoxCampo.Multiline = true;
+            textBoxCampo.Width = 200;
+            textBoxCampo.Height = 30;
+            textBoxCampo.BorderStyle = BorderStyle.None;
+            textBoxCampo.Margin = new Padding(90, 10, 0, 10);
+            textBoxCampo.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
+
+            return textBoxCampo;
         }
         private void ButtonsProperties()
         {

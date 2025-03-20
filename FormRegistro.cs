@@ -21,12 +21,6 @@ namespace AppCamiones
 
         private FlowLayoutPanel flowLayoutForm = new FlowLayoutPanel();
 
-        private TextBox textBoxCampo1 = new TextBox();
-        private TextBox textBoxCampo2 = new TextBox();
-        private TextBox textBoxCampo3 = new TextBox();
-        private TextBox textBoxCampo4 = new TextBox();
-        private TextBox textBoxCampo5 = new TextBox();
-
         private string campo1;
         private string campo2;
         private string campo3;
@@ -77,7 +71,6 @@ namespace AppCamiones
                 { btnCamion, "Camion" }
             };
 
-
             //ButtonsEvents
             foreach (var button in buttons)
             {
@@ -90,8 +83,6 @@ namespace AppCamiones
             }
 
         }
-
-
 
 
         //Initializations
@@ -107,33 +98,6 @@ namespace AppCamiones
             AddLayoutOptionsMenu();
             AddPanelToForm();
         }
-        //private void Eventos()
-        //{
-        //    foreach (TextBox txt in textBoxList)
-        //    {
-        //        switch (txt.Text)
-        //        {
-        //            case "Name":
-        //                textBoxCampo1 = txt;
-        //                break;
-        //            case "Surname":
-        //                textBoxCampo1 = txt;
-        //                break;
-        //            case "Username":
-        //                textBoxCampo1 = txt;
-        //                break;
-        //            case "Password":
-        //                textBoxCampo1 = txt;
-        //                this.StartPosition = FormStartPosition.CenterScreen;
-        //                break;
-        //            case "Email":
-        //                textBoxCampo1 = txt;
-        //                break;
-        //        }
-        //    }
-        //}
-
-
 
 
         //RedirectionalFunctions
@@ -204,6 +168,7 @@ namespace AppCamiones
         }
         private void CargarFormularioChofer(int cant)
         {
+
             campo1 = "Nombre";
             campo2 = "Apellido";
             campo3 = "Teléfono";
@@ -286,7 +251,7 @@ namespace AppCamiones
         }
         private void CargarFormularioViaje(int cant)
         {
-            campo1 = "Fecha";
+            campo1 = "Fecha de partida";
             campo2 = "Desde";
             campo3 = "RTO o CPE";
             campo4 = "Carga";
@@ -309,31 +274,6 @@ namespace AppCamiones
 
             PropertiesFormRegisterInformation(cant);
         }
-
-
-
-
-
-        //Adds
-        private void AddLabels()
-        {
-            form.Controls.Add(flowLayoutForm);
-            flowLayoutForm.Controls.Add(btn_cargar);
-        }
-        private void AddForm()
-        {
-            this.Controls.Add(form);
-        }
-        private void AddPanelToForm()
-        {
-            this.Controls.Add(optionsMenu);
-        }
-        private void AddLayoutOptionsMenu()
-        {
-            optionsMenu.Controls.Add(layoutOptionsMenu);
-        }
-
-
 
 
         //FormProperties
@@ -371,7 +311,6 @@ namespace AppCamiones
         }
         private void TextoBoxAndLabelProperties(int cant)
         {
-
             for (int i = 0; i < array.Count; i++)
             {
                 Label campo = createLabelAndProperties(array[i]);
@@ -396,7 +335,6 @@ namespace AppCamiones
         private TextBox createTextBoxAndProperties(object campo)
         {
             TextBox textBoxCampo = new TextBox();
-            //textBoxCampo.Text = campo.ToString();
             textBoxCampo.Font = new Font("Nunito", 10, FontStyle.Regular);
             textBoxCampo.BackColor = System.Drawing.Color.FromArgb(153, 145, 145);
             textBoxCampo.Multiline = true;
@@ -481,5 +419,27 @@ namespace AppCamiones
                 layoutOptionsMenu.Controls.Add(btn);
             }
         }
+
+
+        //Adds
+        private void AddLabels()
+        {
+            form.Controls.Add(flowLayoutForm);
+            flowLayoutForm.Controls.Add(btn_cargar);
+        }
+        private void AddForm()
+        {
+            this.Controls.Add(form);
+        }
+        private void AddPanelToForm()
+        {
+            this.Controls.Add(optionsMenu);
+        }
+        private void AddLayoutOptionsMenu()
+        {
+            optionsMenu.Controls.Add(layoutOptionsMenu);
+        }
+
+
     }
 }
