@@ -29,11 +29,11 @@ namespace AppCamiones
         private FlowLayoutPanel cardsContainer = new FlowLayoutPanel();
 
 
+
         //Constructor
         public Viaje()
         {
             InitializeUI();
-
             ResaltarBoton(viajesMenu);
 
             this.WindowState = FormWindowState.Maximized;
@@ -96,11 +96,6 @@ namespace AppCamiones
             filter.Controls.Add(filterFL);
         }
 
-
-
-
-
-
         //FilterProperties
         private void OptionsMenuProperties()
         {
@@ -124,11 +119,6 @@ namespace AppCamiones
             };
         }
 
-
-
-
-
-
         //InfoFunctions
         private void CardGenerator(string filtro)
         {
@@ -144,7 +134,6 @@ namespace AppCamiones
                     BackColor = System.Drawing.Color.FromArgb(48, 48, 48),
                     Margin = new Padding(10),
                     Font = new Font("Nunito", 16, FontStyle.Regular),
-                    
                 };
 
                 Label label = new Label
@@ -154,8 +143,7 @@ namespace AppCamiones
                     AutoSize = true,
                     TextAlign = ContentAlignment.TopCenter,
                     Location = new Point(10, 10),
-                    BackColor = Color.AliceBlue
-
+                    BackColor = Color.Transparent
                 };
 
                 card.Controls.Add(label);

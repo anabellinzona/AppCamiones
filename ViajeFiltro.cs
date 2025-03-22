@@ -18,31 +18,28 @@ namespace AppCamiones
         private DataGridView info = new DataGridView();
         private Panel panelGrid = new Panel();
 
+        private RoundButton volver = new RoundButton();
+
 
         //Constructor
         public ViajeFiltro()
         {
-            InitializeUI();
+            InitializeGrid();
 
             this.WindowState = FormWindowState.Maximized;
-            this.StartPosition = FormStartPosition.CenterScreen;
 
         }
 
 
 
         //Initializations
-        private void InitializeUI()
-        {
-            InitializeGrid();
-        }
         private void InitializeGrid()
         {
             AddItemsToGrid();
             GridChequesProperties();
+            ButtonProperties();
         }
         
-
 
 
         //Adds
@@ -55,11 +52,10 @@ namespace AppCamiones
 
             panelGrid.Controls.Add(info);
             this.Controls.Add(panelGrid);
+            this.Controls.Add(volver);
 
             CargarDatos();
         }
-
-
 
 
 
@@ -89,7 +85,22 @@ namespace AppCamiones
 
         }
 
-
+        //Properties
+        private void ButtonProperties()
+        {
+            volver.Text = "Volver";
+            volver.Size = new Size(150, 50);
+            volver.FlatAppearance.BorderSize = 0;
+            volver.FlatStyle = FlatStyle.Flat;
+            volver.Location = new Point(60, 100);
+            volver.Font = new Font("Nunito", 16, FontStyle.Regular);
+            volver.BackColor = System.Drawing.Color.FromArgb(48, 48, 48);
+            volver.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
+            volver.Click += (s, e) =>
+            {
+                this.Close();
+            };
+        }
 
 
         //Otros

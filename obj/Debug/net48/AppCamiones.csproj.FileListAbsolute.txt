@@ -1,0 +1,12 @@
+C:\Users\anabe\Downloads\AppCamiones\AppCamiones\bin\Debug\net48\AppCamiones.exe.config
+C:\Users\anabe\Downloads\AppCamiones\AppCamiones\bin\Debug\net48\AppCamiones.exe
+C:\Users\anabe\Downloads\AppCamiones\AppCamiones\bin\Debug\net48\AppCamiones.pdb
+C:\Users\anabe\Downloads\AppCamiones\AppCamiones\obj\Debug\net48\AppCamiones.csproj.AssemblyReference.cache
+C:\Users\anabe\Downloads\AppCamiones\AppCamiones\obj\Debug\net48\AppCamiones.Form1.resources
+C:\Users\anabe\Downloads\AppCamiones\AppCamiones\obj\Debug\net48\AppCamiones.Properties.Resources.resources
+C:\Users\anabe\Downloads\AppCamiones\AppCamiones\obj\Debug\net48\AppCamiones.csproj.GenerateResource.cache
+C:\Users\anabe\Downloads\AppCamiones\AppCamiones\obj\Debug\net48\AppCamiones.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\anabe\Downloads\AppCamiones\AppCamiones\obj\Debug\net48\AppCamiones.csproj.CoreCompileInputs.cache
+C:\Users\anabe\Downloads\AppCamiones\AppCamiones\obj\Debug\net48\AppCamiones.sourcelink.json
+C:\Users\anabe\Downloads\AppCamiones\AppCamiones\obj\Debug\net48\AppCamiones.exe
+C:\Users\anabe\Downloads\AppCamiones\AppCamiones\obj\Debug\net48\AppCamiones.pdb

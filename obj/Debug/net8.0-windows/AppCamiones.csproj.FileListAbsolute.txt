@@ -1,0 +1,17 @@
+C:\Users\anabe\Downloads\AppCamiones\AppCamiones\bin\Debug\net8.0-windows\AppCamiones.exe
+C:\Users\anabe\Downloads\AppCamiones\AppCamiones\bin\Debug\net8.0-windows\AppCamiones.dll.config
+C:\Users\anabe\Downloads\AppCamiones\AppCamiones\bin\Debug\net8.0-windows\AppCamiones.deps.json
+C:\Users\anabe\Downloads\AppCamiones\AppCamiones\bin\Debug\net8.0-windows\AppCamiones.runtimeconfig.json
+C:\Users\anabe\Downloads\AppCamiones\AppCamiones\bin\Debug\net8.0-windows\AppCamiones.dll
+C:\Users\anabe\Downloads\AppCamiones\AppCamiones\bin\Debug\net8.0-windows\AppCamiones.pdb
+C:\Users\anabe\Downloads\AppCamiones\AppCamiones\obj\Debug\net8.0-windows\AppCamiones.Form1.resources
+C:\Users\anabe\Downloads\AppCamiones\AppCamiones\obj\Debug\net8.0-windows\AppCamiones.Properties.Resources.resources
+C:\Users\anabe\Downloads\AppCamiones\AppCamiones\obj\Debug\net8.0-windows\AppCamiones.csproj.GenerateResource.cache
+C:\Users\anabe\Downloads\AppCamiones\AppCamiones\obj\Debug\net8.0-windows\AppCamiones.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\anabe\Downloads\AppCamiones\AppCamiones\obj\Debug\net8.0-windows\AppCamiones.csproj.CoreCompileInputs.cache
+C:\Users\anabe\Downloads\AppCamiones\AppCamiones\obj\Debug\net8.0-windows\AppCamiones.sourcelink.json
+C:\Users\anabe\Downloads\AppCamiones\AppCamiones\obj\Debug\net8.0-windows\AppCamiones.dll
+C:\Users\anabe\Downloads\AppCamiones\AppCamiones\obj\Debug\net8.0-windows\refint\AppCamiones.dll
+C:\Users\anabe\Downloads\AppCamiones\AppCamiones\obj\Debug\net8.0-windows\AppCamiones.pdb
+C:\Users\anabe\Downloads\AppCamiones\AppCamiones\obj\Debug\net8.0-windows\AppCamiones.genruntimeconfig.cache
+C:\Users\anabe\Downloads\AppCamiones\AppCamiones\obj\Debug\net8.0-windows\ref\AppCamiones.dll

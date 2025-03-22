@@ -56,22 +56,42 @@ namespace AppCamiones
 
             Eventos();
 
-            textBoxNombreUsuario.Leave += new EventHandler(NombreUsuario_Leave);
-            textBoxNombreUsuario.Click += new EventHandler(NombreUsuario_Click);
-
-            textBoxNombre.Leave += new EventHandler(Nombre_Leave);
-            textBoxNombre.Click += new EventHandler(Nombre_Click);
-
-            textBoxApellido.Leave += new EventHandler(Apellido_Leave);
-            textBoxApellido.Click += new EventHandler(Apellido_Click);
-
-            textBoxContraseña.Leave += new EventHandler(Contraseña_Leave);
-            textBoxContraseña.Click += new EventHandler(Contraseña_Click);
-
-            textBoxEmail.Leave += new EventHandler(Email_Leave);
-            textBoxEmail.Click += new EventHandler(Email_Click);
+            //RedirectEventFunction
+            AsignarEvento(textBoxNombreUsuario, "Username");
+            AsignarEvento(textBoxContraseña, "Password");
+            AsignarEvento(textBoxApellido, "Name");
+            AsignarEvento(textBoxNombre, "Surname");
+            AsignarEvento(textBoxEmail, "Email");
 
             textBoxContraseña.TextChanged += new EventHandler(Contraseña_TextChanged);
+        }
+
+        //RedirectEventFunction
+        private void AsignarEvento(TextBox textBox, string placeholderText)
+        {
+            textBox.Leave += (sender, e) => LeaveFunction(sender, e, placeholderText);
+            textBox.Click += (sender, e) => ClickFunction(sender, e, placeholderText);
+        }
+
+        //LeaveEventFunction
+        private void LeaveFunction(object sender, EventArgs e, string placeholderText)
+        {
+            TextBox textBox = sender as TextBox;
+            if (string.IsNullOrWhiteSpace(textBox.Text))
+            {
+                textBox.Text = placeholderText;
+                textBox.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
+            }
+        }
+        //ClickEventFunction
+        private void ClickFunction(object sender, EventArgs e, string placeholderText)
+        {
+            TextBox textBox = sender as TextBox;
+            if (textBox.Text == placeholderText)
+            {
+                textBox.Text = "";
+                textBox.ForeColor = Color.Black;
+            }
         }
 
         private void Eventos()
@@ -100,105 +120,6 @@ namespace AppCamiones
             }
         }
 
-        //NOMBRE DE USUARIO
-
-        private void NombreUsuario_Leave(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(textBoxNombreUsuario.Text))
-            {
-                textBoxNombreUsuario.Text = "Username";
-                textBoxNombreUsuario.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77); // Cambia el color del texto placeholder
-            }
-        }
-
-        private void NombreUsuario_Click(object sender, EventArgs e)
-        {
-            if (textBoxNombreUsuario.Text == "Username")
-            {
-                textBoxNombreUsuario.Text = "";
-                textBoxNombreUsuario.ForeColor = Color.Black; // Cambia el color del texto
-            }
-        }
-
-        //NOMBRE
-
-        private void Nombre_Leave(object sender, EventArgs e)
-        {
-
-            if (string.IsNullOrWhiteSpace(textBoxNombre.Text))
-            {
-                textBoxNombre.Text = "Name";
-                textBoxNombre.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77); // Cambia el color del texto placeholder
-            }
-        }
-
-        private void Nombre_Click(object sender, EventArgs e)
-        {
-            if (textBoxNombre.Text == "Name")
-            {
-                textBoxNombre.Text = "";
-                textBoxNombre.ForeColor = Color.Black; // Cambia el color del texto
-            }
-        }
-
-        //APELLIDO
-
-        private void Apellido_Leave(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(textBoxApellido.Text))
-            {
-                textBoxApellido.Text = "Surname";
-                textBoxApellido.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77); // Cambia el color del texto placeholder
-            }
-        }
-
-        private void Apellido_Click(object sender, EventArgs e)
-        {
-            if (textBoxApellido.Text == "Surname")
-            {
-                textBoxApellido.Text = "";
-                textBoxApellido.ForeColor = Color.Black; // Cambia el color del texto
-            }
-        }
-
-        private void Email_Leave(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(textBoxEmail.Text))
-            {
-                textBoxEmail.Text = "Email";
-                textBoxEmail.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77); // Cambia el color del texto placeholder
-            }
-        }
-
-        private void Email_Click(object sender, EventArgs e)
-        {
-            if (textBoxEmail.Text == "Email")
-            {
-                textBoxEmail.Text = "";
-                textBoxEmail.ForeColor = Color.Black; // Cambia el color del texto
-            }
-        }
-
-        //CONTRASEÑA
-
-        private void Contraseña_Leave(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(textBoxContraseña.Text))
-            {
-                textBoxContraseña.Text = "Password";
-                textBoxContraseña.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
-                textBoxContraseña.Font = new Font("Nunito", 10, FontStyle.Regular);
-            }
-        }
-
-        private void Contraseña_Click(object sender, EventArgs e)
-        {
-            if (textBoxContraseña.Text == "Password")
-            {
-                textBoxContraseña.Text = "";
-                textBoxContraseña.ForeColor = Color.Black;
-            }
-        }
 
         private void Contraseña_TextChanged(object sender, EventArgs e)
         {
@@ -208,6 +129,7 @@ namespace AppCamiones
                 textBoxContraseña.Font = new Font("Nunito", 14, FontStyle.Regular);
             }
         }
+
         //------------------------------------
         private void RegistrerUser_Click(object sender, EventArgs e)
         {
@@ -229,13 +151,6 @@ namespace AppCamiones
             }
             this.DialogResult = DialogResult.OK;
         }
-
-        //private void miTextBox_Paint(object sender, PaintEventArgs e)
-        //{
-        //    Control control = (Control)sender;
-        //    Pen pen = new Pen(Color.Red, 2); // Cambia a tu color
-        //    e.Graphics.DrawRectangle(pen, 0, 0, control.Width - 1, control.Height - 1);
-        //}
 
 
         private void LoginUser_Click(object sender, EventArgs e)

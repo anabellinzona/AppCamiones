@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "AKeClbQN+JA=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\anabe\\Downloads\\AppCamiones\\AppCamiones\\AppCamiones.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\anabe\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
+    "C:\\Users\\anabe\\.nuget\\packages\\system.data.datasetextensions\\4.5.0\\system.data.datasetextensions.4.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}
