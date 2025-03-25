@@ -35,7 +35,6 @@ namespace AppCamiones
         public Login()
         {
             InitializeUI();
-
             this.WindowState = FormWindowState.Maximized;
 
             //Redirections
@@ -247,8 +246,6 @@ namespace AppCamiones
             {
                 System.Windows.Forms.Label campo = createLabelAndProperties(campos_Login[i]);
                 TextBox textBoxCampos = createTextBoxAndProperties(campos_Login[i]);
-               
-
                
 
 

@@ -32,20 +32,17 @@ namespace AppCamiones
 
             ResaltarBoton(registrosMenu);
 
-            this.WindowState = FormWindowState.Maximized;
-            this.StartPosition = FormStartPosition.CenterScreen;
-
             Login formUser = new Login();
 
 
             //ButtonsArray
             Dictionary<Button, string> buttons = new Dictionary<Button, string>
             {
-                { btnViaje, "Viaje" },
-                { btnChofer, "Chofer" },
-                { btnCliente, "Cliente" },
-                { btnCheque, "Cheque" },
-                { btnCamion, "Camion" }
+                { btnViaje, "viaje" },
+                { btnChofer, "chofer" },
+                { btnCliente, "cliente" },
+                { btnCheque, "cheque" },
+                { btnCamion, "camion" }
             };
 
             foreach (var button in buttons)
@@ -102,9 +99,6 @@ namespace AppCamiones
             AddPanelToForm();
         }
        
-
-
-
         //Adds
         private void AddPanelToForm()
         {

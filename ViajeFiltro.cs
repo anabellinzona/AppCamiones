@@ -25,9 +25,6 @@ namespace AppCamiones
         public ViajeFiltro()
         {
             InitializeGrid();
-
-            this.WindowState = FormWindowState.Maximized;
-
         }
 
 

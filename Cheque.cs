@@ -24,7 +24,6 @@ namespace AppCamiones
         {
             InitializeToolBar();
             ResaltarBoton(chequesMenu);
-            this.WindowState = FormWindowState.Maximized;
         }
 
         private void InitializeToolBar()

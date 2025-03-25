@@ -13,29 +13,19 @@ namespace AppCamiones
     {
         //Form
         private string tipoRegistro;
-        private ArrayList array = new ArrayList();
 
-        private List<TextBox> textBoxList = new List<TextBox>();
+        private ArrayList array = new ArrayList ();
+
+        private List<string> campos = new List<string>();
 
         private NewRoundPanel form = new NewRoundPanel();
 
         private FlowLayoutPanel flowLayoutForm = new FlowLayoutPanel();
 
-        private string campo1;
-        private string campo2;
-        private string campo3;
-        private string campo4;
-        private string campo5;
-        private string campo6;
-        private string campo7;
-        private string campo8;
-        private string campo9;
-        private string campo10;
 
         private ArrayList botonesRegistro = new ArrayList();
         private ArrayList nombreBotonesRegistro = new ArrayList();
 
-        private TextBox tt = new TextBox();
 
         private RoundButton btn_cargar = new RoundButton();
 
@@ -49,13 +39,16 @@ namespace AppCamiones
         private Button btnViaje = new Button();
 
 
-
-
         //Constructor
         public FormRegistro(string tipoRegistro)
         {
-            InitializeUI();
+            
             this.WindowState = FormWindowState.Maximized;
+
+            if(tipoRegistro != "newSection")
+            {
+                InitializarMenuTipoRegistro();
+            }
 
             this.tipoRegistro = tipoRegistro;
             ResaltarBoton(registrosMenu);
@@ -64,11 +57,11 @@ namespace AppCamiones
             //ButtonsArray
             Dictionary<Button, string> buttons = new Dictionary<Button, string>
             {
-                { btnViaje, "Viaje" },
-                { btnChofer, "Chofer" },
-                { btnCliente, "Cliente" },
-                { btnCheque, "Cheque" },
-                { btnCamion, "Camion" }
+                { btnViaje, "viaje" },
+                { btnChofer, "chofer" },
+                { btnCliente, "cliente" },
+                { btnCheque, "cheque" },
+                { btnCamion, "camion" }
             };
 
             //ButtonsEvents
@@ -86,10 +79,7 @@ namespace AppCamiones
 
 
         //Initializations
-        public void InitializeUI()
-        {
-            InitializarMenuTipoRegistro();
-        }
+
         private void InitializarMenuTipoRegistro()
         {
             OptionsMenuProperties();
@@ -149,139 +139,103 @@ namespace AppCamiones
         {
             switch (tipoRegistro)
             {
-                case "Chofer":
+                case "chofer":
                     CargarFormularioChofer(5);
                     break;
-                case "Camion":
+                case "camion":
                     CargarFormularioCamion(3);
                     break;
-                case "Cheque":
+                case "cheque":
                     CargarFormularioCheque(9);
                     break;
-                case "Viaje":
-                    CargarFormularioViaje(9);
+                case "viaje":
+                    CargarFormularioViaje(11);
                     break;
-                case "Cliente":
+                case "cliente":
                     CargarFormularioCliente(9);
+                    break;
+                case "newSection":
+                    CargarFormularioNewSection(2);
                     break;
             }
         }
+        
+        private void CargarFormularioNewSection(int cant)
+        {
+            this.campos.Clear();
+            this.campos = new List<string> { "Tipo", "Nombre" };
+
+            btn_cargar.Click += (s, e) =>
+            {
+                foreach (string ss in this.campos)
+                {
+                    TextBox result = createTextBoxAndProperties(ss);
+                    Label resultLabel = createLabelAndProperties(ss);
+                    if (resultLabel.Text == "Tipo")
+                    {
+                        Viaje vv = new Viaje();
+                        vv.GetFilterInfo("Camión", "FMM 650");
+                        vv.CardGenerator("Camión", "Fmm 650");
+                    }
+                }
+            };
+
+    
+
+
+
+                this.optionsMenu = null;
+            PropertiesFormRegisterInformation(cant,campos);
+        }
+
+
+
         private void CargarFormularioChofer(int cant)
         {
+            this.campos.Clear();
+            this.campos = new List<string> { "Nombre", "Apellido", "Teléfono", "Email", "DNI" };
 
-            campo1 = "Nombre";
-            campo2 = "Apellido";
-            campo3 = "Teléfono";
-            campo4 = "Email";
-            campo5 = "DNI";
+            PropertiesFormRegisterInformation(cant, campos);
 
-            array.Clear();
-            array.Add(campo1);
-            array.Add(campo2);
-            array.Add(campo3);
-            array.Add(campo4);
-            array.Add(campo5);
-
-            PropertiesFormRegisterInformation(cant);
         }
         private void CargarFormularioCamion(int cant)
         {
-            campo1 = "Patente";
-            campo2 = "Modelo";
-            campo3 = "Chofer";
+            this.campos.Clear();
+            this.campos = new List<string> { "Patente", "Modelo", "Chofer" };
 
-            array.Clear();
-            array.Add(campo1);
-            array.Add(campo2);
-            array.Add(campo3);
-
-            PropertiesFormRegisterInformation(cant); ;
+            PropertiesFormRegisterInformation(cant, campos); ;
         }
         private void CargarFormularioCheque(int cant)
         {
-            campo1 = "Fecha de recibimiento";
-            campo2 = "Banco";
-            campo3 = "Nro de cheque";
-            campo4 = "Fecha de cobro";
-            campo5 = "Pesos";
-            campo6 = "Nombre";
-            campo7 = "Mi cheque N°";
-            campo8 = "Entregado a";
-            campo9 = "...";
+            this.campos.Clear();
+            this.campos = new List<string> { "Fecha de recibimiento", "Banco", "Nro de cheque", "Pesos", "Nombre", "Número personal de cheque", "Entregado a", "Fecha de retiro" };
 
-            array.Clear();
-            array.Add(campo1);
-            array.Add(campo2);
-            array.Add(campo3);
-            array.Add(campo4);
-            array.Add(campo5);
-            array.Add(campo6);
-            array.Add(campo7);
-            array.Add(campo8);
-            array.Add(campo9);
-
-            PropertiesFormRegisterInformation(cant);
+            PropertiesFormRegisterInformation(cant, campos);
         }
         private void CargarFormularioCliente(int cant)
         {
-            campo1 = "Fecha";
-            campo2 = "Desde";
-            campo3 = "Hasta";
-            campo4 = "Kilos";
-            campo5 = "Remito";
-            campo6 = "Tarifa";
-            campo7 = "Pesos";
-            campo8 = "Carga";
-            campo9 = "Factura";
-            campo10 = "Chofer";
 
-            array.Clear();
-            array.Add(campo1);
-            array.Add(campo2);
-            array.Add(campo3);
-            array.Add(campo4);
-            array.Add(campo5);
-            array.Add(campo6);
-            array.Add(campo7);
-            array.Add(campo8);
-            array.Add(campo9);
-            array.Add(campo10);
+            this.campos.Clear();
+            this.campos = new List<string> { "Fecha", "Desde", "Hasta", "Kilos", "Remito", "Tarifa", "Pesos", "Carga", "Factura", "Chofer" };
 
-            PropertiesFormRegisterInformation(cant);
+            PropertiesFormRegisterInformation(cant, campos);
         }
         private void CargarFormularioViaje(int cant)
         {
-            campo1 = "Fecha de partida";
-            campo2 = "Desde";
-            campo3 = "RTO o CPE";
-            campo4 = "Carga";
-            campo5 = "KM";
-            campo6 = "KG";
-            campo7 = "Tarifa";
-            campo8 = "Total";
-            campo9 = "Cliente";
+            this.campos.Clear();
+            this.campos = new List<string> { "Fecha", "Desde", "Hasta", "Kilos", "Remito", "Tarifa", "Pesos", "Carga", "Factura", "Chofer", "Cliente" };
 
-            array.Clear();
-            array.Add(campo1);
-            array.Add(campo2);
-            array.Add(campo3);
-            array.Add(campo4);
-            array.Add(campo5);
-            array.Add(campo6);
-            array.Add(campo7);
-            array.Add(campo8);
-            array.Add(campo9);
-
-            PropertiesFormRegisterInformation(cant);
+            NewRoundPanel optionsMenu = new NewRoundPanel();
+            PropertiesFormRegisterInformation(cant, campos);
         }
 
 
         //FormProperties
-        private void PropertiesFormRegisterInformation(int cant)
+        private void PropertiesFormRegisterInformation(int cant, List<string> campos)
         {
             FormProperties(cant);
             LayoutFormProperties();
-            TextoBoxAndLabelProperties(cant);
+            TextoBoxAndLabelProperties(cant, campos);
             ButtonsPropertiesForm();
             AddLabels();
             AddForm();
@@ -289,7 +243,7 @@ namespace AppCamiones
         private void FormProperties(int cant)
         {
             form.Width = 400;
-            form.Height = cant * 115;
+            form.Height = (cant + 1) * 115;
             this.Resize += (s, e) =>
             {
                 form.Location = new Point((this.Width - form.Width) / 2, 200);
@@ -304,20 +258,22 @@ namespace AppCamiones
         }
         private void LayoutFormProperties()
         {
-            flowLayoutForm.Size = new Size(form.Width, form.Height + 200);
+            flowLayoutForm.Size = new Size(form.Width, form.Height + 250);
             flowLayoutForm.Location = new Point(0, 40);
             flowLayoutForm.BackColor = Color.Transparent;
             flowLayoutForm.FlowDirection = FlowDirection.TopDown;
         }
-        private void TextoBoxAndLabelProperties(int cant)
+        private void TextoBoxAndLabelProperties(int cant, List<string> campos)
         {
-            for (int i = 0; i < array.Count; i++)
+             // Verificar qué valores tiene la lista
+            foreach (string campo in campos)
             {
-                Label campo = createLabelAndProperties(array[i]);
-                TextBox textBoxForm = createTextBoxAndProperties(array[i]);
+                Label cc = createLabelAndProperties(campo);
+                TextBox textBoxForm = createTextBoxAndProperties(campo);
 
-                flowLayoutForm.Controls.Add(campo);
+                flowLayoutForm.Controls.Add(cc);
                 flowLayoutForm.Controls.Add(textBoxForm);
+
             }
         }
         private Label createLabelAndProperties(object campo)
@@ -359,6 +315,8 @@ namespace AppCamiones
             btn_cargar.Font = new Font("Nunito", 12, FontStyle.Bold);
             //btn_cargar.Location = new Point((flowLayoutForm.Width - btn_cargar.Width) / 2, (flowLayoutForm.Height - btn_cargar.Height) / 2);
         }
+
+        //Options menu
         private void OptionsMenuProperties()
         {
             optionsMenu.Size = new Size(800, 60);
@@ -369,6 +327,9 @@ namespace AppCamiones
             optionsMenu.BackColor = System.Drawing.Color.FromArgb(64, 64, 64);
             optionsMenu.BorderStyle = BorderStyle.FixedSingle;
         }
+
+
+
         private void LayoutOptionsMenuProperties()
         {
             layoutOptionsMenu.AutoSize = true;

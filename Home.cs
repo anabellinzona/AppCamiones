@@ -17,14 +17,16 @@ namespace AppCamiones
         private ToolStripMenuItem userMenu = new ToolStripMenuItem();
         protected ToolStripMenuItem closeSesion = new ToolStripMenuItem("Cerrar sesión");
 
+        private Form activeForm = null;
 
-        
+
+
 
         //Constructor
         public Home()
         {
             InitializeUI();
-
+            this.WindowState = FormWindowState.Maximized;
             //Redirections
             closeSesion.Click += (sender, e) => OpenForm<Login>();
             chequesMenu.Click += (sender, e) => OpenForm<Cheque>();
@@ -38,9 +40,15 @@ namespace AppCamiones
 
         //RedirectionalFunctions
         private void OpenForm<T>() where T : Form, new()
-        {
-            T form = new T();
-            form.Show();
+        { 
+            if (activeForm != null)
+            {
+                activeForm.Close();
+            }
+
+            // Crea una nueva instancia del formulario y guárdalo como activo
+            activeForm = new T();
+            activeForm.Show();
         }
 
 

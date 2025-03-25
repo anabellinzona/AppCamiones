@@ -41,7 +41,6 @@ namespace AppCamiones
         public Form1()
         {
             InitializeUI();
-            this.WindowState = FormWindowState.Maximized;
 
             ResaltarBoton(homeMenu);
         }

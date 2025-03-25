@@ -9,6 +9,8 @@ using System.Xml.Linq;
 using System.Collections.Generic;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 using System.Collections;
+using System.Security.Cryptography;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace AppCamiones
 {
@@ -24,8 +26,13 @@ namespace AppCamiones
         private RoundButton camionFilter = new RoundButton();
         private RoundButton clienteFilter = new RoundButton();
 
+        private RoundButton agregarNuevo = new RoundButton();
+
+        private ArrayList botonesRegistro = new ArrayList();
+        private ArrayList nombreBotonesRegistro = new ArrayList();
+
+
         //Card
-        private NewRoundPanel card = new NewRoundPanel();
         private FlowLayoutPanel cardsContainer = new FlowLayoutPanel();
 
 
@@ -35,8 +42,6 @@ namespace AppCamiones
         {
             InitializeUI();
             ResaltarBoton(viajesMenu);
-
-            this.WindowState = FormWindowState.Maximized;
 
 
             //Hovers
@@ -50,9 +55,9 @@ namespace AppCamiones
             camionFilter.MouseLeave += (s, e) => HoverEffect(s, e, false);
 
             //Events
-            choferFilter.Click += (s, e) => CardGenerator("Chofer");
-            clienteFilter.Click += (s, e) => CardGenerator("Cliente");
-            camionFilter.Click += (s, e) => CardGenerator("Camión");
+            choferFilter.Click += (s, e) => CardGenerator("Chofer", " ");
+            clienteFilter.Click += (s, e) => CardGenerator("Cliente", " ");
+            camionFilter.Click += (s, e) => CardGenerator("Camión", " ");
         }
 
 
@@ -87,8 +92,10 @@ namespace AppCamiones
             ButtonsProperties();
             CardProperties();
             AddItemsToFilter();
+            AddButtonNewAdd();
+            ButtonNewAddProperties();
         }
-       
+
         private void AddItemsToFilter()
         {
             this.Controls.Add(filter);
@@ -119,12 +126,17 @@ namespace AppCamiones
             };
         }
 
+        private void AddButtonNewAdd()
+        {
+            cardsContainer.Controls.Add(agregarNuevo);
+        }
+
         //InfoFunctions
-        private void CardGenerator(string filtro)
+        public void CardGenerator(string filtro, string info)
         {
             cardsContainer.Controls.Clear();
 
-            List<string> datos = GetFilterInfo(filtro);
+            List<string> datos = GetFilterInfo(filtro, info);
 
             foreach (string dato in datos)
             {
@@ -156,10 +168,10 @@ namespace AppCamiones
                 };
             }
         }
-        private List<string> GetFilterInfo(string filtro)
+        public List<string> GetFilterInfo(string filtro, string info)
         {
             if (filtro == "Camión")
-                return new List<string> { "ABC123", "DEF456", "GHI789" };
+                return new List<string> { info };
             else if (filtro == "Cliente")
                 return new List<string> { "Gómez", "Pérez", "Rodríguez" };
             else if (filtro == "Chofer")
@@ -200,15 +212,11 @@ namespace AppCamiones
                     j++;
                 }
 
-                btn.Click += (s, e) => CardGenerator(btn.Text);
+                btn.Click += (s, e) => CardGenerator(btn.Text, " ");
 
                 filterFL.Controls.Add(btn);
             }
         }
-
-
-
-
 
         //CardProperties
         private void CardProperties()
@@ -224,6 +232,31 @@ namespace AppCamiones
             {
                 cardsContainer.Location = new Point((this.Width - cardsContainer.Width) / 2, filter.Bottom + 10);
             };
+        }
+
+        private void ButtonNewAddProperties()
+        {
+            agregarNuevo.Size = new Size(200, 150);
+            agregarNuevo.BackColor = System.Drawing.Color.FromArgb(200, Color.Black);
+            agregarNuevo.Text = "+";
+            agregarNuevo.FlatStyle = FlatStyle.Flat;
+            agregarNuevo.FlatAppearance.BorderSize = 0;  // Grosor del borde
+            agregarNuevo.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(218, 218, 28); // Color del borde
+            agregarNuevo.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
+            agregarNuevo.Font = new Font("Nunito", 24, FontStyle.Bold);
+            //agregarNuevo.Location = new Point(400, 200);
+            agregarNuevo.Margin = new Padding((cardsContainer.Width - agregarNuevo.Width) / 2, (cardsContainer.Height - agregarNuevo.Height) / 2, 0, 0);
+
+            agregarNuevo.Click += (s, e) => FormAddNew();
+        }
+
+        private void FormAddNew()
+        {
+            FormRegistro ff = new FormRegistro("newSection");
+            {
+                StartPosition = FormStartPosition.CenterScreen;
+            }  
+            ff.ShowDialog();
         }
     }
 }
