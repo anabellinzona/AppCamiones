@@ -174,17 +174,13 @@ namespace AppCamiones
                     if (resultLabel.Text == "Tipo")
                     {
                         Viaje vv = new Viaje();
-                        vv.GetFilterInfo("Camión", "FMM 650");
-                        vv.CardGenerator("Camión", "Fmm 650");
+                        vv.CardGenerator("Camión", "FMM 650");
+                        vv.Show();
                     }
                 }
             };
 
-    
-
-
-
-                this.optionsMenu = null;
+            this.optionsMenu = null;
             PropertiesFormRegisterInformation(cant,campos);
         }
 
