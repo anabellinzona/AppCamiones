@@ -16,7 +16,7 @@ namespace AppCamiones
         private FlowLayoutPanel layoutOptionsMenu = new FlowLayoutPanel();
 
         private Button btnCamion = new Button();
-        private Button btnChofer = new Button();
+        private Button btnFlete = new Button();
         private Button btnCliente = new Button();
         private Button btnCheque = new Button();
         private Button btnViaje = new Button();
@@ -39,7 +39,7 @@ namespace AppCamiones
             Dictionary<Button, string> buttons = new Dictionary<Button, string>
             {
                 { btnViaje, "viaje" },
-                { btnChofer, "chofer" },
+                { btnFlete, "flete" },
                 { btnCliente, "cliente" },
                 { btnCheque, "cheque" },
                 { btnCamion, "camion" }
@@ -139,13 +139,13 @@ namespace AppCamiones
         {
             int j = 0;
 
-            botonesRegistro.Add(btnChofer);
+            botonesRegistro.Add(btnFlete);
             botonesRegistro.Add(btnViaje);
             botonesRegistro.Add(btnCamion);
             botonesRegistro.Add(btnCliente);
             botonesRegistro.Add(btnCheque);
 
-            nombreBotonesRegistro.Add("Chofer");
+            nombreBotonesRegistro.Add("Flete");
             nombreBotonesRegistro.Add("Viaje");
             nombreBotonesRegistro.Add("Camión");
             nombreBotonesRegistro.Add("Cliente");
