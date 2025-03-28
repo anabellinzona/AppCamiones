@@ -105,7 +105,7 @@ namespace AppCamiones
         {
             for (int i = 0; i < 30; i++)
             {
-                info.Rows.Add("D1", "D2", "D3", "D4", "D5", "D6", "D7");
+                info.Rows.Add("Fecha", "Origen", "Destino", "RTO o CPE", "Carga", "Km", "Kg", "Tarifa", "Total", "18%", "Chofer", "Productor");
 
             }
         }

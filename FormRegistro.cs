@@ -33,7 +33,7 @@ namespace AppCamiones
         private FlowLayoutPanel layoutOptionsMenu = new FlowLayoutPanel();
 
         private Button btnCamion = new Button();
-        private Button btnChofer = new Button();
+        private Button btnFlete = new Button();
         private Button btnCliente = new Button();
         private Button btnCheque = new Button();
         private Button btnViaje = new Button();
@@ -58,7 +58,7 @@ namespace AppCamiones
             Dictionary<Button, string> buttons = new Dictionary<Button, string>
             {
                 { btnViaje, "viaje" },
-                { btnChofer, "chofer" },
+                { btnFlete, "flete" },
                 { btnCliente, "cliente" },
                 { btnCheque, "cheque" },
                 { btnCamion, "camion" }
@@ -139,8 +139,8 @@ namespace AppCamiones
         {
             switch (tipoRegistro)
             {
-                case "chofer":
-                    CargarFormularioChofer(5);
+                case "flete":
+                    CargarFormularioFlete(5);
                     break;
                 case "camion":
                     CargarFormularioCamion(3);
@@ -190,10 +190,10 @@ namespace AppCamiones
 
 
 
-        private void CargarFormularioChofer(int cant)
+        private void CargarFormularioFlete(int cant)
         {
             this.campos.Clear();
-            this.campos = new List<string> { "Nombre", "Apellido", "Teléfono", "Email", "DNI" };
+            this.campos = new List<string> { "Nombre", "Teléfono", "Email"};
 
             PropertiesFormRegisterInformation(cant, campos);
 
@@ -345,13 +345,13 @@ namespace AppCamiones
         {
             int j = 0;
 
-            botonesRegistro.Add(btnChofer);
+            botonesRegistro.Add(btnFlete);
             botonesRegistro.Add(btnViaje);
             botonesRegistro.Add(btnCamion);
             botonesRegistro.Add(btnCliente);
             botonesRegistro.Add(btnCheque);
 
-            nombreBotonesRegistro.Add("Chofer");
+            nombreBotonesRegistro.Add("Flete");
             nombreBotonesRegistro.Add("Viaje");
             nombreBotonesRegistro.Add("Camión");
             nombreBotonesRegistro.Add("Cliente");

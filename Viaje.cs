@@ -22,7 +22,7 @@ namespace AppCamiones
 
         private ArrayList buttonsFilter = new ArrayList();
         private ArrayList buttonsNameFilter = new ArrayList();
-        private RoundButton choferFilter = new RoundButton();
+        private RoundButton fleteFilter = new RoundButton();
         private RoundButton camionFilter = new RoundButton();
         private RoundButton clienteFilter = new RoundButton();
 
@@ -45,8 +45,8 @@ namespace AppCamiones
 
 
             //Hovers
-            choferFilter.MouseEnter += (s, e) => HoverEffect(s, e, true);
-            choferFilter.MouseLeave += (s, e) => HoverEffect(s, e, false);
+            fleteFilter.MouseEnter += (s, e) => HoverEffect(s, e, true);
+            fleteFilter.MouseLeave += (s, e) => HoverEffect(s, e, false);
 
             clienteFilter.MouseEnter += (s, e) => HoverEffect(s, e, true);
             clienteFilter.MouseLeave += (s, e) => HoverEffect(s, e, false);
@@ -55,7 +55,7 @@ namespace AppCamiones
             camionFilter.MouseLeave += (s, e) => HoverEffect(s, e, false);
 
             //Events
-            choferFilter.Click += (s, e) => CardGenerator("Chofer", " ");
+            fleteFilter.Click += (s, e) => CardGenerator("Chofer", " ");
             clienteFilter.Click += (s, e) => CardGenerator("Cliente", " ");
             camionFilter.Click += (s, e) => CardGenerator("Camión", " ");
         }
@@ -117,7 +117,7 @@ namespace AppCamiones
         private void LayoutOptionsMenuProperties()
         {
             filterFL.AutoSize = true;
-            filterFL.Width = choferFilter.Width;
+            filterFL.Width = fleteFilter.Width;
             filterFL.BackColor = Color.Transparent;
             filterFL.FlowDirection = FlowDirection.LeftToRight;
             filter.Resize += (s, e) =>
@@ -174,7 +174,7 @@ namespace AppCamiones
                 return new List<string> { info };
             else if (filtro == "Cliente")
                 return new List<string> { "Gómez", "Pérez", "Rodríguez" };
-            else if (filtro == "Chofer")
+            else if (filtro == "Flete")
                 return new List<string> { "López", "Fernández", "Martínez" };
             else
                 return new List<string>();
@@ -183,11 +183,11 @@ namespace AppCamiones
         {
             int j = 0;
 
-            buttonsFilter.Add(choferFilter);
+            buttonsFilter.Add(fleteFilter);
             buttonsFilter.Add(clienteFilter);
             buttonsFilter.Add(camionFilter);
 
-            buttonsNameFilter.Add("Chofer");
+            buttonsNameFilter.Add("Flete");
             buttonsNameFilter.Add("Cliente");
             buttonsNameFilter.Add("Camión");
 
