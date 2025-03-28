@@ -31,6 +31,8 @@ namespace AppCamiones
         private ArrayList botonesRegistro = new ArrayList();
         private ArrayList nombreBotonesRegistro = new ArrayList();
 
+        private RoundButton btn_volver = new RoundButton();
+
 
         //Card
         private FlowLayoutPanel cardsContainer = new FlowLayoutPanel();
@@ -171,13 +173,30 @@ namespace AppCamiones
         public List<string> GetFilterInfo(string filtro, string info)
         {
             if (filtro == "Camión")
-                return new List<string> { info };
-            else if (filtro == "Cliente")
+            {
+                if (info != " ")
+                {
+                    MessageBox.Show(info);
+                    return new List<string> { info };
+                } else
+                {
+                    return new List<string> {  };
+                }
+            }
+            else if
+
+                (filtro == "Cliente")
+            {
                 return new List<string> { "Gómez", "Pérez", "Rodríguez" };
+            }
             else if (filtro == "Chofer")
+            {
                 return new List<string> { "López", "Fernández", "Martínez" };
+            }
             else
+            {
                 return new List<string>();
+            }
         }
         private void ButtonsProperties()
         {
@@ -255,7 +274,7 @@ namespace AppCamiones
             FormRegistro ff = new FormRegistro("newSection");
             {
                 StartPosition = FormStartPosition.CenterScreen;
-            }  
+            }
             ff.ShowDialog();
         }
     }
