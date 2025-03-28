@@ -238,12 +238,19 @@ namespace AppCamiones
         }
         private void FormProperties(int cant)
         {
-            form.Width = 1500;
-            form.Height =  120;
-            this.Resize += (s, e) =>
+            if(cant >= 5)
             {
-                form.Location = new Point((this.Width - form.Width) / 2, 200);
-            };
+                form.Width = 1500;
+                form.Height = 120;
+            } else
+            {
+                form.AutoSize = true;
+            }
+
+             this.Resize += (s, e) =>
+                {
+                    form.Location = new Point((this.Width - form.Width) / 2, 200);
+                };
 
             form.BackColor = System.Drawing.Color.FromArgb(130, Color.Black);
 
