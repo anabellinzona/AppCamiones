@@ -230,7 +230,7 @@ namespace AppCamiones
         private void PropertiesFormRegisterInformation(int cant, List<string> campos)
         {
             FormProperties(cant);
-            LayoutFormProperties();
+            LayoutFormProperties(cant);
             TextoBoxAndLabelProperties(cant, campos);
             ButtonsPropertiesForm();
             AddLabels();
@@ -238,8 +238,8 @@ namespace AppCamiones
         }
         private void FormProperties(int cant)
         {
-            form.Width = 400;
-            form.Height = (cant + 1) * 115;
+            form.Width = 1500;
+            form.Height =  120;
             this.Resize += (s, e) =>
             {
                 form.Location = new Point((this.Width - form.Width) / 2, 200);
@@ -247,17 +247,18 @@ namespace AppCamiones
 
             form.BackColor = System.Drawing.Color.FromArgb(130, Color.Black);
 
-            if (form.Height > 1000)
+            
+        }
+        private void LayoutFormProperties(int cant)
+        {
+            flowLayoutForm.AutoSize = true;
+            flowLayoutForm.Location = new Point(0, 40);
+            flowLayoutForm.BackColor = Color.Transparent;
+            flowLayoutForm.FlowDirection = FlowDirection.LeftToRight;
+            if (cant > 5)
             {
                 form.AutoScroll = true;
             }
-        }
-        private void LayoutFormProperties()
-        {
-            flowLayoutForm.Size = new Size(form.Width, form.Height + 250);
-            flowLayoutForm.Location = new Point(0, 40);
-            flowLayoutForm.BackColor = Color.Transparent;
-            flowLayoutForm.FlowDirection = FlowDirection.TopDown;
         }
         private void TextoBoxAndLabelProperties(int cant, List<string> campos)
         {
@@ -279,7 +280,7 @@ namespace AppCamiones
             label.Font = new Font("Nunito", 10, FontStyle.Regular);
             label.ForeColor = System.Drawing.Color.FromArgb(217, 217, 217);
             label.BackColor = Color.Transparent;
-            label.Margin = new Padding(80, 10, 0, 0);
+            label.Margin = new Padding(20, 0, 0, 20);
             label.AutoSize = true;
 
             return label;
@@ -293,7 +294,7 @@ namespace AppCamiones
             textBoxCampo.Width = 200;
             textBoxCampo.Height = 30;
             textBoxCampo.BorderStyle = BorderStyle.None;
-            textBoxCampo.Margin = new Padding(90, 10, 0, 10);
+            textBoxCampo.Margin = new Padding(20, 0, 0, 0);
             textBoxCampo.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
             textBoxCampo.TextAlign = HorizontalAlignment.Left;
 
@@ -382,7 +383,7 @@ namespace AppCamiones
         private void AddLabels()
         {
             form.Controls.Add(flowLayoutForm);
-            flowLayoutForm.Controls.Add(btn_cargar);
+            //flowLayoutForm.Controls.Add(btn_cargar);
         }
         private void AddForm()
         {
