@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -20,6 +21,8 @@ namespace AppCamiones
 
         private RoundButton volver = new RoundButton();
 
+        private List<string> campos = new List<string>();
+
 
         //Constructor
         public ViajeFiltro()
@@ -32,9 +35,16 @@ namespace AppCamiones
         //Initializations
         private void InitializeGrid()
         {
+            AddInfoToCampos();
             AddItemsToGrid();
             GridChequesProperties();
             ButtonProperties();
+        }
+
+        private void AddInfoToCampos()
+        {
+            this.campos.Clear();
+            this.campos = new List<string> { "Fecha", "Origen", "Destino", "RTO o CPE", "Carga", "Km", "Kg", "Tarifa", "Total", "Porcentaje", "Chofer", "Productor" };
         }
         
 
@@ -42,11 +52,11 @@ namespace AppCamiones
         //Adds
         private void AddItemsToGrid()
         {
-            for (int i = 0; i < 7; i++)
-            {
-                info.Columns.Add(i.ToString(), "Dato");
+           
+            foreach(string i in campos){
+                info.Columns.Add(i.ToString(), i);
             }
-
+   
             panelGrid.Controls.Add(info);
             this.Controls.Add(panelGrid);
             this.Controls.Add(volver);
@@ -103,9 +113,9 @@ namespace AppCamiones
         //Otros
         private void CargarDatos()
         {
-            for (int i = 0; i < 30; i++)
+           foreach(string i in campos)
             {
-                info.Rows.Add("Fecha", "Origen", "Destino", "RTO o CPE", "Carga", "Km", "Kg", "Tarifa", "Total", "18%", "Chofer", "Productor");
+                info.Rows.Add(" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ");
 
             }
         }
