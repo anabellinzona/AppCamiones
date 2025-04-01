@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.IO;
+using System.Reflection.Emit;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
@@ -170,7 +171,7 @@ namespace AppCamiones
                 foreach (string ss in this.campos)
                 {
                     TextBox result = createTextBoxAndProperties(ss);
-                    Label resultLabel = createLabelAndProperties(ss);
+                    System.Windows.Forms.Label resultLabel = createLabelAndProperties(ss);
                     if (resultLabel.Text == "Tipo")
                     {
                         Viaje vv = new Viaje();
@@ -238,41 +239,58 @@ namespace AppCamiones
         }
         private void FormProperties(int cant)
         {
-            if(cant >= 5)
+            //1500 y 100
+            if (cant >= 5)
             {
-                form.Width = 1500;
-                form.Height = 120;
-            } else
+                form.Size = new Size(1200, 100);
+                // Habilita AutoScroll
+                form.AutoScroll = true;
+
+                // Asegura que el contenido requiera desplazamiento horizontal
+                form.AutoScrollMinSize = new Size(1200, 1); // Ancho grande, altura mínima
+
+                // Forzar ocultar el scroll vertical
+                form.VerticalScroll.Maximum = 0;
+                form.VerticalScroll.Visible = false;
+                form.VerticalScroll.Enabled = false;
+
+                // Forzar mostrar el scroll horizontal
+                form.HorizontalScroll.Visible = true;
+                form.HorizontalScroll.Enabled = true;
+
+
+
+            }
+            else
             {
                 form.AutoSize = true;
             }
 
              this.Resize += (s, e) =>
-                {
+             {
                     form.Location = new Point((this.Width - form.Width) / 2, 200);
-                };
+             };
 
-            form.BackColor = System.Drawing.Color.FromArgb(130, Color.Black);
-
-            
+             form.BackColor = System.Drawing.Color.FromArgb(130, Color.Black);
         }
         private void LayoutFormProperties(int cant)
         {
             flowLayoutForm.AutoSize = true;
-            flowLayoutForm.Location = new Point(0, 40);
-            flowLayoutForm.BackColor = Color.Transparent;
             flowLayoutForm.FlowDirection = FlowDirection.LeftToRight;
-            if (cant > 5)
-            {
-                form.AutoScroll = true;
-            }
+            flowLayoutForm.WrapContents = false;
+
+        
+
+            // Eliminar el fondo del scroll horizontal
+            flowLayoutForm.BackColor = Color.Transparent; // O el color que coincida con tu panel
+            
         }
         private void TextoBoxAndLabelProperties(int cant, List<string> campos)
         {
              // Verificar qué valores tiene la lista
             foreach (string campo in campos)
             {
-                Label cc = createLabelAndProperties(campo);
+                System.Windows.Forms.Label cc = createLabelAndProperties(campo);
                 TextBox textBoxForm = createTextBoxAndProperties(campo);
 
                 flowLayoutForm.Controls.Add(cc);
@@ -280,14 +298,14 @@ namespace AppCamiones
 
             }
         }
-        private Label createLabelAndProperties(object campo)
+        private System.Windows.Forms.Label createLabelAndProperties(object campo)
         {
-            Label label = new Label();
-            label.Text = campo.ToString();
+            System.Windows.Forms.Label label = new System.Windows.Forms.Label();
+            //label.Text = campo.ToString();
             label.Font = new Font("Nunito", 10, FontStyle.Regular);
             label.ForeColor = System.Drawing.Color.FromArgb(217, 217, 217);
             label.BackColor = Color.Transparent;
-            label.Margin = new Padding(20, 0, 0, 20);
+            label.Margin = new Padding(20, 0, 0, 0);
             label.AutoSize = true;
 
             return label;
@@ -295,13 +313,14 @@ namespace AppCamiones
         private TextBox createTextBoxAndProperties(object campo)
         {
             TextBox textBoxCampo = new TextBox();
+            textBoxCampo.Text = campo.ToString();
             textBoxCampo.Font = new Font("Nunito", 10, FontStyle.Regular);
             textBoxCampo.BackColor = System.Drawing.Color.FromArgb(153, 145, 145);
             textBoxCampo.Multiline = true;
             textBoxCampo.Width = 200;
             textBoxCampo.Height = 30;
             textBoxCampo.BorderStyle = BorderStyle.None;
-            textBoxCampo.Margin = new Padding(20, 0, 0, 0);
+            textBoxCampo.Margin = new Padding(10, 20, 0, 10);
             textBoxCampo.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
             textBoxCampo.TextAlign = HorizontalAlignment.Left;
 

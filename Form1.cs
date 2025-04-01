@@ -47,11 +47,8 @@ namespace AppCamiones
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            
         }
-
-
-
 
         //Initializations
         private void InitializeUI()
@@ -244,9 +241,12 @@ namespace AppCamiones
             travel.Text = "- Dolores - 10:00hs";
             travel.Font = new Font("Arial", 14, FontStyle.Regular);
             travel.Size = new Size(200, 30);
-            //travel.Margin = new Padding(0, 10, 0, 0);
         }
 
+        //private void addNewTravel(String nn)
+        //{
+        //    travel.text = nn;
+        //}
 
         //PayTableTravel
         private void TablePay()

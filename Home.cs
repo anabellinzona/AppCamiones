@@ -40,7 +40,7 @@ namespace AppCamiones
 
         //RedirectionalFunctions
         private void OpenForm<T>() where T : Form, new()
-        { 
+        {
             if (activeForm != null)
             {
                 activeForm.Close();

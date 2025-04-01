@@ -113,7 +113,7 @@ namespace AppCamiones
         //Otros
         private void CargarDatos()
         {
-           foreach(string i in campos)
+            for (int i = 0; i < 200; i++) 
             {
                 info.Rows.Add(" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ");
 
