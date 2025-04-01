@@ -15,12 +15,11 @@ namespace AppCamiones
         //Form
         private string tipoRegistro;
 
-        private ArrayList array = new ArrayList ();
+        private ArrayList array = new ArrayList();
 
         private List<string> campos = new List<string>();
 
         private NewRoundPanel form = new NewRoundPanel();
-
         private FlowLayoutPanel flowLayoutForm = new FlowLayoutPanel();
 
 
@@ -43,10 +42,10 @@ namespace AppCamiones
         //Constructor
         public FormRegistro(string tipoRegistro)
         {
-            
+
             this.WindowState = FormWindowState.Maximized;
 
-            if(tipoRegistro != "newSection")
+            if (tipoRegistro != "newSection")
             {
                 InitializarMenuTipoRegistro();
             }
@@ -80,7 +79,6 @@ namespace AppCamiones
 
 
         //Initializations
-
         private void InitializarMenuTipoRegistro()
         {
             OptionsMenuProperties();
@@ -160,7 +158,7 @@ namespace AppCamiones
                     break;
             }
         }
-        
+
         private void CargarFormularioNewSection(int cant)
         {
             this.campos.Clear();
@@ -182,7 +180,7 @@ namespace AppCamiones
             };
 
             this.optionsMenu = null;
-            PropertiesFormRegisterInformation(cant,campos);
+            PropertiesFormRegisterInformation(cant, campos);
         }
 
 
@@ -190,7 +188,7 @@ namespace AppCamiones
         private void CargarFormularioFlete(int cant)
         {
             this.campos.Clear();
-            this.campos = new List<string> { "Nombre", "Teléfono", "Email"};
+            this.campos = new List<string> { "Nombre", "Teléfono", "Email" };
 
             PropertiesFormRegisterInformation(cant, campos);
 
@@ -239,27 +237,10 @@ namespace AppCamiones
         }
         private void FormProperties(int cant)
         {
-            //1500 y 100
             if (cant >= 5)
             {
-                form.Size = new Size(1200, 100);
-                // Habilita AutoScroll
-                form.AutoScroll = true;
-
-                // Asegura que el contenido requiera desplazamiento horizontal
-                form.AutoScrollMinSize = new Size(1200, 1); // Ancho grande, altura mínima
-
-                // Forzar ocultar el scroll vertical
-                form.VerticalScroll.Maximum = 0;
-                form.VerticalScroll.Visible = false;
-                form.VerticalScroll.Enabled = false;
-
-                // Forzar mostrar el scroll horizontal
-                form.HorizontalScroll.Visible = true;
-                form.HorizontalScroll.Enabled = true;
-
-
-
+                form.Width = 1500;
+                form.Height = 120;
             }
             else
             {
@@ -276,26 +257,42 @@ namespace AppCamiones
         private void LayoutFormProperties(int cant)
         {
             flowLayoutForm.AutoSize = true;
-            flowLayoutForm.FlowDirection = FlowDirection.LeftToRight;
-            flowLayoutForm.WrapContents = false;
+            flowLayoutForm.Location = new Point(0, 40);
+            flowLayoutForm.BackColor = Color.Transparent;
+            flowLayoutForm.FlowDirection = FlowDirection.LeftToRight; // Asegura que los elementos se alineen horizontalmente.
 
-        
+            // Configura el scroll horizontal
+            flowLayoutForm.AutoScroll = true;
+            flowLayoutForm.HorizontalScroll.Enabled = true; // Habilitar el desplazamiento horizontal.
+            flowLayoutForm.HorizontalScroll.Visible = true;  // Asegura que el scroll sea visible.
+            flowLayoutForm.HorizontalScroll.Maximum = 1000;  // Establece un valor máximo para el scroll horizontal (puedes ajustarlo según lo necesites).
+            flowLayoutForm.HorizontalScroll.SmallChange = 5;  // Define el tamaño del cambio al hacer scroll.
 
-            // Eliminar el fondo del scroll horizontal
-            flowLayoutForm.BackColor = Color.Transparent; // O el color que coincida con tu panel
-            
+            if (cant > 1)
+            {
+                form.AutoScroll = true;
+            }
         }
+
         private void TextoBoxAndLabelProperties(int cant, List<string> campos)
         {
-             // Verificar qué valores tiene la lista
             foreach (string campo in campos)
             {
+                // Crear contenedor para cada par de Label y TextBox
+                Panel campoPanel = new Panel();
+                campoPanel.AutoSize = true;
+                campoPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink; // Asegura que el panel ajuste su tamaño a los controles internos
+
+                // Crear Label y TextBox
                 System.Windows.Forms.Label cc = createLabelAndProperties(campo);
                 TextBox textBoxForm = createTextBoxAndProperties(campo);
 
-                flowLayoutForm.Controls.Add(cc);
-                flowLayoutForm.Controls.Add(textBoxForm);
+                // Configurar los controles
+                campoPanel.Controls.Add(cc);   // Agregar el Label al contenedor
+                campoPanel.Controls.Add(textBoxForm);  // Agregar el TextBox al contenedor
 
+                // Agregar el panel contenedor al FlowLayoutPanel
+                flowLayoutForm.Controls.Add(campoPanel);
             }
         }
         private System.Windows.Forms.Label createLabelAndProperties(object campo)
@@ -305,7 +302,7 @@ namespace AppCamiones
             label.Font = new Font("Nunito", 10, FontStyle.Regular);
             label.ForeColor = System.Drawing.Color.FromArgb(217, 217, 217);
             label.BackColor = Color.Transparent;
-            label.Margin = new Padding(20, 0, 0, 0);
+            label.Margin = new Padding(0, 0, 0, 5);  // Margen inferior para espacio entre label y textbox
             label.AutoSize = true;
 
             return label;
@@ -320,7 +317,7 @@ namespace AppCamiones
             textBoxCampo.Width = 200;
             textBoxCampo.Height = 30;
             textBoxCampo.BorderStyle = BorderStyle.None;
-            textBoxCampo.Margin = new Padding(10, 20, 0, 10);
+            textBoxCampo.Margin = new Padding(0, 0, 0, 20);  // Margen inferior para separación entre campos
             textBoxCampo.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
             textBoxCampo.TextAlign = HorizontalAlignment.Left;
 
