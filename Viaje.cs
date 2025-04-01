@@ -178,16 +178,16 @@ namespace AppCamiones
                 {
                     MessageBox.Show(info);
                     return new List<string> { info };
-                } else
+                }
+                else
                 {
-                    return new List<string> {  };
+                    return new List<string> { };
                 }
             }
-            else if
-
-                (filtro == "Cliente")
+            else if (filtro == "Cliente")
             {
                 return new List<string> { "Gómez", "Pérez", "Rodríguez" };
+            }
             else if (filtro == "Flete")
             {
                 return new List<string> { "López", "Fernández", "Martínez" };
