@@ -326,6 +326,7 @@ namespace AppCamiones
         {
             // Obtener los valores de los TextBox
             List<string> datos = new List<string>();
+
             foreach (Control control in formFL.Controls)
             {
 
@@ -335,6 +336,15 @@ namespace AppCamiones
                     {
                         if (child is TextBox textBox)
                         {
+                            foreach(string campo in campos)
+                            {
+                                if (textBox.Text == campo.ToString())
+                                {
+                                    MessageBox.Show("Complete todos los campos");
+                                    return;
+                                }
+                            }
+                            
                             datos.Add(textBox.Text); // Agregar el texto de cada TextBox
                         }
                     }
@@ -368,10 +378,6 @@ namespace AppCamiones
                         }
                     }
                 }
-            }
-            else
-            {
-                MessageBox.Show("Por favor, complete todos los campos.");
             }
         }
 

@@ -30,7 +30,7 @@ namespace AppCamiones
         {
             InitializeUI();
 
-            ResaltarBoton(registrosMenu);
+            //ResaltarBoton(registrosMenu);
 
             Login formUser = new Login();
 
@@ -52,21 +52,21 @@ namespace AppCamiones
                 button.Key.MouseLeave += (s, e) => HoverEffect(s, e, false);
 
                 //RegisterFormRedirections
-                button.Key.Click += (s, e) => AbrirFormulario(button.Value);
+                //button.Key.Click += (s, e) => AbrirFormulario(button.Value);
             }
         }
 
 
 
-        //FormRedirection
-        private void AbrirFormulario(string tipoRegistro)
-        {
-            FormRegistro formularioRegistro = new FormRegistro(tipoRegistro)
-            {
-                StartPosition = FormStartPosition.CenterScreen
-            };
-            formularioRegistro.ShowDialog();
-        }
+        ////FormRedirection
+        //private void AbrirFormulario(string tipoRegistro)
+        //{
+        //    FormRegistro formularioRegistro = new FormRegistro(tipoRegistro)
+        //    {
+        //        StartPosition = FormStartPosition.CenterScreen
+        //    };
+        //    formularioRegistro.ShowDialog();
+        //}
 
 
 

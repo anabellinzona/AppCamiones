@@ -25,108 +25,35 @@ namespace AppCamiones
 
 
         //Constructor
-        public ViajeFiltro(string filtro)
+        public ViajeFiltro(string dato, int cant, List<string> camposForm)
         {
-            InitializeGrid();
+            InitializeGrid(camposForm);
 
-            GeneratorForm(filtro);
+            GeneratorForm(dato, cant);
         }
 
-        private void GeneratorForm(string filtro)
+        private void GeneratorForm(string dato, int cant)
         {
-            if(filtro == "Flete")
-            {
-                FormRegistro formulario = new FormRegistro("flete");
-                formulario.Show();
-            }
+            FormRegistro formulario = new FormRegistro(campos, cant, dato);
+            formulario.ShowDialog();
         }
 
 
         //Initializations
-        private void InitializeGrid()
+        private void InitializeGrid(List<string> camposForm)
         {
-            AddInfoToCampos();
-            AddItemsToGrid();
-            GridChequesProperties();
-            ButtonProperties();
+            AddInfoToCampos(camposForm);
+            //AddItemsToGrid();
+            //GridChequesProperties();
+            //ButtonProperties();
         }
 
-        private void AddInfoToCampos()
+        private void AddInfoToCampos(List<string> camposForm)
         {
             this.campos.Clear();
-            this.campos = new List<string> { "Fecha", "Origen", "Destino", "RTO o CPE", "Carga", "Km", "Kg", "Tarifa", "Total", "Porcentaje", "Chofer", "Productor" };
-        }
-        
-
-
-        //Adds
-        private void AddItemsToGrid()
-        {
-           
-            foreach(string i in campos){
-                info.Columns.Add(i.ToString(), i);
-            }
-   
-            panelGrid.Controls.Add(info);
-            this.Controls.Add(panelGrid);
-            this.Controls.Add(volver);
-
-            CargarDatos();
-        }
-
-
-
-        //Grid
-        private void GridChequesProperties()
-        {
-            panelGrid.Size = new Size(1200, 450);
-            this.Resize += (s, e) =>
+            foreach(string i in camposForm)
             {
-                panelGrid.Location = new Point((this.Width - panelGrid.Width) / 2, (this.Height - panelGrid.Height) / 2);
-            };
-            panelGrid.BackColor = Color.Transparent;
-
-            info.Size = new Size(1200, 450);
-            info.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            info.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            info.BackgroundColor = Color.DarkGray;
-            info.GridColor = Color.Black;
-            info.Font = new Font("Nunito", 12, FontStyle.Regular);
-            info.Margin = new Padding(0, 1000, 0, 0);
-
-            info.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            info.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-            info.EnableHeadersVisualStyles = false;
-            info.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
-            info.AllowUserToResizeRows = false;
-
-        }
-
-        //Properties
-        private void ButtonProperties()
-        {
-            volver.Text = "Volver";
-            volver.Size = new Size(150, 50);
-            volver.FlatAppearance.BorderSize = 0;
-            volver.FlatStyle = FlatStyle.Flat;
-            volver.Location = new Point(60, 100);
-            volver.Font = new Font("Nunito", 16, FontStyle.Regular);
-            volver.BackColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            volver.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
-            volver.Click += (s, e) =>
-            {
-                this.Close();
-            };
-        }
-
-
-        //Otros
-        private void CargarDatos()
-        {
-            for (int i = 0; i < 200; i++) 
-            {
-                info.Rows.Add(" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ");
-
+                this.campos.Add(i);
             }
         }
     }

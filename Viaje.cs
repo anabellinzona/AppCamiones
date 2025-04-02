@@ -11,6 +11,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 using System.Collections;
 using System.Security.Cryptography;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace AppCamiones
 {
@@ -33,6 +34,20 @@ namespace AppCamiones
 
         private RoundButton btn_volver = new RoundButton();
 
+        //Form
+        private NewRoundPanel formCargarSection = new NewRoundPanel();
+        private FlowLayoutPanel layourFormSection = new FlowLayoutPanel();
+        private System.Windows.Forms.ComboBox select = new System.Windows.Forms.ComboBox();
+        private System.Windows.Forms.TextBox textBoxNombre = new System.Windows.Forms.TextBox();
+        private RoundButton buttonAcept = new RoundButton();
+
+        private List<string> camiones = new List<string>();
+        private List<string> clientes = new List<string>();
+        private List<string> fletes = new List<string> { "López", "Fernández", "Martínez" };
+
+        private List<string> campos = new List<string>();
+        private int cant = 0;
+
 
         //Card
         private FlowLayoutPanel cardsContainer = new FlowLayoutPanel();
@@ -42,7 +57,8 @@ namespace AppCamiones
         //Constructor
         public Viaje()
         {
-            InitializeUI();
+            buttonAcept.Click += ButtonAcept_Click1;
+            InitializeFilterCards();
             ResaltarBoton(viajesMenu);
 
 
@@ -60,6 +76,22 @@ namespace AppCamiones
             fleteFilter.Click += (s, e) => CardGenerator("Flete", " ");
             clienteFilter.Click += (s, e) => CardGenerator("Cliente", " ");
             camionFilter.Click += (s, e) => CardGenerator("Camión", " ");
+
+           
+        }
+
+        private void ButtonAcept_Click1(object sender, EventArgs e)
+        {
+            if (select.SelectedItem == null)
+            {
+                MessageBox.Show("Por favor, selecciona una opción antes de continuar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+            }
+
+            MessageBox.Show("Agregado correctamente");
+            string seleccion = select.SelectedItem.ToString();
+            GetFilterInfo(seleccion, textBoxNombre.Text);
+            CardGenerator(seleccion, " ");
         }
 
 
@@ -77,15 +109,6 @@ namespace AppCamiones
 
 
         //Initializations
-        private void InitializeUI()
-        {
-            InitializeToolBar();
-        }
-
-        private void InitializeToolBar()
-        {
-            InitializeFilterCards();
-        }
 
         private void InitializeFilterCards()
         {
@@ -162,40 +185,63 @@ namespace AppCamiones
 
                 card.Controls.Add(label);
                 cardsContainer.Controls.Add(card);
+                cant = 0;
+                if (filtro == "Camión")
+                {
+                    campos.Clear();
+                    this.campos = new List<string> { "Fecha", "Origen", "Destino", "RTO o CPE", "Carga", "Km", "Kg", "Tarifa", "Total", "Porcentaje", "Chofer", "Productor" };
+                    cant = campos.Count();
+                }
+                else if (filtro == "Cliente")
+                {
+                    campos.Clear();
+                    this.campos = new List<string> { "Fecha", "Origen", "Destino", "RTO o CPE", "Carga", "Km", "Kg", "Tarifa", "Total", "Porcentaje", "Chofer", "Productor" };
+                    cant = campos.Count();
+                }
+                else if (filtro == "Flete")
+                {
+                    campos.Clear();
+                    this.campos = new List<string> { "Fecha", "Origen", "HOLA", "RTO o CPE", "Carga", "Km", "Kg", "Tarifa", "Total", "Porcentaje", "Productor" };
+                    cant = campos.Count();
+                }
 
                 card.Click += (s, e) =>
                 {
-                    ViajeFiltro form = new ViajeFiltro(filtro);
+                    ViajeFiltro form = new ViajeFiltro(dato, cant, campos);
                     form.Show();
                 };
             }
         }
+
+
         public List<string> GetFilterInfo(string filtro, string info)
         {
-            if (filtro == "Camión")
+            if (!string.IsNullOrWhiteSpace(info))
             {
-                if (info != " ")
+                if (filtro == "Camión")
                 {
-                    return new List<string> { info };
+                    camiones.Add(info);
                 }
-                else
+                else if (filtro == "Cliente")
                 {
-                    return new List<string> { };
+                    clientes.Add(info);
+                }
+                else if (filtro == "Flete")
+                {
+                    fletes.Add(info);
                 }
             }
-            else if (filtro == "Cliente")
+
+            // Retornar la lista correspondiente
+            return filtro switch
             {
-                return new List<string> { "Gómez", "Pérez", "Rodríguez" };
-            }
-            else if (filtro == "Flete")
-            {
-                return new List<string> { "López", "Fernández", "Martínez" };
-            }
-            else
-            {
-                return new List<string>();
-            }
+                "Camión" => camiones,
+                "Cliente" => clientes,
+                "Flete" => fletes,
+                _ => new List<string>()
+            };
         }
+
         private void ButtonsProperties()
         {
             int j = 0;
@@ -210,7 +256,7 @@ namespace AppCamiones
 
             for (int i = 0; i < buttonsFilter.Count; i++)
             {
-                Button btn = (Button)buttonsFilter[i];
+                System.Windows.Forms.Button btn = (System.Windows.Forms.Button)buttonsFilter[i];
 
                 btn.Size = new Size(150, 50);
                 btn.ForeColor = System.Drawing.Color.FromArgb(224, 224, 224);
@@ -263,7 +309,6 @@ namespace AppCamiones
             agregarNuevo.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(218, 218, 28); // Color del borde
             agregarNuevo.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
             agregarNuevo.Font = new Font("Nunito", 24, FontStyle.Bold);
-            //agregarNuevo.Location = new Point(400, 200);
             agregarNuevo.Margin = new Padding((cardsContainer.Width - agregarNuevo.Width) / 2, (cardsContainer.Height - agregarNuevo.Height) / 2, 0, 0);
 
             agregarNuevo.Click += (s, e) => FormAddNew();
@@ -271,11 +316,132 @@ namespace AppCamiones
 
         private void FormAddNew()
         {
-            FormRegistro ff = new FormRegistro("newSection");
+            agregarNuevo.Visible = false;
+            FormProperties();
+            LayoutFormProperties();
+            TextBoxProperties();
+            ButtonAceptProperties();
+            ComboBoxProperties();
+        }
+
+        private void FormProperties()
+        {
+            formCargarSection.Size = new Size(200, 300);
+            formCargarSection.Margin = new Padding((cardsContainer.Width - formCargarSection.Width) / 2, (cardsContainer.Height - formCargarSection.Height) / 2, 0, 0);
+            formCargarSection.BackColor = System.Drawing.Color.FromArgb(48, 48, 48);
+            cardsContainer.Controls.Add(formCargarSection);
+            formCargarSection.Controls.Add(layourFormSection);
+            formCargarSection.Controls.Add(buttonAcept);
+        }
+
+        private void LayoutFormProperties()
+        {
+            layourFormSection.BackColor = Color.Transparent;
+            layourFormSection.FlowDirection = FlowDirection.TopDown;
+            layourFormSection.AutoSize = true;
+            layourFormSection.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+
+            // Centramos después de la carga
+            formCargarSection.Resize += (s, e) => CenterLayoutFormSection();
+
+            // Llamar al método después de agregar los elementos
+            AddElementsOfLayoutFrom();
+            CenterLayoutFormSection(); // Para posicionar correctamente al inicio
+        }
+
+        private void CenterLayoutFormSection()
+        {
+            if (layourFormSection.Parent != null)
             {
-                StartPosition = FormStartPosition.CenterScreen;
+                layourFormSection.Location = new Point(
+                    (formCargarSection.Width - layourFormSection.Width) / 2, 60
+                );
             }
-            ff.ShowDialog();
+        }
+        private void ComboBoxProperties()
+        {
+            select.Size = new Size(120, 30);
+            select.Items.Add("Cliente");
+            select.Items.Add("Flete");
+            select.Items.Add("Camión");
+
+            select.SelectedIndex = 0;
+        }
+
+        private void AddElementsOfLayoutFrom()
+        {
+            List<string> campos = new List<string>();
+            campos.Add("Seleccionar");
+            campos.Add("Nombre");
+            foreach (string i in campos)
+            {
+                Label labelForm = LabelProperties(i);
+
+                layourFormSection.Controls.Add(labelForm);
+                AddTheRestComponents(i);
+            }
+        }
+
+        private Label LabelProperties(string nombreCampo)
+        {
+            Label ll = new Label();
+
+            ll.Text = nombreCampo;
+            ll.Font = new Font("Nunito", 14, FontStyle.Regular);
+            ll.ForeColor = System.Drawing.Color.FromArgb(217, 217, 217);
+            ll.BackColor = Color.Transparent;
+            ll.AutoSize = true;
+
+            return ll;
+        }
+
+        private void AddTheRestComponents(string nombreCampo)
+        {
+            if (nombreCampo == "Seleccionar")
+            {
+                layourFormSection.Controls.Add(select);
+            }
+            else
+            {
+                layourFormSection.Controls.Add(textBoxNombre);
+            }
+        }
+
+        private void TextBoxProperties()
+        {
+            textBoxNombre.Font = new Font("Nunito", 10, FontStyle.Regular);
+            textBoxNombre.BackColor = System.Drawing.Color.FromArgb(153, 145, 145);
+            //textBoxNombre.Text = textBox.ToString();
+            textBoxNombre.Multiline = true;
+            textBoxNombre.Width = 120;
+            textBoxNombre.Height = 20;
+            textBoxNombre.BorderStyle = BorderStyle.None;
+            textBoxNombre.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
+        }
+
+        private void ButtonAceptProperties()
+        {
+            buttonAcept.BackColor = System.Drawing.Color.FromArgb(218, 218, 28);
+            buttonAcept.AutoSize = true;
+            buttonAcept.Height = 30;
+            buttonAcept.Text = "Cargar";
+            buttonAcept.FlatStyle = FlatStyle.Flat;
+            buttonAcept.FlatAppearance.BorderSize = 0;
+            buttonAcept.Margin = new Padding(132, 10, 0, 0);
+            buttonAcept.ForeColor = System.Drawing.Color.FromArgb(32, 32, 32);
+            buttonAcept.Font = new Font("Nunito", 12, FontStyle.Bold);
+
+            CenterButtonFormSection(); // Para posicionar correctamente al inicio
+        }
+
+        private void CenterButtonFormSection()
+        {
+            if (buttonAcept.Parent != null)
+            {
+                buttonAcept.Location = new Point(
+                    (formCargarSection.Width - buttonAcept.Width) / 2, 210
+                );
+            }
         }
     }
 }

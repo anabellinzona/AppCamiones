@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Reflection.Emit;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
@@ -13,109 +14,75 @@ namespace AppCamiones
     internal class FormRegistro : Home
     {
         //Form
-        private string tipoRegistro;
-
-        private ArrayList array = new ArrayList();
+        private Panel formPanel = new Panel();
+        private FlowLayoutPanel formFL = new FlowLayoutPanel();
 
         private List<string> campos = new List<string>();
 
-        private NewRoundPanel form = new NewRoundPanel();
-        private FlowLayoutPanel flowLayoutForm = new FlowLayoutPanel();
+
+        //Button
+        private Panel btnPanel = new Panel();
+        private RoundButton btnCargar = new RoundButton();
+        private RoundButton btnVolver = new RoundButton();
 
 
-        private ArrayList botonesRegistro = new ArrayList();
-        private ArrayList nombreBotonesRegistro = new ArrayList();
+        //Grid
+        private DataGridView cheq = new DataGridView();
+        private Panel panelGrid = new Panel();
 
+        DataGridViewButtonColumn eliminar = new DataGridViewButtonColumn();
 
-        private RoundButton btn_cargar = new RoundButton();
-
-        private NewRoundPanel optionsMenu = new NewRoundPanel();
-        private FlowLayoutPanel layoutOptionsMenu = new FlowLayoutPanel();
-
-        private Button btnCamion = new Button();
-        private Button btnFlete = new Button();
-        private Button btnCliente = new Button();
-        private Button btnCheque = new Button();
-        private Button btnViaje = new Button();
+        //¿Dónde estoy parado?
+        System.Windows.Forms.Label nombre = new System.Windows.Forms.Label();
 
 
         //Constructor
-        public FormRegistro(string tipoRegistro)
+        public FormRegistro(List<string> camposForm, int cant, string dato)
         {
-
+            //MaximizeWindom
             this.WindowState = FormWindowState.Maximized;
 
-            if (tipoRegistro != "newSection")
-            {
-                InitializarMenuTipoRegistro();
-            }
+            InitializeUI(camposForm, cant);
 
-            this.tipoRegistro = tipoRegistro;
-            ResaltarBoton(registrosMenu);
-            CargaFormulario(tipoRegistro);
+            //ShowForm
+            CargarFormularioCheque(camposForm, cant);
 
-            //ButtonsArray
-            Dictionary<Button, string> buttons = new Dictionary<Button, string>
-            {
-                { btnViaje, "viaje" },
-                { btnFlete, "flete" },
-                { btnCliente, "cliente" },
-                { btnCheque, "cheque" },
-                { btnCamion, "camion" }
-            };
+            //Hovers
+            btnCargar.MouseEnter += (s, e) => HoverEffect(s, e, true);
+            btnCargar.MouseLeave += (s, e) => HoverEffect(s, e, false);
 
-            //ButtonsEvents
-            foreach (var button in buttons)
-            {
-                //Hovers
-                button.Key.MouseEnter += (s, e) => HoverEffect(s, e, true);
-                button.Key.MouseLeave += (s, e) => HoverEffect(s, e, false);
+            //Events
+            btnCargar.Click += cargaClickEvent;
 
-                //RegisterFormRedirections
-                button.Key.Click += (s, e) => AbrirFormulario(button.Value);
-            }
+            cheq.CellClick += eliminarFila;
 
+            ConfigurarDataGridView();
+
+            LabelProperties(dato);
+
+            //PositionGrid();
         }
-
 
         //Initializations
-        private void InitializarMenuTipoRegistro()
+        private void InitializeUI(List<string> camposForm, int cant)
         {
-            OptionsMenuProperties();
-            LayoutOptionsMenuProperties();
-            ButtonsProperties();
-            AddLayoutOptionsMenu();
-            AddPanelToForm();
+            AddItemsToGrid(camposForm, cant);
+            GridChequesProperties();
+            ButtonProperties();
         }
 
+        //Adds
+        private void AddItemsToGrid(List<string> camposForm, int cant)
+        { 
+             foreach (string campos in camposForm)
+             {
+                    cheq.Columns.Add(campos, campos);
+             }
 
-        //RedirectionalFunctions
-        private void GoToCheque_Click(object sender, EventArgs e)
-        {
-            Cheque tablaCheque = new Cheque();
-            tablaCheque.ShowDialog();
-            this.Close();
+            panelGrid.Controls.Add(cheq);
+            this.Controls.Add(panelGrid);
+
         }
-        private void GoToFormUser_Click(object sender, EventArgs e)
-        {
-            Login formUser = new Login();
-            formUser.ShowDialog();
-            this.Close();
-        }
-
-
-
-
-        //FormRedirection
-        private void AbrirFormulario(string tipoRegistro)
-        {
-            FormRegistro formularioRegistro = new FormRegistro(tipoRegistro)
-            {
-                StartPosition = FormStartPosition.CenterScreen
-            };
-            formularioRegistro.ShowDialog();
-        }
-
 
 
 
@@ -125,302 +92,334 @@ namespace AppCamiones
             var button = sender as Button;
             if (button != null)
             {
-                button.Font = new Font("Nunito", isHover ? 20 : 16, FontStyle.Regular);
-                button.ForeColor = isHover ? Color.FromArgb(218, 218, 28) : Color.FromArgb(224, 224, 224);
+                button.ForeColor = isHover ? Color.FromArgb(48, 48, 48) : Color.Black;
             }
         }
 
 
-
-
-        //OtherFunctions
-        private void CargaFormulario(string tipoRegistro)
+        private void CargarFormularioCheque(List<string> camposForm, int cant)
         {
-            switch (tipoRegistro)
+            this.campos.Clear();
+            foreach(string i in camposForm)
             {
-                case "flete":
-                    CargarFormularioFlete(5);
-                    break;
-                case "camion":
-                    CargarFormularioCamion(3);
-                    break;
-                case "cheque":
-                    CargarFormularioCheque(9);
-                    break;
-                case "viaje":
-                    CargarFormularioViaje(11);
-                    break;
-                case "cliente":
-                    CargarFormularioCliente(9);
-                    break;
-                case "newSection":
-                    CargarFormularioNewSection(2);
-                    break;
+                this.campos.Add(i);
             }
+            //this.campos = new List<string> { "F. Recibido", "Banco", "Nro. de cheque", "Pesos", "Nombre", "Número personal de cheque", "Entregado a", "Fecha de retiro" };
+
+            InitializeFormProperties(cant, campos);
         }
 
-        private void CargarFormularioNewSection(int cant)
-        {
-            this.campos.Clear();
-            this.campos = new List<string> { "Tipo", "Nombre" };
-
-            btn_cargar.Click += (s, e) =>
-            {
-                foreach (string ss in this.campos)
-                {
-                    TextBox result = createTextBoxAndProperties(ss);
-                    System.Windows.Forms.Label resultLabel = createLabelAndProperties(ss);
-                    if (resultLabel.Text == "Tipo")
-                    {
-                        Viaje vv = new Viaje();
-                        vv.CardGenerator("Camión", "FMM 650");
-                        vv.Show();
-                    }
-                }
-            };
-
-            this.optionsMenu = null;
-            PropertiesFormRegisterInformation(cant, campos);
-        }
-
-
-
-        private void CargarFormularioFlete(int cant)
-        {
-            this.campos.Clear();
-            this.campos = new List<string> { "Nombre", "Teléfono", "Email" };
-
-            PropertiesFormRegisterInformation(cant, campos);
-
-        }
-        private void CargarFormularioCamion(int cant)
-        {
-            this.campos.Clear();
-            this.campos = new List<string> { "Patente", "Modelo", "Chofer" };
-
-            PropertiesFormRegisterInformation(cant, campos); ;
-        }
-        private void CargarFormularioCheque(int cant)
-        {
-            this.campos.Clear();
-            this.campos = new List<string> { "Fecha de recibimiento", "Banco", "Nro de cheque", "Pesos", "Nombre", "Número personal de cheque", "Entregado a", "Fecha de retiro" };
-
-            PropertiesFormRegisterInformation(cant, campos);
-        }
-        private void CargarFormularioCliente(int cant)
-        {
-
-            this.campos.Clear();
-            this.campos = new List<string> { "Fecha", "Desde", "Hasta", "Kilos", "Remito", "Tarifa", "Pesos", "Carga", "Factura", "Chofer" };
-
-            PropertiesFormRegisterInformation(cant, campos);
-        }
-        private void CargarFormularioViaje(int cant)
-        {
-            this.campos.Clear();
-            this.campos = new List<string> { "Fecha", "Desde", "Hasta", "Kilos", "Remito", "Tarifa", "Pesos", "Carga", "Factura", "Chofer", "Cliente" };
-
-            NewRoundPanel optionsMenu = new NewRoundPanel();
-            PropertiesFormRegisterInformation(cant, campos);
-        }
-
-
-        //FormProperties
-        private void PropertiesFormRegisterInformation(int cant, List<string> campos)
+        private void InitializeFormProperties(int cant, List<string> campos)
         {
             FormProperties(cant);
             LayoutFormProperties(cant);
             TextoBoxAndLabelProperties(cant, campos);
             ButtonsPropertiesForm();
-            AddLabels();
-            AddForm();
+            PanelButtonProperties();
+            AddControls();
+          
         }
+
+        //FormProperties
         private void FormProperties(int cant)
         {
-            if (cant >= 5)
-            {
-                form.Width = 1500;
-                form.Height = 120;
-            }
-            else
-            {
-                form.AutoSize = true;
-            }
 
-             this.Resize += (s, e) =>
-             {
-                    form.Location = new Point((this.Width - form.Width) / 2, 200);
-             };
+            formPanel.Size = new Size(ClientSize.Width * 4, 60);
+            formPanel.AutoScroll = true;
+            formPanel.HorizontalScroll.Enabled = true;
+            formPanel.HorizontalScroll.Visible = true;
+            formPanel.VerticalScroll.Enabled = false;
+            formPanel.VerticalScroll.Visible = false;
 
-             form.BackColor = System.Drawing.Color.FromArgb(130, Color.Black);
+            this.Resize += (s, e) =>
+            {
+                formPanel.Location = new Point((this.Width - formPanel.Width) / 2, 100);
+            };
+
+            formPanel.BackColor = System.Drawing.Color.FromArgb(200, Color.Black);
         }
         private void LayoutFormProperties(int cant)
         {
-            flowLayoutForm.AutoSize = true;
-            flowLayoutForm.Location = new Point(0, 40);
-            flowLayoutForm.BackColor = Color.Transparent;
-            flowLayoutForm.FlowDirection = FlowDirection.LeftToRight; // Asegura que los elementos se alineen horizontalmente.
+            formFL.AutoSize = true;
+            formFL.FlowDirection = FlowDirection.LeftToRight;
+            formFL.WrapContents = false;
+            formFL.Dock = DockStyle.Top;
+            formFL.BackColor = Color.Transparent;
 
-            // Configura el scroll horizontal
-            flowLayoutForm.AutoScroll = true;
-            flowLayoutForm.HorizontalScroll.Enabled = true; // Habilitar el desplazamiento horizontal.
-            flowLayoutForm.HorizontalScroll.Visible = true;  // Asegura que el scroll sea visible.
-            flowLayoutForm.HorizontalScroll.Maximum = 1000;  // Establece un valor máximo para el scroll horizontal (puedes ajustarlo según lo necesites).
-            flowLayoutForm.HorizontalScroll.SmallChange = 5;  // Define el tamaño del cambio al hacer scroll.
+            // Configurar el scroll horizontal
+            formFL.AutoScroll = true;
+            formFL.HorizontalScroll.Enabled = true;
+            formFL.HorizontalScroll.Visible = true;
+            formFL.VerticalScroll.Enabled = false;
+            formFL.VerticalScroll.Visible = false;
 
-            if (cant > 1)
-            {
-                form.AutoScroll = true;
-            }
+            formPanel.Controls.Add(formFL);
         }
 
+
+        //TextBoxProperties
         private void TextoBoxAndLabelProperties(int cant, List<string> campos)
         {
             foreach (string campo in campos)
             {
-                // Crear contenedor para cada par de Label y TextBox
                 Panel campoPanel = new Panel();
                 campoPanel.AutoSize = true;
-                campoPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink; // Asegura que el panel ajuste su tamaño a los controles internos
+                campoPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+                campoPanel.Dock = DockStyle.Top;
 
-                // Crear Label y TextBox
-                System.Windows.Forms.Label cc = createLabelAndProperties(campo);
                 TextBox textBoxForm = createTextBoxAndProperties(campo);
 
-                // Configurar los controles
-                campoPanel.Controls.Add(cc);   // Agregar el Label al contenedor
-                campoPanel.Controls.Add(textBoxForm);  // Agregar el TextBox al contenedor
-
-                // Agregar el panel contenedor al FlowLayoutPanel
-                flowLayoutForm.Controls.Add(campoPanel);
+                campoPanel.Controls.Add(textBoxForm);
+                formFL.Controls.Add(campoPanel);
             }
-        }
-        private System.Windows.Forms.Label createLabelAndProperties(object campo)
-        {
-            System.Windows.Forms.Label label = new System.Windows.Forms.Label();
-            //label.Text = campo.ToString();
-            label.Font = new Font("Nunito", 10, FontStyle.Regular);
-            label.ForeColor = System.Drawing.Color.FromArgb(217, 217, 217);
-            label.BackColor = Color.Transparent;
-            label.Margin = new Padding(0, 0, 0, 5);  // Margen inferior para espacio entre label y textbox
-            label.AutoSize = true;
-
-            return label;
         }
         private TextBox createTextBoxAndProperties(object campo)
         {
             TextBox textBoxCampo = new TextBox();
-            textBoxCampo.Text = campo.ToString();
-            textBoxCampo.Font = new Font("Nunito", 10, FontStyle.Regular);
+            textBoxCampo.Font = new Font("Nunito", 12, FontStyle.Regular);
             textBoxCampo.BackColor = System.Drawing.Color.FromArgb(153, 145, 145);
             textBoxCampo.Multiline = true;
             textBoxCampo.Width = 200;
-            textBoxCampo.Height = 30;
-            textBoxCampo.BorderStyle = BorderStyle.None;
-            textBoxCampo.Margin = new Padding(0, 0, 0, 20);  // Margen inferior para separación entre campos
-            textBoxCampo.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
+            textBoxCampo.Height = 20;
+            textBoxCampo.MinimumSize = new Size(200, 40);
+            textBoxCampo.BorderStyle = BorderStyle.FixedSingle;
+            textBoxCampo.Margin = new Padding(0, 0, 0, 20);
+            textBoxCampo.ForeColor = System.Drawing.Color.Gray;
             textBoxCampo.TextAlign = HorizontalAlignment.Left;
+            textBoxCampo.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
+
+            string placeholderDefault = !string.IsNullOrWhiteSpace(campo?.ToString()) ? campo.ToString() : "Placeholder";
+
+            //PlaceHolersProperties
+            string placeholderText = campo.ToString();
+            textBoxCampo.Text = placeholderText;
+
+            textBoxCampo.GotFocus += (s, e) =>
+            {
+                if (textBoxCampo.Text == placeholderText)
+                {
+                    textBoxCampo.Text = "";
+
+                    textBoxCampo.ForeColor = Color.Black;
+                }
+            };
+
+            textBoxCampo.LostFocus += (s, e) =>
+            {
+                if (string.IsNullOrWhiteSpace(textBoxCampo.Text))
+                {
+                    textBoxCampo.Text = placeholderText;
+                    textBoxCampo.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
+                }
+            };
+
+            textBoxCampo.SizeChanged += (s, e) =>
+            {
+                textBoxCampo.Height = 40;
+            };
 
             return textBoxCampo;
         }
-        private void ButtonsPropertiesForm()
-        {
-            btn_cargar.BackColor = System.Drawing.Color.FromArgb(218, 218, 28);
-            btn_cargar.Size = new Size(140, 30);
-            btn_cargar.Text = "Cargar";
-            btn_cargar.FlatStyle = FlatStyle.Flat;
-            btn_cargar.FlatAppearance.BorderSize = 0;
-            btn_cargar.Margin = new Padding(130, 10, 0, 0);
-            btn_cargar.ForeColor = System.Drawing.Color.FromArgb(32, 32, 32);
-            btn_cargar.Font = new Font("Nunito", 12, FontStyle.Bold);
-            //btn_cargar.Location = new Point((flowLayoutForm.Width - btn_cargar.Width) / 2, (flowLayoutForm.Height - btn_cargar.Height) / 2);
-        }
 
-        //Options menu
-        private void OptionsMenuProperties()
+
+
+        //ButtonProperties
+        private void PanelButtonProperties()
         {
-            optionsMenu.Size = new Size(800, 60);
             this.Resize += (s, e) =>
             {
-                optionsMenu.Location = new Point((this.Width - optionsMenu.Width) / 2, 100);
+                btnPanel.Location = new Point((this.Width - btnPanel.Width) - 50, 110);
+
+                //PositionGrid();
             };
-            optionsMenu.BackColor = System.Drawing.Color.FromArgb(64, 64, 64);
-            optionsMenu.BorderStyle = BorderStyle.FixedSingle;
+
+            btnPanel.Size = new Size(110, 30);
+            btnPanel.BackColor = Color.Transparent;
+            this.Controls.Add(btnPanel);
+        }
+        private void ButtonsPropertiesForm()
+        {
+            btnCargar.BackColor = System.Drawing.Color.FromArgb(218, 218, 28);
+            btnCargar.Size = new Size(110, 30);
+            btnCargar.Text = "Cargar";
+            btnCargar.FlatStyle = FlatStyle.Flat;
+            btnCargar.FlatAppearance.BorderSize = 0;
+            btnCargar.ForeColor = Color.Black;
+            btnCargar.Font = new Font("Nunito", 12, FontStyle.Bold);
+
+            if (!btnPanel.Controls.Contains(btnCargar))
+            {
+                btnPanel.Controls.Add(btnCargar);
+            }
+
+            btnPanel.Resize += (s, e) =>
+            {
+                btnCargar.Location = new Point((btnPanel.Width - btnCargar.Width) / 2, (btnPanel.Height - btnCargar.Height) / 2);
+
+                //PositionGrid();
+            };
         }
 
 
 
-        private void LayoutOptionsMenuProperties()
+        //GridProperties
+        private void GridChequesProperties()
         {
-            layoutOptionsMenu.AutoSize = true;
-            layoutOptionsMenu.Width = btnCheque.Width;
-            layoutOptionsMenu.BackColor = Color.Transparent;
-            layoutOptionsMenu.FlowDirection = FlowDirection.LeftToRight;
-            optionsMenu.Resize += (s, e) =>
+            panelGrid.Size = new Size(1200, 400);
+            panelGrid.BackColor = Color.Transparent;
+
+            this.Resize += (s, e) =>
             {
-                layoutOptionsMenu.Location = new Point((optionsMenu.Width - layoutOptionsMenu.Width) / 2, (optionsMenu.Height - layoutOptionsMenu.Height) / 2);
+                panelGrid.Location = new Point((this.Width - panelGrid.Width) / 2, 270);
             };
+
+            cheq.Size = new Size(panelGrid.Width, panelGrid.Height);
+            cheq.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            cheq.Height = 400;
+            cheq.BackgroundColor = Color.DarkGray;
+            cheq.GridColor = Color.Black;
+            cheq.Font = new Font("Nunito", 12, FontStyle.Bold);
+
+            cheq.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(48, 48, 48);
+            cheq.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            cheq.EnableHeadersVisualStyles = false;
+            cheq.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            cheq.AllowUserToResizeRows = false;
+
+
+            panelGrid.Controls.Add(cheq);
+            this.Controls.Add(panelGrid);
         }
-        private void ButtonsProperties()
+
+        //Otros
+        //CargaDeDatos
+
+        private void ConfigurarDataGridView()
         {
-            int j = 0;
-
-            botonesRegistro.Add(btnFlete);
-            botonesRegistro.Add(btnViaje);
-            botonesRegistro.Add(btnCamion);
-            botonesRegistro.Add(btnCliente);
-            botonesRegistro.Add(btnCheque);
-
-            nombreBotonesRegistro.Add("Flete");
-            nombreBotonesRegistro.Add("Viaje");
-            nombreBotonesRegistro.Add("Camión");
-            nombreBotonesRegistro.Add("Cliente");
-            nombreBotonesRegistro.Add("Cheque");
-            for (int i = 0; i < botonesRegistro.Count; i++)
+            if (cheq.Columns["Eliminar"] == null)
             {
-                Button btn = (Button)botonesRegistro[i];
-
-                btn.Size = new Size(150, 50);
-                btn.ForeColor = System.Drawing.Color.FromArgb(224, 224, 224);
-                btn.Font = new Font("Nunito", 16, FontStyle.Regular);
-                btn.FlatStyle = FlatStyle.Flat;
-                btn.BackColor = Color.Transparent;
-                btn.FlatAppearance.BorderSize = 0;
-                btn.FlatAppearance.MouseDownBackColor = Color.Transparent;
-                btn.FlatAppearance.MouseOverBackColor = Color.Transparent;
-                btn.Margin = new Padding(0, 20, 0, 0);
-                btn.TextAlign = ContentAlignment.MiddleCenter;
-
-                if (j < nombreBotonesRegistro.Count)
-                {
-                    btn.Text = nombreBotonesRegistro[j].ToString().ToUpper();
-                    j++;
-                }
-
-                layoutOptionsMenu.Controls.Add(btn);
+                DataGridViewButtonColumn btnEliminar = new DataGridViewButtonColumn();
+                btnEliminar.Name = "Eliminar";
+                btnEliminar.HeaderText = "X";  // Puedes dejarlo vacío si prefieres
+                btnEliminar.Text = "x"; // Ícono de eliminar
+                btnEliminar.UseColumnTextForButtonValue = true; // Hace que todas las celdas muestren "❌"
+                btnEliminar.Width = 40; // Ajustar tamaño
+                cheq.Columns.Add(btnEliminar);
             }
         }
 
+        private void cargaClickEvent(object sender, EventArgs e)
+        {
+            // Obtener los valores de los TextBox
+            List<string> datos = new List<string>();
 
-        //Adds
-        private void AddLabels()
-        {
-            form.Controls.Add(flowLayoutForm);
-            //flowLayoutForm.Controls.Add(btn_cargar);
-        }
-        private void AddForm()
-        {
-            this.Controls.Add(form);
-        }
-        private void AddPanelToForm()
-        {
-            this.Controls.Add(optionsMenu);
-        }
-        private void AddLayoutOptionsMenu()
-        {
-            optionsMenu.Controls.Add(layoutOptionsMenu);
-        }
+            foreach (Control control in formFL.Controls)
+            {
+
+                if (control is Panel panel)
+                {
+                    foreach (Control child in panel.Controls)
+                    {
+                        if (child is TextBox textBox)
+                        {
+                            foreach (string campo in campos)
+                            {
+                                if (textBox.Text == campo.ToString())
+                                {
+                                    MessageBox.Show("Complete todos los campos");
+                                    return;
+                                }
+                            }
+
+                            datos.Add(textBox.Text); // Agregar el texto de cada TextBox
+                        }
+                    }
+                }
+            }
+
+            // Verificar que los datos no estén vacíos
+            if (datos.All(dato => !string.IsNullOrWhiteSpace(dato)))
+            {
+
+                eliminar.Text = "X";
+                eliminar.UseColumnTextForButtonValue = true;
+
+                datos.Add(eliminar.Text);
+                cheq.Rows.Add(datos.ToArray());
 
 
+                foreach (Control control in formFL.Controls)
+                {
+                    if (control is Panel panel)
+                    {
+                        foreach (Control child in panel.Controls)
+                        {
+                            if (child is TextBox textBox)
+                            {
+                                string placeholderText = textBox.Text;
+                                textBox.Clear();
+                                textBox.Text = placeholderText; // Restaurar el placeholder??????????
+                                textBox.ForeColor = Color.Black;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void eliminarFila(object sender, DataGridViewCellEventArgs e)
+        {
+            // Verificar si la celda clickeada pertenece a la columna "Eliminar"
+            if (e.ColumnIndex == cheq.Columns["Eliminar"].Index && e.RowIndex >= 0)
+            {
+                // Confirmar antes de eliminar (opcional)
+                DialogResult resultado = MessageBox.Show("¿Desea eliminar esta fila?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (resultado == DialogResult.Yes)
+                {
+                    cheq.Rows.RemoveAt(e.RowIndex);
+                }
+
+            }
+        }
+        private void AddControls()
+        {
+            this.Controls.Add(formPanel);
+            formPanel.Controls.Add(formFL);
+            this.Controls.Add(btnVolver);
+        }
+
+        //Button for back properties
+        private void ButtonProperties()
+        {
+            btnVolver.Text = "Volver";
+            btnVolver.Size = new Size(140, 40);
+            btnVolver.FlatAppearance.BorderSize = 0;
+            btnVolver.FlatStyle = FlatStyle.Flat;
+            btnVolver.Location = new Point(40, 100);
+            btnVolver.Font = new Font("Nunito", 16, FontStyle.Regular);
+            btnVolver.BackColor = System.Drawing.Color.FromArgb(48, 48, 48);
+            btnVolver.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
+            btnVolver.Click += (s, e) =>
+            {
+                this.Close();
+                Viaje vv = new Viaje();
+                vv.ShowDialog();
+            };
+        }
+
+        //Label
+
+        private void LabelProperties(string dato)
+        {
+            nombre.Text = dato;
+            nombre.Text = nombre.Text.ToUpper();
+            nombre.Font = new Font("Nunito", 20, FontStyle.Bold);
+            nombre.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
+            nombre.AutoSize = true;
+            nombre.Location = new Point(180, 230);
+            nombre.BackColor = Color.Transparent;
+
+            this.Controls.Add(nombre);
+        }
     }
 }
