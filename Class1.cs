@@ -125,7 +125,7 @@ namespace AppCamiones
         {
             if (textBoxContraseña.Text != "Password")
             {
-                textBoxContraseña.Text = new string('*', textBoxContraseña.Text.Length);
+                textBoxContraseña.Text = new string('●', textBoxContraseña.Text.Length);
                 textBoxContraseña.Font = new Font("Nunito", 14, FontStyle.Regular);
             }
         }

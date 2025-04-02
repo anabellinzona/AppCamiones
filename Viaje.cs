@@ -57,7 +57,7 @@ namespace AppCamiones
             camionFilter.MouseLeave += (s, e) => HoverEffect(s, e, false);
 
             //Events
-            fleteFilter.Click += (s, e) => CardGenerator("Chofer", " ");
+            fleteFilter.Click += (s, e) => CardGenerator("Flete", " ");
             clienteFilter.Click += (s, e) => CardGenerator("Cliente", " ");
             camionFilter.Click += (s, e) => CardGenerator("Camión", " ");
         }
@@ -165,7 +165,7 @@ namespace AppCamiones
 
                 card.Click += (s, e) =>
                 {
-                    ViajeFiltro form = new ViajeFiltro();
+                    ViajeFiltro form = new ViajeFiltro(filtro);
                     form.Show();
                 };
             }
@@ -176,7 +176,6 @@ namespace AppCamiones
             {
                 if (info != " ")
                 {
-                    MessageBox.Show(info);
                     return new List<string> { info };
                 }
                 else
@@ -229,6 +228,8 @@ namespace AppCamiones
                     btn.Text = buttonsNameFilter[j].ToString().ToUpper();
                     j++;
                 }
+
+
 
                 btn.Click += (s, e) => CardGenerator(btn.Text, " ");
 

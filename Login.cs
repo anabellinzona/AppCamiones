@@ -96,6 +96,7 @@ namespace AppCamiones
             {
                 textBox.Text = "";
                 textBox.ForeColor = Color.Black;
+                textBox.Font = new Font("Nunito", 14, FontStyle.Regular);
             }
         }
 
@@ -105,7 +106,7 @@ namespace AppCamiones
         {
             if (textBoxContraseña.Text != "Password")
             {
-                textBoxContraseña.Text = new string('*', textBoxContraseña.Text.Length);
+                textBoxContraseña.Text = new string('●', textBoxContraseña.Text.Length);
                 textBoxContraseña.Font = new Font("Nunito", 14, FontStyle.Regular);
             }
         }
@@ -115,7 +116,7 @@ namespace AppCamiones
             {
                 if (txt.Text == "Username" || txt.Text == "Password")
                 {
-                    txt.ForeColor = System.Drawing.Color.FromArgb(247, 50, 50);
+                    txt.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
                     MessageBox.Show("Completar todos los campos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }

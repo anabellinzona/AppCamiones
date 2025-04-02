@@ -10,6 +10,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Eventing.Reader;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+using static System.Net.Mime.MediaTypeNames;
+using Font = System.Drawing.Font;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using TextBox = System.Windows.Forms.TextBox;
+using Button = System.Windows.Forms.Button;
 
 namespace AppCamiones
 {
@@ -31,6 +36,8 @@ namespace AppCamiones
         private DataGridView cheq = new DataGridView();
         private Panel panelGrid = new Panel();
 
+        DataGridViewButtonColumn eliminar = new DataGridViewButtonColumn();
+
 
 
         //Constructor
@@ -42,7 +49,7 @@ namespace AppCamiones
             InitializeUI();
 
             //ShowForm
-            CargarFormularioCheque(8);
+            CargarFormularioCheque(9);
 
             //Hovers
             btnCargar.MouseEnter += (s, e) => HoverEffect(s, e, true);
@@ -51,10 +58,26 @@ namespace AppCamiones
             //Events
             btnCargar.Click += cargaClickEvent;
 
+            cheq.CellClick += eliminarFila;
+
+            ConfigurarDataGridView();
+
             PositionGrid();
         }
 
-
+        private void ConfigurarDataGridView()
+        {
+            if (cheq.Columns["Eliminar"] == null)
+            {
+                DataGridViewButtonColumn btnEliminar = new DataGridViewButtonColumn();
+                btnEliminar.Name = "Eliminar";
+                btnEliminar.HeaderText = "X";  // Puedes dejarlo vacío si prefieres
+                btnEliminar.Text = "x"; // Ícono de eliminar
+                btnEliminar.UseColumnTextForButtonValue = true; // Hace que todas las celdas muestren "❌"
+                btnEliminar.Width = 40; // Ajustar tamaño
+                cheq.Columns.Add(btnEliminar);
+            }
+        }
 
         //Initializations
         private void InitializeUI()
@@ -86,6 +109,7 @@ namespace AppCamiones
             cheq.Columns.Add("nroPersonal", "Número personal de cheque");
             cheq.Columns.Add("entregadoA", "Entregado a");
             cheq.Columns.Add("fechaRetiro", "Fecha de retiro");
+            cheq.Columns.Add("eliminar", "Eliminar");
 
             panelGrid.Controls.Add(cheq);
             this.Controls.Add(panelGrid);
@@ -108,7 +132,7 @@ namespace AppCamiones
             var button = sender as Button;
             if (button != null)
             {
-                button.ForeColor = isHover ? Color.FromArgb(48,48,48) : Color.Black;
+                button.ForeColor = isHover ? Color.FromArgb(48, 48, 48) : Color.Black;
             }
         }
 
@@ -180,7 +204,7 @@ namespace AppCamiones
         private TextBox createTextBoxAndProperties(object campo)
         {
             TextBox textBoxCampo = new TextBox();
-            textBoxCampo.Font = new Font("Nunito", 10, FontStyle.Regular);
+            textBoxCampo.Font = new Font("Nunito", 12, FontStyle.Regular);
             textBoxCampo.BackColor = System.Drawing.Color.FromArgb(153, 145, 145);
             textBoxCampo.Multiline = true;
             textBoxCampo.Width = 200;
@@ -190,7 +214,7 @@ namespace AppCamiones
             textBoxCampo.Margin = new Padding(0, 0, 0, 20);
             textBoxCampo.ForeColor = System.Drawing.Color.Gray;
             textBoxCampo.TextAlign = HorizontalAlignment.Left;
-            textBoxCampo.ForeColor = Color.Black;
+            textBoxCampo.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
 
             string placeholderDefault = !string.IsNullOrWhiteSpace(campo?.ToString()) ? campo.ToString() : "Placeholder";
 
@@ -203,6 +227,8 @@ namespace AppCamiones
                 if (textBoxCampo.Text == placeholderText)
                 {
                     textBoxCampo.Text = "";
+
+                    textBoxCampo.ForeColor = Color.Black;
                 }
             };
 
@@ -211,13 +237,13 @@ namespace AppCamiones
                 if (string.IsNullOrWhiteSpace(textBoxCampo.Text))
                 {
                     textBoxCampo.Text = placeholderText;
-                    textBoxCampo.ForeColor = Color.Black;
+                    textBoxCampo.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
                 }
             };
 
             textBoxCampo.SizeChanged += (s, e) =>
             {
-                textBoxCampo.Height = 40; 
+                textBoxCampo.Height = 40;
             };
 
             return textBoxCampo;
@@ -228,10 +254,15 @@ namespace AppCamiones
         //ButtonProperties
         private void PanelButtonProperties()
         {
-            btnPanel.Width = this.ClientSize.Width;
-            btnPanel.Height = 60;
-            btnPanel.BackColor = Color.Red;
+            this.Resize += (s, e) =>
+            {
+                btnPanel.Location = new Point((this.Width - btnPanel.Width) - 50, 110);
 
+                PositionGrid();
+            };
+
+            btnPanel.Size = new Size(110, 30);
+            btnPanel.BackColor = Color.Transparent;
             this.Controls.Add(btnPanel);
         }
         private void ButtonsPropertiesForm()
@@ -244,19 +275,14 @@ namespace AppCamiones
             btnCargar.ForeColor = Color.Black;
             btnCargar.Font = new Font("Nunito", 12, FontStyle.Bold);
 
-            //btnCargar.Location = new Point(btnPanel.Width - btnCargar.Width - 10, (btnPanel.Height - btnCargar.Height) / 2);
-
             if (!btnPanel.Controls.Contains(btnCargar))
             {
                 btnPanel.Controls.Add(btnCargar);
             }
 
-            this.Resize += (s, e) =>
+            btnPanel.Resize += (s, e) =>
             {
-                btnPanel.Width = this.ClientSize.Width;
-                btnPanel.Location = new Point(0, formPanel.Bottom + 20);
-
-                btnCargar.Location = new Point(btnPanel.Width - btnCargar.Width - 10, 0);
+                btnCargar.Location = new Point((btnPanel.Width - btnCargar.Width) / 2, (btnPanel.Height - btnCargar.Height) / 2);
 
                 PositionGrid();
             };
@@ -270,30 +296,27 @@ namespace AppCamiones
             panelGrid.Size = new Size(1200, 400);
             panelGrid.BackColor = Color.Transparent;
 
-            cheq.Size = new Size(1200, 400);
+            cheq.Size = new Size(panelGrid.Width, panelGrid.Height);
             cheq.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            cheq.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            cheq.Height = 400;
             cheq.BackgroundColor = Color.DarkGray;
             cheq.GridColor = Color.Black;
             cheq.Font = new Font("Nunito", 12, FontStyle.Bold);
 
-            cheq.ColumnHeadersDefaultCellStyle.BackColor = Color.White;
-            cheq.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
+            cheq.ColumnHeadersDefaultCellStyle.BackColor = System.Drawing.Color.FromArgb(48, 48, 48);
+            cheq.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
             cheq.EnableHeadersVisualStyles = false;
             cheq.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             cheq.AllowUserToResizeRows = false;
 
-
-
             panelGrid.Controls.Add(cheq);
             this.Controls.Add(panelGrid);
         }
+
         private void PositionGrid()
         {
-            panelGrid.Location = new Point(
-                (this.ClientSize.Width - panelGrid.Width) / 2,
-                btnPanel.Bottom + 5 // Debajo del btn + 5 de margin
-            );
+            panelGrid.Location = new Point((this.Width - panelGrid.Width) / 2, 200);
+
         }
 
 
@@ -305,6 +328,7 @@ namespace AppCamiones
             List<string> datos = new List<string>();
             foreach (Control control in formFL.Controls)
             {
+
                 if (control is Panel panel)
                 {
                     foreach (Control child in panel.Controls)
@@ -320,7 +344,13 @@ namespace AppCamiones
             // Verificar que los datos no estén vacíos
             if (datos.All(dato => !string.IsNullOrWhiteSpace(dato)))
             {
+
+                eliminar.Text = "X";
+                eliminar.UseColumnTextForButtonValue = true;
+
+                datos.Add(eliminar.Text);
                 cheq.Rows.Add(datos.ToArray());
+
 
                 foreach (Control control in formFL.Controls)
                 {
@@ -343,7 +373,21 @@ namespace AppCamiones
             {
                 MessageBox.Show("Por favor, complete todos los campos.");
             }
+        }
 
+        private void eliminarFila(object sender, DataGridViewCellEventArgs e)
+        {
+            // Verificar si la celda clickeada pertenece a la columna "Eliminar"
+            if (e.ColumnIndex == cheq.Columns["Eliminar"].Index && e.RowIndex >= 0)
+            {
+                // Confirmar antes de eliminar (opcional)
+                DialogResult resultado = MessageBox.Show("¿Desea eliminar esta fila?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (resultado == DialogResult.Yes)
+                {
+                    cheq.Rows.RemoveAt(e.RowIndex);
+                }
+
+            }
         }
     }
 }

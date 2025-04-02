@@ -25,11 +25,21 @@ namespace AppCamiones
 
 
         //Constructor
-        public ViajeFiltro()
+        public ViajeFiltro(string filtro)
         {
             InitializeGrid();
+
+            GeneratorForm(filtro);
         }
 
+        private void GeneratorForm(string filtro)
+        {
+            if(filtro == "Flete")
+            {
+                FormRegistro formulario = new FormRegistro("flete");
+                formulario.Show();
+            }
+        }
 
 
         //Initializations
