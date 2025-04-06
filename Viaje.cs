@@ -194,6 +194,7 @@ namespace AppCamiones
                 }
                 else if (filtro == "Cliente")
                 {
+                    
                     campos.Clear();
                     this.campos = new List<string> { "Fecha", "Origen", "Destino", "RTO o CPE", "Carga", "Km", "Kg", "Tarifa", "Total", "Porcentaje", "Chofer", "Productor" };
                     cant = campos.Count();
@@ -207,7 +208,7 @@ namespace AppCamiones
 
                 card.Click += (s, e) =>
                 {
-                    ViajeFiltro form = new ViajeFiltro(dato, cant, campos);
+                    ViajeFiltro form = new ViajeFiltro(dato, cant, campos, filtro);
                     form.Show();
                 };
             }
@@ -387,7 +388,7 @@ namespace AppCamiones
             Label ll = new Label();
 
             ll.Text = nombreCampo;
-            ll.Font = new Font("Nunito", 14, FontStyle.Regular);
+            ll.Font = new Font("Nunito", 10, FontStyle.Regular);
             ll.ForeColor = System.Drawing.Color.FromArgb(217, 217, 217);
             ll.BackColor = Color.Transparent;
             ll.AutoSize = true;
@@ -410,7 +411,7 @@ namespace AppCamiones
         private void TextBoxProperties()
         {
             textBoxNombre.Font = new Font("Nunito", 10, FontStyle.Regular);
-            textBoxNombre.BackColor = System.Drawing.Color.FromArgb(153, 145, 145);
+            textBoxNombre.BackColor = Color.White;
             //textBoxNombre.Text = textBox.ToString();
             textBoxNombre.Multiline = true;
             textBoxNombre.Width = 120;

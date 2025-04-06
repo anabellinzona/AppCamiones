@@ -25,16 +25,16 @@ namespace AppCamiones
 
 
         //Constructor
-        public ViajeFiltro(string dato, int cant, List<string> camposForm)
+        public ViajeFiltro(string dato, int cant, List<string> camposForm, string filtro)
         {
             InitializeGrid(camposForm);
 
-            GeneratorForm(dato, cant);
+            GeneratorForm(dato, cant, filtro);
         }
 
-        private void GeneratorForm(string dato, int cant)
+        private void GeneratorForm(string dato, int cant, string filtro)
         {
-            FormRegistro formulario = new FormRegistro(campos, cant, dato);
+            FormRegistro formulario = new FormRegistro(campos, cant, dato, filtro);
             formulario.ShowDialog();
         }
 
@@ -43,9 +43,6 @@ namespace AppCamiones
         private void InitializeGrid(List<string> camposForm)
         {
             AddInfoToCampos(camposForm);
-            //AddItemsToGrid();
-            //GridChequesProperties();
-            //ButtonProperties();
         }
 
         private void AddInfoToCampos(List<string> camposForm)

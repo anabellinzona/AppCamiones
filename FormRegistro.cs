@@ -24,6 +24,7 @@ namespace AppCamiones
         private Panel btnPanel = new Panel();
         private RoundButton btnCargar = new RoundButton();
         private RoundButton btnVolver = new RoundButton();
+        private RoundButton btnCuentaCorriente = new RoundButton();
 
 
         //Grid
@@ -37,7 +38,7 @@ namespace AppCamiones
 
 
         //Constructor
-        public FormRegistro(List<string> camposForm, int cant, string dato)
+        public FormRegistro(List<string> camposForm, int cant, string dato, string filtro)
         {
             //MaximizeWindom
             this.WindowState = FormWindowState.Maximized;
@@ -59,6 +60,8 @@ namespace AppCamiones
             ConfigurarDataGridView();
 
             LabelProperties(dato);
+
+            AddButtonCuentaCorriente(filtro, dato);
 
             //PositionGrid();
         }
@@ -100,11 +103,10 @@ namespace AppCamiones
         private void CargarFormularioCheque(List<string> camposForm, int cant)
         {
             this.campos.Clear();
-            foreach(string i in camposForm)
+            foreach (string i in camposForm)
             {
                 this.campos.Add(i);
             }
-            //this.campos = new List<string> { "F. Recibido", "Banco", "Nro. de cheque", "Pesos", "Nombre", "Número personal de cheque", "Entregado a", "Fecha de retiro" };
 
             InitializeFormProperties(cant, campos);
         }
@@ -420,6 +422,29 @@ namespace AppCamiones
             nombre.BackColor = Color.Transparent;
 
             this.Controls.Add(nombre);
+        }
+
+        private void AddButtonCuentaCorriente(string filtro, string dato)
+        {
+            if(filtro == "Cliente")
+            {
+                btnCuentaCorriente.Text = "Cuenta corriente";
+                btnCuentaCorriente.Size = new Size(180, 40);
+                btnCuentaCorriente.FlatAppearance.BorderSize = 0;
+                btnCuentaCorriente.FlatStyle = FlatStyle.Flat;
+                btnCuentaCorriente.Location = new Point(40, 180);
+                btnCuentaCorriente.Font = new Font("Nunito", 16, FontStyle.Regular);
+                btnCuentaCorriente.BackColor = System.Drawing.Color.FromArgb(48, 48, 48);
+                btnCuentaCorriente.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
+                btnCuentaCorriente.Click += (s, e) =>
+                {
+                    this.Close();
+                    CuentaCorriente cuentaCorriente = new CuentaCorriente(dato);
+                    cuentaCorriente.ShowDialog();
+                };
+            }
+
+            this.Controls.Add(btnCuentaCorriente);
         }
     }
 }
