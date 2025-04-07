@@ -27,6 +27,10 @@ namespace AppCamiones
         private FlowLayoutPanel layoutTravelNext = new FlowLayoutPanel();
         private FlowLayoutPanel layoutTravelToday = new FlowLayoutPanel();
 
+        //private FormRegistro travelForm = new FormRegistro(z);
+        //private List<String> camposTravel = new List<string>();
+        
+
         //PayTable
         private FlowLayoutPanel layoutTablePay = new FlowLayoutPanel();
         private FlowLayoutPanel layoutPay = new FlowLayoutPanel();
@@ -34,7 +38,10 @@ namespace AppCamiones
         private Panel table_pay = new Panel();
         private Label pay_title = new Label();
 
-       
+        //private FormRegistro payForm = new FormRegistro();
+        //private List<String> camposPay = new List<string>();
+        
+
 
 
         //Constructor
@@ -54,6 +61,7 @@ namespace AppCamiones
         private void InitializeUI()
         { 
             InitializePanel();
+            CrearFormularioSobrePaneles();
         }
         private void InitializePanel()
         {
@@ -73,10 +81,61 @@ namespace AppCamiones
             AddTravelToday();
             AddTravel();
         }
+        private void CrearFormularioSobrePaneles()
+
+        {
+            Size formSize = new Size(320, 60);
+
+            // TravelPanel
+            Panel panelFormTravel = new Panel
+            {
+                Name = "panelFormTravel",
+                Size = formSize,
+                Location = new Point(
+                    table_travel.Location.X + (table_travel.Width - formSize.Width) / 2,
+                    table_travel.Location.Y - formSize.Height - 20
+                ),
+                BackColor = Color.Black,
+                BorderStyle = BorderStyle.FixedSingle
+            };
+
+            // PayPanel
+            Panel panelFormPay = new Panel
+            {
+                Name = "panelFormPay",
+                Size = formSize,
+                Location = new Point(
+                    table_pay.Location.X + (table_pay.Width - formSize.Width) / 2,
+                    table_pay.Location.Y - formSize.Height - 20
+                ),
+                BackColor = Color.Black,
+                BorderStyle = BorderStyle.FixedSingle
+            };
+
+            // TravelContent
+            panelFormTravel.Controls.Add(new TextBox { Location = new Point(15, 10), Width = 140, ForeColor = System.Drawing.Color.FromArgb(48, 48, 48), Text = "Destino" });
+            panelFormTravel.Controls.Add(new TextBox { Location = new Point(165, 10), Width = 140, ForeColor = System.Drawing.Color.FromArgb(48, 48, 48), Text = "Horario" });
+            panelFormTravel.Controls.Add(new RoundButton { Text = "Registrar", Location = new Point(120, 35), BackColor = System.Drawing.Color.FromArgb(218, 218, 28) });
+
+            // PayContent
+            panelFormPay.Controls.Add(new TextBox { Location = new Point(15, 10), Width = 140, ForeColor = System.Drawing.Color.FromArgb(48, 48, 48), Text = "Apellido" });
+            panelFormPay.Controls.Add(new TextBox { Location = new Point(165, 10), Width = 140, ForeColor = System.Drawing.Color.FromArgb(48, 48, 48), Text = "Monto" });
+            panelFormPay.Controls.Add(new RoundButton { Text = "Registrar", Location = new Point(120, 35), BackColor = System.Drawing.Color.FromArgb(218, 218, 28) });
 
 
 
+            //Adds
+            this.Controls.Add(panelFormTravel);
+            this.Controls.Add(panelFormPay);
 
+            //View
+            panelFormTravel.BringToFront();
+            panelFormPay.BringToFront();
+            panelFormTravel.Visible = true;
+            panelFormPay.Visible = true;
+        }
+
+      
         //Adds
         private void AddTravelToday()
         {
