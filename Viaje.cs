@@ -56,7 +56,7 @@ namespace AppCamiones
         //Constructor
         public Viaje()
         {
-            buttonAcept.Click += ButtonAcept_Click1;
+            //buttonAcept.Click += (s, e) => ButtonAcept_Click1(s, e);
             InitializeFilterCards();
             ResaltarBoton(viajesMenu);
 
@@ -88,19 +88,6 @@ namespace AppCamiones
                 CardGenerator(filtro, " ");
             }
         }
-
-        private void ButtonAcept_Click1(object sender, EventArgs e)
-        {
-            if (select.SelectedItem == null)
-            {
-                MessageBox.Show("Por favor, selecciona una opción antes de continuar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-            }
-            string seleccion = select.SelectedItem.ToString();
-            GetFilterInfo(seleccion, textBoxNombre.Text);
-            CardGenerator(seleccion, " ");
-        }
-
 
         //HoverFunction
         private void HoverEffect(object sender, EventArgs e, bool isHover)
@@ -166,7 +153,10 @@ namespace AppCamiones
         public void CardGenerator(string filtro, string info)
         {
 
+            cardsContainer.Controls.Clear();
             buttonAddNew.Visible = false;
+            formCargarSection.Visible = false;
+            
 
             List<string> datos = GetFilterInfo(filtro, info);
 
@@ -239,6 +229,9 @@ namespace AppCamiones
 
         public List<string> GetFilterInfo(string filtro, string info)
         {
+            camiones.Clear();
+            clientes.Clear();
+            fletes.Clear();
             if (!string.IsNullOrWhiteSpace(info))
             {
                 if (filtro == "Camión")
@@ -348,6 +341,7 @@ namespace AppCamiones
         {
             layourFormSection.Controls.Clear();
             buttonAddNew.Visible = false;
+            formCargarSection.Visible = true;
             FormProperties();
             LayoutFormProperties();
             TextBoxProperties();
@@ -392,6 +386,7 @@ namespace AppCamiones
         private void ComboBoxProperties()
         {
             select.Size = new Size(120, 30);
+            select.Items.Clear();
             select.Items.Add("Cliente");
             select.Items.Add("Flete");
             select.Items.Add("Camión");
@@ -443,7 +438,6 @@ namespace AppCamiones
         {
             textBoxNombre.Font = new Font("Nunito", 10, FontStyle.Regular);
             textBoxNombre.BackColor = Color.White;
-            //textBoxNombre.Text = textBox.ToString();
             textBoxNombre.Multiline = true;
             textBoxNombre.Width = 120;
             textBoxNombre.Height = 20;
@@ -463,8 +457,23 @@ namespace AppCamiones
             buttonAcept.ForeColor = System.Drawing.Color.FromArgb(32, 32, 32);
             buttonAcept.Font = new Font("Nunito", 12, FontStyle.Bold);
 
+            buttonAcept.Click += (s, e) => ButtonAcept_Click1(s, e);
+
             CenterButtonFormSection(); // Para posicionar correctamente al inicio
         }
+
+        private void ButtonAcept_Click1(object sender, EventArgs e)
+        {
+            if (select.SelectedItem == null)
+            {
+                MessageBox.Show("Por favor, selecciona una opción antes de continuar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+            }
+            string seleccion = select.SelectedItem.ToString();
+            //GetFilterInfo(seleccion, textBoxNombre.Text);
+            CardGenerator(seleccion, textBoxNombre.Text);
+        }
+
 
         private void CenterButtonFormSection()
         {

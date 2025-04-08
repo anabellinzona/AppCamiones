@@ -115,12 +115,12 @@ namespace AppCamiones
             // TravelContent
             panelFormTravel.Controls.Add(new TextBox { Location = new Point(15, 10), Width = 140, ForeColor = System.Drawing.Color.FromArgb(48, 48, 48), Text = "Destino" });
             panelFormTravel.Controls.Add(new TextBox { Location = new Point(165, 10), Width = 140, ForeColor = System.Drawing.Color.FromArgb(48, 48, 48), Text = "Horario" });
-            panelFormTravel.Controls.Add(new RoundButton { Text = "Registrar", Location = new Point(120, 35), BackColor = System.Drawing.Color.FromArgb(218, 218, 28) });
+            panelFormTravel.Controls.Add(new RoundButton { Text = "Registrar", Location = new Point(120, 35), BackColor = System.Drawing.Color.FromArgb(218, 218, 28), FlatStyle = FlatStyle.Flat});
 
             // PayContent
             panelFormPay.Controls.Add(new TextBox { Location = new Point(15, 10), Width = 140, ForeColor = System.Drawing.Color.FromArgb(48, 48, 48), Text = "Apellido" });
             panelFormPay.Controls.Add(new TextBox { Location = new Point(165, 10), Width = 140, ForeColor = System.Drawing.Color.FromArgb(48, 48, 48), Text = "Monto" });
-            panelFormPay.Controls.Add(new RoundButton { Text = "Registrar", Location = new Point(120, 35), BackColor = System.Drawing.Color.FromArgb(218, 218, 28) });
+            panelFormPay.Controls.Add(new RoundButton { Text = "Registrar", Location = new Point(120, 35), BackColor = System.Drawing.Color.FromArgb(218, 218, 28), FlatStyle = FlatStyle.Flat });
 
 
 
@@ -302,12 +302,6 @@ namespace AppCamiones
             travel.Size = new Size(200, 30);
         }
 
-        //private void addNewTravel(String nn)
-        //{
-        //    travel.text = nn;
-        //}
-
-        //PayTableTravel
         private void TablePay()
         {
             TablePayProperties();
