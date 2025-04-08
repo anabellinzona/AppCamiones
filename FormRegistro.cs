@@ -64,6 +64,10 @@ namespace AppCamiones
             AddButtonCuentaCorriente(filtro, dato);
 
             //PositionGrid();
+
+            this.TopLevel = false;
+            this.FormBorderStyle = FormBorderStyle.None;
+            this.Dock = DockStyle.Fill; // (opcional, para ocupar todo el espacio disponible)
         }
 
         //Initializations
