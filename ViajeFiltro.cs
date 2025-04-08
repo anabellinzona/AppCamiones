@@ -35,6 +35,7 @@ namespace AppCamiones
         private void GeneratorForm(string dato, int cant, string filtro)
         {
             FormRegistro formulario = new FormRegistro(campos, cant, dato, filtro);
+            formulario.TopLevel = true;
             formulario.ShowDialog();
         }
 

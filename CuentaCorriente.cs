@@ -33,8 +33,6 @@ namespace AppCamiones
             btnVolver.Click += (s, e) =>
             {
                 this.Close();
-                //FormRegistro vv = new FormRegistro(new List<string>(), 0, " ", " ");
-                //vv.ShowDialog();
             };
 
             this.Controls.Add(btnVolver);
@@ -45,6 +43,7 @@ namespace AppCamiones
             List<string> datos = new List<string> { "Fecha", "Nro factura", "Pagó", "Debe", "Total" };
             int cant = datos.Count;
             FormRegistro vv = new FormRegistro(datos, cant, dato, "Cliente");
+            vv.TopLevel = true;
             vv.ShowDialog();
         }
     }

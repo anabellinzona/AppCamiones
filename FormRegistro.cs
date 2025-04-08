@@ -11,7 +11,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace AppCamiones
 {
-    internal class FormRegistro : Home
+    public class FormRegistro : Home
     {
         //Form
         private Panel formPanel = new Panel();
@@ -235,8 +235,6 @@ namespace AppCamiones
             this.Resize += (s, e) =>
             {
                 btnPanel.Location = new Point((this.Width - btnPanel.Width) - 50, 110);
-
-                //PositionGrid();
             };
 
             btnPanel.Size = new Size(110, 30);
@@ -261,8 +259,6 @@ namespace AppCamiones
             btnPanel.Resize += (s, e) =>
             {
                 btnCargar.Location = new Point((btnPanel.Width - btnCargar.Width) / 2, (btnPanel.Height - btnCargar.Height) / 2);
-
-                //PositionGrid();
             };
         }
 

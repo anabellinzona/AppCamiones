@@ -27,7 +27,7 @@ namespace AppCamiones
         private RoundButton camionFilter = new RoundButton();
         private RoundButton clienteFilter = new RoundButton();
 
-        private RoundButton agregarNuevo = new RoundButton();
+        private RoundButton buttonAddNew = new RoundButton();
 
         private ArrayList botonesRegistro = new ArrayList();
         private ArrayList nombreBotonesRegistro = new ArrayList();
@@ -46,7 +46,6 @@ namespace AppCamiones
 
         private List<string> campos = new List<string>();
         private int cant = 0;
-        private int canti = 0;
 
 
         //Card
@@ -76,7 +75,8 @@ namespace AppCamiones
             fleteFilter.Click += (s, e) => CardGenerator("Flete", " ");
             clienteFilter.Click += (s, e) => CardGenerator("Cliente", " ");
             camionFilter.Click += (s, e) => CardGenerator("Camión", " ");
-            buttonBack.Click += (s, e) => ButtonNewAddProperties();
+
+           
         }
 
         public Viaje(string filtro)
@@ -159,15 +159,14 @@ namespace AppCamiones
 
         private void AddButtonNewAdd()
         {
-            cardsContainer.Controls.Add(agregarNuevo);
+            cardsContainer.Controls.Add(buttonAddNew);
         }
 
         //InfoFunctions
         public void CardGenerator(string filtro, string info)
         {
 
-            buttonBack.Visible = true;
-            cardsContainer.Controls.Clear();
+            buttonAddNew.Visible = false;
 
             List<string> datos = GetFilterInfo(filtro, info);
 
@@ -202,7 +201,6 @@ namespace AppCamiones
                 }
                 else if (filtro == "Cliente")
                 {
-                    
                     campos.Clear();
                     this.campos = new List<string> { "Fecha", "Origen", "Destino", "RTO o CPE", "Carga", "Km", "Kg", "Tarifa", "Total", "Porcentaje", "Chofer", "Productor" };
                     cant = campos.Count();
@@ -220,14 +218,10 @@ namespace AppCamiones
                     form.Show();
                 };
             }
-        
-            canti++;
-            if (canti == 1)
-            {
-                this.Controls.Add(buttonBack);
-                ButtonProperties();
-                buttonBack.Click += (s, e) => ButtonNewAddProperties();
-            }
+            buttonBack.Click += (s, e) => ButtonNewAddProperties();
+            buttonBack.Visible = true;
+            this.Controls.Add(buttonBack);
+            ButtonProperties();
         }
 
         private void ButtonProperties()
@@ -324,35 +318,36 @@ namespace AppCamiones
 
             this.Resize += (s, e) =>
             {
-                cardsContainer.Location = new Point((this.Width - cardsContainer.Width) / 2, filter.Bottom + 10);
+                cardsContainer.Location = new Point((this.Width - cardsContainer.Width) / 2, (this.Height - cardsContainer.Height) / 2);
             };
         }
 
         private void ButtonNewAddProperties()
         {
             cardsContainer.Controls.Clear();
-           
-            agregarNuevo.Visible = true;
-            agregarNuevo.Size = new Size(200, 150);
-            agregarNuevo.BackColor = System.Drawing.Color.FromArgb(200, Color.Black);
-            agregarNuevo.Text = "+";
-            agregarNuevo.FlatStyle = FlatStyle.Flat;
-            agregarNuevo.FlatAppearance.BorderSize = 3;  // Grosor del borde
-            agregarNuevo.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(218, 218, 28); // Color del borde
-            agregarNuevo.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
-            agregarNuevo.Font = new Font("Nunito", 24, FontStyle.Bold);
-            agregarNuevo.Margin = new Padding((cardsContainer.Width - agregarNuevo.Width) / 2, (cardsContainer.Height - agregarNuevo.Height) / 2, 0, 0);
-            
+
+            buttonAddNew.Visible = true;
+            buttonAddNew.Size = new Size(200, 150);
+            buttonAddNew.BackColor = System.Drawing.Color.FromArgb(200, Color.Black);
+            buttonAddNew.Text = "+";
+            buttonAddNew.FlatStyle = FlatStyle.Flat;
+            buttonAddNew.FlatAppearance.BorderSize = 3;  // Grosor del borde
+            buttonAddNew.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(218, 218, 28); // Color del borde
+            buttonAddNew.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
+            buttonAddNew.Font = new Font("Nunito", 24, FontStyle.Bold);
+            buttonAddNew.Margin = new Padding((cardsContainer.Width - buttonAddNew.Width) / 2, (cardsContainer.Height - buttonAddNew.Height) / 2, 0, 0);
+
             buttonBack.Visible = false;
-            
+
             AddButtonNewAdd();
 
-            agregarNuevo.Click += (s, e) => FormAddNew();
+            buttonAddNew.Click += (s, e) => FormAddNew();
         }
 
         private void FormAddNew()
         {
-            agregarNuevo.Visible = false;
+            layourFormSection.Controls.Clear();
+            buttonAddNew.Visible = false;
             FormProperties();
             LayoutFormProperties();
             TextBoxProperties();
@@ -412,7 +407,6 @@ namespace AppCamiones
 
             foreach (string i in campo)
             {
-                MessageBox.Show("hola");
                 Label labelForm = LabelProperties(i);
 
                 layourFormSection.Controls.Add(labelForm);
