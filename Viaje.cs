@@ -32,21 +32,21 @@ namespace AppCamiones
         private ArrayList botonesRegistro = new ArrayList();
         private ArrayList nombreBotonesRegistro = new ArrayList();
 
-        private RoundButton btn_volver = new RoundButton();
-
         //Form
         private NewRoundPanel formCargarSection = new NewRoundPanel();
         private FlowLayoutPanel layourFormSection = new FlowLayoutPanel();
         private System.Windows.Forms.ComboBox select = new System.Windows.Forms.ComboBox();
         private System.Windows.Forms.TextBox textBoxNombre = new System.Windows.Forms.TextBox();
         private RoundButton buttonAcept = new RoundButton();
+        private RoundButton buttonBack = new RoundButton();
 
         private List<string> camiones = new List<string>();
         private List<string> clientes = new List<string>();
-        private List<string> fletes = new List<string> { "López", "Fernández", "Martínez" };
+        private List<string> fletes = new List<string> { "López", "Fernández", "Martínez", "fff" };
 
         private List<string> campos = new List<string>();
         private int cant = 0;
+        private int canti = 0;
 
 
         //Card
@@ -76,8 +76,17 @@ namespace AppCamiones
             fleteFilter.Click += (s, e) => CardGenerator("Flete", " ");
             clienteFilter.Click += (s, e) => CardGenerator("Cliente", " ");
             camionFilter.Click += (s, e) => CardGenerator("Camión", " ");
+            buttonBack.Click += (s, e) => ButtonNewAddProperties();
+        }
 
-           
+        public Viaje(string filtro)
+        {
+            InitializeFilterCards();
+            ResaltarBoton(viajesMenu);
+            if (filtro != null)
+            {
+                CardGenerator(filtro, " ");
+            }
         }
 
         private void ButtonAcept_Click1(object sender, EventArgs e)
@@ -87,8 +96,6 @@ namespace AppCamiones
                 MessageBox.Show("Por favor, selecciona una opción antes de continuar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
             }
-
-            MessageBox.Show("Agregado correctamente");
             string seleccion = select.SelectedItem.ToString();
             GetFilterInfo(seleccion, textBoxNombre.Text);
             CardGenerator(seleccion, " ");
@@ -117,7 +124,6 @@ namespace AppCamiones
             ButtonsProperties();
             CardProperties();
             AddItemsToFilter();
-            AddButtonNewAdd();
             ButtonNewAddProperties();
         }
 
@@ -159,6 +165,8 @@ namespace AppCamiones
         //InfoFunctions
         public void CardGenerator(string filtro, string info)
         {
+
+            buttonBack.Visible = true;
             cardsContainer.Controls.Clear();
 
             List<string> datos = GetFilterInfo(filtro, info);
@@ -212,6 +220,26 @@ namespace AppCamiones
                     form.Show();
                 };
             }
+        
+            canti++;
+            if (canti == 1)
+            {
+                this.Controls.Add(buttonBack);
+                ButtonProperties();
+                buttonBack.Click += (s, e) => ButtonNewAddProperties();
+            }
+        }
+
+        private void ButtonProperties()
+        {
+            buttonBack.Text = "Volver";
+            buttonBack.Size = new Size(140, 40);
+            buttonBack.FlatAppearance.BorderSize = 0;
+            buttonBack.FlatStyle = FlatStyle.Flat;
+            buttonBack.Location = new Point(40, 100);
+            buttonBack.Font = new Font("Nunito", 16, FontStyle.Regular);
+            buttonBack.BackColor = System.Drawing.Color.FromArgb(48, 48, 48);
+            buttonBack.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
         }
 
 
@@ -302,15 +330,22 @@ namespace AppCamiones
 
         private void ButtonNewAddProperties()
         {
+            cardsContainer.Controls.Clear();
+           
+            agregarNuevo.Visible = true;
             agregarNuevo.Size = new Size(200, 150);
             agregarNuevo.BackColor = System.Drawing.Color.FromArgb(200, Color.Black);
             agregarNuevo.Text = "+";
             agregarNuevo.FlatStyle = FlatStyle.Flat;
-            agregarNuevo.FlatAppearance.BorderSize = 0;  // Grosor del borde
+            agregarNuevo.FlatAppearance.BorderSize = 3;  // Grosor del borde
             agregarNuevo.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(218, 218, 28); // Color del borde
             agregarNuevo.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
             agregarNuevo.Font = new Font("Nunito", 24, FontStyle.Bold);
             agregarNuevo.Margin = new Padding((cardsContainer.Width - agregarNuevo.Width) / 2, (cardsContainer.Height - agregarNuevo.Height) / 2, 0, 0);
+            
+            buttonBack.Visible = false;
+            
+            AddButtonNewAdd();
 
             agregarNuevo.Click += (s, e) => FormAddNew();
         }
@@ -371,11 +406,13 @@ namespace AppCamiones
 
         private void AddElementsOfLayoutFrom()
         {
-            List<string> campos = new List<string>();
-            campos.Add("Seleccionar");
-            campos.Add("Nombre");
-            foreach (string i in campos)
+            List<string> campo = new List<string>();
+            campo.Add("Seleccionar");
+            campo.Add("Nombre");
+
+            foreach (string i in campo)
             {
+                MessageBox.Show("hola");
                 Label labelForm = LabelProperties(i);
 
                 layourFormSection.Controls.Add(labelForm);

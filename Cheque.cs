@@ -20,6 +20,7 @@ namespace AppCamiones
 {
     public partial class Cheque : Home
     {
+
         //Form
         private Panel formPanel = new Panel();
         private FlowLayoutPanel formFL = new FlowLayoutPanel();
@@ -43,8 +44,7 @@ namespace AppCamiones
         //Constructor
         public Cheque()
         {
-            //MaximizeWindom
-            this.WindowState = FormWindowState.Maximized;
+            ResaltarBoton(chequesMenu);
 
             InitializeUI();
 

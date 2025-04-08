@@ -13,41 +13,43 @@ namespace AppCamiones
         protected ToolStripMenuItem homeMenu = new ToolStripMenuItem("home");
         protected ToolStripMenuItem viajesMenu = new ToolStripMenuItem("viajes");
         protected ToolStripMenuItem chequesMenu = new ToolStripMenuItem("cheques");
-        //protected ToolStripMenuItem registrosMenu = new ToolStripMenuItem("registro de datos");
         private ToolStripMenuItem userMenu = new ToolStripMenuItem();
-        protected ToolStripMenuItem closeSesion = new ToolStripMenuItem("Cerrar sesión");
-
-        private Form activeForm = null;
-
-
-
+        protected ToolStripMenuItem closeSession = new ToolStripMenuItem("Cerrar sesión");
+        private string filtro = " ";
+        private Form activeForm;
 
         //Constructor
         public Home()
         {
             InitializeUI();
             this.WindowState = FormWindowState.Maximized;
+
+
             //Redirections
-            closeSesion.Click += (sender, e) => OpenForm<Login>();
+            closeSession.Click += (sender, e) => OpenForm<Login>();
             chequesMenu.Click += (sender, e) => OpenForm<Cheque>();
             viajesMenu.Click += (sender, e) => OpenForm<Viaje>();
-            //registrosMenu.Click += (sender, e) => OpenForm<Registro>();
             homeMenu.Click += (sender, e) => OpenForm<Form1>();
         }
-
-
 
 
         //RedirectionalFunctions
         private void OpenForm<T>() where T : Form, new()
         {
+            // Cierra el formulario activo si existe
             if (activeForm != null)
             {
                 activeForm.Close();
+                activeForm = null;
             }
 
-            // Crea una nueva instancia del formulario y guárdalo como activo
+            // Abre el nuevo formulario
             activeForm = new T();
+            activeForm.TopLevel = false;
+            activeForm.FormBorderStyle = FormBorderStyle.None;
+            activeForm.Dock = DockStyle.Fill;
+
+            this.Controls.Add(activeForm); // Si no usás panel, agregalo directo al Form
             activeForm.Show();
         }
 
@@ -63,10 +65,10 @@ namespace AppCamiones
 
             if (menuItem != null)
             {
-                menuItem.Font = new Font("Nunito", 16, FontStyle.Underline);
+                menuItem.Font = new Font("Nunito", 18, FontStyle.Regular);
+                menuItem.ForeColor = System.Drawing.Color.FromArgb(194, 194, 119);
             }
         }
-
 
 
 
@@ -158,10 +160,9 @@ namespace AppCamiones
             menuStrip.Items.Add(homeMenu);
             menuStrip.Items.Add(viajesMenu);
             menuStrip.Items.Add(chequesMenu);
-            //menuStrip.Items.Add(registrosMenu);
             menuStrip.Items.Add(userMenu);
 
-            userMenu.DropDownItems.Add(closeSesion);
+            userMenu.DropDownItems.Add(closeSession);
 
             this.MainMenuStrip = menuStrip;
             this.Controls.Add(menuStrip);
@@ -176,7 +177,6 @@ namespace AppCamiones
             homeMenu.Text = homeMenu.Text.ToUpper();
             viajesMenu.Text = viajesMenu.Text.ToUpper();
             chequesMenu.Text = chequesMenu.Text.ToUpper();
-            //registrosMenu.Text = registrosMenu.Text.ToUpper();
             userMenu.Text = userMenu.Text.ToUpper();
         }
         private void MenuProperties()
@@ -194,9 +194,8 @@ namespace AppCamiones
             homeMenu.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
             viajesMenu.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
             chequesMenu.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
-            //registrosMenu.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
             userMenu.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
-            closeSesion.ForeColor = System.Drawing.Color.FromArgb(141, 138, 138);
+            closeSession.ForeColor = System.Drawing.Color.FromArgb(141, 138, 138);
         }
         private void MarginToItems()
         {
@@ -207,9 +206,8 @@ namespace AppCamiones
             homeMenu.Margin = new Padding(y, 0, 0, 0);
             viajesMenu.Margin = new Padding(y, 0, 0, 0);
             chequesMenu.Margin = new Padding(y, 0, 0, 0);
-            //registrosMenu.Margin = new Padding(y, 0, 0, 0);
             userMenu.Margin = new Padding(t, 0, 0, 0);
-            closeSesion.Margin = new Padding(0, 10, 0, 0);
+            closeSession.Margin = new Padding(0, 10, 0, 0);
         }
     }
 }

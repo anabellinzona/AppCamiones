@@ -43,7 +43,7 @@ namespace AppCamiones
             //MaximizeWindom
             this.WindowState = FormWindowState.Maximized;
 
-            InitializeUI(camposForm, cant);
+            InitializeUI(camposForm, cant, filtro);
 
             //ShowForm
             CargarFormularioCheque(camposForm, cant);
@@ -67,11 +67,11 @@ namespace AppCamiones
         }
 
         //Initializations
-        private void InitializeUI(List<string> camposForm, int cant)
+        private void InitializeUI(List<string> camposForm, int cant, string filtro)
         {
             AddItemsToGrid(camposForm, cant);
             GridChequesProperties();
-            ButtonProperties();
+            ButtonProperties(filtro);
         }
 
         //Adds
@@ -391,7 +391,7 @@ namespace AppCamiones
         }
 
         //Button for back properties
-        private void ButtonProperties()
+        private void ButtonProperties(string filtro)
         {
             btnVolver.Text = "Volver";
             btnVolver.Size = new Size(140, 40);
@@ -404,9 +404,10 @@ namespace AppCamiones
             btnVolver.Click += (s, e) =>
             {
                 this.Close();
-                Viaje vv = new Viaje();
+                Viaje vv = new Viaje(filtro);
                 vv.ShowDialog();
             };
+
         }
 
         //Label
