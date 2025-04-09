@@ -13,8 +13,8 @@ namespace AppCamiones
         protected ToolStripMenuItem homeMenu = new ToolStripMenuItem("home");
         protected ToolStripMenuItem viajesMenu = new ToolStripMenuItem("viajes");
         protected ToolStripMenuItem chequesMenu = new ToolStripMenuItem("cheques");
-        private ToolStripMenuItem userMenu = new ToolStripMenuItem();
-        protected ToolStripMenuItem closeSession = new ToolStripMenuItem("Cerrar sesión");
+        //private ToolStripMenuItem userMenu = new ToolStripMenuItem();
+        //protected ToolStripMenuItem closeSession = new ToolStripMenuItem("Cerrar sesión");
         private string filtro = " ";
         private Form activeForm;
 
@@ -26,7 +26,7 @@ namespace AppCamiones
 
 
             //Redirections
-            closeSession.Click += (sender, e) => OpenForm<Login>();
+            //closeSession.Click += (sender, e) => OpenForm<Login>();
             chequesMenu.Click += (sender, e) => OpenForm<Cheque>();
             viajesMenu.Click += (sender, e) => OpenForm<Viaje>();
             homeMenu.Click += (sender, e) => OpenForm<Form1>();
@@ -78,7 +78,7 @@ namespace AppCamiones
             InitializeToolBar();
             InitializeBackImage();
             InitializeIconoApp();
-            InitializeIconoUser();
+            //InitializeIconoUser();
         }
         private void InitializeToolBar()
         {
@@ -136,20 +136,20 @@ namespace AppCamiones
                 MessageBox.Show("La imagen no se encuentra: " + iconoApp);
             }
         }
-        private void InitializeIconoUser()
-        {
-            string icono_user = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "icono_user.png");
+        //private void InitializeIconoUser()
+        //{
+        //    string icono_user = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "icono_user.png");
 
 
-            if (File.Exists(icono_user))
-            {
-                userMenu.Image = Image.FromFile(icono_user);
-            }
-            else
-            {
-                MessageBox.Show("La imagen no se encuentra: " + icono_user);
-            }
-        }
+        //    if (File.Exists(icono_user))
+        //    {
+        //        userMenu.Image = Image.FromFile(icono_user);
+        //    }
+        //    else
+        //    {
+        //        MessageBox.Show("La imagen no se encuentra: " + icono_user);
+        //    }
+        //}
 
 
 
@@ -160,9 +160,9 @@ namespace AppCamiones
             menuStrip.Items.Add(homeMenu);
             menuStrip.Items.Add(viajesMenu);
             menuStrip.Items.Add(chequesMenu);
-            menuStrip.Items.Add(userMenu);
+            //menuStrip.Items.Add(userMenu);
 
-            userMenu.DropDownItems.Add(closeSession);
+            //userMenu.DropDownItems.Add(closeSession);
 
             this.MainMenuStrip = menuStrip;
             this.Controls.Add(menuStrip);
@@ -177,7 +177,7 @@ namespace AppCamiones
             homeMenu.Text = homeMenu.Text.ToUpper();
             viajesMenu.Text = viajesMenu.Text.ToUpper();
             chequesMenu.Text = chequesMenu.Text.ToUpper();
-            userMenu.Text = userMenu.Text.ToUpper();
+            //userMenu.Text = userMenu.Text.ToUpper();
         }
         private void MenuProperties()
         {
@@ -194,20 +194,20 @@ namespace AppCamiones
             homeMenu.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
             viajesMenu.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
             chequesMenu.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
-            userMenu.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
-            closeSession.ForeColor = System.Drawing.Color.FromArgb(141, 138, 138);
+            //userMenu.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
+            //closeSession.ForeColor = System.Drawing.Color.FromArgb(141, 138, 138);
         }
         private void MarginToItems()
         {
             int x = this.Width;
             int y = x / 10;
-            int t = (menuStrip.Width - userMenu.Width);
+            //int t = (menuStrip.Width - userMenu.Width);
 
             homeMenu.Margin = new Padding(y, 0, 0, 0);
             viajesMenu.Margin = new Padding(y, 0, 0, 0);
             chequesMenu.Margin = new Padding(y, 0, 0, 0);
-            userMenu.Margin = new Padding(t, 0, 0, 0);
-            closeSession.Margin = new Padding(0, 10, 0, 0);
+            //userMenu.Margin = new Padding(t, 0, 0, 0);
+            //closeSession.Margin = new Padding(0, 10, 0, 0);
         }
     }
 }

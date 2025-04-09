@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection.Emit;
 using System.Windows.Forms;
+using static System.Windows.Forms.DataFormats;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace AppCamiones
@@ -15,7 +16,7 @@ namespace AppCamiones
     {
         //Form
         private Panel formPanel = new Panel();
-        private FlowLayoutPanel formFL = new FlowLayoutPanel();
+        private FlowLayoutPanel formFLTextBox = new FlowLayoutPanel();
 
         private List<string> campos = new List<string>();
 
@@ -38,12 +39,10 @@ namespace AppCamiones
 
 
         //Constructor
-        public FormRegistro(List<string> camposForm, int cant, string dato, string filtro)
+        public FormRegistro(List<string> camposForm, int cant, string dato, string filtro, List<string> camposFaltantesTablas)
         {
-            //MaximizeWindom
-            this.WindowState = FormWindowState.Maximized;
 
-            InitializeUI(camposForm, cant, filtro);
+            InitializeUI(camposForm, cant, filtro, camposFaltantesTablas);
 
             //ShowForm
             CargarFormularioCheque(camposForm, cant);
@@ -71,20 +70,28 @@ namespace AppCamiones
         }
 
         //Initializations
-        private void InitializeUI(List<string> camposForm, int cant, string filtro)
+        private void InitializeUI(List<string> camposForm, int cant, string filtro, List<string> camposFaltantesTablas)
         {
-            AddItemsToGrid(camposForm, cant);
+            AddItemsToGrid(camposForm, cant, camposFaltantesTablas);
             GridChequesProperties();
             ButtonProperties(filtro);
         }
 
         //Adds
-        private void AddItemsToGrid(List<string> camposForm, int cant)
-        { 
-             foreach (string campos in camposForm)
-             {
+        private void AddItemsToGrid(List<string> camposForm, int cant, List<string> camposFaltantesTabla)
+        {
+            foreach (string campos in camposForm)
+            {
+                cheq.Columns.Add(campos, campos);
+            }
+
+            if (camposFaltantesTabla != null)
+            {
+                foreach(string campos in camposFaltantesTabla)
+                {
                     cheq.Columns.Add(campos, campos);
-             }
+                }
+            }
 
             panelGrid.Controls.Add(cheq);
             this.Controls.Add(panelGrid);
@@ -123,7 +130,7 @@ namespace AppCamiones
             ButtonsPropertiesForm();
             PanelButtonProperties();
             AddControls();
-          
+
         }
 
         //FormProperties
@@ -146,6 +153,15 @@ namespace AppCamiones
         }
         private void LayoutFormProperties(int cant)
         {
+            formFLTextBox = PropertiesLayoutForm();
+           
+            formPanel.Controls.Add(formFLTextBox);
+        }
+
+        private FlowLayoutPanel PropertiesLayoutForm()
+        {
+            FlowLayoutPanel formFL = new FlowLayoutPanel();
+
             formFL.AutoSize = true;
             formFL.FlowDirection = FlowDirection.LeftToRight;
             formFL.WrapContents = false;
@@ -159,26 +175,43 @@ namespace AppCamiones
             formFL.VerticalScroll.Enabled = false;
             formFL.VerticalScroll.Visible = false;
 
-            formPanel.Controls.Add(formFL);
+            return formFL;
         }
-
 
         //TextBoxProperties
         private void TextoBoxAndLabelProperties(int cant, List<string> campos)
         {
             foreach (string campo in campos)
             {
-                Panel campoPanel = new Panel();
-                campoPanel.AutoSize = true;
-                campoPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-                campoPanel.Dock = DockStyle.Top;
+                Panel campoPanel = propertiesFormPanel();
 
                 TextBox textBoxForm = createTextBoxAndProperties(campo);
 
                 campoPanel.Controls.Add(textBoxForm);
-                formFL.Controls.Add(campoPanel);
+                formFLTextBox.Controls.Add(campoPanel);
             }
         }
+
+        private Panel propertiesFormPanel()
+        {
+            Panel campoPanel = new Panel();
+            campoPanel.AutoSize = true;
+            campoPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            campoPanel.Dock = DockStyle.Top;
+
+            return campoPanel;
+        }
+
+        private System.Windows.Forms.Label createTextBoxLabel(object campo)
+        {
+            System.Windows.Forms.Label nuevo = new System.Windows.Forms.Label();
+
+            nuevo.Font = new Font("Nunito", 12, FontStyle.Regular);
+            nuevo.Text = campo.ToString();
+
+            return nuevo;
+        }
+
         private TextBox createTextBoxAndProperties(object campo)
         {
             TextBox textBoxCampo = new TextBox();
@@ -315,7 +348,7 @@ namespace AppCamiones
             // Obtener los valores de los TextBox
             List<string> datos = new List<string>();
 
-            foreach (Control control in formFL.Controls)
+            foreach (Control control in formFLTextBox.Controls)
             {
 
                 if (control is Panel panel)
@@ -332,7 +365,6 @@ namespace AppCamiones
                                     return;
                                 }
                             }
-
                             datos.Add(textBox.Text); // Agregar el texto de cada TextBox
                         }
                     }
@@ -350,7 +382,7 @@ namespace AppCamiones
                 cheq.Rows.Add(datos.ToArray());
 
 
-                foreach (Control control in formFL.Controls)
+                foreach (Control control in formFLTextBox.Controls)
                 {
                     if (control is Panel panel)
                     {
@@ -386,7 +418,7 @@ namespace AppCamiones
         private void AddControls()
         {
             this.Controls.Add(formPanel);
-            formPanel.Controls.Add(formFL);
+            formPanel.Controls.Add(formFLTextBox);
             this.Controls.Add(btnVolver);
         }
 
@@ -427,7 +459,7 @@ namespace AppCamiones
 
         private void AddButtonCuentaCorriente(string filtro, string dato)
         {
-            if(filtro == "Cliente")
+            if (filtro == "Cliente")
             {
                 btnCuentaCorriente.Text = "Cuenta corriente";
                 btnCuentaCorriente.Size = new Size(180, 40);
