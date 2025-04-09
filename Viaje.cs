@@ -45,7 +45,11 @@ namespace AppCamiones
         private List<string> fletes = new List<string> { "López", "Fernández", "Martínez", "fff" };
 
         private List<string> campos = new List<string>();
-        private int cant = 0;
+
+        private List<string> camposFaltantesTabla = new List<string>();
+
+
+        private int cantCamposTabla = 0;
 
 
         //Card
@@ -182,29 +186,38 @@ namespace AppCamiones
 
                 card.Controls.Add(label);
                 cardsContainer.Controls.Add(card);
-                cant = 0;
+
                 if (filtro == "Camión")
                 {
                     campos.Clear();
-                    this.campos = new List<string> { "Fecha", "Origen", "Destino", "RTO o CPE", "Carga", "Km", "Kg", "Tarifa", "Total", "Porcentaje", "Chofer", "Productor" };
-                    cant = campos.Count();
+                    camposFaltantesTabla.Clear();
+                    this.campos = new List<string> { "Fecha", "Origen", "Destino", "RTO o CPE", "Carga", "Km", "Kg", "Tarifa", "Porcentaje", "Chofer", "Productor" };
+                    cantCamposTabla = campos.Count();
+
+                    this.camposFaltantesTabla = new List<string> { "Total", "Monto chofer" };
                 }
                 else if (filtro == "Cliente")
                 {
                     campos.Clear();
-                    this.campos = new List<string> { "Fecha", "Origen", "Destino", "RTO o CPE", "Carga", "Km", "Kg", "Tarifa", "Total", "Porcentaje", "Chofer", "Productor" };
-                    cant = campos.Count();
+                    camposFaltantesTabla.Clear();
+                    this.campos = new List<string> { "Fecha", "Origen", "Destino", "RTO o CPE", "Carga", "Km", "Kg", "Tarifa", "Chofer", "Productor" };
+                    cantCamposTabla = campos.Count();
+
+                    this.camposFaltantesTabla = new List<string> { "Total" };
                 }
                 else if (filtro == "Flete")
                 {
                     campos.Clear();
-                    this.campos = new List<string> { "Fecha", "Origen", "HOLA", "RTO o CPE", "Carga", "Km", "Kg", "Tarifa", "Total", "Porcentaje", "Productor" };
-                    cant = campos.Count();
+                    camposFaltantesTabla.Clear();
+                    this.campos = new List<string> { "Fecha", "Origen", "Destino", "RTO o CPE", "Carga", "Km", "Kg", "Tarifa", "Factura" };
+                    cantCamposTabla = campos.Count();
+
+                    this.camposFaltantesTabla = new List<string> { "Tota" };
                 }
 
                 card.Click += (s, e) =>
                 {
-                    ViajeFiltro form = new ViajeFiltro(dato, cant, campos, filtro);
+                    ViajeFiltro form = new ViajeFiltro(dato, cantCamposTabla, campos, filtro, camposFaltantesTabla);
                     form.Show();
                 };
             }

@@ -40,9 +40,10 @@ namespace AppCamiones
         
         private void infoForTableAndForm(string dato)
         {
-            List<string> datos = new List<string> { "Fecha", "Nro factura", "Pagó", "Debe", "Total" };
+            List<string> datos = new List<string> { "Fecha", "Nro factura", "Pagó", "Debe" };
+            List<string> campoFaltanteTabla = new List<string> { "Total " };
             int cant = datos.Count;
-            FormRegistro vv = new FormRegistro(datos, cant, dato, "Cliente");
+            FormRegistro vv = new FormRegistro(datos, cant, dato, "Cliente", campoFaltanteTabla);
             vv.TopLevel = true;
             vv.ShowDialog();
         }
