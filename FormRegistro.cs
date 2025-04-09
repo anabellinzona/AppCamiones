@@ -33,6 +33,7 @@ namespace AppCamiones
         private Panel panelGrid = new Panel();
 
         DataGridViewButtonColumn eliminar = new DataGridViewButtonColumn();
+        DataGridViewButtonColumn modificar = new DataGridViewButtonColumn();
 
         //¿Dónde estoy parado?
         System.Windows.Forms.Label nombre = new System.Windows.Forms.Label();
@@ -55,6 +56,7 @@ namespace AppCamiones
             btnCargar.Click += cargaClickEvent;
 
             cheq.CellClick += eliminarFila;
+            cheq.CellClick += modificarFila;
 
             ConfigurarDataGridView();
 
@@ -335,11 +337,22 @@ namespace AppCamiones
             {
                 DataGridViewButtonColumn btnEliminar = new DataGridViewButtonColumn();
                 btnEliminar.Name = "Eliminar";
-                btnEliminar.HeaderText = "X";  // Puedes dejarlo vacío si prefieres
-                btnEliminar.Text = "x"; // Ícono de eliminar
+                btnEliminar.HeaderText = "Eliminar";  // Puedes dejarlo vacío si prefieres
+                btnEliminar.Text = "X"; // Ícono de eliminar
                 btnEliminar.UseColumnTextForButtonValue = true; // Hace que todas las celdas muestren "❌"
                 btnEliminar.Width = 40; // Ajustar tamaño
                 cheq.Columns.Add(btnEliminar);
+            }
+
+            if (cheq.Columns["Modificar"] == null)
+            {
+                DataGridViewButtonColumn btnModificar = new DataGridViewButtonColumn();
+                btnModificar.Name = "Modificar";
+                btnModificar.HeaderText = "Modificar";  // Puedes dejarlo vacío si prefieres
+                btnModificar.Text = "M"; // Ícono de modificar
+                btnModificar.UseColumnTextForButtonValue = true; // Hace que todas las celdas muestren "M"
+                btnModificar.Width = 40; // Ajustar tamaño
+                cheq.Columns.Add(btnModificar);
             }
         }
 
@@ -374,11 +387,18 @@ namespace AppCamiones
             // Verificar que los datos no estén vacíos
             if (datos.All(dato => !string.IsNullOrWhiteSpace(dato)))
             {
-
-                eliminar.Text = "X";
+                eliminar.Name = "Eliminar";
+                eliminar.Text = "Eliminar";
                 eliminar.UseColumnTextForButtonValue = true;
 
                 datos.Add(eliminar.Text);
+
+                modificar.Name = "Modificar";
+                modificar.Text = "Modificar";
+                modificar.UseColumnTextForButtonValue = true;
+
+                datos.Add(modificar.Text);
+
                 cheq.Rows.Add(datos.ToArray());
 
 
@@ -411,6 +431,20 @@ namespace AppCamiones
                 if (resultado == DialogResult.Yes)
                 {
                     cheq.Rows.RemoveAt(e.RowIndex);
+                }
+
+            }
+        }
+        private void modificarFila(object sender, DataGridViewCellEventArgs e)
+        {
+            // Verificar si la celda clickeada pertenece a la columna "Modificar"
+            if (e.ColumnIndex == cheq.Columns["Modificar"].Index && e.RowIndex >= 0)
+            {
+                // Confirmar antes de modificar (opcional)
+                DialogResult resultado = MessageBox.Show("¿Desea modificar esta fila?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (resultado == DialogResult.Yes)
+                {
+                    //funcionModificar
                 }
 
             }

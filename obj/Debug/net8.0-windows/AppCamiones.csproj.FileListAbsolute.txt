@@ -34,3 +34,6 @@ C:\Users\usuario\Desktop\camiones\AppCamiones\obj\Debug\net8.0-windows\AppCamion
 C:\Users\usuario\Desktop\camiones\AppCamiones\obj\Debug\net8.0-windows\ref\AppCamiones.dll
 C:\Users\usuario\Desktop\camiones\AppCamiones\obj\Debug\net8.0-windows\AppCamiones.Home.resources
 C:\Users\anabe\Downloads\AppCamiones\AppCamiones\obj\Debug\net8.0-windows\AppCamiones.Home.resources
+C:\Users\usuario\Desktop\camiones\AppCamiones\obj\Debug\net8.0-windows\AppCamiones.Class1.resources
+C:\Users\usuario\Desktop\camiones\AppCamiones\obj\Debug\net8.0-windows\AppCamiones.Registro.resources
+C:\Users\usuario\Desktop\camiones\AppCamiones\obj\Debug\net8.0-windows\AppCamiones.CuentaCorriente.resources
