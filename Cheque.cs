@@ -38,6 +38,7 @@ namespace AppCamiones
         private Panel panelGrid = new Panel();
 
         DataGridViewButtonColumn eliminar = new DataGridViewButtonColumn();
+        DataGridViewButtonColumn modificar = new DataGridViewButtonColumn();
 
 
 
@@ -59,6 +60,7 @@ namespace AppCamiones
             btnCargar.Click += cargaClickEvent;
 
             cheq.CellClick += eliminarFila;
+            cheq.CellClick += modificarFila;
 
             ConfigurarDataGridView();
 
@@ -76,6 +78,17 @@ namespace AppCamiones
                 btnEliminar.UseColumnTextForButtonValue = true; // Hace que todas las celdas muestren "❌"
                 btnEliminar.Width = 40; // Ajustar tamaño
                 cheq.Columns.Add(btnEliminar);
+            }
+
+            if (cheq.Columns["Modificar"] == null)
+            {
+                DataGridViewButtonColumn btnModificar = new DataGridViewButtonColumn();
+                btnModificar.Name = "Modificar";
+                btnModificar.HeaderText = "X";  // Puedes dejarlo vacío si prefieres
+                btnModificar.Text = "x"; // Ícono de modificar
+                btnModificar.UseColumnTextForButtonValue = true; // Hace que todas las celdas muestren "M"
+                btnModificar.Width = 40; // Ajustar tamaño
+                cheq.Columns.Add(btnModificar);
             }
         }
 
@@ -110,6 +123,7 @@ namespace AppCamiones
             cheq.Columns.Add("entregadoA", "Entregado a");
             cheq.Columns.Add("fechaRetiro", "Fecha de retiro");
             cheq.Columns.Add("eliminar", "Eliminar");
+            cheq.Columns.Add("modificar", "Modificar");
 
             panelGrid.Controls.Add(cheq);
             this.Controls.Add(panelGrid);
@@ -359,6 +373,12 @@ namespace AppCamiones
                 eliminar.UseColumnTextForButtonValue = true;
 
                 datos.Add(eliminar.Text);
+
+                modificar.Text = "M";
+                modificar.UseColumnTextForButtonValue = true;
+
+                datos.Add(modificar.Text);
+
                 cheq.Rows.Add(datos.ToArray());
 
 
@@ -390,7 +410,22 @@ namespace AppCamiones
                 DialogResult resultado = MessageBox.Show("¿Desea eliminar esta fila?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (resultado == DialogResult.Yes)
                 {
-                    cheq.Rows.RemoveAt(e.RowIndex);
+                    cheq.Rows.RemoveAt(e.RowIndex); //funcionEliminar
+                }
+
+            }
+        }
+
+        private void modificarFila(object sender, DataGridViewCellEventArgs e)
+        {
+            // Verificar si la celda clickeada pertenece a la columna "Modificar"
+            if (e.ColumnIndex == cheq.Columns["Modificar"].Index && e.RowIndex >= 0)
+            {
+                // Confirmar antes de modificar (opcional)
+                DialogResult resultado = MessageBox.Show("¿Desea modificar esta fila?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (resultado == DialogResult.Yes)
+                {
+                    //funcionModificar
                 }
 
             }
