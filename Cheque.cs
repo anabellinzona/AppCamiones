@@ -32,6 +32,12 @@ namespace AppCamiones
         private Panel btnPanel = new Panel();
         private RoundButton btnCargar = new RoundButton();
 
+        //Filter
+        private Panel filterPanel = new Panel();
+        private FlowLayoutPanel filterFL = new FlowLayoutPanel();
+
+        private TextBox filterTextBox = new TextBox();
+        private RoundButton filterBtn = new RoundButton();
 
         //Grid
         private DataGridView cheq = new DataGridView();
@@ -97,6 +103,7 @@ namespace AppCamiones
         {
             AddItemsToGrid();
             GridChequesProperties();
+            InitializeFilter();
         }
         private void InitializeFormProperties(int cant, List<string> campos)
         {
@@ -107,6 +114,11 @@ namespace AppCamiones
             PanelButtonProperties();
             AddLabels();
             AddForm();
+        }
+        private void InitializeFilter()
+        {
+            AddFilter();
+            filterProperties();
         }
 
 
@@ -137,6 +149,15 @@ namespace AppCamiones
         {
             this.Controls.Add(formPanel);
         }
+        private void AddFilter()
+        {
+            filterFL.Controls.Add(filterTextBox);
+            filterFL.Controls.Add(filterBtn);
+
+            filterPanel.Controls.Add(filterFL);
+
+            this.Controls.Add(filterPanel);
+        }
 
 
 
@@ -155,11 +176,42 @@ namespace AppCamiones
         private void CargarFormularioCheque(int cant)
         {
             this.campos.Clear();
-            this.campos = new List<string> { "F. Recibido", "Banco", "Nro. de cheque", "Pesos", "Nombre", "Número personal de cheque", "Entregado a", "Fecha de retiro" };
+            this.campos = new List<string> { "F. Recibido", "Banco", "Nro. Cheque", "Pesos", "Nombre", "Nro. Personal", "Entregado a", "Fecha de retiro" };
 
             InitializeFormProperties(cant, campos);
         }
 
+
+        //FilterProperties
+        private void filterProperties()
+        {
+            
+            filterPanel.Size = new Size(200, 50);
+            filterPanel.BackColor = Color.Transparent; 
+            filterPanel.Location = new Point(cheq.Location.X + cheq.Width - (filterPanel.Width / 2), menuStrip.Height + formFL.Height + 30);
+
+            filterFL.Dock = DockStyle.Fill;
+            filterFL.FlowDirection = FlowDirection.LeftToRight;
+            filterFL.WrapContents = false;
+            filterFL.AutoSize = false;
+            filterFL.Margin = new Padding(0);
+            filterFL.Padding = new Padding(0);
+
+            filterTextBox.Size = new Size(120, 30);
+            filterTextBox.Font = new Font("Nunito", 10);
+            filterTextBox.PlaceholderText = "Buscar por Nro. Cheque...";
+            filterTextBox.Margin = new Padding(5, 10, 5, 10);
+
+            filterBtn.Text = "🔍";
+            filterBtn.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
+            filterBtn.BackColor = System.Drawing.Color.FromArgb(48, 48, 48);
+            filterBtn.Size = new Size(30, 25);
+            filterBtn.Margin = new Padding(0, 10, 5, 10);
+            filterBtn.FlatStyle = FlatStyle.Flat;
+            filterBtn.FlatAppearance.BorderColor = Color.FromArgb(48, 48, 48);
+            filterBtn.FlatAppearance.BorderSize = 1;
+
+        }
 
 
         //FormProperties
@@ -209,8 +261,17 @@ namespace AppCamiones
                 campoPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
                 campoPanel.Dock = DockStyle.Top;
 
+                System.Windows.Forms.Label labelCampo = new System.Windows.Forms.Label();
+                labelCampo.Text = campo;
+                labelCampo.Font = new Font("Nunito", 10, FontStyle.Bold);
+                labelCampo.ForeColor = Color.White;
+                labelCampo.TextAlign = ContentAlignment.MiddleLeft;
+                labelCampo.Dock = DockStyle.Right;
+                labelCampo.AutoSize = true;
+
                 TextBox textBoxForm = createTextBoxAndProperties(campo);
 
+                campoPanel.Controls.Add(labelCampo); 
                 campoPanel.Controls.Add(textBoxForm);
                 formFL.Controls.Add(campoPanel);
             }
@@ -329,7 +390,7 @@ namespace AppCamiones
 
         private void PositionGrid()
         {
-            panelGrid.Location = new Point((this.Width - panelGrid.Width) / 2, 200);
+            panelGrid.Location = new Point((this.Width - panelGrid.Width) / 2, 250);
 
         }
 

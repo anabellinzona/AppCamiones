@@ -175,10 +175,20 @@ namespace AppCamiones
                 campoPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
                 campoPanel.Dock = DockStyle.Top;
 
+                System.Windows.Forms.Label labelCampo = new System.Windows.Forms.Label();
+                labelCampo.Text = campo;
+                labelCampo.Font = new Font("Nunito", 10, FontStyle.Bold);
+                labelCampo.ForeColor = Color.White;
+                labelCampo.TextAlign = ContentAlignment.MiddleLeft;
+                labelCampo.Dock = DockStyle.Right;
+                labelCampo.AutoSize = true;
+
                 TextBox textBoxForm = createTextBoxAndProperties(campo);
 
+                campoPanel.Controls.Add(labelCampo); 
                 campoPanel.Controls.Add(textBoxForm);
                 formFL.Controls.Add(campoPanel);
+
             }
         }
         private TextBox createTextBoxAndProperties(object campo)
