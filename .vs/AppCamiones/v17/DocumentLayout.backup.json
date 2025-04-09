@@ -1,9 +1,12 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\usuario\\Desktop\\camiones\\AppCamiones\\",
+  "WorkspaceRootPath": "C:\\Users\\anabe\\Downloads\\AppCamiones\\AppCamiones\\",
   "Documents": [
     {
-<<<<<<< HEAD
+      "AbsoluteMoniker": "D:0:0:{B254E7AD-DB00-47CD-91DA-63A6C942BCCE}|AppCamiones.csproj|c:\\users\\anabe\\downloads\\appcamiones\\appcamiones\\cheque.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B254E7AD-DB00-47CD-91DA-63A6C942BCCE}|AppCamiones.csproj|solutionrelative:cheque.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{B254E7AD-DB00-47CD-91DA-63A6C942BCCE}|AppCamiones.csproj|c:\\users\\anabe\\downloads\\appcamiones\\appcamiones\\formregistro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B254E7AD-DB00-47CD-91DA-63A6C942BCCE}|AppCamiones.csproj|solutionrelative:formregistro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -12,27 +15,16 @@
       "RelativeMoniker": "D:0:0:{B254E7AD-DB00-47CD-91DA-63A6C942BCCE}|AppCamiones.csproj|solutionrelative:viaje.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{B254E7AD-DB00-47CD-91DA-63A6C942BCCE}|AppCamiones.csproj|c:\\users\\anabe\\downloads\\appcamiones\\appcamiones\\cuentacorriente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B254E7AD-DB00-47CD-91DA-63A6C942BCCE}|AppCamiones.csproj|solutionrelative:cuentacorriente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{B254E7AD-DB00-47CD-91DA-63A6C942BCCE}|AppCamiones.csproj|c:\\users\\anabe\\downloads\\appcamiones\\appcamiones\\viajefiltro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B254E7AD-DB00-47CD-91DA-63A6C942BCCE}|AppCamiones.csproj|solutionrelative:viajefiltro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B254E7AD-DB00-47CD-91DA-63A6C942BCCE}|AppCamiones.csproj|c:\\users\\anabe\\downloads\\appcamiones\\appcamiones\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B254E7AD-DB00-47CD-91DA-63A6C942BCCE}|AppCamiones.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B254E7AD-DB00-47CD-91DA-63A6C942BCCE}|AppCamiones.csproj|c:\\users\\anabe\\downloads\\appcamiones\\appcamiones\\cuentacorriente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B254E7AD-DB00-47CD-91DA-63A6C942BCCE}|AppCamiones.csproj|solutionrelative:cuentacorriente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B254E7AD-DB00-47CD-91DA-63A6C942BCCE}|AppCamiones.csproj|c:\\users\\anabe\\downloads\\appcamiones\\appcamiones\\cheque.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-=======
-      "AbsoluteMoniker": "D:0:0:{B254E7AD-DB00-47CD-91DA-63A6C942BCCE}|AppCamiones.csproj|c:\\users\\usuario\\desktop\\camiones\\appcamiones\\formregistro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B254E7AD-DB00-47CD-91DA-63A6C942BCCE}|AppCamiones.csproj|solutionrelative:formregistro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B254E7AD-DB00-47CD-91DA-63A6C942BCCE}|AppCamiones.csproj|c:\\users\\usuario\\desktop\\camiones\\appcamiones\\cheque.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
->>>>>>> 83ee634263c47fc0face9a3df340c38f1eb410e6
-      "RelativeMoniker": "D:0:0:{B254E7AD-DB00-47CD-91DA-63A6C942BCCE}|AppCamiones.csproj|solutionrelative:cheque.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -42,7 +34,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Bookmark",
@@ -54,8 +46,7 @@
             },
             {
               "$type": "Document",
-<<<<<<< HEAD
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "Form1.cs",
               "DocumentMoniker": "C:\\Users\\anabe\\Downloads\\AppCamiones\\AppCamiones\\Form1.cs",
               "RelativeDocumentMoniker": "Form1.cs",
@@ -67,7 +58,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 3,
               "Title": "CuentaCorriente.cs",
               "DocumentMoniker": "C:\\Users\\anabe\\Downloads\\AppCamiones\\AppCamiones\\CuentaCorriente.cs",
               "RelativeDocumentMoniker": "CuentaCorriente.cs",
@@ -79,7 +70,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Viaje.cs",
               "DocumentMoniker": "C:\\Users\\anabe\\Downloads\\AppCamiones\\AppCamiones\\Viaje.cs",
               "RelativeDocumentMoniker": "Viaje.cs",
@@ -91,7 +82,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "ViajeFiltro.cs",
               "DocumentMoniker": "C:\\Users\\anabe\\Downloads\\AppCamiones\\AppCamiones\\ViajeFiltro.cs",
               "RelativeDocumentMoniker": "ViajeFiltro.cs",
@@ -103,44 +94,27 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "FormRegistro.cs",
               "DocumentMoniker": "C:\\Users\\anabe\\Downloads\\AppCamiones\\AppCamiones\\FormRegistro.cs",
               "RelativeDocumentMoniker": "FormRegistro.cs",
               "ToolTip": "C:\\Users\\anabe\\Downloads\\AppCamiones\\AppCamiones\\FormRegistro.cs",
               "RelativeToolTip": "FormRegistro.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAABGAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAA6AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-20T13:24:33.834Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-20T13:24:33.834Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-=======
               "DocumentIndex": 0,
-              "Title": "FormRegistro.cs",
-              "DocumentMoniker": "C:\\Users\\usuario\\Desktop\\camiones\\AppCamiones\\FormRegistro.cs",
-              "RelativeDocumentMoniker": "FormRegistro.cs",
-              "ToolTip": "C:\\Users\\usuario\\Desktop\\camiones\\AppCamiones\\FormRegistro.cs*",
-              "RelativeToolTip": "FormRegistro.cs*",
-              "ViewState": "AgIAACcBAAAAAAAAAAAUwDMBAAAlAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-09T15:30:36.019Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
->>>>>>> 83ee634263c47fc0face9a3df340c38f1eb410e6
               "Title": "Cheque.cs",
-              "DocumentMoniker": "C:\\Users\\usuario\\Desktop\\camiones\\AppCamiones\\Cheque.cs",
+              "DocumentMoniker": "C:\\Users\\anabe\\Downloads\\AppCamiones\\AppCamiones\\Cheque.cs",
               "RelativeDocumentMoniker": "Cheque.cs",
-              "ToolTip": "C:\\Users\\usuario\\Desktop\\camiones\\AppCamiones\\Cheque.cs",
+              "ToolTip": "C:\\Users\\anabe\\Downloads\\AppCamiones\\AppCamiones\\Cheque.cs",
               "RelativeToolTip": "Cheque.cs",
-              "ViewState": "AgIAAEAAAAAAAAAAAAAgwHcAAAAvAAAAAAAAAA==",
+              "ViewState": "AgIAAA8BAAAAAAAAAAAqwEgAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-09T14:33:21.359Z",
+              "WhenOpened": "2025-03-19T23:01:50.205Z",
               "EditorCaption": ""
             }
           ]
