@@ -20,11 +20,8 @@ namespace AppCamiones
         private Panel table_travel = new Panel();
 
         private Label travel_title = new Label();
-        private Label travel_title2 = new Label();
 
         private FlowLayoutPanel layoutTableTravelToday = new FlowLayoutPanel();
-        private FlowLayoutPanel layoutTableTravelNext = new FlowLayoutPanel();
-        private FlowLayoutPanel layoutTravelNext = new FlowLayoutPanel();
         private FlowLayoutPanel layoutTravelToday = new FlowLayoutPanel();
 
         //private FormRegistro travelForm = new FormRegistro(z);
@@ -73,13 +70,10 @@ namespace AppCamiones
         {
             TableTravelProperties();
             LayoutTableTravelTodayProperties();
-            LayoutTableTravelNextProperties();
-            LayoutTravelNextProperties();
             LayoutTravelTodayProperties();
             TableTravelTitleProperties();
             AddTitleToTableTravel();
             AddTravelToday();
-            AddTravel();
         }
         private void CrearFormularioSobrePaneles()
 
@@ -155,31 +149,10 @@ namespace AppCamiones
                 travel.ForeColor = System.Drawing.Color.FromArgb(224, 224, 224);
             }
         }
-        private void AddTravel()
-        {
-            for (int i = 0; i < 8; i++)
-            {
-                Label travel = new Label();
-                if (i >= 4)
-                {
-                    travel.Margin = new Padding(0, 10, 0, 0);
-                }
-                else
-                {
-                    travel.Margin = new Padding(60, 10, 0, 0);
-                }
-                TravelProperties(travel);
-                layoutTravelNext.Controls.Add(travel);
-                travel.ForeColor = System.Drawing.Color.FromArgb(141, 138, 138);
-            }
-        }
         private void AddTitleToTableTravel()
         {
             table_travel.Controls.Add(layoutTableTravelToday);
-            table_travel.Controls.Add(layoutTableTravelNext);
             layoutTableTravelToday.Controls.Add(travel_title);
-            layoutTableTravelNext.Controls.Add(travel_title2);
-            layoutTableTravelNext.Controls.Add(layoutTravelNext);
             layoutTableTravelToday.Controls.Add(layoutTravelToday);
 
         }
@@ -225,39 +198,6 @@ namespace AppCamiones
             layoutTableTravelToday.Width = table_travel.Width;
             layoutTableTravelToday.Size = new Size(table_travel.Width, 200);
         }
-        private void LayoutTableTravelNextProperties()
-        {
-            layoutTableTravelNext.Padding = new Padding(0);
-            layoutTableTravelNext.Margin = new Padding(0);
-
-            table_travel.Resize += (s, e) =>
-            {
-                layoutTableTravelNext.Location = new Point((table_travel.Width - layoutTableTravelNext.Width) / 2, 240);
-            };
-            layoutTableTravelNext.Anchor = AnchorStyles.None; // Evita que se expanda con el contenedor
-            layoutTableTravelNext.Size = new Size(table_travel.Width, 200);
-            layoutTableTravelNext.BackColor = Color.Transparent;
-            layoutTableTravelNext.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            layoutTableTravelNext.FlowDirection = FlowDirection.TopDown; // Crece hacia abajo
-            layoutTableTravelNext.WrapContents = true;//Evita que los elementos pasen a otra línea
-        }
-        private void LayoutTravelNextProperties()
-        {
-            layoutTravelNext.Padding = new Padding(0);
-            layoutTravelNext.Margin = new Padding(0);
-
-            table_travel.Resize += (s, e) =>
-            {
-                layoutTableTravelNext.Location = new Point((layoutTableTravelNext.Width - layoutTravelNext.Width) / 2, 240);
-            };
-            layoutTravelNext.Anchor = AnchorStyles.None; // Evita que se expanda con el contenedor
-            layoutTravelNext.Size = new Size(layoutTableTravelNext.Width, 160);
-            layoutTravelNext.AutoScroll = true;
-            layoutTravelNext.BackColor = Color.Transparent;
-            layoutTravelNext.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            layoutTravelNext.FlowDirection = FlowDirection.TopDown; // Crece hacia abajo
-            layoutTravelNext.WrapContents = true;//Evita que los elementos pasen a otra línea
-        }
         private void LayoutTravelTodayProperties()
         {
             layoutTravelToday.Padding = new Padding(0);
@@ -286,14 +226,6 @@ namespace AppCamiones
             travel_title.AutoSize = false;
             travel_title.Width = layoutTableTravelToday.Width;
             
-            travel_title2.Text = "viajes próximos:";
-            travel_title2.Font = new Font("Arial", 14, FontStyle.Regular);
-            travel_title2.Text = travel_title2.Text.ToUpper();
-            travel_title2.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
-            travel_title2.BackColor = Color.Transparent;
-            travel_title2.TextAlign = ContentAlignment.TopCenter;
-            travel_title2.AutoSize = false;
-            travel_title2.Width = layoutTableTravelNext.Width;
         }
         private void TravelProperties(Label travel)
         {
