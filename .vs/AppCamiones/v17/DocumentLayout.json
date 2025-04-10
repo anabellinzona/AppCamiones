@@ -1,5 +1,6 @@
 {
   "Version": 1,
+<<<<<<< HEAD
   "WorkspaceRootPath": "C:\\Users\\anabe\\Downloads\\AppCamiones\\AppCamiones\\",
   "Documents": [
     {
@@ -36,6 +37,12 @@
     },
     {
       "AbsoluteMoniker": "D:0:0:{B254E7AD-DB00-47CD-91DA-63A6C942BCCE}|AppCamiones.csproj|c:\\users\\anabe\\downloads\\appcamiones\\appcamiones\\viaje.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+=======
+  "WorkspaceRootPath": "C:\\Users\\usuario\\Desktop\\camiones\\AppCamiones\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{B254E7AD-DB00-47CD-91DA-63A6C942BCCE}|AppCamiones.csproj|c:\\users\\usuario\\desktop\\camiones\\appcamiones\\viaje.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+>>>>>>> 2c1773f0bdddaa6ae339491dff4cc6e783611ccc
       "RelativeMoniker": "D:0:0:{B254E7AD-DB00-47CD-91DA-63A6C942BCCE}|AppCamiones.csproj|solutionrelative:viaje.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -46,7 +53,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
+<<<<<<< HEAD
           "SelectedChildIndex": 9,
+=======
+          "SelectedChildIndex": 2,
+>>>>>>> 2c1773f0bdddaa6ae339491dff4cc6e783611ccc
           "Children": [
             {
               "$type": "Document",
@@ -72,6 +83,7 @@
             },
             {
               "$type": "Document",
+<<<<<<< HEAD
               "DocumentIndex": 3,
               "Title": "Registro.cs",
               "DocumentMoniker": "C:\\Users\\anabe\\Downloads\\AppCamiones\\AppCamiones\\Registro.cs",
@@ -172,6 +184,17 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAF0AAAA+AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-19T23:01:50.205Z",
+=======
+              "DocumentIndex": 0,
+              "Title": "Viaje.cs",
+              "DocumentMoniker": "C:\\Users\\usuario\\Desktop\\camiones\\AppCamiones\\Viaje.cs",
+              "RelativeDocumentMoniker": "Viaje.cs",
+              "ToolTip": "C:\\Users\\usuario\\Desktop\\camiones\\AppCamiones\\Viaje.cs",
+              "RelativeToolTip": "Viaje.cs",
+              "ViewState": "AgIAALEAAAAAAAAAAAAAAMEAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-10T15:57:11.353Z",
+>>>>>>> 2c1773f0bdddaa6ae339491dff4cc6e783611ccc
               "EditorCaption": ""
             }
           ]

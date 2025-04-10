@@ -12,6 +12,7 @@ using System.Collections;
 using System.Security.Cryptography;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Diagnostics;
 
 namespace AppCamiones
 {
@@ -184,8 +185,31 @@ namespace AppCamiones
                     BackColor = Color.Transparent
                 };
 
+                RoundButton remove = new RoundButton
+                {
+                    Text = "🗑️",
+                    BackColor = System.Drawing.Color.FromArgb(48, 48, 48),
+                    ForeColor = System.Drawing.Color.FromArgb(218, 218, 28),
+                    Size = new Size(30, 40),
+                    Location = new Point(170, 60),
+
+                    FlatStyle = FlatStyle.Flat,
+                };
+                remove.FlatAppearance.BorderColor = Color.FromArgb(48, 48, 48);
+                remove.FlatAppearance.BorderSize = 1;
+
                 card.Controls.Add(label);
+                card.Controls.Add(remove);
                 cardsContainer.Controls.Add(card);
+
+                // Evento para eliminar la card
+                remove.Click += (s, e) =>
+                {
+                    RoundButton btn = (RoundButton)s;
+                    Panel parentCard = (Panel)btn.Parent;
+                    cardsContainer.Controls.Remove(parentCard);
+                    parentCard.Dispose(); // opcional
+                };
 
                 if (filtro == "Camion")
                 {
