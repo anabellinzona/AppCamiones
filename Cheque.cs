@@ -418,6 +418,20 @@ namespace AppCamiones
                                     MessageBox.Show("Complete todos los campos");
                                     return;
                                 }
+                                if (textBox.Name == campo)
+                                {
+                                    if (campo == "Fecha")
+                                    {
+                                        TextBox campoFecha = textBox;
+                                        DateTime fecha;
+                                        if (!DateTime.TryParse(campoFecha.Text, out fecha))
+                                        {
+                                            MessageBox.Show("Por favor, ingrese una fecha válida.");
+                                            textBox.Focus();
+                                            return;
+                                        }
+                                    }
+                                }
                             }
                             
                             datos.Add(textBox.Text); // Agregar el texto de cada TextBox
