@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection.Emit;
 using System.Windows.Forms;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 using static System.Windows.Forms.DataFormats;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 using Label = System.Windows.Forms.Label;
@@ -91,7 +92,7 @@ namespace AppCamiones
 
             if (camposFaltantesTabla != null)
             {
-                foreach(string campos in camposFaltantesTabla)
+                foreach (string campos in camposFaltantesTabla)
                 {
                     cheq.Columns.Add(campos, campos);
                 }
@@ -154,7 +155,7 @@ namespace AppCamiones
             };
 
             formPanel.BackColor = System.Drawing.Color.FromArgb(200, Color.Black);
-           
+
         }
         private void LayoutFormProperties(int cant)
         {
@@ -175,7 +176,7 @@ namespace AppCamiones
         private FlowLayoutPanel PropertiesLayoutForm()
         {
             FlowLayoutPanel formFL = new FlowLayoutPanel();
-            
+
             formFL.FlowDirection = FlowDirection.LeftToRight;
             formFL.WrapContents = false;
             formFL.BackColor = Color.Transparent;
@@ -208,7 +209,7 @@ namespace AppCamiones
             //campoTextBox.Dock = DockStyle.Top;
 
 
-            return campoTextBox;      
+            return campoTextBox;
         }
 
         private Label CreateLabelAndProperties(object campo)
@@ -242,6 +243,8 @@ namespace AppCamiones
 
             //PlaceHolersProperties
             string placeholderText = campo.ToString();
+
+            textBoxCampo.Name = placeholderText;
             textBoxCampo.Text = placeholderText;
 
             textBoxCampo.GotFocus += (s, e) =>
@@ -370,7 +373,6 @@ namespace AppCamiones
             // Obtener los valores de los TextBox
             List<string> datos = new List<string>();
 
-
             foreach (Control control in formFLTextBox.Controls)
             {
 
@@ -387,6 +389,20 @@ namespace AppCamiones
                                     MessageBox.Show("Complete todos los campos");
                                     return;
                                 }
+                                if (textBox.Name == campo)
+                                {
+                                    if (campo == "Fecha")
+                                    {
+                                        TextBox campoFecha = textBox;
+                                        DateTime fecha;
+                                        if (!DateTime.TryParse(campoFecha.Text, out fecha))
+                                        {
+                                            MessageBox.Show("Por favor, ingrese una fecha válida.");
+                                            textBox.Focus();
+                                            return;
+                                        }
+                                    }
+                                }
                             }
                             datos.Add(textBox.Text); // Agregar el texto de cada TextBox
                         }
@@ -397,14 +413,13 @@ namespace AppCamiones
             // Verificar que los datos no estén vacíos
             if (datos.All(dato => !string.IsNullOrWhiteSpace(dato)))
             {
-                eliminar.Name = "Eliminar";
-                //eliminar.Text = "Eliminar";
+
+                eliminar.Text = "X";
                 eliminar.UseColumnTextForButtonValue = true;
 
                 datos.Add(eliminar.Text);
 
-                modificar.Name = "Modificar";
-                //modificar.Text = "Modificar";
+                modificar.Text = "M";
                 modificar.UseColumnTextForButtonValue = true;
 
                 datos.Add(modificar.Text);
@@ -523,5 +538,97 @@ namespace AppCamiones
 
             this.Controls.Add(btnCuentaCorriente);
         }
+
+    //    private void ConfigurarDataGridView()
+    //    {
+    //        dataGridView = new DataGridView
+    //        {
+    //            Location = new Point(20, flowLayoutPanel.Bottom + 20),
+    //            Width = 740,
+    //            Height = 250,
+    //            AllowUserToAddRows = false,
+    //            ReadOnly = true,
+    //            AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill,
+    //            ColumnHeadersDefaultCellStyle = new DataGridViewCellStyle { Font = new Font("Segoe UI", 10, FontStyle.Bold) },
+    //            DefaultCellStyle = new DataGridViewCellStyle { Font = new Font("Segoe UI", 10) }
+    //        };
+
+    //        foreach (string campo in campos)
+    //        {
+    //            dataGridView.Columns.Add(campo, campo);
+    //        }
+
+    //        DataGridViewButtonColumn btnEliminar = new DataGridViewButtonColumn();
+    //        btnEliminar.HeaderText = "Eliminar";
+    //        btnEliminar.Text = "X";
+    //        btnEliminar.UseColumnTextForButtonValue = true;
+    //        dataGridView.Columns.Add(btnEliminar);
+
+    //        DataGridViewButtonColumn btnModificar = new DataGridViewButtonColumn();
+    //        btnModificar.HeaderText = "Modificar";
+    //        btnModificar.Text = "✎";
+    //        btnModificar.UseColumnTextForButtonValue = true;
+    //        dataGridView.Columns.Add(btnModificar);
+
+    //        dataGridView.CellClick += DataGridView_CellClick;
+
+    //        this.Controls.Add(dataGridView);
+    //    }
+
+    //    private void DataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
+    //    {
+    //        if (e.RowIndex >= 0)
+    //        {
+    //            if (e.ColumnIndex == dataGridView.Columns[campos.Count].Index) // Botón Eliminar
+    //            {
+    //                dataGridView.Rows.RemoveAt(e.RowIndex);
+    //            }
+    //            else if (e.ColumnIndex == dataGridView.Columns[campos.Count + 1].Index) // Botón Modificar
+    //            {
+    //                for (int i = 0; i < campos.Count; i++)
+    //                {
+    //                    TextBox tb = flowLayoutPanel.Controls.OfType<TextBox>().FirstOrDefault(x => x.Name == campos[i]);
+    //                    if (tb != null)
+    //                    {
+    //                        tb.Text = dataGridView.Rows[e.RowIndex].Cells[i].Value.ToString();
+    //                        tb.ForeColor = Color.Black;
+    //                    }
+    //                }
+    //                dataGridView.Rows.RemoveAt(e.RowIndex);
+    //            }
+    //        }
+    //    }
+
+
+
+    //    private void CargaClickEvent(object sender, EventArgs e)
+    //    {
+    //        datos.Clear();
+    //        foreach (TextBox textBox in flowLayoutPanel.Controls.OfType<TextBox>())
+    //        {
+    //            if (textBox.Text == textBox.Name || string.IsNullOrWhiteSpace(textBox.Text))
+    //            {
+    //                MessageBox.Show("Complete todos los campos.");
+    //                return;
+    //            }
+
+    //            if (camposFecha.Contains(textBox.Name))
+    //            {
+    //                if (!DateTime.TryParse(textBox.Text, out _))
+    //                {
+    //                    MessageBox.Show($"El campo {textBox.Name} debe tener una fecha válida.");
+    //                    textBox.Focus();
+    //                    textBox.SelectAll();
+    //                    return;
+    //                }
+    //            }
+
+    //            datos.Add(textBox.Text);
+    //            ResetearTextBox(textBox);
+    //        }
+
+    //        dataGridView.Rows.Add(datos.ToArray());
+    //    }
+    //}
     }
 }
