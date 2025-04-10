@@ -22,7 +22,7 @@ namespace AppCamiones
         private List<TextBox> textBoxList = new List<TextBox>();
 
         //DECLARACIÓN DEL FORM
-        private NewRoundPanel form = new NewRoundPanel();
+        private NewRoundPanel form = new NewRoundPanel(40);
 
         private FlowLayoutPanel flowLayoutForm = new FlowLayoutPanel();
 

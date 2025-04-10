@@ -41,3 +41,4 @@ C:\Users\anabe\Downloads\AppCamiones\AppCamiones\obj\Debug\net8.0-windows\AppCam
 C:\Users\anabe\Downloads\AppCamiones\AppCamiones\obj\Debug\net8.0-windows\AppCamiones.CuentaCorriente.resources
 C:\Users\anabe\Downloads\AppCamiones\AppCamiones\obj\Debug\net8.0-windows\AppCamiones.Registro.resources
 C:\Users\anabe\Downloads\AppCamiones\AppCamiones\obj\Debug\net8.0-windows\AppCamiones.Cheque.resources
+C:\Users\usuario\Desktop\camiones\AppCamiones\obj\Debug\net8.0-windows\AppCamiones.Cheque.resources

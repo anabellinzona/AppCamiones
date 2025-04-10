@@ -17,7 +17,7 @@ namespace AppCamiones
     public class FormRegistro : Home
     {
         //Form
-        private Panel formPanel = new Panel();
+        private NewRoundPanel formPanel = new NewRoundPanel(20);
         private FlowLayoutPanel formFLTextBox = new FlowLayoutPanel();
         private FlowLayoutPanel formFLLabel = new FlowLayoutPanel();
 
@@ -29,6 +29,7 @@ namespace AppCamiones
         private RoundButton btnCargar = new RoundButton();
         private RoundButton btnVolver = new RoundButton();
         private RoundButton btnCuentaCorriente = new RoundButton();
+        private RoundButton btnSueldoMensual = new RoundButton();
 
 
         //Grid
@@ -45,6 +46,10 @@ namespace AppCamiones
         //Constructor
         public FormRegistro(List<string> camposForm, int cant, string dato, string filtro, List<string> camposFaltantesTablas)
         {
+            if(filtro == "sueldo")
+            {
+                formPanel.Visible = false;
+            }
 
             InitializeUI(camposForm, cant, filtro, camposFaltantesTablas);
 
@@ -66,6 +71,7 @@ namespace AppCamiones
             LabelProperties(dato);
 
             AddButtonCuentaCorriente(filtro, dato);
+            AddButtonSueldoMensual(filtro, dato);
 
             //PositionGrid();
 
@@ -141,8 +147,8 @@ namespace AppCamiones
         //FormProperties
         private void FormProperties(int cant)
         {
-
-            formPanel.Size = new Size(ClientSize.Width * 4 + 20, 80);
+          
+            formPanel.Size = new Size(110 * cant, 80);
             formPanel.AutoScroll = true;
             formPanel.HorizontalScroll.Enabled = true;
             formPanel.HorizontalScroll.Visible = true;
@@ -353,6 +359,7 @@ namespace AppCamiones
                 btnEliminar.Text = "X"; // Ícono de eliminar
                 btnEliminar.UseColumnTextForButtonValue = true; // Hace que todas las celdas muestren "❌"
                 btnEliminar.Width = 40; // Ajustar tamaño
+
                 cheq.Columns.Add(btnEliminar);
             }
 
@@ -539,96 +546,27 @@ namespace AppCamiones
             this.Controls.Add(btnCuentaCorriente);
         }
 
-    //    private void ConfigurarDataGridView()
-    //    {
-    //        dataGridView = new DataGridView
-    //        {
-    //            Location = new Point(20, flowLayoutPanel.Bottom + 20),
-    //            Width = 740,
-    //            Height = 250,
-    //            AllowUserToAddRows = false,
-    //            ReadOnly = true,
-    //            AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill,
-    //            ColumnHeadersDefaultCellStyle = new DataGridViewCellStyle { Font = new Font("Segoe UI", 10, FontStyle.Bold) },
-    //            DefaultCellStyle = new DataGridViewCellStyle { Font = new Font("Segoe UI", 10) }
-    //        };
+        private void AddButtonSueldoMensual(string filtro, string dato)
+        {
+            if (filtro == "Camion")
+            {
+                btnSueldoMensual.Text = "Ver sueldo mensual";
+                btnSueldoMensual.Size = new Size(180, 40);
+                btnSueldoMensual.FlatAppearance.BorderSize = 0;
+                btnSueldoMensual.FlatStyle = FlatStyle.Flat;
+                btnSueldoMensual.Location = new Point(40, 180);
+                btnSueldoMensual.Font = new Font("Nunito", 16, FontStyle.Regular);
+                btnSueldoMensual.BackColor = System.Drawing.Color.FromArgb(48, 48, 48);
+                btnSueldoMensual.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
+                btnSueldoMensual.Click += (s, e) =>
+                {
+                    this.Close();
+                    SueldoMensual sueldo = new SueldoMensual(dato);
+                    sueldo.ShowDialog();
+                };
+            }
 
-    //        foreach (string campo in campos)
-    //        {
-    //            dataGridView.Columns.Add(campo, campo);
-    //        }
-
-    //        DataGridViewButtonColumn btnEliminar = new DataGridViewButtonColumn();
-    //        btnEliminar.HeaderText = "Eliminar";
-    //        btnEliminar.Text = "X";
-    //        btnEliminar.UseColumnTextForButtonValue = true;
-    //        dataGridView.Columns.Add(btnEliminar);
-
-    //        DataGridViewButtonColumn btnModificar = new DataGridViewButtonColumn();
-    //        btnModificar.HeaderText = "Modificar";
-    //        btnModificar.Text = "✎";
-    //        btnModificar.UseColumnTextForButtonValue = true;
-    //        dataGridView.Columns.Add(btnModificar);
-
-    //        dataGridView.CellClick += DataGridView_CellClick;
-
-    //        this.Controls.Add(dataGridView);
-    //    }
-
-    //    private void DataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
-    //    {
-    //        if (e.RowIndex >= 0)
-    //        {
-    //            if (e.ColumnIndex == dataGridView.Columns[campos.Count].Index) // Botón Eliminar
-    //            {
-    //                dataGridView.Rows.RemoveAt(e.RowIndex);
-    //            }
-    //            else if (e.ColumnIndex == dataGridView.Columns[campos.Count + 1].Index) // Botón Modificar
-    //            {
-    //                for (int i = 0; i < campos.Count; i++)
-    //                {
-    //                    TextBox tb = flowLayoutPanel.Controls.OfType<TextBox>().FirstOrDefault(x => x.Name == campos[i]);
-    //                    if (tb != null)
-    //                    {
-    //                        tb.Text = dataGridView.Rows[e.RowIndex].Cells[i].Value.ToString();
-    //                        tb.ForeColor = Color.Black;
-    //                    }
-    //                }
-    //                dataGridView.Rows.RemoveAt(e.RowIndex);
-    //            }
-    //        }
-    //    }
-
-
-
-    //    private void CargaClickEvent(object sender, EventArgs e)
-    //    {
-    //        datos.Clear();
-    //        foreach (TextBox textBox in flowLayoutPanel.Controls.OfType<TextBox>())
-    //        {
-    //            if (textBox.Text == textBox.Name || string.IsNullOrWhiteSpace(textBox.Text))
-    //            {
-    //                MessageBox.Show("Complete todos los campos.");
-    //                return;
-    //            }
-
-    //            if (camposFecha.Contains(textBox.Name))
-    //            {
-    //                if (!DateTime.TryParse(textBox.Text, out _))
-    //                {
-    //                    MessageBox.Show($"El campo {textBox.Name} debe tener una fecha válida.");
-    //                    textBox.Focus();
-    //                    textBox.SelectAll();
-    //                    return;
-    //                }
-    //            }
-
-    //            datos.Add(textBox.Text);
-    //            ResetearTextBox(textBox);
-    //        }
-
-    //        dataGridView.Rows.Add(datos.ToArray());
-    //    }
-    //}
+            this.Controls.Add(btnSueldoMensual);
+        }
     }
 }

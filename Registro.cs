@@ -12,7 +12,7 @@ namespace AppCamiones
     {
 
         //RegisterOptions
-        private NewRoundPanel optionsMenu = new NewRoundPanel();
+        private NewRoundPanel optionsMenu = new NewRoundPanel(40);
         private FlowLayoutPanel layoutOptionsMenu = new FlowLayoutPanel();
 
         private Button btnCamion = new Button();
@@ -147,7 +147,7 @@ namespace AppCamiones
 
             nombreBotonesRegistro.Add("Flete");
             nombreBotonesRegistro.Add("Viaje");
-            nombreBotonesRegistro.Add("Camión");
+            nombreBotonesRegistro.Add("Camion");
             nombreBotonesRegistro.Add("Cliente");
             nombreBotonesRegistro.Add("Cheque");
             for (int i = 0; i < botonesRegistro.Count; i++)

@@ -18,7 +18,7 @@ namespace AppCamiones
     internal class Viaje : Home
     {
         //Filter
-        private NewRoundPanel filter = new NewRoundPanel();
+        private NewRoundPanel filter = new NewRoundPanel(20);
         private FlowLayoutPanel filterFL = new FlowLayoutPanel();
 
         private ArrayList buttonsFilter = new ArrayList();
@@ -33,7 +33,7 @@ namespace AppCamiones
         private ArrayList nombreBotonesRegistro = new ArrayList();
 
         //Form
-        private NewRoundPanel formCargarSection = new NewRoundPanel();
+        private NewRoundPanel formCargarSection = new NewRoundPanel(40);
         private FlowLayoutPanel layourFormSection = new FlowLayoutPanel();
         private System.Windows.Forms.ComboBox select = new System.Windows.Forms.ComboBox();
         private System.Windows.Forms.TextBox textBoxNombre = new System.Windows.Forms.TextBox();
@@ -78,7 +78,7 @@ namespace AppCamiones
             //Events
             fleteFilter.Click += (s, e) => CardGenerator("Flete", " ");
             clienteFilter.Click += (s, e) => CardGenerator("Cliente", " ");
-            camionFilter.Click += (s, e) => CardGenerator("Camión", " ");
+            camionFilter.Click += (s, e) => CardGenerator("Camion", " ");
 
            
         }
@@ -187,7 +187,7 @@ namespace AppCamiones
                 card.Controls.Add(label);
                 cardsContainer.Controls.Add(card);
 
-                if (filtro == "Camión")
+                if (filtro == "Camion")
                 {
                     campos.Clear();
                     camposFaltantesTabla.Clear();
@@ -247,7 +247,7 @@ namespace AppCamiones
             fletes.Clear();
             if (!string.IsNullOrWhiteSpace(info))
             {
-                if (filtro == "Camión")
+                if (filtro == "Camion")
                 {
                     camiones.Add(info);
                 }
@@ -264,7 +264,7 @@ namespace AppCamiones
             // Retornar la lista correspondiente
             return filtro switch
             {
-                "Camión" => camiones,
+                "Camion" => camiones,
                 "Cliente" => clientes,
                 "Flete" => fletes,
                 _ => new List<string>()
@@ -281,7 +281,7 @@ namespace AppCamiones
 
             buttonsNameFilter.Add("Flete");
             buttonsNameFilter.Add("Cliente");
-            buttonsNameFilter.Add("Camión");
+            buttonsNameFilter.Add("Camion");
 
             for (int i = 0; i < buttonsFilter.Count; i++)
             {
@@ -402,7 +402,7 @@ namespace AppCamiones
             select.Items.Clear();
             select.Items.Add("Cliente");
             select.Items.Add("Flete");
-            select.Items.Add("Camión");
+            select.Items.Add("Camion");
 
             select.SelectedIndex = 0;
         }

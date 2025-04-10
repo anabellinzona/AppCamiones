@@ -13,7 +13,7 @@ namespace AppCamiones
     internal class ViajeFiltro : Home
     {
         //Grid
-        private NewRoundPanel form = new NewRoundPanel();
+        private NewRoundPanel form = new NewRoundPanel(20);
         private FlowLayoutPanel flForm = new FlowLayoutPanel();
 
         private DataGridView info = new DataGridView();
