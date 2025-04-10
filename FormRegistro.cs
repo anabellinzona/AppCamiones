@@ -28,6 +28,7 @@ namespace AppCamiones
         private RoundButton btnCargar = new RoundButton();
         private RoundButton btnVolver = new RoundButton();
         private RoundButton btnCuentaCorriente = new RoundButton();
+        private RoundButton btnSueldoMensual = new RoundButton();
 
 
         //Grid
@@ -65,6 +66,7 @@ namespace AppCamiones
             LabelProperties(dato);
 
             AddButtonCuentaCorriente(filtro, dato);
+            AddButtonSueldoMensual(filtro, dato);
 
             //PositionGrid();
 
@@ -522,6 +524,29 @@ namespace AppCamiones
             }
 
             this.Controls.Add(btnCuentaCorriente);
+        }
+
+        private void AddButtonSueldoMensual(string filtro, string dato)
+        {
+            if (filtro == "Camion")
+            {
+                btnSueldoMensual.Text = "Ver sueldo mensual";
+                btnSueldoMensual.Size = new Size(180, 40);
+                btnSueldoMensual.FlatAppearance.BorderSize = 0;
+                btnSueldoMensual.FlatStyle = FlatStyle.Flat;
+                btnSueldoMensual.Location = new Point(40, 180);
+                btnSueldoMensual.Font = new Font("Nunito", 16, FontStyle.Regular);
+                btnSueldoMensual.BackColor = System.Drawing.Color.FromArgb(48, 48, 48);
+                btnSueldoMensual.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
+                btnSueldoMensual.Click += (s, e) =>
+                {
+                    this.Close();
+                    SueldoMensual sueldo= new SueldoMensual(dato);
+                    sueldo.ShowDialog();
+                };
+            }
+
+            this.Controls.Add(btnSueldoMensual);
         }
     }
 }

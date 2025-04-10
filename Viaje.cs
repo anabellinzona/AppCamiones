@@ -78,7 +78,7 @@ namespace AppCamiones
             //Events
             fleteFilter.Click += (s, e) => CardGenerator("Flete", " ");
             clienteFilter.Click += (s, e) => CardGenerator("Cliente", " ");
-            camionFilter.Click += (s, e) => CardGenerator("Camión", " ");
+            camionFilter.Click += (s, e) => CardGenerator("Camion", " ");
 
            
         }
@@ -187,7 +187,7 @@ namespace AppCamiones
                 card.Controls.Add(label);
                 cardsContainer.Controls.Add(card);
 
-                if (filtro == "Camión")
+                if (filtro == "Camion")
                 {
                     campos.Clear();
                     camposFaltantesTabla.Clear();
@@ -247,7 +247,7 @@ namespace AppCamiones
             fletes.Clear();
             if (!string.IsNullOrWhiteSpace(info))
             {
-                if (filtro == "Camión")
+                if (filtro == "Camion")
                 {
                     camiones.Add(info);
                 }
@@ -264,7 +264,7 @@ namespace AppCamiones
             // Retornar la lista correspondiente
             return filtro switch
             {
-                "Camión" => camiones,
+                "Camion" => camiones,
                 "Cliente" => clientes,
                 "Flete" => fletes,
                 _ => new List<string>()
@@ -281,7 +281,7 @@ namespace AppCamiones
 
             buttonsNameFilter.Add("Flete");
             buttonsNameFilter.Add("Cliente");
-            buttonsNameFilter.Add("Camión");
+            buttonsNameFilter.Add("Camion");
 
             for (int i = 0; i < buttonsFilter.Count; i++)
             {
@@ -402,7 +402,7 @@ namespace AppCamiones
             select.Items.Clear();
             select.Items.Add("Cliente");
             select.Items.Add("Flete");
-            select.Items.Add("Camión");
+            select.Items.Add("Camion");
 
             select.SelectedIndex = 0;
         }

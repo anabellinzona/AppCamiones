@@ -147,7 +147,7 @@ namespace AppCamiones
 
             nombreBotonesRegistro.Add("Flete");
             nombreBotonesRegistro.Add("Viaje");
-            nombreBotonesRegistro.Add("Camión");
+            nombreBotonesRegistro.Add("Camion");
             nombreBotonesRegistro.Add("Cliente");
             nombreBotonesRegistro.Add("Cheque");
             for (int i = 0; i < botonesRegistro.Count; i++)
