@@ -36,11 +36,11 @@ namespace AppCamiones
         private TextBox textBoxContraseña = new TextBox();
         private TextBox textBoxEmail = new TextBox();
 
-        private string campo1 = "Name";
-        private string campo2 = "Surname";
-        private string campo3 = "Username";
+        private string campo1 = "Nombre";
+        private string campo2 = "Apellido";
+        private string campo3 = "Usuario";
         private string campo4 = "Email";
-        private string campo5 = "Password";
+        private string campo5 = "Contraseña";
 
         private RoundButton btn_login = new RoundButton();
         private RoundButton btn_registrer = new RoundButton();
@@ -57,10 +57,10 @@ namespace AppCamiones
             Eventos();
 
             //RedirectEventFunction
-            AsignarEvento(textBoxNombreUsuario, "Username");
-            AsignarEvento(textBoxContraseña, "Password");
-            AsignarEvento(textBoxApellido, "Name");
-            AsignarEvento(textBoxNombre, "Surname");
+            AsignarEvento(textBoxNombreUsuario, "Usuario");
+            AsignarEvento(textBoxContraseña, "Contraseña");
+            AsignarEvento(textBoxApellido, "Nombre");
+            AsignarEvento(textBoxNombre, "Apellido");
             AsignarEvento(textBoxEmail, "Email");
 
             textBoxContraseña.TextChanged += new EventHandler(Contraseña_TextChanged);
@@ -100,16 +100,16 @@ namespace AppCamiones
             {
                 switch (txt.Text)
                 {
-                    case "Name":
+                    case "Nombre":
                         textBoxNombre = txt;
                         break;
-                    case "Surname":
+                    case "Apellido":
                         textBoxApellido = txt;
                         break;
-                    case "Username":
+                    case "Usuario":
                         textBoxNombreUsuario = txt;
                         break;
-                    case "Password":
+                    case "Contraseña":
                         textBoxContraseña = txt;
                         this.StartPosition = FormStartPosition.CenterScreen;
                         break;
@@ -123,7 +123,7 @@ namespace AppCamiones
 
         private void Contraseña_TextChanged(object sender, EventArgs e)
         {
-            if (textBoxContraseña.Text != "Password")
+            if (textBoxContraseña.Text != "Contraseña")
             {
                 textBoxContraseña.Text = new string('●', textBoxContraseña.Text.Length);
                 textBoxContraseña.Font = new Font("Nunito", 14, FontStyle.Regular);

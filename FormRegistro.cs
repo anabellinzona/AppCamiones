@@ -9,6 +9,7 @@ using System.Reflection.Emit;
 using System.Windows.Forms;
 using static System.Windows.Forms.DataFormats;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+using Label = System.Windows.Forms.Label;
 
 namespace AppCamiones
 {
@@ -17,6 +18,7 @@ namespace AppCamiones
         //Form
         private Panel formPanel = new Panel();
         private FlowLayoutPanel formFLTextBox = new FlowLayoutPanel();
+        private FlowLayoutPanel formFLLabel = new FlowLayoutPanel();
 
         private List<string> campos = new List<string>();
 
@@ -139,7 +141,7 @@ namespace AppCamiones
         private void FormProperties(int cant)
         {
 
-            formPanel.Size = new Size(ClientSize.Width * 4, 60);
+            formPanel.Size = new Size(ClientSize.Width * 4 + 20, 80);
             formPanel.AutoScroll = true;
             formPanel.HorizontalScroll.Enabled = true;
             formPanel.HorizontalScroll.Visible = true;
@@ -152,30 +154,31 @@ namespace AppCamiones
             };
 
             formPanel.BackColor = System.Drawing.Color.FromArgb(200, Color.Black);
+           
         }
         private void LayoutFormProperties(int cant)
         {
+
+
             formFLTextBox = PropertiesLayoutForm();
-           
+            formFLLabel = PropertiesLayoutForm();
+
+            formFLTextBox.Size = new Size(formPanel.Width, 50);
+            formFLTextBox.Dock = DockStyle.Bottom;
+
+            formFLLabel.Size = new Size(formPanel.Width, 25);
+
+            formPanel.Controls.Add(formFLLabel);
             formPanel.Controls.Add(formFLTextBox);
         }
 
         private FlowLayoutPanel PropertiesLayoutForm()
         {
             FlowLayoutPanel formFL = new FlowLayoutPanel();
-
-            formFL.AutoSize = true;
+            
             formFL.FlowDirection = FlowDirection.LeftToRight;
             formFL.WrapContents = false;
-            formFL.Dock = DockStyle.Top;
             formFL.BackColor = Color.Transparent;
-
-            // Configurar el scroll horizontal
-            formFL.AutoScroll = true;
-            formFL.HorizontalScroll.Enabled = true;
-            formFL.HorizontalScroll.Visible = true;
-            formFL.VerticalScroll.Enabled = false;
-            formFL.VerticalScroll.Visible = false;
 
             return formFL;
         }
@@ -185,36 +188,43 @@ namespace AppCamiones
         {
             foreach (string campo in campos)
             {
-                Panel campoPanel = propertiesFormPanel();
+                Panel campoPanel = PropertiesFormPanel();
 
-                TextBox textBoxForm = createTextBoxAndProperties(campo);
+                TextBox textBoxForm = CreateTextBoxAndProperties(campo);
+                Label labelForm = CreateLabelAndProperties(campo);
+
+                formFLLabel.Controls.Add(labelForm);
 
                 campoPanel.Controls.Add(textBoxForm);
                 formFLTextBox.Controls.Add(campoPanel);
             }
         }
 
-        private Panel propertiesFormPanel()
+        private Panel PropertiesFormPanel()
         {
-            Panel campoPanel = new Panel();
-            campoPanel.AutoSize = true;
-            campoPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            campoPanel.Dock = DockStyle.Top;
+            Panel campoTextBox = new Panel();
+            campoTextBox.Size = new Size(105, 30);
+            campoTextBox.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            //campoTextBox.Dock = DockStyle.Top;
 
-            return campoPanel;
+
+            return campoTextBox;      
         }
 
-        private System.Windows.Forms.Label createTextBoxLabel(object campo)
+        private Label CreateLabelAndProperties(object campo)
         {
-            System.Windows.Forms.Label nuevo = new System.Windows.Forms.Label();
+            Label ll = new Label();
 
-            nuevo.Font = new Font("Nunito", 12, FontStyle.Regular);
-            nuevo.Text = campo.ToString();
+            ll.Text = campo.ToString();
+            ll.Font = new Font("Nunito", 12, FontStyle.Regular);
+            ll.ForeColor = System.Drawing.Color.FromArgb(224, 224, 224);
+            ll.BackColor = Color.Transparent;
+            ll.Margin = new Padding(10, 0, 0, 0);
+            ll.TextAlign = ContentAlignment.MiddleCenter;
 
-            return nuevo;
+            return ll;
         }
-
-        private TextBox createTextBoxAndProperties(object campo)
+        private TextBox CreateTextBoxAndProperties(object campo)
         {
             TextBox textBoxCampo = new TextBox();
             textBoxCampo.Font = new Font("Nunito", 12, FontStyle.Regular);
@@ -224,7 +234,6 @@ namespace AppCamiones
             textBoxCampo.Height = 20;
             textBoxCampo.MinimumSize = new Size(200, 40);
             textBoxCampo.BorderStyle = BorderStyle.FixedSingle;
-            textBoxCampo.Margin = new Padding(0, 0, 0, 20);
             textBoxCampo.ForeColor = System.Drawing.Color.Gray;
             textBoxCampo.TextAlign = HorizontalAlignment.Left;
             textBoxCampo.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
@@ -361,6 +370,7 @@ namespace AppCamiones
             // Obtener los valores de los TextBox
             List<string> datos = new List<string>();
 
+
             foreach (Control control in formFLTextBox.Controls)
             {
 
@@ -388,13 +398,13 @@ namespace AppCamiones
             if (datos.All(dato => !string.IsNullOrWhiteSpace(dato)))
             {
                 eliminar.Name = "Eliminar";
-                eliminar.Text = "Eliminar";
+                //eliminar.Text = "Eliminar";
                 eliminar.UseColumnTextForButtonValue = true;
 
                 datos.Add(eliminar.Text);
 
                 modificar.Name = "Modificar";
-                modificar.Text = "Modificar";
+                //modificar.Text = "Modificar";
                 modificar.UseColumnTextForButtonValue = true;
 
                 datos.Add(modificar.Text);

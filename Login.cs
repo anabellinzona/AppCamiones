@@ -25,8 +25,8 @@ namespace AppCamiones
         private RoundButton btn_register = new RoundButton();
 
         private ArrayList campos_Login = new ArrayList();
-        private String campo1 = "Username";
-        private String campo2 = "Password";
+        private String campo1 = "Usuario";
+        private String campo2 = "Contraseña";
 
 
 
@@ -45,8 +45,8 @@ namespace AppCamiones
             Eventos();
 
             //RedirectEventFunction
-            AsignarEvento(textBoxNombreUsuario, "Username");
-            AsignarEvento(textBoxContraseña, "Password");
+            AsignarEvento(textBoxNombreUsuario, "Usuario");
+            AsignarEvento(textBoxContraseña, "Contraseña");
 
             textBoxContraseña.TextChanged += new EventHandler(Contraseña_TextChanged);
         }
@@ -59,10 +59,10 @@ namespace AppCamiones
             {
                 switch (txt.Text)
                 {
-                    case "Username":
+                    case "Usuario":
                         textBoxNombreUsuario = txt;
                         break;
-                    case "Password":
+                    case "Contraseña":
                         textBoxContraseña = txt;
                         this.StartPosition = FormStartPosition.CenterScreen;
                         break;
@@ -104,7 +104,7 @@ namespace AppCamiones
         //EspecialFunctions
         private void Contraseña_TextChanged(object sender, EventArgs e)
         {
-            if (textBoxContraseña.Text != "Password")
+            if (textBoxContraseña.Text != "Contraseña")
             {
                 textBoxContraseña.Text = new string('●', textBoxContraseña.Text.Length);
                 textBoxContraseña.Font = new Font("Nunito", 14, FontStyle.Regular);
@@ -114,7 +114,7 @@ namespace AppCamiones
         {
             foreach (TextBox txt in textBoxList)
             {
-                if (txt.Text == "Username" || txt.Text == "Password")
+                if (txt.Text == "Usuario" || txt.Text == "Contraseña")
                 {
                     txt.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
                     MessageBox.Show("Completar todos los campos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
