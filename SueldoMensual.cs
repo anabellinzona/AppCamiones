@@ -39,9 +39,11 @@ namespace AppCamiones
 
         private void InfoForTableAndForm(string dato)
         {
-            List<string> datos = new List<string> { "Mes", "Chofer", "Sueldo"};
-            int cant = datos.Count;
-            FormRegistro vv = new FormRegistro(datos, cant, dato, "sueldo", null);
+            List<string> datosFormulario = new List<string> { "Fecha inicial", "Fecha final" };
+            List<string> datos = new List<string> { "Mes", "Chofer", "Sueldo", "Pagado"};
+
+            int cant = datosFormulario.Count;
+            FormRegistro vv = new FormRegistro(datosFormulario, cant, dato, "sueldo", datos);
             vv.TopLevel = true;
             vv.ShowDialog();
         }

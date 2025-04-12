@@ -215,7 +215,7 @@ namespace AppCamiones
                 {
                     campos.Clear();
                     camposFaltantesTabla.Clear();
-                    this.campos = new List<string> { "Fecha", "Origen", "Destino", "RTO o CPE", "Carga", "Km", "Kg", "Tarifa", "Porcentaje", "Chofer", "Productor" };
+                    this.campos = new List<string> { "Fecha", "Origen", "Destino", "RTO o CPE", "Carga", "Km", "Kg", "Tarifa", "Porcentaje", "Chofer", "Cliente" };
                     cantCamposTabla = campos.Count();
 
                     this.camposFaltantesTabla = new List<string> { "Total", "Monto chofer" };
@@ -224,7 +224,7 @@ namespace AppCamiones
                 {
                     campos.Clear();
                     camposFaltantesTabla.Clear();
-                    this.campos = new List<string> { "Fecha", "Origen", "Destino", "RTO o CPE", "Carga", "Km", "Kg", "Tarifa", "Chofer", "Productor" };
+                    this.campos = new List<string> { "Fecha", "Origen", "Destino", "RTO o CPE", "Carga", "Km", "Kg", "Tarifa", "Chofer", "Cliente" };
                     cantCamposTabla = campos.Count();
 
                     this.camposFaltantesTabla = new List<string> { "Total" };
@@ -233,10 +233,10 @@ namespace AppCamiones
                 {
                     campos.Clear();
                     camposFaltantesTabla.Clear();
-                    this.campos = new List<string> { "Fecha", "Origen", "Destino", "RTO o CPE", "Carga", "Km", "Kg", "Tarifa", "Factura" };
+                    this.campos = new List<string> { "Fecha", "Origen", "Destino", "RTO o CPE", "Carga", "Km", "Kg", "Tarifa", "Factura", "Comisión", "Cliente" };
                     cantCamposTabla = campos.Count();
 
-                    this.camposFaltantesTabla = new List<string> { "Tota" };
+                    this.camposFaltantesTabla = new List<string> { "Total" };
                 }
 
                 card.Click += (s, e) =>

@@ -46,11 +46,6 @@ namespace AppCamiones
         //Constructor
         public FormRegistro(List<string> camposForm, int cant, string dato, string filtro, List<string> camposFaltantesTablas)
         {
-            if(filtro == "sueldo")
-            {
-                formPanel.Visible = false;
-            }
-
             InitializeUI(camposForm, cant, filtro, camposFaltantesTablas);
 
             //ShowForm
@@ -83,17 +78,20 @@ namespace AppCamiones
         //Initializations
         private void InitializeUI(List<string> camposForm, int cant, string filtro, List<string> camposFaltantesTablas)
         {
-            AddItemsToGrid(camposForm, cant, camposFaltantesTablas);
+            AddItemsToGrid(camposForm, cant, camposFaltantesTablas, filtro);
             GridChequesProperties();
             ButtonProperties(filtro);
         }
 
         //Adds
-        private void AddItemsToGrid(List<string> camposForm, int cant, List<string> camposFaltantesTabla)
+        private void AddItemsToGrid(List<string> camposForm, int cant, List<string> camposFaltantesTabla, string filtro)
         {
-            foreach (string campos in camposForm)
+            if(filtro != "sueldo")
             {
-                cheq.Columns.Add(campos, campos);
+                foreach (string campos in camposForm)
+                {
+                    cheq.Columns.Add(campos, campos);
+                }
             }
 
             if (camposFaltantesTabla != null)
@@ -356,9 +354,9 @@ namespace AppCamiones
                 DataGridViewButtonColumn btnEliminar = new DataGridViewButtonColumn();
                 btnEliminar.Name = "Eliminar";
                 btnEliminar.HeaderText = "Eliminar";  // Puedes dejarlo vacío si prefieres
-                btnEliminar.Text = "X"; // Ícono de eliminar
+                btnEliminar.Text = "🗑️"; // Ícono de eliminar
                 btnEliminar.UseColumnTextForButtonValue = true; // Hace que todas las celdas muestren "❌"
-                btnEliminar.Width = 40; // Ajustar tamaño
+                btnEliminar.Width = 20; // Ajustar tamaño
 
                 cheq.Columns.Add(btnEliminar);
             }
@@ -421,7 +419,7 @@ namespace AppCamiones
             if (datos.All(dato => !string.IsNullOrWhiteSpace(dato)))
             {
 
-                eliminar.Text = "X";
+                eliminar.Text = "🗑️";
                 eliminar.UseColumnTextForButtonValue = true;
 
                 datos.Add(eliminar.Text);
@@ -509,7 +507,6 @@ namespace AppCamiones
         }
 
         //Label
-
         private void LabelProperties(string dato)
         {
             nombre.Text = dato;
@@ -525,7 +522,7 @@ namespace AppCamiones
 
         private void AddButtonCuentaCorriente(string filtro, string dato)
         {
-            if (filtro == "Cliente")
+            if (filtro == "Cliente" || filtro == "Flete")
             {
                 btnCuentaCorriente.Text = "Cuenta corriente";
                 btnCuentaCorriente.Size = new Size(180, 40);

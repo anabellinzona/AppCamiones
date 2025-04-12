@@ -16,7 +16,7 @@ namespace AppCamiones
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1()); // Ejecuta el formulario principal
+            Application.Run(new Viaje()); // Ejecuta el formulario principal
             //using (Class1 registrer = new Class1())
             //{
             //    using (Login loginForm = new Login())
