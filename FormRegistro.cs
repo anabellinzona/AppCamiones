@@ -318,12 +318,15 @@ namespace AppCamiones
         //GridProperties
         private void GridChequesProperties()
         {
-            panelGrid.Size = new Size(1200, 400);
+            int anchoPantalla = Screen.FromControl(this).Bounds.Width;
+            int altoPantalla = Screen.FromControl(this).Bounds.Height;
+
+            panelGrid.Size = new Size(anchoPantalla - 200, altoPantalla);
             panelGrid.BackColor = Color.Transparent;
 
             this.Resize += (s, e) =>
             {
-                panelGrid.Location = new Point((this.Width - panelGrid.Width) / 2, 270);
+                panelGrid.Location = new Point((this.Width - panelGrid.Width) / 2, 320);
             };
 
             cheq.Size = new Size(panelGrid.Width, panelGrid.Height);
@@ -514,7 +517,7 @@ namespace AppCamiones
             nombre.Font = new Font("Nunito", 20, FontStyle.Bold);
             nombre.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
             nombre.AutoSize = true;
-            nombre.Location = new Point(180, 230);
+            nombre.Location = new Point(120, 280);
             nombre.BackColor = Color.Transparent;
 
             this.Controls.Add(nombre);
@@ -528,7 +531,7 @@ namespace AppCamiones
                 btnCuentaCorriente.Size = new Size(180, 40);
                 btnCuentaCorriente.FlatAppearance.BorderSize = 0;
                 btnCuentaCorriente.FlatStyle = FlatStyle.Flat;
-                btnCuentaCorriente.Location = new Point(40, 180);
+                btnCuentaCorriente.Location = new Point(40, 200);
                 btnCuentaCorriente.Font = new Font("Nunito", 16, FontStyle.Regular);
                 btnCuentaCorriente.BackColor = System.Drawing.Color.FromArgb(48, 48, 48);
                 btnCuentaCorriente.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
