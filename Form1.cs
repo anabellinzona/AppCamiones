@@ -46,7 +46,7 @@ namespace AppCamiones
         {
             InitializeUI();
 
-            ResaltarBoton(homeMenu);
+            //ResaltarBoton(homeMenu);
         }
 
         private void Form1_Load(object sender, EventArgs e)

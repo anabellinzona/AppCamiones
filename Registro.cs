@@ -12,7 +12,7 @@ namespace AppCamiones
     {
 
         //RegisterOptions
-        private NewRoundPanel optionsMenu = new NewRoundPanel();
+        private NewRoundPanel optionsMenu = new NewRoundPanel(40);
         private FlowLayoutPanel layoutOptionsMenu = new FlowLayoutPanel();
 
         private Button btnCamion = new Button();

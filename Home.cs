@@ -10,11 +10,9 @@ namespace AppCamiones
         //NavBar
         protected MenuStrip menuStrip = new MenuStrip();
 
-        protected ToolStripMenuItem homeMenu = new ToolStripMenuItem("home");
+        //protected ToolStripMenuItem homeMenu = new ToolStripMenuItem("home");
         protected ToolStripMenuItem viajesMenu = new ToolStripMenuItem("viajes");
         protected ToolStripMenuItem chequesMenu = new ToolStripMenuItem("cheques");
-        //private ToolStripMenuItem userMenu = new ToolStripMenuItem();
-        //protected ToolStripMenuItem closeSession = new ToolStripMenuItem("Cerrar sesión");
         private string filtro = " ";
         private Form activeForm;
 
@@ -26,10 +24,9 @@ namespace AppCamiones
 
 
             //Redirections
-            //closeSession.Click += (sender, e) => OpenForm<Login>();
             chequesMenu.Click += (sender, e) => OpenForm<Cheque>();
             viajesMenu.Click += (sender, e) => OpenForm<Viaje>();
-            homeMenu.Click += (sender, e) => OpenForm<Form1>();
+            //homeMenu.Click += (sender, e) => OpenForm<Form1>();
         }
 
 
@@ -157,7 +154,7 @@ namespace AppCamiones
         //Adds
         private void AddItemsToMenu()
         {
-            menuStrip.Items.Add(homeMenu);
+            //menuStrip.Items.Add(homeMenu);
             menuStrip.Items.Add(viajesMenu);
             menuStrip.Items.Add(chequesMenu);
             //menuStrip.Items.Add(userMenu);
@@ -174,7 +171,7 @@ namespace AppCamiones
         //NavProperties
         private void ItemsCapitalLetter()
         {
-            homeMenu.Text = homeMenu.Text.ToUpper();
+            //homeMenu.Text = homeMenu.Text.ToUpper();
             viajesMenu.Text = viajesMenu.Text.ToUpper();
             chequesMenu.Text = chequesMenu.Text.ToUpper();
             //userMenu.Text = userMenu.Text.ToUpper();
@@ -191,7 +188,7 @@ namespace AppCamiones
         }
         private void ItemsColor()
         {
-            homeMenu.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
+            //homeMenu.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
             viajesMenu.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
             chequesMenu.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
             //userMenu.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
@@ -203,7 +200,7 @@ namespace AppCamiones
             int y = x / 10;
             //int t = (menuStrip.Width - userMenu.Width);
 
-            homeMenu.Margin = new Padding(y, 0, 0, 0);
+            //homeMenu.Margin = new Padding(y, 0, 0, 0);
             viajesMenu.Margin = new Padding(y, 0, 0, 0);
             chequesMenu.Margin = new Padding(y, 0, 0, 0);
             //userMenu.Margin = new Padding(t, 0, 0, 0);

@@ -15,11 +15,11 @@ namespace AppCamiones
 
         private void InitializeUI(string dato)
         {
-            btnVolverProperties();
-            infoForTableAndForm(dato);
+            BtnVolverProperties();
+            InfoForTableAndForm(dato);
         }
 
-        private void btnVolverProperties()
+        private void BtnVolverProperties()
         {
             btnVolver.Text = "Volver";
             btnVolver.Size = new Size(140, 40);
@@ -37,11 +37,13 @@ namespace AppCamiones
             this.Controls.Add(btnVolver);
         }
 
-        private void infoForTableAndForm(string dato)
+        private void InfoForTableAndForm(string dato)
         {
-            List<string> datos = new List<string> { "Mes", "Chofer", "Sueldo"};
-            int cant = datos.Count;
-            FormRegistro vv = new FormRegistro(datos, cant, dato, "Camión", null);
+            List<string> datosFormulario = new List<string> { "Fecha inicial", "Fecha final" };
+            List<string> datos = new List<string> { "Mes", "Chofer", "Sueldo", "Pagado"};
+
+            int cant = datosFormulario.Count;
+            FormRegistro vv = new FormRegistro(datosFormulario, cant, dato, "sueldo", datos);
             vv.TopLevel = true;
             vv.ShowDialog();
         }

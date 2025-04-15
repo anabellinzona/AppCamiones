@@ -6,26 +6,24 @@ namespace AppCamiones
 {
     public class NewRoundPanel : Panel
     {
-        private int cornerRadius = 40;
+        private int cornerRadius;
 
         //Constructor
-        public NewRoundPanel()
+        public NewRoundPanel(int cornerRadius)
         {
+            this.cornerRadius = cornerRadius;
             this.SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
         }
 
         protected override void OnResize(System.EventArgs e)
         {
             base.OnResize(e);
-            SetRoundedRegion();
+            SetRoundedRegion(cornerRadius);
         }
 
 
-
-
-
         //Functions
-        private void SetRoundedRegion()
+        private void SetRoundedRegion(int cornerRadius)
         {
             GraphicsPath path = new GraphicsPath();
             int arcWidth = cornerRadius * 2;

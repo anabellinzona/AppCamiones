@@ -12,7 +12,7 @@ namespace AppCamiones
     internal class Login : Form
     {       
         //Form
-        private NewRoundPanel form = new NewRoundPanel();
+        private NewRoundPanel form = new NewRoundPanel(40);
         private FlowLayoutPanel flowLayoutForm = new FlowLayoutPanel();
 
         private List<TextBox> textBoxList = new List<TextBox>();
