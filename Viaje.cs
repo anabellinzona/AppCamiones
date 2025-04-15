@@ -241,8 +241,10 @@ namespace AppCamiones
 
                 card.Click += (s, e) =>
                 {
+                    this.Hide();
                     ViajeFiltro form = new ViajeFiltro(dato, cantCamposTabla, campos, filtro, camposFaltantesTabla);
-                    form.Show();
+                    form.TopLevel = true;
+                    form.ShowDialog();
                 };
             }
             buttonBack.Click += (s, e) => ButtonNewAddProperties();
@@ -507,7 +509,6 @@ namespace AppCamiones
 
             }
             string seleccion = select.SelectedItem.ToString();
-            //GetFilterInfo(seleccion, textBoxNombre.Text);
             CardGenerator(seleccion, textBoxNombre.Text);
         }
 
