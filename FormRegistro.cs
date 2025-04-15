@@ -49,7 +49,7 @@ namespace AppCamiones
             InitializeUI(camposForm, cant, filtro, camposFaltantesTablas);
 
             //ShowForm
-            CargarFormularioCheque(camposForm, cant);
+            CargarFormularioCheque(camposForm, cant, filtro);
 
             //Hovers
             btnCargar.MouseEnter += (s, e) => HoverEffect(s, e, true);
@@ -120,7 +120,7 @@ namespace AppCamiones
         }
 
 
-        private void CargarFormularioCheque(List<string> camposForm, int cant)
+        private void CargarFormularioCheque(List<string> camposForm, int cant, string filtro)
         {
             this.campos.Clear();
             foreach (string i in camposForm)
@@ -128,16 +128,16 @@ namespace AppCamiones
                 this.campos.Add(i);
             }
 
-            InitializeFormProperties(cant, campos);
+            InitializeFormProperties(cant, campos, filtro);
         }
 
-        private void InitializeFormProperties(int cant, List<string> campos)
+        private void InitializeFormProperties(int cant, List<string> campos, string filtro)
         {
             FormProperties(cant);
             LayoutFormProperties(cant);
             TextoBoxAndLabelProperties(cant, campos);
             ButtonsPropertiesForm();
-            PanelButtonProperties();
+            PanelButtonProperties(filtro);
             AddControls();
 
         }
@@ -155,7 +155,7 @@ namespace AppCamiones
 
             this.Resize += (s, e) =>
             {
-                formPanel.Location = new Point((this.Width - formPanel.Width) / 2, 100);
+                formPanel.Location = new Point((this.Width - formPanel.Width) / 2 + 25, 100);
             };
 
             formPanel.BackColor = System.Drawing.Color.FromArgb(200, Color.Black);
@@ -281,17 +281,22 @@ namespace AppCamiones
 
 
         //ButtonProperties
-        private void PanelButtonProperties()
+        private void PanelButtonProperties(string filtro)
         {
+            if(filtro == "Cuenta corriente")
+            {
+
+            }
             this.Resize += (s, e) =>
             {
-                btnPanel.Location = new Point((this.Width - btnPanel.Width) - 50, 110);
+                btnPanel.Location = new Point((this.Width - btnPanel.Width) - 5, 120);
             };
 
-            btnPanel.Size = new Size(110, 30);
+            btnPanel.Size = new Size(120, 30);
             btnPanel.BackColor = Color.Transparent;
             this.Controls.Add(btnPanel);
         }
+
         private void ButtonsPropertiesForm()
         {
             btnCargar.BackColor = System.Drawing.Color.FromArgb(218, 218, 28);
@@ -306,11 +311,6 @@ namespace AppCamiones
             {
                 btnPanel.Controls.Add(btnCargar);
             }
-
-            btnPanel.Resize += (s, e) =>
-            {
-                btnCargar.Location = new Point((btnPanel.Width - btnCargar.Width) / 2, (btnPanel.Height - btnCargar.Height) / 2);
-            };
         }
 
 
@@ -496,7 +496,7 @@ namespace AppCamiones
             btnVolver.Size = new Size(140, 40);
             btnVolver.FlatAppearance.BorderSize = 0;
             btnVolver.FlatStyle = FlatStyle.Flat;
-            btnVolver.Location = new Point(40, 100);
+            btnVolver.Location = new Point(20, 120);
             btnVolver.Font = new Font("Nunito", 16, FontStyle.Regular);
             btnVolver.BackColor = System.Drawing.Color.FromArgb(48, 48, 48);
             btnVolver.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
@@ -531,7 +531,7 @@ namespace AppCamiones
                 btnCuentaCorriente.Size = new Size(180, 40);
                 btnCuentaCorriente.FlatAppearance.BorderSize = 0;
                 btnCuentaCorriente.FlatStyle = FlatStyle.Flat;
-                btnCuentaCorriente.Location = new Point(40, 200);
+                btnCuentaCorriente.Location = new Point(20, 200);
                 btnCuentaCorriente.Font = new Font("Nunito", 16, FontStyle.Regular);
                 btnCuentaCorriente.BackColor = System.Drawing.Color.FromArgb(48, 48, 48);
                 btnCuentaCorriente.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
@@ -554,7 +554,7 @@ namespace AppCamiones
                 btnSueldoMensual.Size = new Size(180, 40);
                 btnSueldoMensual.FlatAppearance.BorderSize = 0;
                 btnSueldoMensual.FlatStyle = FlatStyle.Flat;
-                btnSueldoMensual.Location = new Point(40, 180);
+                btnSueldoMensual.Location = new Point(20, 200);
                 btnSueldoMensual.Font = new Font("Nunito", 16, FontStyle.Regular);
                 btnSueldoMensual.BackColor = System.Drawing.Color.FromArgb(48, 48, 48);
                 btnSueldoMensual.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
