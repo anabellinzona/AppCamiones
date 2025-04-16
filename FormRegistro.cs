@@ -79,6 +79,7 @@ namespace AppCamiones
         private void InitializeUI(List<string> camposForm, int cant, string filtro, List<string> camposFaltantesTablas, string dato)
         {
             AddItemsToGrid(camposForm, cant, camposFaltantesTablas, filtro);
+            ResaltarBoton(viajesMenu);
             GridChequesProperties();
             ButtonProperties(filtro, dato);
         }

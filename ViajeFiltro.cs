@@ -29,6 +29,8 @@ namespace AppCamiones
         {
             InitializeGrid(camposForm);
 
+            ResaltarBoton(viajesMenu);
+
             GeneratorForm(dato, cant, filtro, camposFaltantesTablas);
         }
 

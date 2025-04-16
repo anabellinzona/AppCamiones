@@ -18,6 +18,7 @@ namespace AppCamiones
         private void InitializeUI(string dato, string filtro)
         {
             this.Controls.Add(btnVolver);
+            ResaltarBoton(viajesMenu);
             btnVolverProperties(dato, filtro);
         }
 

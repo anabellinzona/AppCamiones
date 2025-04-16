@@ -43,7 +43,7 @@ namespace AppCamiones
 
         private List<string> camiones = new List<string>();
         private List<string> clientes = new List<string>();
-        private List<string> fletes = new List<string> { "López", "Fernández", "Martínez", "fff" };
+        private List<string> fletes = new List<string>();
 
         private List<string> campos = new List<string>();
 
@@ -69,12 +69,15 @@ namespace AppCamiones
             //Hovers
             fleteFilter.MouseEnter += (s, e) => HoverEffect(s, e, true);
             fleteFilter.MouseLeave += (s, e) => HoverEffect(s, e, false);
+            //fleteFilter.Click += (s, e) => ClickEffects(s, e);
 
             clienteFilter.MouseEnter += (s, e) => HoverEffect(s, e, true);
             clienteFilter.MouseLeave += (s, e) => HoverEffect(s, e, false);
+            //clienteFilter.Click += (s, e) => ClickEffects(s, e);
 
             camionFilter.MouseEnter += (s, e) => HoverEffect(s, e, true);
             camionFilter.MouseLeave += (s, e) => HoverEffect(s, e, false);
+            //camionFilter.Click += (s, e) => ClickEffects(s, e);
 
             //Events
             fleteFilter.Click += (s, e) => CardGenerator("Flete", " ");
@@ -93,6 +96,17 @@ namespace AppCamiones
                 CardGenerator(filtro, " ");
             }
         }
+
+        //private void ClickEffects(object sender, EventArgs e)
+        //{
+        //    var button = sender as RoundButton;
+        //    if (button != null)
+        //    {
+        //        MessageBox.Show("hola");
+        //        button.ForeColor = Color.Yellow;
+        //    }
+          
+        //}
 
         //HoverFunction
         private void HoverEffect(object sender, EventArgs e, bool isHover)
@@ -132,7 +146,7 @@ namespace AppCamiones
             filter.Size = new Size(800, 60);
             this.Resize += (s, e) =>
             {
-                filter.Location = new Point((this.Width - filter.Width) / 2, 100);
+                filter.Location = new Point((this.Width - filter.Width) / 2, 150);
             };
             filter.BackColor = System.Drawing.Color.FromArgb(64, 64, 64);
             filter.BorderStyle = BorderStyle.FixedSingle;
@@ -218,6 +232,7 @@ namespace AppCamiones
                     this.campos = new List<string> { "Fecha", "Origen", "Destino", "RTO o CPE", "Carga", "Km", "Kg", "Tarifa", "Porcentaje", "Chofer", "Cliente" };
                     cantCamposTabla = campos.Count();
 
+
                     this.camposFaltantesTabla = new List<string> { "Total", "Monto chofer" };
                 }
                 else if (filtro == "Cliente")
@@ -227,6 +242,7 @@ namespace AppCamiones
                     this.campos = new List<string> { "Fecha", "Origen", "Destino", "RTO o CPE", "Carga", "Km", "Kg", "Tarifa", "Chofer", "Cliente" };
                     cantCamposTabla = campos.Count();
 
+
                     this.camposFaltantesTabla = new List<string> { "Total" };
                 }
                 else if (filtro == "Flete")
@@ -235,6 +251,7 @@ namespace AppCamiones
                     camposFaltantesTabla.Clear();
                     this.campos = new List<string> { "Fecha", "Origen", "Destino", "RTO o CPE", "Carga", "Km", "Kg", "Tarifa", "Factura", "Comisión", "Cliente" };
                     cantCamposTabla = campos.Count();
+
 
                     this.camposFaltantesTabla = new List<string> { "Total" };
                 }
@@ -330,13 +347,16 @@ namespace AppCamiones
                     j++;
                 }
 
-
-
-                btn.Click += (s, e) => CardGenerator(btn.Text, " ");
+                btn.Click += (s, e) =>
+                {
+                    CardGenerator(btn.Text, " ");
+                };
 
                 filterFL.Controls.Add(btn);
             }
         }
+
+    
 
         //CardProperties
         private void CardProperties()
@@ -350,7 +370,7 @@ namespace AppCamiones
 
             this.Resize += (s, e) =>
             {
-                cardsContainer.Location = new Point((this.Width - cardsContainer.Width) / 2, (this.Height - cardsContainer.Height) / 2);
+                cardsContainer.Location = new Point((this.Width - cardsContainer.Width) / 2, ((this.Height - cardsContainer.Height) / 2) + 50);
             };
         }
 
