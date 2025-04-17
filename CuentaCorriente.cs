@@ -43,7 +43,7 @@ namespace AppCamiones
             List<string> datos = new List<string> { "Fecha", "Nro factura", "Pagó", "Debe" };
             List<string> campoFaltanteTabla = new List<string> { "Total " };
             int cant = datos.Count;
-            FormRegistro vv = new FormRegistro(datos, cant, dato, "Cliente", campoFaltanteTabla);
+            FormRegistro vv = new FormRegistro(datos, cant, dato, "Cuenta corriente", campoFaltanteTabla);
             vv.TopLevel = true;
             vv.ShowDialog();
         }

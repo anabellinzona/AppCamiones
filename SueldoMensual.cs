@@ -17,6 +17,8 @@ namespace AppCamiones
         {
             BtnVolverProperties();
             InfoForTableAndForm(dato);
+
+            ConfigurarDataGrid();
         }
 
         private void BtnVolverProperties()
@@ -40,12 +42,19 @@ namespace AppCamiones
         private void InfoForTableAndForm(string dato)
         {
             List<string> datosFormulario = new List<string> { "Fecha inicial", "Fecha final" };
-            List<string> datos = new List<string> { "Mes", "Chofer", "Sueldo", "Pagado"};
+            List<string> datos = new List<string> { "Inicio Intervalo de Pago", "Fin Intervalo de Pago", "Chofer", "Sueldo", "Pagado"};
 
             int cant = datosFormulario.Count;
             FormRegistro vv = new FormRegistro(datosFormulario, cant, dato, "sueldo", datos);
             vv.TopLevel = true;
             vv.ShowDialog();
+
+            vv.addColumn("Pagado");
+        }
+
+        private void ConfigurarDataGrid()
+        {
+    
         }
     }
 }

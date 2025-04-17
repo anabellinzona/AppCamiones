@@ -107,6 +107,11 @@ namespace AppCamiones
 
         }
 
+        public void addColumn(string s)
+        {
+            cheq.Columns.Add(s, s);
+
+        }
 
 
         //HoverFunction
@@ -283,16 +288,18 @@ namespace AppCamiones
         //ButtonProperties
         private void PanelButtonProperties(string filtro)
         {
-            if(filtro == "Cuenta corriente")
-            {
+            int anchoPantalla = Screen.FromControl(this).Bounds.Width;
+            int altoPantalla = Screen.FromControl(this).Bounds.Height;
 
+            if (filtro == "Cuenta corriente")
+            {
             }
             this.Resize += (s, e) =>
             {
-                btnPanel.Location = new Point((this.Width - btnPanel.Width) - 5, 120);
+                btnPanel.Location = new Point(anchoPantalla - btnPanel.Width - 5, 120);
             };
 
-            btnPanel.Size = new Size(120, 30);
+            btnPanel.Size = new Size(110, 30);
             btnPanel.BackColor = Color.Transparent;
             this.Controls.Add(btnPanel);
         }
@@ -369,7 +376,7 @@ namespace AppCamiones
                 DataGridViewButtonColumn btnModificar = new DataGridViewButtonColumn();
                 btnModificar.Name = "Modificar";
                 btnModificar.HeaderText = "Modificar";  // Puedes dejarlo vacío si prefieres
-                btnModificar.Text = "M"; // Ícono de modificar
+                btnModificar.Text = "✏️"; // Ícono de modificar
                 btnModificar.UseColumnTextForButtonValue = true; // Hace que todas las celdas muestren "M"
                 btnModificar.Width = 40; // Ajustar tamaño
                 cheq.Columns.Add(btnModificar);
@@ -427,7 +434,7 @@ namespace AppCamiones
 
                 datos.Add(eliminar.Text);
 
-                modificar.Text = "M";
+                modificar.Text = "✏️";
                 modificar.UseColumnTextForButtonValue = true;
 
                 datos.Add(modificar.Text);
@@ -496,7 +503,7 @@ namespace AppCamiones
             btnVolver.Size = new Size(140, 40);
             btnVolver.FlatAppearance.BorderSize = 0;
             btnVolver.FlatStyle = FlatStyle.Flat;
-            btnVolver.Location = new Point(20, 120);
+            btnVolver.Location = new Point(5, 120);
             btnVolver.Font = new Font("Nunito", 16, FontStyle.Regular);
             btnVolver.BackColor = System.Drawing.Color.FromArgb(48, 48, 48);
             btnVolver.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
