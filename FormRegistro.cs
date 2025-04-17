@@ -46,7 +46,7 @@ namespace AppCamiones
         //Constructor
         public FormRegistro(List<string> camposForm, int cant, string dato, string filtro, List<string> camposFaltantesTablas)
         {
-            InitializeUI(camposForm, cant, filtro, camposFaltantesTablas);
+            InitializeUI(camposForm, cant, filtro, camposFaltantesTablas, dato);
 
             //ShowForm
             CargarFormularioCheque(camposForm, cant, filtro);
@@ -76,17 +76,18 @@ namespace AppCamiones
         }
 
         //Initializations
-        private void InitializeUI(List<string> camposForm, int cant, string filtro, List<string> camposFaltantesTablas)
+        private void InitializeUI(List<string> camposForm, int cant, string filtro, List<string> camposFaltantesTablas, string dato)
         {
             AddItemsToGrid(camposForm, cant, camposFaltantesTablas, filtro);
+            ResaltarBoton(viajesMenu);
             GridChequesProperties();
-            ButtonProperties(filtro);
+            ButtonProperties(filtro, dato);
         }
 
         //Adds
         private void AddItemsToGrid(List<string> camposForm, int cant, List<string> camposFaltantesTabla, string filtro)
         {
-            if(filtro != "sueldo")
+            if (filtro != "sueldo")
             {
                 foreach (string campos in camposForm)
                 {
@@ -150,7 +151,7 @@ namespace AppCamiones
         //FormProperties
         private void FormProperties(int cant)
         {
-          
+
             formPanel.Size = new Size(110 * cant, 80);
             formPanel.AutoScroll = true;
             formPanel.HorizontalScroll.Enabled = true;
@@ -168,8 +169,6 @@ namespace AppCamiones
         }
         private void LayoutFormProperties(int cant)
         {
-
-
             formFLTextBox = PropertiesLayoutForm();
             formFLLabel = PropertiesLayoutForm();
 
@@ -290,14 +289,20 @@ namespace AppCamiones
         {
             int anchoPantalla = Screen.FromControl(this).Bounds.Width;
             int altoPantalla = Screen.FromControl(this).Bounds.Height;
-
             if (filtro == "Cuenta corriente")
             {
+                this.Resize += (s, e) =>
+                {
+                    btnPanel.Location = new Point((anchoPantalla / 2), 120);
+                };
             }
-            this.Resize += (s, e) =>
+            else
             {
-                btnPanel.Location = new Point(anchoPantalla - btnPanel.Width - 5, 120);
-            };
+                this.Resize += (s, e) =>
+                {
+                    btnPanel.Location = new Point((anchoPantalla - btnPanel.Width) - 5, 120);
+                };
+            }
 
             btnPanel.Size = new Size(110, 30);
             btnPanel.BackColor = Color.Transparent;
@@ -493,27 +498,32 @@ namespace AppCamiones
         {
             this.Controls.Add(formPanel);
             formPanel.Controls.Add(formFLTextBox);
-            this.Controls.Add(btnVolver);
         }
 
         //Button for back properties
-        private void ButtonProperties(string filtro)
+        private void ButtonProperties(string filtro, string dato)
         {
-            btnVolver.Text = "Volver";
-            btnVolver.Size = new Size(140, 40);
-            btnVolver.FlatAppearance.BorderSize = 0;
-            btnVolver.FlatStyle = FlatStyle.Flat;
-            btnVolver.Location = new Point(5, 120);
-            btnVolver.Font = new Font("Nunito", 16, FontStyle.Regular);
-            btnVolver.BackColor = System.Drawing.Color.FromArgb(48, 48, 48);
-            btnVolver.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
-            btnVolver.Click += (s, e) =>
+            if (filtro != "cuenta corriente" && filtro != "sueldo")
             {
-                this.Close();
-                Viaje vv = new Viaje(filtro);
-                vv.ShowDialog();
-            };
+                btnVolver.Text = "Volver";
+                btnVolver.Size = new Size(140, 40);
+                btnVolver.FlatAppearance.BorderSize = 0;
+                btnVolver.FlatStyle = FlatStyle.Flat;
+                btnVolver.Location = new Point(20, 120);
+                btnVolver.Font = new Font("Nunito", 16, FontStyle.Regular);
+                btnVolver.BackColor = System.Drawing.Color.FromArgb(48, 48, 48);
+                btnVolver.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
 
+                btnVolver.Click += (s, e) =>
+                {
+                    this.Hide();
+                    Viaje vv = new Viaje(filtro);
+                    vv.TopLevel = true;
+                    vv.ShowDialog();
+                };
+
+                this.Controls.Add(btnVolver);
+            }
         }
 
         //Label
@@ -542,10 +552,12 @@ namespace AppCamiones
                 btnCuentaCorriente.Font = new Font("Nunito", 16, FontStyle.Regular);
                 btnCuentaCorriente.BackColor = System.Drawing.Color.FromArgb(48, 48, 48);
                 btnCuentaCorriente.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
+                
                 btnCuentaCorriente.Click += (s, e) =>
                 {
-                    this.Close();
-                    CuentaCorriente cuentaCorriente = new CuentaCorriente(dato);
+                    this.Hide();
+                    CuentaCorriente cuentaCorriente = new CuentaCorriente(dato, filtro);
+                    cuentaCorriente.TopLevel = true;
                     cuentaCorriente.ShowDialog();
                 };
             }
@@ -567,8 +579,9 @@ namespace AppCamiones
                 btnSueldoMensual.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
                 btnSueldoMensual.Click += (s, e) =>
                 {
-                    this.Close();
-                    SueldoMensual sueldo = new SueldoMensual(dato);
+                    this.Hide();
+                    SueldoMensual sueldo = new SueldoMensual(dato, filtro);
+                    sueldo.TopLevel = true;
                     sueldo.ShowDialog();
                 };
             }

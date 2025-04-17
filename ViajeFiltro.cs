@@ -24,10 +24,12 @@ namespace AppCamiones
         private List<string> campos = new List<string>();
 
 
-        //Constructor
+        //Constructor 
         public ViajeFiltro(string dato, int cant, List<string> camposForm, string filtro, List<string> camposFaltantesTablas)
         {
             InitializeGrid(camposForm);
+
+            ResaltarBoton(viajesMenu);
 
             GeneratorForm(dato, cant, filtro, camposFaltantesTablas);
         }
@@ -36,6 +38,7 @@ namespace AppCamiones
         {
             FormRegistro formulario = new FormRegistro(campos, cant, dato, filtro, camposFaltantesTablas);
             formulario.TopLevel = true;
+            this.Close();
             formulario.ShowDialog();
         }
 
