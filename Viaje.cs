@@ -242,7 +242,7 @@ namespace AppCamiones
                     cantCamposTabla = campos.Count();
 
 
-                    this.camposFaltantesTabla = new List<string> { "Total" };
+                    this.camposFaltantesTabla = new List<string> { "Total", "Total comisión" };
                 }
 
                 card.Click += (s, e) =>
