@@ -23,7 +23,8 @@ namespace AppCamiones
 
         //Form
         private Panel formPanel = new Panel();
-        private FlowLayoutPanel formFL = new FlowLayoutPanel();
+        private FlowLayoutPanel formFLTextBox = new FlowLayoutPanel();
+        private FlowLayoutPanel formFLLabel = new FlowLayoutPanel();
 
         private List<string> campos = new List<string>();
 
@@ -43,8 +44,10 @@ namespace AppCamiones
         private DataGridView cheq = new DataGridView();
         private Panel panelGrid = new Panel();
 
-        DataGridViewButtonColumn eliminar = new DataGridViewButtonColumn();
-        DataGridViewButtonColumn modificar = new DataGridViewButtonColumn();
+        private DataGridViewButtonColumn eliminar = new DataGridViewButtonColumn();
+        private DataGridViewButtonColumn modificar = new DataGridViewButtonColumn();
+
+        private RoundButton btnMostrarTodos = new RoundButton();
 
 
 
@@ -104,7 +107,35 @@ namespace AppCamiones
             AddItemsToGrid();
             GridChequesProperties();
             InitializeFilter();
+            ButtonShowAllProperties();
         }
+
+        private void ButtonShowAllProperties()
+        {
+            btnMostrarTodos.BackColor = System.Drawing.Color.FromArgb(48, 48, 48);
+            btnMostrarTodos.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
+            btnMostrarTodos.Size = new Size(150, 30);
+            btnMostrarTodos.Text = "Mostrar todos";
+            btnMostrarTodos.FlatStyle = FlatStyle.Flat;
+            btnMostrarTodos.FlatAppearance.BorderSize = 0;
+            btnMostrarTodos.Font = new Font("Nunito", 12, FontStyle.Bold);
+
+            this.Resize += (s, e) =>
+            {
+                btnMostrarTodos.Location = new Point(50, 200);
+            };
+
+            btnMostrarTodos.Click += (s, e) =>
+            {
+                foreach (DataGridViewRow row in cheq.Rows)
+                {
+                    row.Visible = true;
+                }
+            };
+
+            this.Controls.Add(btnMostrarTodos);
+        }
+
         private void InitializeFormProperties(int cant, List<string> campos)
         {
             FormProperties(cant);
@@ -112,7 +143,6 @@ namespace AppCamiones
             TextoBoxAndLabelProperties(cant, campos);
             ButtonsPropertiesForm();
             PanelButtonProperties();
-            AddLabels();
             AddForm();
         }
         private void InitializeFilter()
@@ -141,10 +171,7 @@ namespace AppCamiones
             this.Controls.Add(panelGrid);
 
         }
-        private void AddLabels()
-        {
-            formPanel.Controls.Add(formFL);
-        }
+ 
         private void AddForm()
         {
             this.Controls.Add(formPanel);
@@ -185,10 +212,10 @@ namespace AppCamiones
         //FilterProperties
         private void filterProperties()
         {
-            
+
             filterPanel.Size = new Size(200, 50);
-            filterPanel.BackColor = Color.Transparent; 
-            filterPanel.Location = new Point(cheq.Location.X + cheq.Width - (filterPanel.Width / 2), menuStrip.Height + formFL.Height + 30);
+            filterPanel.BackColor = Color.Transparent;
+            filterPanel.Location = new Point(cheq.Location.X + cheq.Width - (filterPanel.Width / 2), menuStrip.Height + formFLTextBox.Height + 30);
 
             filterFL.Dock = DockStyle.Fill;
             filterFL.FlowDirection = FlowDirection.LeftToRight;
@@ -211,14 +238,27 @@ namespace AppCamiones
             filterBtn.FlatAppearance.BorderColor = Color.FromArgb(48, 48, 48);
             filterBtn.FlatAppearance.BorderSize = 1;
 
+            filterBtn.Click += (s, e) =>
+            {
+                foreach (DataGridViewRow row in cheq.Rows)
+                {
+                    if (row.Cells["nroPersonal"].Value != null && row.Cells["nroPersonal"].Value.ToString().ToLower().Contains(filterTextBox.Text.ToLower()))
+                    {
+                        row.Visible = true;
+                    }
+                    if (row.Cells["nroPersonal"].Value != null && !row.Cells["nroPersonal"].Value.ToString().ToLower().Contains(filterTextBox.Text.ToLower()))
+                    {
+                        row.Visible = false;
+                    }
+                }
+            };
         }
 
 
         //FormProperties
         private void FormProperties(int cant)
         {
-
-            formPanel.Size = new Size(ClientSize.Width * 4, 60);
+            formPanel.Size = new Size(100 * cant, 80);
             formPanel.AutoScroll = true;
             formPanel.HorizontalScroll.Enabled = true;
             formPanel.HorizontalScroll.Visible = true;
@@ -234,52 +274,78 @@ namespace AppCamiones
         }
         private void LayoutFormProperties(int cant)
         {
-            formFL.AutoSize = true;
-            formFL.FlowDirection = FlowDirection.LeftToRight;
-            formFL.WrapContents = false;
-            formFL.Dock = DockStyle.Top;
-            formFL.BackColor = Color.Transparent;
+            formFLTextBox = PropertiesLayoutForm();
+            formFLLabel = PropertiesLayoutForm();
 
-            // Configurar el scroll horizontal
-            formFL.AutoScroll = true;
-            formFL.HorizontalScroll.Enabled = true;
-            formFL.HorizontalScroll.Visible = true;
-            formFL.VerticalScroll.Enabled = false;
-            formFL.VerticalScroll.Visible = false;
+            formFLTextBox.Size = new Size(formPanel.Width, 50);
+            formFLTextBox.Dock = DockStyle.Bottom;
 
-            formPanel.Controls.Add(formFL);
+            formFLLabel.Size = new Size(formPanel.Width, 25);
+
+            formPanel.Controls.Add(formFLLabel);
+            formPanel.Controls.Add(formFLTextBox);
         }
 
+        private FlowLayoutPanel PropertiesLayoutForm()
+        {
+            FlowLayoutPanel formFL = new FlowLayoutPanel();
+
+            formFL.FlowDirection = FlowDirection.LeftToRight;
+            formFL.WrapContents = false;
+            formFL.BackColor = Color.Transparent;
+
+            return formFL;
+        }
+
+        //TextBoxProperties
 
         //TextBoxProperties
         private void TextoBoxAndLabelProperties(int cant, List<string> campos)
         {
             foreach (string campo in campos)
             {
-                Panel campoPanel = new Panel();
-                campoPanel.AutoSize = true;
-                campoPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-                campoPanel.Dock = DockStyle.Top;
+                Panel campoPanel = PropertiesFormPanel();
 
-                System.Windows.Forms.Label labelCampo = new System.Windows.Forms.Label();
-                labelCampo.Text = campo;
-                labelCampo.Font = new Font("Nunito", 10, FontStyle.Bold);
-                labelCampo.ForeColor = Color.White;
-                labelCampo.TextAlign = ContentAlignment.MiddleLeft;
-                labelCampo.Dock = DockStyle.Right;
-                labelCampo.AutoSize = true;
+                TextBox textBoxForm = CreateTextBoxAndProperties(campo);
+                Label labelForm = CreateLabelAndProperties(campo);
 
-                TextBox textBoxForm = createTextBoxAndProperties(campo);
+                formFLLabel.Controls.Add(labelForm);
 
-                campoPanel.Controls.Add(labelCampo); 
                 campoPanel.Controls.Add(textBoxForm);
-                formFL.Controls.Add(campoPanel);
+                formFLTextBox.Controls.Add(campoPanel);
             }
         }
-        private TextBox createTextBoxAndProperties(object campo)
+
+
+
+        private Panel PropertiesFormPanel()
+        {
+            Panel campoTextBox = new Panel();
+            campoTextBox.Size = new Size(105, 30);
+            campoTextBox.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            //campoTextBox.Dock = DockStyle.Top;
+
+
+            return campoTextBox;
+        }
+
+        private Label CreateLabelAndProperties(object campo)
+        {
+            Label ll = new Label();
+
+            ll.Text = campo.ToString();
+            ll.Font = new Font("Nunito", 12, FontStyle.Regular);
+            ll.ForeColor = System.Drawing.Color.FromArgb(224, 224, 224);
+            ll.BackColor = Color.Transparent;
+            ll.Margin = new Padding(10, 0, 0, 0);
+            ll.TextAlign = ContentAlignment.MiddleCenter;
+
+            return ll;
+        }
+        private TextBox CreateTextBoxAndProperties(object campo)
         {
             TextBox textBoxCampo = new TextBox();
-            textBoxCampo.Font = new Font("Nunito", 12, FontStyle.Regular);
+            textBoxCampo.Font = new Font("Nunito", 10, FontStyle.Regular);
             textBoxCampo.BackColor = System.Drawing.Color.FromArgb(153, 145, 145);
             textBoxCampo.Multiline = true;
             textBoxCampo.Width = 200;
@@ -402,7 +468,7 @@ namespace AppCamiones
             // Obtener los valores de los TextBox
             List<string> datos = new List<string>();
 
-            foreach (Control control in formFL.Controls)
+            foreach (Control control in formFLTextBox.Controls)
             {
 
                 if (control is Panel panel)
@@ -411,7 +477,7 @@ namespace AppCamiones
                     {
                         if (child is TextBox textBox)
                         {
-                            foreach(string campo in campos)
+                            foreach (string campo in campos)
                             {
                                 if (textBox.Text == campo.ToString())
                                 {
@@ -433,7 +499,7 @@ namespace AppCamiones
                                     }
                                 }
                             }
-                            
+
                             datos.Add(textBox.Text); // Agregar el texto de cada TextBox
                         }
                     }
@@ -457,7 +523,7 @@ namespace AppCamiones
                 cheq.Rows.Add(datos.ToArray());
 
 
-                foreach (Control control in formFL.Controls)
+                foreach (Control control in formFLTextBox.Controls)
                 {
                     if (control is Panel panel)
                     {

@@ -31,6 +31,7 @@ namespace AppCamiones
             btnVolver.Font = new Font("Nunito", 16, FontStyle.Regular);
             btnVolver.BackColor = System.Drawing.Color.FromArgb(48, 48, 48);
             btnVolver.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
+            //btnVolver.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(218, 218, 28);
             btnVolver.Click += (s, e) =>
             {
                 this.Hide();
