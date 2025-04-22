@@ -108,6 +108,11 @@ namespace AppCamiones
 
         }
 
+        public void addColumn(string s)
+        {
+            cheq.Columns.Add(s, s);
+
+        }
 
 
         //HoverFunction
@@ -383,7 +388,7 @@ namespace AppCamiones
                 DataGridViewButtonColumn btnModificar = new DataGridViewButtonColumn();
                 btnModificar.Name = "Modificar";
                 btnModificar.HeaderText = "Modificar";  // Puedes dejarlo vacío si prefieres
-                btnModificar.Text = "M"; // Ícono de modificar
+                btnModificar.Text = "✏️"; // Ícono de modificar
                 btnModificar.UseColumnTextForButtonValue = true; // Hace que todas las celdas muestren "M"
                 btnModificar.Width = 40; // Ajustar tamaño
                 cheq.Columns.Add(btnModificar);
@@ -488,7 +493,7 @@ namespace AppCamiones
 
                 datos.Add(eliminar.Text);
 
-                modificar.Text = "M";
+                modificar.Text = "✏️";
                 modificar.UseColumnTextForButtonValue = true;
 
                 datos.Add(modificar.Text);

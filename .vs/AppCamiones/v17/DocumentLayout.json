@@ -1,5 +1,6 @@
 {
   "Version": 1,
+<<<<<<< HEAD
   "WorkspaceRootPath": "C:\\Users\\anabe\\Downloads\\AppCamiones\\AppCamiones\\",
   "Documents": [
     {
@@ -27,6 +28,10 @@
       "RelativeMoniker": "D:0:0:{B254E7AD-DB00-47CD-91DA-63A6C942BCCE}|AppCamiones.csproj|solutionrelative:viajefiltro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
+=======
+  "WorkspaceRootPath": "C:\\Users\\usuario\\Desktop\\camiones\\AppCamiones\\",
+  "Documents": [],
+>>>>>>> 09fafeb1b8193bd9e86c6ac8b90c60d64dcbf6c4
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -34,9 +39,10 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": -1,
           "Children": [
             {
+<<<<<<< HEAD
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Viaje.cs",
@@ -51,12 +57,15 @@
               "EditorCaption": ""
             },
             {
+=======
+>>>>>>> 09fafeb1b8193bd9e86c6ac8b90c60d64dcbf6c4
               "$type": "Bookmark",
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
             },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+<<<<<<< HEAD
             },
             {
               "$type": "Document",
@@ -118,6 +127,8 @@
               "ViewState": "AgIAAEIBAAAAAAAAAAAgwFsBAAA1AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-19T23:01:50.205Z"
+=======
+>>>>>>> 09fafeb1b8193bd9e86c6ac8b90c60d64dcbf6c4
             }
           ]
         }
