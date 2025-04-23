@@ -97,17 +97,6 @@ namespace AppCamiones
             }
         }
 
-        //private void ClickEffects(object sender, EventArgs e)
-        //{
-        //    var button = sender as RoundButton;
-        //    if (button != null)
-        //    {
-        //        MessageBox.Show("hola");
-        //        button.ForeColor = Color.Yellow;
-        //    }
-          
-        //}
-
         //HoverFunction
         private void HoverEffect(object sender, EventArgs e, bool isHover)
         {
@@ -239,7 +228,7 @@ namespace AppCamiones
                 {
                     campos.Clear();
                     camposFaltantesTabla.Clear();
-                    this.campos = new List<string> { "Fecha", "Origen", "Destino", "RTO o CPE", "Carga", "Km", "Kg", "Tarifa", "Chofer", "Cliente" };
+                    this.campos = new List<string> { "Fecha", "Origen", "Destino", "RTO o CPE", "Carga", "Km", "Kg", "Tarifa", "Chofer", "Camión", "Flete" };
                     cantCamposTabla = campos.Count();
 
 
@@ -253,7 +242,7 @@ namespace AppCamiones
                     cantCamposTabla = campos.Count();
 
 
-                    this.camposFaltantesTabla = new List<string> { "Total" };
+                    this.camposFaltantesTabla = new List<string> { "Total", "Total comisión" };
                 }
 
                 card.Click += (s, e) =>
@@ -531,7 +520,6 @@ namespace AppCamiones
             string seleccion = select.SelectedItem.ToString();
             CardGenerator(seleccion, textBoxNombre.Text);
         }
-
 
         private void CenterButtonFormSection()
         {

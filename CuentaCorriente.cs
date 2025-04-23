@@ -39,8 +39,8 @@ namespace AppCamiones
                 List<string> campos = new List<string>();
                 List<string> camposFaltantesTabla = new List<string>();
 
-<<<<<<< HEAD
-            this.Controls.Add(btnVolver);
+                this.Controls.Add(btnVolver);
+            };
         }
         
         private void infoForTableAndForm(string dato)
@@ -51,23 +51,6 @@ namespace AppCamiones
             FormRegistro vv = new FormRegistro(datos, cant, dato, "Cuenta corriente", campoFaltanteTabla);
             vv.TopLevel = true;
             vv.ShowDialog();
-=======
-                if (filtro == "cliente")
-                {
-                    campos = new List<string> { "Fecha", "Origen", "Destino", "RTO o CPE", "Carga", "Km", "Kg", "Tarifa", "Chofer", "Cliente" };
-                    cantCamposTabla = campos.Count;
-
-                    camposFaltantesTabla = new List<string> { "Total" };
-                } else
-                {
-                    campos = new List<string> { "Fecha", "Origen", "Destino", "RTO o CPE", "Carga", "Km", "Kg", "Tarifa", "Factura", "Comisión", "Cliente" };
-                    cantCamposTabla = campos.Count;
-
-                    camposFaltantesTabla = new List<string> { "Total" };
-                }
-                ViajeFiltro form = new ViajeFiltro(dato, cantCamposTabla, campos, filtro, camposFaltantesTabla);
-            };
->>>>>>> 20bfbcc29a30ae553cd13dc5010ec1028e30e5dd
         }
     }
 }

@@ -214,8 +214,6 @@ namespace AppCamiones
             Panel campoTextBox = new Panel();
             campoTextBox.Size = new Size(105, 30);
             campoTextBox.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            //campoTextBox.Dock = DockStyle.Top;
-
 
             return campoTextBox;
         }
@@ -296,15 +294,24 @@ namespace AppCamiones
                     btnPanel.Location = new Point((anchoPantalla / 2), 120);
                 };
             }
-            else
+            else if(filtro == "Cliente" || filtro == "Flete")
             {
                 this.Resize += (s, e) =>
                 {
-                    btnPanel.Location = new Point((anchoPantalla - btnPanel.Width) - 5, 120);
+                    int m = formPanel.Width;
+                    btnPanel.Location = new Point(m + (btnPanel.Width * 2), 120);
+                };
+            }
+            else if(filtro == "Camion")
+            {
+                this.Resize += (s, e) =>
+                {
+                    int m = formPanel.Width;
+                    btnPanel.Location = new Point(m + btnPanel.Width, 120);
                 };
             }
 
-            btnPanel.Size = new Size(110, 30);
+                btnPanel.Size = new Size(130, 30);
             btnPanel.BackColor = Color.Transparent;
             this.Controls.Add(btnPanel);
         }
@@ -433,8 +440,20 @@ namespace AppCamiones
                                             return;
                                         }
                                     }
+                                    else if(campo == "Km" || campo == "Kg" || campo == "Tarifa" || campo == "RTO o CPE")
+                                    {
+                                        TextBox campoKm = textBox;
+                                        int km;
+                                        if (!int.TryParse(campoKm.Text, out km))
+                                        {
+                                            MessageBox.Show("Por favor, ingrese un número válido.");
+                                            textBox.Focus();
+                                            return;
+                                        }
+                                    }
                                 }
                             }
+                            
                             datos.Add(textBox.Text); // Agregar el texto de cada TextBox
                         }
                     }
@@ -444,6 +463,41 @@ namespace AppCamiones
             // Verificar que los datos no estén vacíos
             if (datos.All(dato => !string.IsNullOrWhiteSpace(dato)))
             {
+                int i = 0;
+
+                
+
+                cheq.Rows.Add(datos.ToArray());
+
+                while (i < cheq.Columns.Count)
+                {
+                    
+                    if (cheq.Columns[i].Name == "Total")
+                    {
+                        foreach (DataGridViewRow fila in cheq.Rows)
+                        {
+                            // Ignorar la fila nueva que el DataGridView deja al final (si está habilitada)
+                            if (fila.IsNewRow)
+                                continue;
+
+                            object valorTotal = fila.Cells["Total"].Value;
+
+                            double totalCelda;
+                            totalCelda = CalcularTotal();
+
+                            if (double.TryParse(valorTotal?.ToString(), out totalCelda))
+                            {
+                                cheq.Rows.Add(totalCelda);
+                            }
+                            else
+                            {
+                                MessageBox.Show(totalCelda + "");
+                                MessageBox.Show("El valor de total no es numerico.");
+                            }
+                        }
+                    }
+                    i++;
+                }
 
                 eliminar.Text = "🗑️";
                 eliminar.UseColumnTextForButtonValue = true;
@@ -454,8 +508,6 @@ namespace AppCamiones
                 modificar.UseColumnTextForButtonValue = true;
 
                 datos.Add(modificar.Text);
-
-                cheq.Rows.Add(datos.ToArray());
 
 
                 foreach (Control control in formFLTextBox.Controls)
@@ -475,6 +527,33 @@ namespace AppCamiones
                     }
                 }
             }
+        }
+
+        private double CalcularTotal()
+        {
+            foreach (DataGridViewRow fila in cheq.Rows)
+            {
+                // Ignorar la fila nueva que el DataGridView deja al final (si está habilitada)
+                if (fila.IsNewRow)
+                    continue;
+
+                object valorKg = fila.Cells["kg"].Value;
+                object valorToneladas = fila.Cells["tarifa"].Value;
+
+                double kg, tarifa;
+
+                if (double.TryParse(valorKg?.ToString(), out kg) && double.TryParse(valorToneladas?.ToString(), out tarifa))
+                {
+                    // Hacés tu cuenta acá
+                    double total = kg * tarifa;
+                    return total;
+                }
+                else
+                {
+                    MessageBox.Show("Uno de los valores de 'kg' o 'tarifa' no es numérico.");
+                }
+            }
+            return 0;
         }
 
         private void eliminarFila(object sender, DataGridViewCellEventArgs e)
