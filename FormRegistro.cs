@@ -36,11 +36,12 @@ namespace AppCamiones
         private DataGridView cheq = new DataGridView();
         private Panel panelGrid = new Panel();
 
-        DataGridViewButtonColumn eliminar = new DataGridViewButtonColumn();
-        DataGridViewButtonColumn modificar = new DataGridViewButtonColumn();
+        private DataGridViewButtonColumn eliminar = new DataGridViewButtonColumn();
+        private DataGridViewButtonColumn modificar = new DataGridViewButtonColumn();
+        private DataGridViewButtonColumn pagado = new DataGridViewButtonColumn();
 
         //¿Dónde estoy parado?
-        System.Windows.Forms.Label nombre = new System.Windows.Forms.Label();
+        private System.Windows.Forms.Label nombre = new System.Windows.Forms.Label();
 
 
         //Constructor
@@ -56,12 +57,13 @@ namespace AppCamiones
             btnCargar.MouseLeave += (s, e) => HoverEffect(s, e, false);
 
             //Events
-            btnCargar.Click += cargaClickEvent;
+            btnCargar.Click += (s, e) => cargaClickEvent(s, e, filtro);
 
-            cheq.CellClick += eliminarFila;
-            cheq.CellClick += modificarFila;
+            cheq.CellClick += EliminarFila;
+            cheq.CellClick += ModificarFila;
+            cheq.CellClick += MarcarComoPagado;
 
-            ConfigurarDataGridView();
+            ConfigurarDataGridView(filtro);
 
             LabelProperties(dato);
 
@@ -78,6 +80,10 @@ namespace AppCamiones
         //Initializations
         private void InitializeUI(List<string> camposForm, int cant, string filtro, List<string> camposFaltantesTablas, string dato)
         {
+            this.AutoScaleMode = AutoScaleMode.Dpi;
+            this.AutoSize = true;
+            this.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+
             AddItemsToGrid(camposForm, cant, camposFaltantesTablas, filtro);
             ResaltarBoton(viajesMenu);
             GridChequesProperties();
@@ -142,8 +148,8 @@ namespace AppCamiones
             FormProperties(cant);
             LayoutFormProperties(cant);
             TextoBoxAndLabelProperties(cant, campos);
-            ButtonsPropertiesForm();
-            PanelButtonProperties(filtro);
+            //PanelButtonProperties(filtro);
+            ButtonsPropertiesForm(filtro);
             AddControls();
 
         }
@@ -151,7 +157,6 @@ namespace AppCamiones
         //FormProperties
         private void FormProperties(int cant)
         {
-
             formPanel.Size = new Size(110 * cant, 80);
             formPanel.AutoScroll = true;
             formPanel.HorizontalScroll.Enabled = true;
@@ -169,6 +174,7 @@ namespace AppCamiones
         }
         private void LayoutFormProperties(int cant)
         {
+            formFLTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             formFLTextBox = PropertiesLayoutForm();
             formFLLabel = PropertiesLayoutForm();
 
@@ -184,6 +190,8 @@ namespace AppCamiones
         private FlowLayoutPanel PropertiesLayoutForm()
         {
             FlowLayoutPanel formFL = new FlowLayoutPanel();
+
+            formFL.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 
             formFL.FlowDirection = FlowDirection.LeftToRight;
             formFL.WrapContents = false;
@@ -281,59 +289,6 @@ namespace AppCamiones
         }
 
 
-
-        //ButtonProperties
-        private void PanelButtonProperties(string filtro)
-        {
-            int anchoPantalla = Screen.FromControl(this).Bounds.Width;
-            int altoPantalla = Screen.FromControl(this).Bounds.Height;
-            if (filtro == "Cuenta corriente")
-            {
-                this.Resize += (s, e) =>
-                {
-                    btnPanel.Location = new Point((anchoPantalla / 2), 120);
-                };
-            }
-            else if(filtro == "Cliente" || filtro == "Flete")
-            {
-                this.Resize += (s, e) =>
-                {
-                    int m = formPanel.Width;
-                    btnPanel.Location = new Point(m + (btnPanel.Width * 2), 120);
-                };
-            }
-            else if(filtro == "Camion")
-            {
-                this.Resize += (s, e) =>
-                {
-                    int m = formPanel.Width;
-                    btnPanel.Location = new Point(m + btnPanel.Width, 120);
-                };
-            }
-
-                btnPanel.Size = new Size(130, 30);
-            btnPanel.BackColor = Color.Transparent;
-            this.Controls.Add(btnPanel);
-        }
-
-        private void ButtonsPropertiesForm()
-        {
-            btnCargar.BackColor = System.Drawing.Color.FromArgb(218, 218, 28);
-            btnCargar.Size = new Size(110, 30);
-            btnCargar.Text = "Cargar";
-            btnCargar.FlatStyle = FlatStyle.Flat;
-            btnCargar.FlatAppearance.BorderSize = 0;
-            btnCargar.ForeColor = Color.Black;
-            btnCargar.Font = new Font("Nunito", 12, FontStyle.Bold);
-
-            if (!btnPanel.Controls.Contains(btnCargar))
-            {
-                btnPanel.Controls.Add(btnCargar);
-            }
-        }
-
-
-
         //GridProperties
         private void GridChequesProperties()
         {
@@ -369,8 +324,21 @@ namespace AppCamiones
         //Otros
         //CargaDeDatos
 
-        private void ConfigurarDataGridView()
+        private void ConfigurarDataGridView(string filtro)
         {
+            if (filtro == "sueldo")
+            {
+                if (cheq.Columns["Pagado"] == null)
+                {
+                    DataGridViewButtonColumn btnPagado = new DataGridViewButtonColumn();
+                    btnPagado.Name = "Pagado";
+                    btnPagado.HeaderText = "Pagado";  // Puedes dejarlo vacío si prefieres
+                    btnPagado.Text = "✔️"; // Ícono de modificar
+                    btnPagado.UseColumnTextForButtonValue = true; // Hace que todas las celdas muestren "✔️"
+
+                    cheq.Columns.Add(btnPagado);
+                }
+            }
             if (cheq.Columns["Eliminar"] == null)
             {
                 DataGridViewButtonColumn btnEliminar = new DataGridViewButtonColumn();
@@ -389,13 +357,13 @@ namespace AppCamiones
                 btnModificar.Name = "Modificar";
                 btnModificar.HeaderText = "Modificar";  // Puedes dejarlo vacío si prefieres
                 btnModificar.Text = "✏️"; // Ícono de modificar
-                btnModificar.UseColumnTextForButtonValue = true; // Hace que todas las celdas muestren "M"
-                btnModificar.Width = 40; // Ajustar tamaño
+                btnModificar.UseColumnTextForButtonValue = true; // Hace que todas las celdas muestren "✏️"
+
                 cheq.Columns.Add(btnModificar);
             }
         }
 
-        private void cargaClickEvent(object sender, EventArgs e)
+        private void cargaClickEvent(object sender, EventArgs e, string filtro)
         {
             // Obtener los valores de los TextBox
             List<string> datos = new List<string>();
@@ -418,7 +386,7 @@ namespace AppCamiones
                                 }
                                 if (textBox.Name == campo)
                                 {
-                                    if (campo == "Fecha")
+                                    if (campo == "Fecha" || campo == "Fecha inicial" || campo == "Fecha final")
                                     {
                                         TextBox campoFecha = textBox;
                                         DateTime fecha;
@@ -452,52 +420,7 @@ namespace AppCamiones
             // Verificar que los datos no estén vacíos
             if (datos.All(dato => !string.IsNullOrWhiteSpace(dato)))
             {
-                int i = 0;
-
-                
-
                 cheq.Rows.Add(datos.ToArray());
-
-                while (i < cheq.Columns.Count)
-                {
-                    
-                    if (cheq.Columns[i].Name == "Total")
-                    {
-                        foreach (DataGridViewRow fila in cheq.Rows)
-                        {
-                            // Ignorar la fila nueva que el DataGridView deja al final (si está habilitada)
-                            if (fila.IsNewRow)
-                                continue;
-
-                            object valorTotal = fila.Cells["Total"].Value;
-
-                            double totalCelda;
-                            totalCelda = CalcularTotal();
-
-                            if (double.TryParse(valorTotal?.ToString(), out totalCelda))
-                            {
-                                cheq.Rows.Add(totalCelda);
-                            }
-                            else
-                            {
-                                MessageBox.Show(totalCelda + "");
-                                MessageBox.Show("El valor de total no es numerico.");
-                            }
-                        }
-                    }
-                    i++;
-                }
-
-                eliminar.Text = "🗑️";
-                eliminar.UseColumnTextForButtonValue = true;
-
-                datos.Add(eliminar.Text);
-
-                modificar.Text = "✏️";
-                modificar.UseColumnTextForButtonValue = true;
-
-                datos.Add(modificar.Text);
-
 
                 foreach (Control control in formFLTextBox.Controls)
                 {
@@ -518,34 +441,7 @@ namespace AppCamiones
             }
         }
 
-        private double CalcularTotal()
-        {
-            foreach (DataGridViewRow fila in cheq.Rows)
-            {
-                // Ignorar la fila nueva que el DataGridView deja al final (si está habilitada)
-                if (fila.IsNewRow)
-                    continue;
-
-                object valorKg = fila.Cells["kg"].Value;
-                object valorToneladas = fila.Cells["tarifa"].Value;
-
-                double kg, tarifa;
-
-                if (double.TryParse(valorKg?.ToString(), out kg) && double.TryParse(valorToneladas?.ToString(), out tarifa))
-                {
-                    // Hacés tu cuenta acá
-                    double total = kg * tarifa;
-                    return total;
-                }
-                else
-                {
-                    MessageBox.Show("Uno de los valores de 'kg' o 'tarifa' no es numérico.");
-                }
-            }
-            return 0;
-        }
-
-        private void eliminarFila(object sender, DataGridViewCellEventArgs e)
+        private void EliminarFila(object sender, DataGridViewCellEventArgs e)
         {
             // Verificar si la celda clickeada pertenece a la columna "Eliminar"
             if (e.ColumnIndex == cheq.Columns["Eliminar"].Index && e.RowIndex >= 0)
@@ -559,7 +455,7 @@ namespace AppCamiones
 
             }
         }
-        private void modificarFila(object sender, DataGridViewCellEventArgs e)
+        private void ModificarFila(object sender, DataGridViewCellEventArgs e)
         {
             // Verificar si la celda clickeada pertenece a la columna "Modificar"
             if (e.ColumnIndex == cheq.Columns["Modificar"].Index && e.RowIndex >= 0)
@@ -573,6 +469,21 @@ namespace AppCamiones
 
             }
         }
+
+        private void MarcarComoPagado(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == cheq.Columns["Pagado"].Index && e.RowIndex >= 0)
+            {
+                // Confirmar antes de modificar (opcional)
+                DialogResult resultado = MessageBox.Show("¿Desea marcar cómo pagado este sueldo?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (resultado == DialogResult.Yes)
+                {
+                    cheq.CurrentRow.DefaultCellStyle.BackColor = Color.Green;
+                    //funcionPagado
+                }
+            }
+        }
+
         private void AddControls()
         {
             this.Controls.Add(formPanel);
@@ -600,7 +511,6 @@ namespace AppCamiones
                     vv.TopLevel = true;
                     vv.ShowDialog();
                 };
-
                 this.Controls.Add(btnVolver);
             }
         }
@@ -666,6 +576,55 @@ namespace AppCamiones
             }
 
             this.Controls.Add(btnSueldoMensual);
+        }
+
+
+        //ButtonProperties
+        //private void PanelButtonProperties(string filtro)
+        //{
+        //    btnPanel.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+        //    btnPanel.Location = new Point(btnPanel.Width - btnCargar.Width - 20, 150);
+        //    btnPanel.Width = this.ClientSize.Width;
+        //    btnPanel.Size = new Size(110, 30);
+        //    btnPanel.BackColor = Color.Transparent;
+        //    this.Controls.Add(btnPanel);
+        //}
+
+        private void ButtonsPropertiesForm(string filtro)
+        {
+            btnCargar.Anchor = AnchorStyles.Right | AnchorStyles.Top;
+            
+
+            btnCargar.BackColor = System.Drawing.Color.FromArgb(218, 218, 28);
+            btnCargar.Size = new Size(110, 30);
+
+            btnCargar.Text = "Cargar";
+            btnCargar.FlatStyle = FlatStyle.Flat;
+            btnCargar.FlatAppearance.BorderSize = 0;
+            btnCargar.ForeColor = Color.Black;
+            btnCargar.Font = new Font("Nunito", 12, FontStyle.Bold);
+
+            int marginRight = 20;
+         
+
+            if (!this.Controls.Contains(btnCargar))
+            {
+                this.Controls.Add(btnCargar);
+            }
+
+            if (filtro == "cuenta corriente" || filtro == "sueldo")
+            {
+                this.Resize += (s, e) =>
+                {
+                    btnCargar.Location = new Point((this.ClientSize.Width / 2) + formPanel.Width - marginRight, 125);
+                };
+            } else
+            {
+                this.Resize += (s, e) =>
+                {
+                    btnCargar.Location = new Point(this.ClientSize.Width - btnCargar.Width - marginRight, 125);
+                };
+            }
         }
     }
 }

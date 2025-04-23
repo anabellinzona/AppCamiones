@@ -17,25 +17,6 @@ namespace AppCamiones
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Viaje()); // Ejecuta el formulario principal
-            //using (Class1 registrer = new Class1())
-            //{
-            //    using (Login loginForm = new Login())
-            //    {
-            //        if (registrer.ShowDialog() == DialogResult.OK)
-            //        {
-            //            if (loginForm.ShowDialog() == DialogResult.OK) // Si el usuario inicia sesión correctamente
-            //            {
-            //                Application.Run(new Form1()); // Ejecuta el formulario principal
-            //            }
-            //        } else if(loginForm.ShowDialog() == DialogResult.OK)
-            //        {
-            //            if (loginForm.ShowDialog() == DialogResult.OK)
-            //            {
-            //                Application.Run(new Form1()); // Ejecuta el formulario principal
-            //            }
-            //        }
-            //    }
-            //}
         }
     }
 }

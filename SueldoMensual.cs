@@ -9,7 +9,7 @@ namespace AppCamiones
         private RoundButton btnVolver = new RoundButton();
 
         public SueldoMensual(string dato, string filtro)
-            : base(new List<string> { "Fecha inicial", "Fecha final" }, 2, dato, "sueldo", new List<string> { "Mes", "Chofer", "Sueldo", "Pagado" })
+            : base(new List<string> { "Fecha inicial", "Fecha final" }, 2, dato, "sueldo", new List<string> { "Mes", "Chofer", "Sueldo" })
         {
             InitializeUI(dato, filtro);
         }

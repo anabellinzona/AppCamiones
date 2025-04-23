@@ -10,7 +10,7 @@ namespace AppCamiones
         private RoundButton btnVolver = new RoundButton();
 
         public CuentaCorriente(string dato, string filtro)
-            : base(new List<string> { "Fecha", "Nro factura", "Pagó", "Debe" }, 4, dato, "cuenta corriente", new List<string> { "Total " })
+            : base(new List<string> { "Fecha", "Nro factura", "Pagó", "Debe" }, 4, dato, "cuenta corriente", new List<string> { "Total" })
         {
             InitializeUI(dato, filtro);
         }
@@ -34,23 +34,24 @@ namespace AppCamiones
             btnVolver.ForeColor = System.Drawing.Color.FromArgb(218, 218, 28);
             btnVolver.Click += (s, e) =>
             {
-                this.Hide();
-                int cantCamposTabla = 0;
-                List<string> campos = new List<string>();
+                List<string> datos = new List<string>();
                 List<string> camposFaltantesTabla = new List<string>();
+                this.Hide();
+                if(filtro == "Cliente")
+                {
+                    datos = new List<string> { "Fecha", "Origen", "Destino", "RTO o CPE", "Carga", "Km", "Kg", "Tarifa", "Chofer", "Camión", "Flete" };
+                    camposFaltantesTabla = new List<string> { "Total " };
+                } else if(filtro == "Flete")
+                {
+                    datos = new List<string> { "Fecha", "Origen", "Destino", "RTO o CPE", "Carga", "Km", "Kg", "Tarifa", "Factura", "Comisión", "Cliente" };
+                    camposFaltantesTabla = new List<string> { "Total", "Total comisión" };
+                }
 
-                this.Controls.Add(btnVolver);
+                    int cant = datos.Count;
+                FormRegistro vv = new FormRegistro(datos, cant, dato, filtro, camposFaltantesTabla);
+                vv.TopLevel = true;
+                vv.ShowDialog();
             };
-        }
-        
-        private void infoForTableAndForm(string dato)
-        {
-            List<string> datos = new List<string> { "Fecha", "Nro factura", "Pagó", "Debe" };
-            List<string> campoFaltanteTabla = new List<string> { "Total " };
-            int cant = datos.Count;
-            FormRegistro vv = new FormRegistro(datos, cant, dato, "Cuenta corriente", campoFaltanteTabla);
-            vv.TopLevel = true;
-            vv.ShowDialog();
         }
     }
 }
