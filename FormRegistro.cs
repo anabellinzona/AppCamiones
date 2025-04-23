@@ -386,6 +386,17 @@ namespace AppCamiones
                 btnModificar.Width = 40; // Ajustar tamaño
                 cheq.Columns.Add(btnModificar);
             }
+
+            if (cheq.Columns["Pagado"] == null)
+            {
+                DataGridViewButtonColumn btnPagado= new DataGridViewButtonColumn();
+                btnPagado.Name = "Pagado";
+                btnPagado.HeaderText = "Pagado";  // Puedes dejarlo vacío si prefieres
+                btnPagado.Text = "✏️"; // Ícono de modificar
+                btnPagado.UseColumnTextForButtonValue = true; // Hace que todas las celdas muestren "M"
+                btnPagado.Width = 40; // Ajustar tamaño
+                cheq.Columns.Add(btnPagado);
+            }
         }
 
         private void cargaClickEvent(object sender, EventArgs e)
