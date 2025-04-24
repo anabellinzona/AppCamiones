@@ -216,7 +216,7 @@ namespace AppCamiones
                 Panel campoPanel = PropertiesFormPanel();
 
                 TextBox textBoxForm = CreateTextBoxAndProperties(campo, cant);
-                Label labelForm = CreateLabelAndProperties(campo);
+                Label labelForm = CreateLabelAndProperties(campo, cant);
 
                 formFLLabel.Controls.Add(labelForm);
 
@@ -228,13 +228,13 @@ namespace AppCamiones
         private Panel PropertiesFormPanel()
         {
             Panel campoTextBox = new Panel();
-            campoTextBox.Size = new Size(105, 30);
+            campoTextBox.AutoSize = true;
             campoTextBox.AutoSizeMode = AutoSizeMode.GrowAndShrink;
 
             return campoTextBox;
         }
 
-        private Label CreateLabelAndProperties(object campo)
+        private Label CreateLabelAndProperties(object campo, int cant)
         {
             Label ll = new Label();
 
@@ -243,7 +243,10 @@ namespace AppCamiones
             ll.ForeColor = System.Drawing.Color.FromArgb(224, 224, 224);
             ll.BackColor = Color.Transparent;
             ll.Margin = new Padding(10, 0, 0, 0);
-            ll.TextAlign = ContentAlignment.MiddleCenter;
+            ll.TextAlign = ContentAlignment.MiddleLeft;
+
+            ll.AutoSize = false; // Muy importante: si no, el Size no se aplica
+            ll.Size = new Size((formPanel.Width/cant) - 10, 20); // Ajustá el tamaño como quieras
 
             return ll;
         }
@@ -253,19 +256,15 @@ namespace AppCamiones
             textBoxCampo.Font = new Font("Nunito", 12, FontStyle.Regular);
             textBoxCampo.BackColor = System.Drawing.Color.FromArgb(153, 145, 145);
             textBoxCampo.Multiline = true;
-            textBoxCampo.Width = 200;
-            textBoxCampo.Height = 20;
-            textBoxCampo.MinimumSize = new Size(200, 40);
+            textBoxCampo.Width = (formPanel.Width / cant) - 10;
+            textBoxCampo.Height = 40;
             textBoxCampo.BorderStyle = BorderStyle.FixedSingle;
-            textBoxCampo.ForeColor = System.Drawing.Color.Gray;
             textBoxCampo.TextAlign = HorizontalAlignment.Left;
             textBoxCampo.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
 
             string placeholderDefault = !string.IsNullOrWhiteSpace(campo?.ToString()) ? campo.ToString() : "Placeholder";
 
-            //PlaceHolersProperties
             string placeholderText = campo.ToString();
-
             textBoxCampo.Name = placeholderText;
             textBoxCampo.Text = placeholderText;
 
@@ -274,7 +273,6 @@ namespace AppCamiones
                 if (textBoxCampo.Text == placeholderText)
                 {
                     textBoxCampo.Text = "";
-
                     textBoxCampo.ForeColor = Color.Black;
                 }
             };
@@ -288,13 +286,9 @@ namespace AppCamiones
                 }
             };
 
-            textBoxCampo.SizeChanged += (s, e) =>
-            {
-                textBoxCampo.Height = 40;
-            };
-
             return textBoxCampo;
         }
+
 
 
         //GridProperties
