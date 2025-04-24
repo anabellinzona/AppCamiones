@@ -157,7 +157,15 @@ namespace AppCamiones
         //FormProperties
         private void FormProperties(int cant)
         {
-            formPanel.Size = new Size(110 * cant, 80);
+            if (cant > 8)
+            {
+                formPanel.Size = new Size(this.Width - btnVolver.Width - btnCargar.Width - 120, 80);
+            }
+            else
+            {
+                formPanel.Size = new Size(110 * cant, 80);
+            }
+
             formPanel.AutoScroll = true;
             formPanel.HorizontalScroll.Enabled = true;
             formPanel.HorizontalScroll.Visible = true;
@@ -207,7 +215,7 @@ namespace AppCamiones
             {
                 Panel campoPanel = PropertiesFormPanel();
 
-                TextBox textBoxForm = CreateTextBoxAndProperties(campo);
+                TextBox textBoxForm = CreateTextBoxAndProperties(campo, cant);
                 Label labelForm = CreateLabelAndProperties(campo);
 
                 formFLLabel.Controls.Add(labelForm);
@@ -239,7 +247,7 @@ namespace AppCamiones
 
             return ll;
         }
-        private TextBox CreateTextBoxAndProperties(object campo)
+        private TextBox CreateTextBoxAndProperties(object campo, int cant)
         {
             TextBox textBoxCampo = new TextBox();
             textBoxCampo.Font = new Font("Nunito", 12, FontStyle.Regular);
