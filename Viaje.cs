@@ -108,8 +108,6 @@ namespace AppCamiones
             }
         }
 
-
-
         //Initializations
 
         private void InitializeFilterCards()

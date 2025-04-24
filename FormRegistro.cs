@@ -148,7 +148,6 @@ namespace AppCamiones
             FormProperties(cant);
             LayoutFormProperties(cant);
             TextoBoxAndLabelProperties(cant, campos);
-            //PanelButtonProperties(filtro);
             ButtonsPropertiesForm(filtro);
             AddControls();
 
@@ -160,17 +159,20 @@ namespace AppCamiones
             if (cant > 8)
             {
                 formPanel.Size = new Size(this.Width - btnVolver.Width - btnCargar.Width - 120, 80);
+                formPanel.AutoScroll = true;
+                formPanel.HorizontalScroll.Enabled = true;
+                formPanel.HorizontalScroll.Visible = true;
+                formPanel.VerticalScroll.Enabled = false;
+                formPanel.VerticalScroll.Visible = false;
             }
             else
             {
+                formPanel.AutoScroll = false;
                 formPanel.Size = new Size(110 * cant, 80);
+                
             }
 
-            formPanel.AutoScroll = true;
-            formPanel.HorizontalScroll.Enabled = true;
-            formPanel.HorizontalScroll.Visible = true;
-            formPanel.VerticalScroll.Enabled = false;
-            formPanel.VerticalScroll.Visible = false;
+          
 
             this.Resize += (s, e) =>
             {
@@ -257,7 +259,7 @@ namespace AppCamiones
             textBoxCampo.BackColor = System.Drawing.Color.FromArgb(153, 145, 145);
             textBoxCampo.Multiline = true;
             textBoxCampo.Width = (formPanel.Width / cant) - 10;
-            textBoxCampo.Height = 40;
+            textBoxCampo.Height = 30;
             textBoxCampo.BorderStyle = BorderStyle.FixedSingle;
             textBoxCampo.TextAlign = HorizontalAlignment.Left;
             textBoxCampo.ForeColor = System.Drawing.Color.FromArgb(81, 77, 77);
@@ -590,18 +592,6 @@ namespace AppCamiones
 
             this.Controls.Add(btnSueldoMensual);
         }
-
-
-        //ButtonProperties
-        //private void PanelButtonProperties(string filtro)
-        //{
-        //    btnPanel.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-        //    btnPanel.Location = new Point(btnPanel.Width - btnCargar.Width - 20, 150);
-        //    btnPanel.Width = this.ClientSize.Width;
-        //    btnPanel.Size = new Size(110, 30);
-        //    btnPanel.BackColor = Color.Transparent;
-        //    this.Controls.Add(btnPanel);
-        //}
 
         private void ButtonsPropertiesForm(string filtro)
         {
