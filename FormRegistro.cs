@@ -160,13 +160,13 @@ namespace AppCamiones
             if (cant > 8)
             {
                 formPanel.Size = new Size(this.Width - btnVolver.Width - btnCargar.Width - 120, 80);
+                formPanel.AutoScroll = true;
             }
             else
             {
                 formPanel.Size = new Size(110 * cant, 80);
             }
 
-            formPanel.AutoScroll = true;
             formPanel.HorizontalScroll.Enabled = true;
             formPanel.HorizontalScroll.Visible = true;
             formPanel.VerticalScroll.Enabled = false;
@@ -596,18 +596,6 @@ namespace AppCamiones
 
             this.Controls.Add(btnSueldoMensual);
         }
-
-
-        //ButtonProperties
-        //private void PanelButtonProperties(string filtro)
-        //{
-        //    btnPanel.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-        //    btnPanel.Location = new Point(btnPanel.Width - btnCargar.Width - 20, 150);
-        //    btnPanel.Width = this.ClientSize.Width;
-        //    btnPanel.Size = new Size(110, 30);
-        //    btnPanel.BackColor = Color.Transparent;
-        //    this.Controls.Add(btnPanel);
-        //}
 
         private void ButtonsPropertiesForm(string filtro)
         {
